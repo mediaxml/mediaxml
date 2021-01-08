@@ -1,0 +1,31 @@
+{
+  "name": "scte236",
+  "version": "0.0.0",
+  "description": "A module for working ADI3 (SCTE 236 2017) Content Metadata packages with support for ADI1",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test"
+  },
+  "keywords": [
+    "adi1",
+    "adi3",
+    "ansi",
+    "scte",
+    "236",
+    "2017",
+    "cable",
+    "labs",
+    "content",
+    "metadata"
+  ],
+  "author": "Joseph Werle <joseph.werle@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^4.3.1",
+    "htmlparser2": "^6.0.0",
+    "jsonata": "^1.8.4",
+    "@12core/chromafi": "^3.0.0",
+    "highlight.js": "^10.5.0",
+    "minimist": "^1.2.5"
+  }
+}
