@@ -1,12 +1,16 @@
 {
-  "name": "scte236",
+  "name": "mediaxml",
   "version": "0.0.0",
-  "description": "A module for working ADI3 (SCTE 236 2017) Content Metadata packages with support for ADI1",
-  "main": "index.js",
+  "description": "A module for working with media manifests represented by XML like ADI, mRSS, and SCTE236.",
   "scripts": {
-    "test": "tape test"
+    "test": "tape tests",
+    "docs:server": "documentation serve -w index.js"
+  },
+  "bin": {
+    "mxml": "bin/mxml"
   },
   "keywords": [
+    "mrss",
     "adi1",
     "adi3",
     "ansi",
@@ -16,16 +20,30 @@
     "cable",
     "labs",
     "content",
-    "metadata"
+    "metadata",
+    "media",
+    "xml",
+    "manifest",
+    "package"
   ],
   "author": "Joseph Werle <joseph.werle@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@12core/chromafi": "^3.0.0",
+    "camelcase": "^6.2.0",
     "debug": "^4.3.1",
+    "defined": "^1.0.0",
+    "highlight.js": "^10.5.0",
     "htmlparser2": "^6.0.0",
     "jsonata": "^1.8.4",
-    "@12core/chromafi": "^3.0.0",
-    "highlight.js": "^10.5.0",
-    "minimist": "^1.2.5"
+    "minimist": "^1.2.5",
+    "nanoassert": "^2.0.0",
+    "number-to-words": "^1.2.4",
+    "smpte-timecode": "^1.2.3"
+  },
+  "devDependencies": {
+    "documentation": "^13.1.0",
+    "nyc": "^15.1.0",
+    "tape": "^5.1.1"
   }
 }

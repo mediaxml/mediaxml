@@ -1,18 +1,18 @@
+const { Document } = require('./document')
 const { Parser } = require('./parser')
-
-/**
- * `Parser` instance factory.
- * @param {?(ParserOptions)} opts
- * @return {Parser}
- */
-function createParser(...args) {
-  return new Parser(...args)
-}
+const { Entity } = require('./entity')
+const mrss = require('./mrss')
+const rss = require('./rss')
 
 /**
  * Module exports.
+ * @private
  */
 module.exports = {
-  createParser,
-  Parser
+  Document,
+  Parser,
+  Entity,
+
+  mrss,
+  rss
 }

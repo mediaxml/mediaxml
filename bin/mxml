@@ -1,0 +1,107 @@
+#!/usr/bin/env node
+
+const { inspect } = require('util')
+const { Parser } = require('../')
+const chromafi = require('@12core/chromafi')
+const debug = require('debug')('mediaxml')
+const path = require('path')
+const pkg = require('../package.json')
+const fs = require('fs')
+
+const argv = require('minimist')(process.argv.slice(2), {
+  alias: {
+    h: ['help'],
+    i: ['inspect'],
+    D: ['debug'],
+    V: ['version'],
+  },
+
+  boolean: [
+    'version',
+    'inspect',
+    'debug',
+    'help'
+  ]
+})
+
+if (argv.help) {
+  console.log('usage: mxml [-hiDV] [options] <filename> [query]')
+  console.log('')
+  console.log('options:')
+  console.log('  -h, --help      Show this message')
+  console.log('  -i, --inspect   Show inspected output')
+  console.log('  -D, --debug     Show debug output')
+  console.log('  -V, --version   Show program version')
+  console.log('')
+  console.log('arguments:')
+  console.log('  <filename>      Path to XML file (required)')
+  console.log('  [query]         Query in JSONata syntax on resulting model [optional]')
+  console.log('')
+  console.log('examples:')
+  console.log('  ## read ADI metadata')
+  console.log('  mxml ./tvshow.xml \'adi:children [name="metadata"]\'')
+  console.log('')
+  console.log('  ## look for ADI3 "Movie" assets')
+  console.log('  mxml ./movie.xml \'adi3:children [`xsi:type`="content:MovieType"]\'')
+  console.log('')
+  process.exit(0)
+}
+
+if (argv.version) {
+  console.log(pkg.version)
+  process.exit(0)
+}
+
+if (argv.debug) {
+  require('debug').enable('mediamxl*')
+  debug('Debug output enabled')
+}
+
+if (!argv._[0]) {
+  console.error('error: Please specify a filename')
+  console.error('usage: mxml [-hiDV] [options] <filename> [query]')
+  process.exit(1)
+}
+
+const filename = path.resolve(process.cwd(), argv._[0])
+const stream = fs.createReadStream(filename)
+const parser = new Parser()
+
+stream.pipe(parser.createWriteStream())
+  .on('error', (err) => {
+    console.error('error: %s', err.message)
+    debug(err.stack || err)
+  })
+  .on('finish', () => {
+    const [, query ] = argv._
+
+    if (query || argv.inspect) {
+      const result = parser.query(query, {
+        inspect: Boolean(argv.inspect)
+      })
+
+      if (result && argv.inspect) {
+        let output = inspect.custom in result ? result[inspect.custom]() : result
+
+        if (Array.isArray(output)) {
+          output = output.reduce((s, o) => s + (
+            (o && 'object' === typeof o && inspect.custom in o ) ? o[inspect.custom]() : o
+          ) + '\n', '')
+        }
+
+        output = chromafi(output.trim(), {
+          consoleTabWidth: 2,
+          lineNumberPad: 0,
+          tabsToSpaces: 8,
+          lineNumbers: false,
+          stripIndent: false,
+          codePad: 0,
+          lang: 'xml'
+        })
+
+        console.log('\n%s', output.trim())
+      } else {
+        console.log(result)
+      }
+    }
+  })
