@@ -1,7 +1,6 @@
 const { WritableStream } = require('htmlparser2/lib/WritableStream')
 const htmlparser2 = require('htmlparser2')
 const { inspect } = require('util')
-const { query } = require('./query')
 const camelcase = require('camelcase')
 const defined = require('defined')
 const assert = require('nanoassert')
@@ -17,6 +16,7 @@ const {
 /**
  * A special name for a _fragment node_ which is a collection of
  * nodes without an explicit parent node.
+ * @protected
  * @memberof parser
  * @const
  * @type {String}
@@ -26,6 +26,7 @@ const FRAGMENT_NODE_NAME = '#fragment'
 /**
  * A special name for a _text node_ which is container for a body of
  * string text.
+ * @protected
  * @memberof parser
  * @const
  * @type {String}
@@ -34,23 +35,23 @@ const TEXT_NODE_NAME = '#text'
 
 /**
  * A simple container for a `ParserNode` instance attributes.
- * @class ParserNodeAttributes
+ * @public
  * @memberof parser
  */
 class ParserNodeAttributes {
 
   /**
    * `ParserNodeAttributes` class constructor.
-   * @private
+   * @protected
    * @param {?Object} attributes
    * @param {?Object} opts
    */
   constructor(attributes, opts) {
-    if (attributes && 'object' === typeof attributes) {
-      for (const key in attributes) {
-        this.set(key, attributes[key])
-      }
-    }
+    Object.defineProperty(this, 'keylist', {
+      configurable: false,
+      enumerable: false,
+      value: new Set()
+    })
 
     Object.defineProperty(this, 'options', {
       configurable: false,
@@ -80,10 +81,43 @@ class ParserNodeAttributes {
         })
       }
     })
+
+    if (attributes && 'object' === typeof attributes) {
+      for (const key in attributes) {
+        this.set(key, attributes[key])
+      }
+    }
+  }
+
+  /**
+   * Clear all known attribute values for all known keys
+   */
+  clear() {
+    for (const key of this.keylist) {
+      delete this[key]
+      Object.defineProperty(this, key, {
+        configurable: true,
+        enumerable: false
+      })
+    }
+
+    this.keylist.clear()
+  }
+
+  /**
+   * `true` if instance has a value for a given key.
+   * @public
+   * @param {String} name
+   * @return {Boolean}
+   */
+  has(name) {
+    if (!name || 'string' !== typeof name) { return false }
+    return name in this || undefined !== this.get(name)
   }
 
   /**
    * Get an attribute value by name.
+   * @public
    * @param {String} name
    * @return {?Mixed}
    */
@@ -93,6 +127,7 @@ class ParserNodeAttributes {
 
   /**
    * Set an attribute value by name.
+   * @public
    * @param {String} name
    * @param {?Mixed} value
    */
@@ -104,6 +139,10 @@ class ParserNodeAttributes {
     } else {
       const normalizedKey = normalizeAttributeKey(key, this.options)
       value = normalizeAttributeValue(value, this.options)
+
+      this.keylist.add(key)
+      this.keylist.add(normalizedKey)
+
       if (key !== normalizedKey) {
         Object.defineProperty(this, key, {
           configurable: true,
@@ -124,6 +163,7 @@ class ParserNodeAttributes {
 
   /**
    * Computed keys for this attributes object.
+   * @public
    * @return {Array<String>}
    */
   keys() {
@@ -132,6 +172,7 @@ class ParserNodeAttributes {
 
   /**
    * Computed values for this attributes object.
+   * @public
    * @return {Array<String>}
    */
   values() {
@@ -141,7 +182,7 @@ class ParserNodeAttributes {
   /**
    * Implements `Symbol.iterator` symbol for converting this to an
    * iterable object of key-value pairs
-   * @private
+   * @public
    * @return {Iterator}
    */
   *[Symbol.iterator]() {
@@ -165,6 +206,7 @@ class ParserNodeAttributes {
 
   /**
    * Converts attributes to a JSON object.
+   * @public
    * @type {Function}
    * @param {?Object|Boolean} opts - JSON output configuration. Set to `true` to just normalize.
    * @param {?Object} [opts.normalize = false] - Normalize JSON output
@@ -178,8 +220,7 @@ class ParserNodeAttributes {
 
 /**
  * A container for a text found in the body of `ParserNode` instances
- * @class ParserNodeText
- * @extends String
+ * @public
  * @memberof parser
  */
 class ParserNodeText extends String {
@@ -187,6 +228,7 @@ class ParserNodeText extends String {
   /**
    * Create a new `ParserNodeText` from input. Input is coalesced to a
    * string type.
+   * @public
    * @static
    * @param {?Mixed} input
    * @return {ParserNodeText}
@@ -235,6 +277,7 @@ class ParserNodeText extends String {
 
   /**
    * The name of this text node.
+   * @public
    * @type {String}
    */
   set name(value) { void value }
@@ -242,6 +285,7 @@ class ParserNodeText extends String {
 
   /**
    * The text content of this text node.
+   * @public
    * @type {String}
    */
   set text(value) { void value }
@@ -249,6 +293,7 @@ class ParserNodeText extends String {
 
   /**
    * `true` to indicate this node is a text node.
+   * @public
    * @accessor
    * @type {Boolean}
    */
@@ -277,6 +322,7 @@ class ParserNodeText extends String {
   /**
    * Converts this text node to a string for JSON
    * output
+   * @public
    * @return {String}
    */
   toJSON() {
@@ -295,7 +341,7 @@ class ParserNodeText extends String {
   /**
    * Implements `Symbol.iterator` symbol for converting this text node
    * to an iterable string.
-   * @private
+   * @public
    * @return {Iterator}
    */
   *[Symbol.iterator]() {
@@ -308,14 +354,14 @@ class ParserNodeText extends String {
 /**
  * A container for a collection of `ParserNode` instances not represented by a root
  * `ParserNode` instance.
- * @class ParserNodeFragment
- * @extends Array
+ * @public
  * @memberof parser
  */
 class ParserNodeFragment extends Array {
 
   /**
    * Create a `ParserNodeFragment` from input.
+   * @public
    * @static
    * @param {Mixed} input
    * @return {ParserNodeFragment}
@@ -364,6 +410,7 @@ class ParserNodeFragment extends Array {
 
   /**
    * The `ParserNode` instance this fragment wraps.
+   * @public
    * @type {ParserNode}
    */
   set node(value) { void value }
@@ -371,6 +418,7 @@ class ParserNodeFragment extends Array {
 
   /**
    * `true` if this node is connected to a parent node.
+   * @public
    * @accessor
    * @type {Boolean}
    */
@@ -380,6 +428,7 @@ class ParserNodeFragment extends Array {
 
   /**
    * `true` if this node is not connected to a parent node and is not a root node.
+   * @public
    * @accessor
    * @type {Boolean}
    */
@@ -389,6 +438,7 @@ class ParserNodeFragment extends Array {
 
   /**
    * Will always be `true` because it is a fragment.
+   * @public
    * @accessor
    * @type {Boolean}
    */
@@ -399,6 +449,7 @@ class ParserNodeFragment extends Array {
   /**
    * A reference to the children in the underlying `ParserNode` for
    * this fragment.
+   * @public
    * @accessor
    * @type {Array}
    */
@@ -408,6 +459,8 @@ class ParserNodeFragment extends Array {
 
   /**
    * Always `null` as a fragment cannot have a parent.
+   * @public
+   * @accessor
    * @type {?ParserNode}
    */
   get parent() {
@@ -416,6 +469,7 @@ class ParserNodeFragment extends Array {
 
   /**
    * Query the nodes this fragment represents.
+   * @public
    * @param {String} queryString
    * @param {?Object} opts
    * @return {ParserNode|ParserNodeFragment|ParserNodeText}
@@ -429,6 +483,7 @@ class ParserNodeFragment extends Array {
 
   /**
    * Converts this fragment to a string.
+   * @public
    * @return {String}
    */
   toString(...args) {
@@ -437,6 +492,7 @@ class ParserNodeFragment extends Array {
 
   /**
    * Converts this fragment to a JSON object.
+   * @public
    * @return {Array}
    */
   toJSON(...args) {
@@ -447,7 +503,7 @@ class ParserNodeFragment extends Array {
 /**
  * A container for a parsed XML node with references to
  * its parent node and children.
- * @class ParserNode
+ * @public
  * @memberof parser
  * @example
  * const metadata = ParserNode.from('Metadata')
@@ -463,6 +519,7 @@ class ParserNode {
 
   /**
    * A reference to the `Fragment` class for a `ParserNode` instance.
+   * @public
    * @static
    * @accessor
    * @type {ParserNodeFragment}
@@ -473,6 +530,7 @@ class ParserNode {
 
   /**
    * A reference to the `Text` class for a `ParserNode` instance.
+   * @public
    * @static
    * @accessor
    * @type {ParserNodeText}
@@ -483,6 +541,7 @@ class ParserNode {
 
   /**
    * Predicate function to help determine if input is a valid `ParserNode` instance.
+   * @public
    * @static
    * @param {Mixed} input
    * @return {Boolean}
@@ -497,6 +556,7 @@ class ParserNode {
 
   /**
    * Creates a fragment parser node.
+   * @public
    * @static
    * @see {ParserNode#from}
    * @param {?Object} attributes
@@ -509,6 +569,7 @@ class ParserNode {
 
   /**
    * Creates a fragment parser node.
+   * @public
    * @static
    * @see {ParserNodeText#from}
    * @param {?String} text
@@ -520,11 +581,12 @@ class ParserNode {
 
   /**
    * Creates a new `ParserNode` from input.
+   * @public
    * @static
    * @param {String|ParserNode|Object} nameOrNode
    * @param {?Object} attributes
    * @param {?Object} opts
-   * @return {?ParserNode}
+   * @return {ParserNode}
    * @example
    * const node = ParserNode.from('App_Data', { app: 'SVOD', name: 'Type', value: 'title' })
    * console.log(node)
@@ -551,7 +613,17 @@ class ParserNode {
         { ...options, ...rest })
     }
 
-    return null
+    return new this(nameOrNode, attributes, 0, opts)
+  }
+
+  /**
+   * Create an empty `ParserNode` instance.
+   * @public
+   * @static
+   * @return {ParserNode}
+   */
+  static empty() {
+    return this.from()
   }
 
   /**
@@ -645,12 +717,156 @@ class ParserNode {
     })
 
     function normalizeName(name) {
-      return name ? name.toLowerCase() : ''
+      if ('string' === typeof name) {
+        //return name.split(/[_|-]/).map((n) => n.)
+        return name.replace(/([a-z|A-Z|0-9])([_|-|\:])/i, (str, $1, $2) => {
+          return camelcase($1) + $2
+        })
+      }
     }
   }
 
   /**
+   * The inner XML representation of this node.
+   * Setting the inner XML of this node will update body and children
+   * of this node instance. If a string is given,
+   * it is parsed and the body and children of this node will
+   * be updated. If a `ParserNode` instance is given, or an array of
+   * them, the children will be updated to include those nodes.
+   * @public
+   * @accessor
+   * @type {String}
+   * @example
+   * const node = ParserNode.from('rss', {
+   *  'xmlns:atom': 'http://www.w3.org/2005/Atom',
+   *  'xmlns:media': http://search.yahoo.com/mrss/',
+   *  'version': '2.0'
+   * })
+   *
+   * node.innerXML = `
+   *   <channel>
+   *     <title>Calm Meditation</title>
+   *     <link>http://sample-firetv-web-app.s3-website-us-west-2.amazonaws.com</link>
+   *     <language>en-us</language>
+   *     <pubDate>Mon, 02 Apr 2018 16:19:56 -0700</pubDate>
+   *     <lastBuildDate>Mon, 02 Apr 2018 16:19:56 -0700</lastBuildDate>
+   *     <managingEditor>tomjoht@gmail.com (Tom Johnson)</managingEditor>
+   *     <description>Contains short videos capturing still scenes from nature with a music background, intended for calming or meditation purposes. When you're stressed out or upset, watch a few videos. As your mind focuses on the small details, let your worries and frustrations float away. The purpose is not to entertain or to distract, but to help calm, soothe, and surface your inner quiet. The videos contain scenes from the San Tomas Aquinas trail in Santa Clara, California.</description>
+   *   </channel>
+   * `
+   *
+   * console.log(node)
+   * // <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
+   * //  <channel>
+   * //    <title>Calm Meditation</title>
+   * //    <link>http://sample-firetv-web-app.s3-website-us-west-2.amazonaws.com</link>
+   * //    <language>en-us</language>
+   * //    <pubDate>Mon, 02 Apr 2018 16:19:56 -0700</pubDate>
+   * //    <lastBuildDate>Mon, 02 Apr 2018 16:19:56 -0700</lastBuildDate>
+   * //    <managingEditor>tomjoht@gmail.com (Tom Johnson)</managingEditor>
+   * //    <description>Contains short videos capturing still scenes from nature with a music background, intended for calming or meditation purposes. When you're stressed out or upset, watch a few videos. As your mind focuses on the small details, let your worries and frustrations float away. The purpose is not to entertain or to distract, but to help calm, soothe, and surface your inner quiet. The videos contain scenes from the San Tomas Aquinas trail in Santa Clara, California.</description>
+   * //  </channel>
+   * // </rss>
+   */
+  get innerXML() { return this.children.join('\n') }
+  set innerXML(value) {
+    if (null === value || '' === value) {
+      this.body = ''
+      this.remove(...this.children)
+      return value
+    }
+
+    if (value instanceof this.constructor) {
+      this.body = ''
+      this.remove(...this.children)
+      this.appendChild(value)
+      return value
+    }
+
+    if (Array.isArray(value)) {
+      this.body = ''
+      this.remove(...this.children)
+
+      for (const child of value) {
+        if (child instanceof this.constructor) {
+          this.appendChild(child)
+        }
+      }
+
+      return value
+    }
+
+    if ('string' !== typeof value) {
+      throw new TypeError('Invalid value when setting \'innerXML\'')
+    }
+
+    const pre = `<node>\n`
+    const post = `\n</node>`
+    const parser = Parser.from(pre + value + post)
+
+    this.body = parser.rootNode.body
+    this.remove(...this.children)
+    this.append(...parser.rootNode.children)
+
+    return value
+  }
+
+  /**
+   * The outer XML representation of this node.
+   * Setting the outer XML of this node will update the body, attributes,
+   * name, and children of this node instance. If a string is given,
+   * it is parsed and will represent the new node If a `ParserNode`
+   * instance is given it will be used to derive the node's new state.
+   * @public
+   * @accessor
+   * @type {String}
+   * @example
+   * const node = ParserNode.empty()
+   * node.outerXML = `
+   *  <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
+   *    <channel>
+   *      <title>Calm Meditation</title>
+   *      <link>http://sample-firetv-web-app.s3-website-us-west-2.amazonaws.com</link>
+   *      <description>Contains short videos capturing still scenes from nature with a music background, intended for calming or meditation purposes. When you're stressed out or upset, watch a few videos. As your mind focuses on the small details, let your worries and frustrations float away. The purpose is not to entertain or to distract, but to help calm, soothe, and surface your inner quiet. The videos contain scenes from the San Tomas Aquinas trail in Santa Clara, California.</description>
+   *    </channel>
+   *  </rss>
+   * `
+   */
+  get outerXML() { return this.toString() }
+  set outerXML(value) {
+    if (null === value || '' === value) {
+      this.name = ''
+      this.body = ''
+      this.remove(...this.children)
+      return value
+    }
+
+    if (value instanceof this.constructor) {
+      this.body = value.body
+      this.name = value.originalName || value.name
+      this.remove(...this.children)
+      this.append(...value.child)
+      return value
+    }
+
+    if ('string' !== typeof value) {
+      throw new TypeError('Invalid value when setting \'outerXML\'')
+    }
+
+    const parser = Parser.from(value)
+
+    this.body = parser.rootNode.body
+    this.name = parser.rootNode.originalName
+    this.attributes.clear()
+    this.attributes.set(parser.rootNode.attributes)
+    this.remove(...this.children)
+    this.append(...parser.rootNode.children)
+  }
+
+  /**
    * The original name of this node.
+   * @public
+   * @accessor
    * @type {String}
    */
   set originalName(value) {  }
@@ -658,6 +874,8 @@ class ParserNode {
 
   /**
    * The normalized name of this node in camelcase.
+   * @public
+   * @accessor
    * @type {String}
    */
   set name(value) {  }
@@ -665,13 +883,26 @@ class ParserNode {
 
   /**
    * The text contents of this node, if available.
+   * @public
+   * @accessor
    * @type {ParserNodeText}
    */
   set body(value) {  }
   get body() { return '' }
 
   /**
+   * An alias to `this.body`.
+   * @public
+   * @accessor
+   * @type {ParserNodeText}
+   */
+  set text(value) {  this.body = value }
+  get text() { return this.body }
+
+  /**
    * The depth this node appears in the tree.
+   * @public
+   * @accessor
    * @type {Number}
    */
   set depth(value) {  }
@@ -679,6 +910,8 @@ class ParserNode {
 
   /**
    * A reference to the parent node of this node.
+   * @public
+   * @accessor
    * @type {?ParserNode}
    */
   set parent(value) {  }
@@ -686,6 +919,8 @@ class ParserNode {
 
   /**
    * A reference to the options used when this instance was created
+   * @public
+   * @accessor
    * @type {?Object}
    */
   set options(value) {  }
@@ -693,6 +928,8 @@ class ParserNode {
 
   /**
    * A reference to the child nodes in this node.
+   * @public
+   * @accessor
    * @type {Array<ParserNode>}
    */
   set children(value) {  }
@@ -700,6 +937,8 @@ class ParserNode {
 
   /**
    * A reference to the comment nodes in this node.
+   * @public
+   * @accessor
    * @type {Array<ParserNode>}
    */
   set comments(value) {  }
@@ -707,6 +946,8 @@ class ParserNode {
 
   /**
    * A key-value mapping of normalized attributes in this node.
+   * @public
+   * @accessor
    * @type {Object}
    */
   set attributes(value) {  }
@@ -714,7 +955,8 @@ class ParserNode {
 
   /**
    * The original attributes, before normalization.
-   * @property
+   * @public
+   * @accessor
    * @type {?Object}
    */
   set originalAttributes(value) {  }
@@ -722,6 +964,7 @@ class ParserNode {
 
   /**
    * `true` if this node is connected to a parent node.
+   * @public
    * @accessor
    * @type {Boolean}
    */
@@ -731,6 +974,7 @@ class ParserNode {
 
   /**
    * `true` if this node is not connected to a parent node and is not a root node.
+   * @public
    * @accessor
    * @type {Boolean}
    */
@@ -740,6 +984,7 @@ class ParserNode {
 
   /**
    * `true` to indicate that this is a node.
+   * @public
    * @accessor
    * @type {Boolean}
    */
@@ -749,6 +994,7 @@ class ParserNode {
 
   /**
    * Computed index this node exists in its parent tree.
+   * @public
    * @accessor
    * @type {Number}
    */
@@ -762,6 +1008,7 @@ class ParserNode {
 
   /**
    * Computed number of child nodes in this node.
+   * @public
    * @accessor
    * @type {Number}
    */
@@ -780,6 +1027,7 @@ class ParserNode {
 
   /**
    * Called when disconnected from a parent node.
+   * @public
    * @param {ParserNode} parent
    * @param {ParserNode} node
    */
@@ -789,6 +1037,7 @@ class ParserNode {
 
   /**
    * Checks if node is contained within this one.
+   * @public
    * @param {ParserNode} node
    * @return {Boolean}
    */
@@ -798,6 +1047,7 @@ class ParserNode {
 
   /**
    * Append one or more nodes to this node.
+   * @public
    * @param {ParserNode} ...nodes
    * @return {ParserNode}
    * @throws TypeError
@@ -831,6 +1081,7 @@ class ParserNode {
 
   /**
    * Remove one or more nodes to this node.
+   * @public
    * @param {ParserNode} ...nodes
    * @return {ParserNode}
    * @throws TypeError
@@ -846,6 +1097,7 @@ class ParserNode {
 
   /**
    * Appends a child node to this node.
+   * @public
    * @param {ParserNode} node
    * @return {ParserNode}
    * @throws TypeError
@@ -875,6 +1127,7 @@ class ParserNode {
 
   /**
    * Removes a child node to this node.
+   * @public
    * @param {ParserNode} node
    * @throws Error
    * @throws TypeError
@@ -886,10 +1139,12 @@ class ParserNode {
         'The node to be removed is not an instance of \'ParserNode\'.')
     }
 
-    if (this !== node.parent || this.children.includes(node)) {
-      throw new Error(
-        'Invalid input node for removeChild: ' +
-        'The node to be removed is not a child of this node.')
+    if (node.parent && this !== node.parent) {
+      const index = node.parent.children.indexOf(node)
+      node.parent = null
+      if (-1 !== index) {
+        node.parent.children.splice(index, 1)
+      }
     }
 
     const index = this.children.indexOf(node)
@@ -904,6 +1159,7 @@ class ParserNode {
 
   /**
    * Clone node, optionally cloning all children.
+   * @public
    * @param {?Boolean} [deep = false] - Clone children
    * @return {ParserNode}
    */
@@ -911,7 +1167,7 @@ class ParserNode {
     const cloned = this.constructor.from(this, ...args)
     if (true === deep) {
       for (const child of this.children) {
-        cloned.children.push(child.clone(true))
+        cloned.appendChild(child.clone(true))
       }
     }
 
@@ -920,6 +1176,7 @@ class ParserNode {
 
   /**
    * An alias to `clone()`.
+   * @public
    * @return {ParserNode}
    */
   cloneNode(...args) {
@@ -929,6 +1186,7 @@ class ParserNode {
   /**
    * Query the document object model represented by this node
    * using "JSONata" query syntax.
+   * @public
    * @param {?String} [queryString = '$'] - A "JSONata" query string
    * @param {?Object} opts - Query options
    * @param {?Boolean} [opts.inspect = false] - If `true`, will set `util.inspect.custom` symbols
@@ -937,12 +1195,15 @@ class ParserNode {
    * @example
    */
   query(queryString, opts) {
+    // lazy load
+    const { query } = require('./query')
     return query(this, queryString, opts)
   }
 
   /**
    * Converts this node ands children to a XML string
    * representing this node and its children.
+   * @public
    * @param {?Object} opts
    * @param {?Boolean} [opts.attributes = true] - Include attributes in the result
    * @param {?Boolean} [opts.normalize = false] - Normalize tag and attributes names
@@ -1027,6 +1288,7 @@ class ParserNode {
 
   /**
    * Converts this node to a JSON structure suitable for serialization.
+   * @public
    * @param {?Object} opts
    * @param {?Boolean} [opts.normalize = false] - Normalize tag and attributes names
    * @param {?Boolean} [opts.children = true] - Include children in the result
@@ -1087,7 +1349,7 @@ class ParserNode {
   /**
    * Implements `Symbol.iterator` symbol for converting this node
    * to an iterable
-   * @private
+   * @public
    * @return {Iterator}
    */
   *[Symbol.iterator]() {
@@ -1098,6 +1360,7 @@ class ParserNode {
 
   /**
    * Implements a simple `slice` function to slice a selection of children
+   * @public
    * @param {Function} fn
    * @param {?Object} thisArg
    * @return {ParserNodeFragment}
@@ -1113,6 +1376,7 @@ class ParserNode {
 
   /**
    * Implements a simple `forEach` function over the children in this node
+   * @public
    * @param {Function} fn
    * @param {?Object} thisArg
    * @example
@@ -1131,9 +1395,11 @@ class ParserNode {
   /**
    * Implements a simple `map` function to map children to new `ParserNode`
    * fragment instance.
+   * @public
    * @param {Function} fn
    * @param {?Object} thisArg
    * @return {ParserNode}
+   * @example
    * const nodes = node.query('.*[name="asset"]')
    * const mapped = nodes.map((node) => node)
    */
@@ -1158,11 +1424,13 @@ class ParserNode {
   /**
    * Implements a simple `flatMap` function to map children to new `ParserNode`
    * fragment instance.
+   * @public
    * @param {Function} fn
    * @param {?Object} thisArg
    * @return {ParserNode}
-   * const nodes = node.query('.*[name="asset"]')
-   * const mapped = nodes.map((node) => node)
+   * @example
+   * const nodes = node.query('**[name="asset"]')
+   * const mapped = nodes.flatMap((node) => node)
    */
   flatMap(fn, thisArg) {
     const { constructor, children } = this
@@ -1189,11 +1457,13 @@ class ParserNode {
   /**
    * Implements a simple `filter` function to filter children into a resulting
    * `ParserNode` fragment instance.
+   * @public
    * @param {Function} fn
    * @param {?Object} thisArg
    * @return {ParserNode}
+   * @example
    * const nodes = node.query('.*[name="asset"]')
-   * const mapped = nodes.filter((node) => node.attributes.app)
+   * const filtered = nodes.filter((node) => 'app' in node.attributes)
    */
   filter(fn, thisArg) {
     const { constructor, children } = this
@@ -1212,6 +1482,7 @@ class ParserNode {
    * Implements a simple `traverse` function to visit every node in this tree.
    * The first call will be to the root (this) node, and all subsequent calls will
    * be to each child node in the tree.
+   * @public
    * @param {Function} fn
    * @param {?Object} thisArg
    */
@@ -1237,13 +1508,14 @@ class ParserNode {
 
 /**
  * A simple stack to store parser state.
- * @class ParserState
+ * @public
  * @memberof parser
  */
 class ParserState {
 
   /**
    * `ParserState` class constructor.
+   * @public
    * @param {?Array} stack
    */
   constructor(stack) {
@@ -1252,6 +1524,7 @@ class ParserState {
 
   /**
    * The first node in the parser state stack.
+   * @public
    * @accessor
    * @type {?ParserNode}
    */
@@ -1261,6 +1534,7 @@ class ParserState {
 
   /**
    * The last node in the parser state stack.
+   * @public
    * @accessor
    * @type {?ParserNode}
    */
@@ -1271,6 +1545,7 @@ class ParserState {
 
   /**
    * The number of nodes in the parser state stack.
+   * @public
    * @accessor
    * @type {Number}
    */
@@ -1280,6 +1555,7 @@ class ParserState {
 
   /**
    * An alias to `state.length`
+   * @public
    * @accessor
    * @type {Number}
    */
@@ -1289,6 +1565,7 @@ class ParserState {
 
   /**
    * Push one or more nodes on to the state stack.
+   * @public
    * @param {ParserNode} ...nodes
    * @return {ParserState}
    */
@@ -1299,6 +1576,7 @@ class ParserState {
 
   /**
    * Pop off the tail of the parser state stack and return it.
+   * @public
    * @return {?ParserNode}
    */
   pop() {
@@ -1308,7 +1586,7 @@ class ParserState {
 
 /**
  * Callback handlers for a `Parser` instance.
- * @class ParserHandler
+ * @public
  * @memberof parser
  * @see {@link https://github.com/fb55/htmlparser2}
  * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L155}
@@ -1317,6 +1595,7 @@ class ParserHandler {
 
   /**
    * A reference to the parser state head.
+   * @public
    * @accessor
    * @type {?ParserNode}
    */
@@ -1326,6 +1605,7 @@ class ParserHandler {
 
   /**
    * A reference to the parser state tail.
+   * @public
    * @accessor
    * @type {?ParserNode}
    */
@@ -1335,7 +1615,10 @@ class ParserHandler {
 
   /**
    * Called when the parser handler is initialized.
-   * @protected
+   *
+   * _Extended classes overloading this method should be sure to call
+   * the super method_.
+   * @public
    * @param {Parser} parser
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L156}
    */
@@ -1346,7 +1629,10 @@ class ParserHandler {
 
   /**
    * Called when the parser handler is reset.
-   * @protected
+   *
+   * _Extended classes overloading this method should be sure to call
+   * the super method._
+   * @public
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L161}
    */
   onreset() {
@@ -1355,7 +1641,10 @@ class ParserHandler {
 
   /**
    * Called when the parser is finished parsing.
-   * @protected
+   *
+   * _Extended classes overloading this method should be sure to call
+   * the super method._
+   * @public
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L166}
    */
   onend() {
@@ -1365,7 +1654,10 @@ class ParserHandler {
 
   /**
    * Called when the parser encounters an error.
-   * @protected
+   *
+   * _Extended classes overloading this method should be sure to call
+   * the super method_.
+   * @public
    * @param {Error} err
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L167}
    */
@@ -1376,7 +1668,10 @@ class ParserHandler {
 
   /**
    * Called when the parser encounters an open tag.
-   * @protected
+   *
+   * _Extended classes overloading this method should be sure to call
+   * the super method_.
+   * @public
    * @param {String} name
    * @param {?Object} attributes
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L181}
@@ -1396,7 +1691,10 @@ class ParserHandler {
 
   /**
    * Called when the parser encounters an open tag name.
-   * @protected
+   *
+   * _Extended classes overloading this method should be sure to call
+   * the super method_.
+   * @public
    * @param {String} name
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L169}
    */
@@ -1406,7 +1704,10 @@ class ParserHandler {
 
   /**
    * Called when the parser encounters a close tag
-   * @protected
+   *
+   * _Extended classes overloading this method should be sure to call
+   * the super method_.
+   * @public
    * @param {String} name
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L168}
    */
@@ -1419,7 +1720,10 @@ class ParserHandler {
 
   /**
    * Called when the parser encounters an attribute key-value pair
-   * @protected
+   *
+   * _Extended classes overloading this method should be sure to call
+   * the super method_.
+   * @public
    * @param {String} name
    * @param {String} value
    * @param {?String} quote
@@ -1431,7 +1735,10 @@ class ParserHandler {
 
   /**
    * Called when the parser encounters text.
-   * @protected
+   *
+   * _Extended classes overloading this method should be sure to call
+   * the super method_.
+   * @public
    * @param {String} text
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L182}
    */
@@ -1448,7 +1755,10 @@ class ParserHandler {
 
   /**
    * Called when the parser encounters a comment.
-   * @protected
+   *
+   * _Extended classes overloading this method should be sure to call
+   * the super method_.
+   * @public
    * @param {String} data
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L183}
    */
@@ -1466,7 +1776,10 @@ class ParserHandler {
 
   /**
    * Called when the parser encounters the end of a comment.
-   * @protected
+   *
+   * _Extended classes overloading this method should be sure to call
+   * the super method_.
+   * @public
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L186}
    */
   oncommentend() {
@@ -1475,7 +1788,10 @@ class ParserHandler {
 
   /**
    * Called when the parser encounters CDATA.
-   * @protected
+   *
+   * _Extended classes overloading this method should be sure to call
+   * the super method_.
+   * @public
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L184}
    */
   oncdatastart() {
@@ -1491,7 +1807,10 @@ class ParserHandler {
 
   /**
    * Called when the parser encounters the end of CDATA.
-   * @protected
+   *
+   * _Extended classes overloading this method should be sure to call
+   * the super method_.
+   * @public
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L185}
    */
   oncdataend() {
@@ -1505,7 +1824,10 @@ class ParserHandler {
 
   /**
    * Called when the parser encounters a processing instruction.
-   * @protected
+   *
+   * _Extended classes overloading this method should be sure to call
+   * the super method_.
+   * @public
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L187}
    */
   onprocessinginstruction(name, data) {
@@ -1515,7 +1837,7 @@ class ParserHandler {
 
 /**
  * Options with defaults for a `ParserHandler` instance
- * @class ParserOptions
+ * @public
  * @memberof parser
  * @see {@link https://github.com/fb55/htmlparser2}
  * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L101}
@@ -1523,8 +1845,10 @@ class ParserHandler {
 class ParserOptions {
 
   /**
-   * `ParserOptions` class constructor.
-   * @param {?Object} opts
+   * Create a new `ParserOptions` instance.
+   * @public
+   * @static
+   * @param {?Object|ParserOptions} opts
    * @param {?Object} [opts.bindings = null] - JSONata query function bindings
    * @param {?ParserHandler} [opts.handler = null] - Parser runtime handler functions
    * @param {?ParserState} [opts.state = null] - Initial parser state
@@ -1532,6 +1856,27 @@ class ParserOptions {
    * @param {Boolean} [opts.lowerCaseTags = false] - Lowercase parsed tag names
    * @param {Boolean} [opts.decodeEntities = true] - Decode entities in parsed nodes
    * @param {Boolean} [opts.recognizeCDATA = true] - recognize
+   * @return {ParserOptions}
+   * @example
+   * const options = ParserOptions.from({
+   *   preserveConsecutiveUppercase: true,
+   *   lowerCaseAttributeNames: true,
+   *   bindings: {
+   *     // `$propercase(string: String)`: String - convert string in query to propercase
+   *     propercase(string) {
+   *       return string[0].toUpperCase() + string.slice(1)
+   *     }
+   *   }
+   * })
+   */
+  static from(opts) {
+    return new this(opts)
+  }
+
+  /**
+   * `ParserOptions` class constructor.
+   * @protected
+   * @param {?Object} opts
    */
   constructor(opts) {
     opts = { ...opts }
@@ -1554,6 +1899,7 @@ class ParserOptions {
 
   /**
    * Set an enumerable option value by key.
+   * @public
    * @param {String} key
    * @param {?Mixed} value
    */
@@ -1573,6 +1919,7 @@ class ParserOptions {
 
   /**
    * Get an enumerable option by key
+   * @public
    * @param {String} key
    * @return {?Mixed}
    */
@@ -1582,6 +1929,8 @@ class ParserOptions {
 
   /**
    * JSONata query runtime bindings for the parsed node tree.
+   * @public
+   * @accessor
    * @type {Object}
    * @see {@link https://docs.jsonata.org/embedding-extending#expressionregisterfunctionname-implementation-signature}
    */
@@ -1590,6 +1939,8 @@ class ParserOptions {
 
   /**
    * Parser runtime handler functions for handling state building.
+   * @public
+   * @accessor
    * @type {ParserHandler}
    */
   set handler(value) { void value }
@@ -1597,6 +1948,8 @@ class ParserOptions {
 
   /**
    * Parser runtime state that can be seeded optionally through `ParserOptions`.
+   * @public
+   * @accessor
    * @type {ParserState}
    */
   set state(value) { void value }
@@ -1604,6 +1957,8 @@ class ParserOptions {
 
   /**
    * Enable/disable XML mode for internal parser.
+   * @public
+   * @accessor
    * @type {Boolean}
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L110}
    */
@@ -1612,6 +1967,8 @@ class ParserOptions {
 
   /**
    * Lowercase parsed tag names.
+   * @public
+   * @accessor
    * @type {Boolean}
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L124}
    */
@@ -1620,6 +1977,8 @@ class ParserOptions {
 
   /**
    * Decode entities in parsed nodes.
+   * @public
+   * @accessor
    * @type {Boolean}
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L117}
    */
@@ -1628,6 +1987,8 @@ class ParserOptions {
 
   /**
    * Recognize CDATA in parsed nodes.
+   * @public
+   * @accessor
    * @type {Boolean}
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L139}
    */
@@ -1636,6 +1997,8 @@ class ParserOptions {
 
   /**
    * Recognize self closing tags when parsing tags.
+   * @public
+   * @accessor
    * @type {Boolean}
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L147}
    */
@@ -1644,6 +2007,8 @@ class ParserOptions {
 
   /**
    * Lowercase parsed attribute names.
+   * @public
+   * @accessor
    * @type {Boolean}
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L131}
    */
@@ -1652,6 +2017,8 @@ class ParserOptions {
 
   /**
    * Preserve consectutive uppercase when normalizing attributes and node names.
+   * @public
+   * @accessor
    * @type {Boolean}
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L131}
    */
@@ -1661,15 +2028,15 @@ class ParserOptions {
 
 /**
  * An XML parser that creates a document object model.
- * @class Parser
+ * @public
  * @memberof parser
- * @extends htmlparser2.Parser
  * @see {@link https://github.com/fb55/htmlparser2}
  */
 class Parser extends htmlparser2.Parser {
 
   /**
    * Create a new `Parser` from input.
+   * @public
    * @static
    * @param {Object|String|Parser} input
    * @return {Parser}
@@ -1701,6 +2068,7 @@ class Parser extends htmlparser2.Parser {
 
   /**
    * Creates a `WritableStream` for a new `Parser` instance.
+   * @public
    * @param {?ParserOptions} opts
    * @return {WritableStream}
    */
@@ -1711,7 +2079,7 @@ class Parser extends htmlparser2.Parser {
 
   /**
    * `Parser` class constructor.
-   * @constructor
+   * @public
    * @param {?ParserOptions} opts
    */
   constructor(opts) {
@@ -1756,6 +2124,8 @@ class Parser extends htmlparser2.Parser {
 
   /**
    * A reference to the parser options used to configure this parser instance.
+   * @public
+   * @accessor
    * @type {ParserOptions}
    */
   set options(value) { void value }
@@ -1763,6 +2133,8 @@ class Parser extends htmlparser2.Parser {
 
   /**
    * A reference to the parser state maintained by this parser instance.
+   * @public
+   * @accessor
    * @type {ParserState}
    */
   set state(value) { void value }
@@ -1770,6 +2142,8 @@ class Parser extends htmlparser2.Parser {
 
   /**
    * A reference to the parser handlers that build the parser state for this instance.
+   * @public
+   * @accessor
    * @type {ParserHandler}
    */
   set handler(value) { void value }
@@ -1777,6 +2151,8 @@ class Parser extends htmlparser2.Parser {
 
   /**
    * A boolean to indicate if the parser has finished parsing its input.
+   * @public
+   * @accessor
    * @type {Boolean}
    */
   set ended(value) { void value }
@@ -1784,6 +2160,8 @@ class Parser extends htmlparser2.Parser {
 
   /**
    * An error, if one occurred during parsing.
+   * @public
+   * @accessor
    * @type {?Error}
    */
   set error(value) { void value }
@@ -1791,6 +2169,7 @@ class Parser extends htmlparser2.Parser {
 
   /**
    * A pointer to the parsed state nodes
+   * @public
    * @accessor
    * @type {Array}
    */
@@ -1800,6 +2179,7 @@ class Parser extends htmlparser2.Parser {
 
   /**
    * A pointer to the root node on the parsed state stack.
+   * @public
    * @accessor
    * @type {ParserNode}
    */
@@ -1809,6 +2189,7 @@ class Parser extends htmlparser2.Parser {
 
   /**
    * Returns the type of root node associated with this parser.
+   * @public
    * @accessor
    * @type {?String}
    */
@@ -1824,6 +2205,7 @@ class Parser extends htmlparser2.Parser {
 
   /**
    * Returns the attributes of the root node associated with this parser.
+   * @public
    * @accessor
    * @type {?Object}
    */
@@ -1839,6 +2221,7 @@ class Parser extends htmlparser2.Parser {
 
   /**
    * Creates a `WritableStream` for the `Parser` instance.
+   * @public
    * @return {WritableStream}
    */
   createWriteStream(...args) {
@@ -1870,6 +2253,7 @@ class Parser extends htmlparser2.Parser {
 
   /**
    * Implements `then` for async/await and `Promise` compat.
+   * @public
    * @return {Promise}
    */
   then(resolve, reject) {
@@ -1886,6 +2270,7 @@ class Parser extends htmlparser2.Parser {
 
   /**
    * Query the root document object model using "JSONata" query syntax.
+   * @public
    * @param {?String} [query = '$'] - A "JSONata" query string
    * @param {?Object} opts - Query options
    * @param {?Boolean} [opts.inspect = false] - If `true`, will set `util.inspect.custom` symbols
@@ -1914,8 +2299,21 @@ function makePromise() {
 }
 
 /**
- * Module exports.
+ * The core parsing API for the MediaXML module that creates a document
+ * object model for a parsed XML file with a robust query API built on top
+ * of [JSONata](https://jsonata.org).
+ * @public
  * @module parser
+ * @example
+ * const { Parser } = require('mediaxml/parser')
+ * const fs = require('fs')
+ *
+ * const stream = fs.createReadStream('package.xml') // ADI
+ * const parser = Parser.from(stream)
+ * parser.then(() => {
+ *   const { rootNode } = parser
+ *   const assets = parser.query('**[name="asset"]') // get all '<Asset />' nodes
+ * })
  */
 module.exports = {
   FRAGMENT_NODE_NAME,

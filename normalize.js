@@ -17,8 +17,18 @@ const SMPTE_TIMECODE_REGEX = /^([012]\\d):(\\d\\d):(\\d\\d)(:|;|\\.)(\\d\\d)$/
 function normalizeValue(value) {
   const { isFinite = global.isFinite } = Number
 
-  if ('string' !== typeof value) {
+  // `typeof` is not used so we can detect input that
+  // boxes or extends a `String`
+  if (false === (value instanceof String)) {
     return value
+  }
+
+  if ('string' === typeof value) {
+    if (/[0-9]?[0-9]\:[0-9]?[0-9]/.test(value)) {
+      const [ m, s ] = value.split(':')
+      value = ['00', m.padStart(2, 0), m.padEnd(2, 0)].join(':')
+      value += ';00'
+    }
   }
 
   if (SMPTE_TIMECODE_REGEX.test(value)) {
@@ -37,9 +47,11 @@ function normalizeValue(value) {
     return parseFloat(value)
   } else if (!Number.isNaN(Date.parse(value))) {
     return new Date(value)
-  } else {
-    return value
+  } else if (undefined === value) {
+    return null
   }
+
+  return value
 }
 
 /**
@@ -107,8 +119,8 @@ function normalizeAttributeValue(value) {
  * @private
  */
 module.exports = {
-  normalizeAttributeValue,
-  normalizeAttributeKey,
   normalizeAttributes,
+  normalizeAttributeKey,
+  normalizeAttributeValue,
   normalizeValue
 }

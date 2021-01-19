@@ -1,10 +1,9 @@
 const { ParserNode, Parser } = require('./parser')
 
 /**
- * An abstract document object model for XML.
+ * An abstract document object model.
+ * @public
  * @abstract
- * @class AbstractDocument
- * @extends ParserNode
  * @memberof document
  */
 class AbstractDocument extends ParserNode {
@@ -13,6 +12,7 @@ class AbstractDocument extends ParserNode {
    * The node name of the document. This static class property is an abstract
    * accessor used to define the name of the document node name. By default,
    * this value is an empty string.
+   * @public
    * @static
    * @abstract
    * @accessor
@@ -24,6 +24,7 @@ class AbstractDocument extends ParserNode {
 
   /**
    * Create a new `Document` instance from input
+   * @public
    * @static
    * @param {Document|Parser|String|ReadableStream} input
    * @param {?Object} opts
@@ -85,6 +86,7 @@ class AbstractDocument extends ParserNode {
 
   /**
    * Calls `callback()` when the document is "ready".
+   * @public
    * @param {Function} callback
    * @return {Promise}
    */
@@ -95,15 +97,17 @@ class AbstractDocument extends ParserNode {
 
 /**
  * An abstract document object model for XML.
+ * @public
  * @abstract
- * @class Document
- * @extends AbstractDocument
  * @memberof document
+ * @param {Parser} parser
+ * @param {?Object} opts
  */
 class Document extends AbstractDocument {
 
   /**
    * The default node name of a document.
+   * @public
    * @static
    * @accessor
    * @type {String}
@@ -115,6 +119,7 @@ class Document extends AbstractDocument {
 
 /**
  * Module exports.
+ * @public
  * @module document
  */
 module.exports = {

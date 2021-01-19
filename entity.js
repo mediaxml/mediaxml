@@ -2,14 +2,15 @@ const { inspect } = require('util')
 
 /**
  * Base entity used as a base class for various porcelain classes.
+ * @public
  * @abstract
- * @class Entity
  * @memberof entity
  */
 class Entity {
 
   /**
    * Create an `Entity` from input.
+   * @public
    * @static
    * @param {Document} document
    * @param {ParserNode} node
@@ -50,6 +51,7 @@ class Entity {
 
   /**
    * A reference to the attributes for this entity' node.
+   * @public
    * @accessor
    * @type {ParserNodeAttributes}
    */
@@ -58,7 +60,18 @@ class Entity {
   }
 
   /**
+   * The text body for this entity' node.
+   * @public
+   * @accessor
+   * @type {String}
+   */
+  get text() {
+    return this.node.body || ''
+  }
+
+  /**
    * Computed keys for this instance
+   * @public
    * @return {Array<String>}
    */
   keys() {
@@ -75,7 +88,7 @@ class Entity {
     return Array.from(new Set(keys))
 
     function filter(key, descriptors) {
-      if (['constructor', 'document', 'attributes', 'node'].includes(key)) {
+      if (['constructor', 'document', 'attributes', 'text', 'node'].includes(key)) {
         return false
       }
 
@@ -89,10 +102,21 @@ class Entity {
 
   /**
    * Returns a plain JSON object of this instance.
+   * @public
    * @return {Object}
    */
   toJSON() {
     return this.keys().reduce((json, key) => ({ ...json, [key]: this[key] }), {})
+  }
+
+  /**
+   * Converts this entity to a string. Will return the internal node
+   * body string by default.
+   * @public
+   * @return {String}
+   */
+  toString() {
+    return this.node.body || ''
   }
 
   /**
@@ -108,8 +132,26 @@ class Entity {
 }
 
 /**
- * Module exports.
+ * A module for the base `Entity` used as a base class for
+ * various porcelain classes.
+ * @public
  * @module entity
+ * @example
+ * const { normalizeValue } = require('mediaxml/normalize')
+ * const { Entity } = require('mediaxml/entity')
+ * class Programme extends Entity {
+ *   get channel() {
+ *     return this.attributes.channel
+ *   }
+ *
+ *   get start() {
+ *     return normalizeValue(this.attributes.start)
+ *   }
+ *
+ *   get stop() {
+ *     return normalizeValue(this.attributes.stop)
+ *   }
+ * }
  */
 module.exports = {
   Entity

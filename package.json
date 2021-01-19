@@ -4,7 +4,8 @@
   "description": "A module for working with media manifests represented by XML like ADI, mRSS, and SCTE236.",
   "scripts": {
     "test": "tape tests",
-    "docs:server": "documentation serve -w index.js"
+    "docs:server": "documentation serve -w index.js -a public -g",
+    "docs:build": "documentation build index.js -a public -g -o docs/api"
   },
   "bin": {
     "mxml": "bin/mxml"
@@ -36,6 +37,7 @@
     "highlight.js": "^10.5.0",
     "htmlparser2": "^6.0.0",
     "jsonata": "^1.8.4",
+    "mime": "^2.5.0",
     "minimist": "^1.2.5",
     "nanoassert": "^2.0.0",
     "number-to-words": "^1.2.4",

@@ -2,6 +2,8 @@ const { toWordsOrdinal } = require('number-to-words')
 const jsonata = require('jsonata')
 const debug = require('debug')('mediaxml')
 
+const { ParserNode } = require('./parser')
+
 const {
   normalizeAttributeValue,
   normalizeAttributeKey,
@@ -11,7 +13,7 @@ const {
 
 /**
  * An internal cache used to cache compiled queries.
- * @protected
+ * @public
  * @type {Map}
  * @memberof query
  */
@@ -20,11 +22,13 @@ const cache = new Map()
 /**
  * Query the document object model represented by a node
  * using "JSONata" query syntax.
+ * @public
  * @param {?ParserNode} node - The parser node to query
- * @param {?String} [query = '$'] - A "JSONata" query string
+ * @param {?String} [queryString = '$'] - A [JSONata](https://jsonata.org) query string
  * @param {?Object} opts - Query options
- * @param {?Boolean} [opts.inspect = false] - If `true`, will set `util.inspect.custom` symbols
- * @return {Array|Object|null}
+ * @param {?Object} [opts.model = {}] - An optional model to query, instead of one derived from the input `node`
+ * @param {?Object} [opts.bindings = node.options.bindings] - Bindings to use instead of the ones derived from the input `node`
+ * @return {?(ParserNode|ParserNodeFragment|String|Mixed)}
  * @see {@link https://jsonata.org}
  * @memberof query
  * @example
@@ -42,7 +46,7 @@ function query(node, queryString, opts) {
   if (!expression) {
     const ordinals = []
 
-    for (let i = 0; i < children.length; ++i) {
+    for (let i = 0; i < 10; ++i) {
       ordinals.push(toWordsOrdinal(i + 1))
     }
 
@@ -51,6 +55,8 @@ function query(node, queryString, opts) {
     // JSONata clean up and sugars
     queryString = queryString
       .trim()
+      // lowercase 'AND' 'OR'
+      .replace(/\s?(AND|OR)\s?/g, ($1) => $1.toLowerCase())
       // add '*' by default because we are always searching the same node hierarchy
       .replace(/^\[/, '*[')
       // `:keys` - selector to return the keys of the target
@@ -64,13 +70,13 @@ function query(node, queryString, opts) {
       // `:children` - fallback and alias for `.children` property access
       .replace(/:children/g, '.children')
       // `attr(key)` attribute selector
-      .replace(/:attr\((.*)\)/g, (str, name, offset, source) => {
-        const prefix = /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
+      .replace(/(:)?attr\((.*)\)/g, (str, $1, name, offset, source) => {
+        const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
         return `${prefix}attributes.${normalizeAttributeKey(name)}`
       })
       // `:attr or `:attributes` - gets all attributes
-      .replace(/:attr(s)?(ibutes)?(\(\))?/g, (_, $1, $2, $3, offset, source) => {
-        const prefix = /(\(|\[|\.|^$)/.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
+      .replace(/(:)?attr(s)?(ibutes)?(\(\))?/g, (_, $1, $2, $3, $4, offset, source) => {
+        const prefix = ':' !== $1 || /(\(|\[|\.|^$)/.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
         return `${prefix}attributes`
       })
       // `:nth-child(n)` - return the nth child of the node
@@ -297,6 +303,7 @@ function makeParserNodeProxy(object, state) {
 
 /**
  * Module exports.
+ * @public
  * @module query
  */
 module.exports = {

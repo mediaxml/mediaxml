@@ -6,5 +6,6 @@ const filename = path.resolve(__dirname, '..', 'mrss', 'feed.xml')
 const document = mrss.Document.from(fs.createReadStream(filename))
 
 document.ready(() => {
-  console.log(document.channel);
+  console.log(document.channel.items[0])
 })
+.catch(console.error)
