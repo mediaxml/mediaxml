@@ -390,8 +390,20 @@ class Asset extends Entity {
  * A module to provide atomic classes for working with ADI documents.
  * @public
  * @module adi
- * @example
  * @see {@link https://community.cablelabs.com/wiki/plugins/servlet/cablelabs/alfresco/download?id=8f900e8b-d1eb-4834-bd26-f04bd623c3d2}
+ * @example
+ * const xmltv = require('mediaxml/adi')
+ * const fs = require('fs')
+ *
+ * const stream = fs.createReadStream('./package.xml')
+ * const document = adi.Document.from(stream)
+ *
+ * document.ready(() => {
+ *   console.log(document.metadata)
+ *   for (const asset of document.asset.assets) {
+ *     console.log(asset.metadata, asset.appData)
+ *   }
+ * })
  */
 module.exports = {
   AMS,

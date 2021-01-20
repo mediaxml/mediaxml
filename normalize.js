@@ -47,10 +47,12 @@ function normalizeValue(value) {
     void err
   }
 
-  const normalPlayTime = NPTTimecode.from(value)
-  if (normalPlayTime.start.isValid) {
-    return normalPlayTime
-  }
+  if (/([0-9|\-|\.]+|now)/g.test(value)) {
+    const normalPlayTime = NPTTimecode.from(value)
+    if (normalPlayTime.start.isValid && !normalPlayTime.stop.isValid) {
+      return normalPlayTime
+    }
+}
 
   return value
 }

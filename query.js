@@ -116,8 +116,13 @@ function query(node, queryString, opts) {
     // $camelcase(input: string): string
     expression.registerFunction('camelcase', (...args) => camelcase(...args))
 
+    // $concat(...input: (array | mixed)?): array
+    expression.registerFunction('concat', (...args) => {
+      return [].concat(...args)
+    })
+
     // $slice(node: ParserNode, start: number, stop: number): Array
-    expression.registerFunction('slice', function (node, start, stop) {
+    expression.registerFunction('slice', (node, start, stop) => {
       if (node && node.children) {
         return node.children.slice(start, stop)
       } else if (node.slice) {
