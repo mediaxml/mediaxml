@@ -36,74 +36,198 @@ class Document extends AbstractDocument {
     return 'tv'
   }
 
+  /**
+   * A reference to the `Channel` entity used by a `Document` instance.
+   * @public
+   * @static
+   * @accessor
+   * @type {Channel}
+   */
   static get Channel() {
     return Channel
   }
 
+  /**
+   * A reference to the `DisplayName` entity used by a `Document` instance.
+   * @public
+   * @static
+   * @accessor
+   * @type {DisplayName}
+   */
   static get DisplayName() {
     return DisplayName
   }
 
+  /**
+   * A reference to the `Title` entity used by a `Document` instance.
+   * @public
+   * @static
+   * @accessor
+   * @type {Title}
+   */
   static get Title() {
     return Title
   }
 
+  /**
+   * A reference to the `SubTitle` entity used by a `Document` instance.
+   * @public
+   * @static
+   * @accessor
+   * @type {SubTitle}
+   */
   static get SubTitle() {
     return SubTitle
   }
 
+  /**
+   * A reference to the `Description` entity used by a `Document` instance.
+   * @public
+   * @static
+   * @accessor
+   * @type {Description}
+   */
   static get Description() {
     return Description
   }
 
+  /**
+   * A reference to the `Category` entity used by a `Document` instance.
+   * @public
+   * @static
+   * @accessor
+   * @type {Category}
+   */
   static get Category() {
     return Category
   }
 
+  /**
+   * A reference to the `Language` entity used by a `Document` instance.
+   * @public
+   * @static
+   * @accessor
+   * @type {Language}
+   */
   static get Language() {
     return Language
   }
 
+  /**
+   * A reference to the `OriginalLanguage` entity used by a `Document` instance.
+   * @public
+   * @static
+   * @accessor
+   * @type {OriginalLanguage}
+   */
   static get OriginalLanguage() {
     return OriginalLanguage
   }
 
+  /**
+   * A reference to the `Icon` entity used by a `Document` instance.
+   * @public
+   * @static
+   * @accessor
+   * @type {Icon}
+   */
   static get Icon() {
     return Icon
   }
 
+  /**
+   * A reference to the `AudioDescription` entity used by a `Document` instance.
+   * @public
+   * @static
+   * @accessor
+   * @type {AudioDescription}
+   */
   static get AudioDescription() {
     return AudioDescription
   }
 
+  /**
+   * A reference to the `VideoDescription` entity used by a `Document` instance.
+   * @public
+   * @static
+   * @accessor
+   * @type {VideoDescription}
+   */
   static get VideoDescription() {
     return VideoDescription
   }
 
-  static get StartRating() {
-    return StartRating
+  /**
+   * A reference to the `StarRating` entity used by a `Document` instance.
+   * @public
+   * @static
+   * @accessor
+   * @type {StarRating}
+   */
+  static get StarRating() {
+    return StarRating
   }
 
+  /**
+   * A reference to the `Rating` entity used by a `Document` instance.
+   * @public
+   * @static
+   * @accessor
+   * @type {Rating}
+   */
   static get Rating() {
     return Rating
   }
 
+  /**
+   * A reference to the `Credits` entity used by a `Document` instance.
+   * @public
+   * @static
+   * @accessor
+   * @type {Credits}
+   */
   static get Credits() {
     return Credits
   }
 
+  /**
+   * A reference to the `EpisodeNumber` entity used by a `Document` instance.
+   * @public
+   * @static
+   * @accessor
+   * @type {EpisodeNumber}
+   */
   static get EpisodeNumber() {
     return EpisodeNumber
   }
 
+  /**
+   * A reference to the `Programme` entity used by a `Document` instance.
+   * @public
+   * @static
+   * @accessor
+   * @type {Programme}
+   */
   static get Programme() {
     return Programme
   }
 
+  /**
+   * The `source-info-url` attribute value.
+   * @public
+   * @accessor
+   * @type {?string}
+   */
   get sourceInfoURL() {
-    return this.node.attributes.sourceInfoURL
+    return this.node.attributes.sourceInfoURL || null
   }
 
+  /**
+   * An array of all channels found in the XMLTV document.
+   * @public
+   * @accessor
+   * @type {Array<Channel>}
+   */
   get channels() {
     const results = this.query(':children [name ~> /^channel$/i]')
 
@@ -114,6 +238,12 @@ class Document extends AbstractDocument {
     return []
   }
 
+  /**
+   * An array of all programmes found in the XMLTV document.
+   * @public
+   * @accessor
+   * @type {Array<Programme>}
+   */
   get programmes() {
     const results = this.query(':children[name ~> /^programme$/i]')
     if (results) {
@@ -154,61 +284,222 @@ class LocalizedTextEntity extends Entity {
   }
 }
 
+/**
+ * A container for a display name.
+ * @public
+ * @memberof xmltv
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class DisplayName extends LocalizedTextEntity {}
+
+/**
+ * A container for a title.
+ * @public
+ * @memberof xmltv
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class Title extends LocalizedTextEntity {}
+
+/**
+ * A container for a subtitle.
+ * @public
+ * @memberof xmltv
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class SubTitle extends LocalizedTextEntity {}
+
+/**
+ * A container for a description.
+ * @public
+ * @memberof xmltv
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class Description extends LocalizedTextEntity {}
+
+/**
+ * A container for a category.
+ * @public
+ * @memberof xmltv
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class Category extends LocalizedTextEntity {}
+
+/**
+ * A container for a language.
+ * @public
+ * @memberof xmltv
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class Language extends LocalizedTextEntity {}
+
+/**
+ * A container for an original language.
+ * @public
+ * @memberof xmltv
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class OriginalLanguage extends LocalizedTextEntity {}
 
+/**
+ * A container for an icon.
+ * @public
+ * @memberof xmltv
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class Icon extends Entity {
+
+  /**
+   * The source URL of the icon image.
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get src() {
     return this.node.attributes.src || null
   }
 
+  /**
+   * The width in pixels of the icon image.
+   * @public
+   * @accessor
+   * @type {?Number}
+   */
   get width() {
     return normalizeValue(this.node.attributes.width)
   }
 
+  /**
+   * The height in pixels of the icon image.
+   * @public
+   * @accessor
+   * @type {?Number}
+   */
   get height() {
     return normalizeValue(this.node.attributes.height)
   }
 }
 
+/**
+ * A container for an audio description for a programme.
+ * @public
+ * @memberof xmltv
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class AudioDescription extends Entity {
+
+  /**
+   * `true` if the audio description is "stereo"
+   * @public
+   * @accessor
+   * @type {Boolean}
+   */
   get stereo() {
-    const result = this.node.query('[name ~> /^stereo/i]:first:text')
+    const result = this.node.query('[name ~> /^stereo$/i]:first:text')
     return 'stereo' === result
+  }
+
+  /**
+   * `true` if the audio description is "stereo"
+   * @public
+   * @accessor
+   * @type {Boolean}
+   */
+  get stereo() {
+    const present = this.node.query('[name ~> /^present$/i]:first:text')
+    return 'stereo' === present
   }
 }
 
+/**
+ * A container for a video description for a programme.
+ * @public
+ * @memberof xmltv
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class VideoDescription extends Entity {
+
+  /**
+   * A string describing the aspect ratio of the programme video
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get aspect() {
     return this.node.query('[name ~> /^aspect$/i]:first:text')
   }
 
+  /**
+   * A string describing the quality of the programme video
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get quality() {
     return this.node.query('[name ~> /^quality$/i]:first:text')
   }
 }
 
-class StartRating extends Entity {
+/**
+ * A container for a star rating for a programme.
+ * @public
+ * @memberof xmltv
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
+class StarRating extends Entity {
+
+  /**
+   * The star rating value.
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get value() {
     return this.node.query('[name ~> /^value$/i]:first:text')
   }
 }
 
+/**
+ * A container for a programme rating.
+ * @public
+ * @memberof xmltv
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class Rating extends Entity {
+
+  /**
+   * The rating system used to determine the rating value.
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get system() {
     return this.node.attributes.system || null
   }
 
+  /**
+   * The rating value as determined by the rating system.
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get value() {
     return this.node.query('[name ~> /^value$/i]:first:text') || null
   }
 
   /**
+   * Default (first) icon for this rating system.
    * @public
    * @accessor
    * @type {?Icon}
@@ -218,6 +509,7 @@ class Rating extends Entity {
   }
 
   /**
+   * An array of icons for this rating system.
    * @public
    * @accessor
    * @type {Array<Icon>}
@@ -236,7 +528,22 @@ class Rating extends Entity {
   }
 }
 
+/**
+ * A container for programme credits such as directors, producers,
+ * actor, and more.
+ * @public
+ * @memberof xmltv
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class Credits extends Entity {
+
+  /**
+   * An array of "directors" for this credits container.
+   * @public
+   * @accessor
+   * @type {Array<String>}
+   */
   get directors() {
     const results = this.node.query('[name ~> /^director$/i]:text')
 
@@ -247,6 +554,12 @@ class Credits extends Entity {
     return []
   }
 
+  /**
+   * An array of "actor" for this credits container.
+   * @public
+   * @accessor
+   * @type {Array<String>}
+   */
   get actors() {
     const results = this.node.query('[name ~> /^actor$/i]:text')
 
@@ -257,6 +570,12 @@ class Credits extends Entity {
     return []
   }
 
+  /**
+   * An array of "presenters" for this credits container.
+   * @public
+   * @accessor
+   * @type {Array<String>}
+   */
   get presenters() {
     const results = this.node.query('[name ~> /^presenter$/i]:text')
 
@@ -267,6 +586,12 @@ class Credits extends Entity {
     return []
   }
 
+  /**
+   * An array of "producers" for this credits container.
+   * @public
+   * @accessor
+   * @type {Array<String>}
+   */
   get producers() {
     const results = this.node.query('[name ~> /^producer$/i]:text')
 
@@ -277,6 +602,12 @@ class Credits extends Entity {
     return []
   }
 
+  /**
+   * An array of "writers" for this credits container.
+   * @public
+   * @accessor
+   * @type {Array<String>}
+   */
   get writers() {
     const results = this.node.query('[name ~> /^writer$/i]:text')
 
@@ -287,6 +618,12 @@ class Credits extends Entity {
     return []
   }
 
+  /**
+   * An array of "adapters" for this credits container.
+   * @public
+   * @accessor
+   * @type {Array<String>}
+   */
   get adapters() {
     const results = this.node.query('[name ~> /^adapter$/i]:text')
 
@@ -297,6 +634,12 @@ class Credits extends Entity {
     return []
   }
 
+  /**
+   * An array of "composers" for this credits container.
+   * @public
+   * @accessor
+   * @type {Array<String>}
+   */
   get composers() {
     const results = this.node.query('[name ~> /^composer$/i]:text')
 
@@ -307,6 +650,12 @@ class Credits extends Entity {
     return []
   }
 
+  /**
+   * An array of "editors" for this credits container.
+   * @public
+   * @accessor
+   * @type {Array<String>}
+   */
   get editors() {
     const results = this.node.query('[name ~> /^editor$/i]:text')
     if (results) {
@@ -316,6 +665,12 @@ class Credits extends Entity {
     return []
   }
 
+  /**
+   * An array of "commentators" for this credits container.
+   * @public
+   * @accessor
+   * @type {Array<String>}
+   */
   get commentators() {
     const results = this.node.query('[name ~> /^commentator$/i]:text')
     if (results) {
@@ -325,6 +680,12 @@ class Credits extends Entity {
     return []
   }
 
+  /**
+   * An array of "guests" for this credits container.
+   * @public
+   * @accessor
+   * @type {Array<String>}
+   */
   get guests() {
     const results = this.node.query('[name ~> /^guest$/i]:text')
     if (results) {
@@ -335,13 +696,35 @@ class Credits extends Entity {
   }
 }
 
+/**
+ * A container for an episode number value and the system used
+ * to determine it.
+ * @public
+ * @memberof xmltv
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class EpisodeNumber extends Entity {
+
+  /**
+   * The episode number system used to determine
+   * the episode number value.
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get system() {
-    return this.node.attributes.system
+    return this.node.attributes.system || null
   }
 
+  /**
+   * The episode number value
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get value() {
-    return this.text
+    return this.text || null
   }
 }
 
@@ -384,6 +767,7 @@ class Channel extends Entity {
   }
 
   /**
+   * Default (first) icon for this channel.
    * @public
    * @accessor
    * @type {?Icon}
@@ -393,6 +777,7 @@ class Channel extends Entity {
   }
 
   /**
+   * An array of icons for this channel.
    * @public
    * @accessor
    * @type {Array<Icon>}
@@ -410,6 +795,12 @@ class Channel extends Entity {
     return []
   }
 
+  /**
+   * The URLs for this channel.
+   * @public
+   * @accessor
+   * @type {Array<String>}
+   */
   get urls() {
     const { document, node } = this
     const result = node.query(':children[name ~> /^url/i]:text')
@@ -421,14 +812,32 @@ class Channel extends Entity {
     return []
   }
 
+  /**
+   * The default (first) URL for this channel.
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get url() {
     return this.urls[0] || null
   }
 
+  /**
+   * The ID of this channel.
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get id() {
-    return this.node.attributes.id
+    return this.node.attributes.id || null
   }
 
+  /**
+   * The descriptions for this programme.
+   * @public
+   * @accessor
+   * @type {Array<Description>}
+   */
   get descriptions() {
     const { document, node } = this
     const result = node.query(':children[name ~> /^desc$/i]')
@@ -442,12 +851,32 @@ class Channel extends Entity {
     return []
   }
 
+  /**
+   * The default (first) description for this programme.
+   * @public
+   * @accessor
+   * @type {Description}
+   */
   get description() {
     return this.descriptions[0] || null
   }
 }
 
+/**
+ * A container for an electronic programme guide (EPG) _programme_.
+ * @public
+ * @memberof xmltv
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class Programme extends Entity {
+
+  /**
+   * The possible release date and time of the programme.
+   * @public
+   * @accessor
+   * @type {?Date}
+   */
   get date() {
     const result = this.node.query(':children[name ~> /^date$/i]:first:text')
     if (result) {
@@ -458,6 +887,12 @@ class Programme extends Entity {
     return null
   }
 
+  /**
+   * The start date and time of the programme.
+   * @public
+   * @accessor
+   * @type {?Date}
+   */
   get start() {
     const { start } = this.node.attributes
 
@@ -470,6 +905,12 @@ class Programme extends Entity {
     return null
   }
 
+  /**
+   * The stop date and time of the programme.
+   * @public
+   * @accessor
+   * @type {?Date}
+   */
   get stop() {
     const { stop } = this.node.attributes
 
@@ -482,10 +923,22 @@ class Programme extends Entity {
     return null
   }
 
+  /**
+   * The channel id for this programme.
+   * @public
+   * @accessor
+   * @type {Title}
+   */
   get channel() {
     return this.node.attributes.channel
   }
 
+  /**
+   * The titles for this programme.
+   * @public
+   * @accessor
+   * @type {Array<Title>}
+   */
   get titles() {
     const { document, node } = this
     const result = node.query(':children[name ~> /^title$/i]')
@@ -499,10 +952,22 @@ class Programme extends Entity {
     return []
   }
 
+  /**
+   * The default (first) title for this programme.
+   * @public
+   * @accessor
+   * @type {Title}
+   */
   get title() {
     return this.titles[0] || null
   }
 
+  /**
+   * The subtitles for this programme.
+   * @public
+   * @accessor
+   * @type {Array<SubTitle>}
+   */
   get subtitles() {
     const { document, node } = this
     const result = node.query(':children[name ~> /^sub-title$/i]')
@@ -516,10 +981,22 @@ class Programme extends Entity {
     return []
   }
 
+  /**
+   * The default (first) subtitle for this programme.
+   * @public
+   * @accessor
+   * @type {SubTitle}
+   */
   get subtitle() {
     return this.subtitles[0] || null
   }
 
+  /**
+   * The descriptions for this programme.
+   * @public
+   * @accessor
+   * @type {Array<Description>}
+   */
   get descriptions() {
     const { document, node } = this
     const result = node.query(':children[name ~> /^desc$/i]')
@@ -533,10 +1010,22 @@ class Programme extends Entity {
     return []
   }
 
+  /**
+   * The default (first) description for this programme.
+   * @public
+   * @accessor
+   * @type {Description}
+   */
   get description() {
     return this.descriptions[0] || null
   }
 
+  /**
+   * The credits for this programme.
+   * @public
+   * @accessor
+   * @type {Array<Credits>}
+   */
   get credits() {
     const { document, node } = this
     const result = node.query(':children[name ~> /^credits/i]:first')
@@ -548,6 +1037,12 @@ class Programme extends Entity {
     return null
   }
 
+  /**
+   * The video description for this programme.
+   * @public
+   * @accessor
+   * @type {Array<VideoDescription>}
+   */
   get video() {
     const { document, node } = this
     const result = node.query(':children[name ~> /^video/i]:first')
@@ -559,6 +1054,12 @@ class Programme extends Entity {
     return null
   }
 
+  /**
+   * The rating for this programme.
+   * @public
+   * @accessor
+   * @type {Array<Rating>}
+   */
   get rating() {
     const { document, node } = this
     const result = node.query(':children[name ~> /^rating/i]:first')
@@ -570,6 +1071,12 @@ class Programme extends Entity {
     return null
   }
 
+  /**
+   * An array of countries for this programme.
+   * @public
+   * @accessor
+   * @type {Array<String>}
+   */
   get countries() {
     const { document, node } = this
     const result = node.query(':children[name ~> /^country$/i]:text')
@@ -581,6 +1088,12 @@ class Programme extends Entity {
     return []
   }
 
+  /**
+   * An array of keywords for this programme.
+   * @public
+   * @accessor
+   * @type {Array<String>}
+   */
   get keywords() {
     const { document, node } = this
     const result = node.query(':children[name ~> /^keyword$/i]:text')
@@ -592,17 +1105,29 @@ class Programme extends Entity {
     return []
   }
 
+  /**
+   * An array of original languages for this programme.
+   * @public
+   * @accessor
+   * @type {Array<OriginalLanguage>}
+   */
   get originalLanguage() {
     const { document, node } = this
     const result = node.query(':children[name ~> /^orig-language$/i]:first')
 
     if (result) {
-      return document.constructor.Language.from(document, result)
+      return document.constructor.OriginalLanguage.from(document, result)
     }
 
     return null
   }
 
+  /**
+   * An array of languages for this programme.
+   * @public
+   * @accessor
+   * @type {Array<Language>}
+   */
   get languages() {
     const { document, node } = this
     const result = node.query(':children[name ~> /^language$/i]')
@@ -616,11 +1141,18 @@ class Programme extends Entity {
     return []
   }
 
+  /**
+   * Default (first) language for this programme.
+   * @public
+   * @accessor
+   * @type {?Language}
+   */
   get language() {
     return this.languages[0] || null
   }
 
   /**
+   * Default (first) icon for this programme.
    * @public
    * @accessor
    * @type {?Icon}
@@ -630,6 +1162,7 @@ class Programme extends Entity {
   }
 
   /**
+   * An array of icons for this programme.
    * @public
    * @accessor
    * @type {Array<Icon>}
@@ -647,6 +1180,12 @@ class Programme extends Entity {
     return []
   }
 
+  /**
+   * An array of categories for this programme.
+   * @public
+   * @accessor
+   * @type {Array<Category>}
+   */
   get categories() {
     const { document, node } = this
     const result = node.query(':children[name ~> /^category$/i]')
@@ -661,6 +1200,7 @@ class Programme extends Entity {
   }
 
   /**
+   * An array of episode numbers for this programme.
    * @public
    * @accessor
    * @type {Array<EpisodeNumber>}
@@ -693,12 +1233,29 @@ class Programme extends Entity {
  * const document = xmltv.Document.from(stream)
  *
  * document.ready(() => {
- *   console.log(document.metadata)
- *   for (const asset of document.asset.assets) {
- *     console.log(asset.metadata, asset.appData)
+ *   console.log(document.channels)
+ *   for (const programme of document.programmes) {
+ *    console.log(programme.title, programme.start, programme.stop)
  *   }
  * })
  */
 module.exports = {
+  AudioDescription,
+  Category,
+  Channel,
+  Credits,
+  Description,
+  DisplayName,
   Document,
+  EpisodeNumber,
+  Icon,
+  Language,
+  LocalizedTextEntity,
+  Programme,
+  OriginalLanguage,
+  Rating,
+  StarRating,
+  SubTitle,
+  Title,
+  VideoDescription,
 }

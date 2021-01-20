@@ -97,6 +97,22 @@ class Entity {
   }
 
   /**
+   * Query the document object model represented by this entity
+   * using "JSONata" query syntax.
+   * @public
+   * @param {?String} [queryString = '$'] - A "JSONata" query string
+   * @param {?Object} opts - Query options
+   * @return {Array|Object|null}
+   * @see {@link https://jsonata.org}
+   */
+  query(queryString, opts) {
+    return this.node.query(queryString, {
+      model: this,
+      ...opts,
+    })
+  }
+
+  /**
    * Returns a plain JSON object of this instance.
    * @public
    * @return {Object}
