@@ -668,7 +668,7 @@ class Item extends Entity {
    * @type {?String}
    */
   get categories() {
-    const result = this.node.query(':children[name ~> /^^category$$/i]')
+    const result = this.node.query(':children[name ~> /^category$/i]')
     return !result ? [] : [].concat(result).map((category) => {
       return this.document.constructor.Category.from(this.document, category)
     })

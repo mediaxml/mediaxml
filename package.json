@@ -43,7 +43,8 @@
     "nanoassert": "^2.0.0",
     "npt-timecode": "^0.1.0",
     "number-to-words": "^1.2.4",
-    "smpte-timecode": "^1.2.3"
+    "smpte-timecode": "^1.2.3",
+    "tinyduration": "^3.2.0"
   },
   "devDependencies": {
     "documentation": "^13.1.0",

@@ -60,7 +60,7 @@ class Document extends AbstractDocument {
    * @public
    * @static
    * @accessor
-   * @type {}
+   * @type {Content}
    */
   static get Content() {
     return Content
@@ -71,7 +71,7 @@ class Document extends AbstractDocument {
    * @public
    * @static
    * @accessor
-   * @type {}
+   * @type {Asset}
    */
   static get Asset() {
     return Asset
@@ -106,7 +106,7 @@ class Document extends AbstractDocument {
    * @type {Asset}
    */
   get asset() {
-    const result = this.query('[name ~> /^Asset/i]:first')
+    const result = this.query('[name ~> /^Asset$/i]:first')
     return result ? this.constructor.Asset.from(this, result) : null
   }
 }
@@ -364,15 +364,15 @@ class Asset extends Entity {
    */
   get assets() {
     const { document, node } = this
-    const results = node.query('[name ~> /^Asset/i]')
+    const results = node.query('[name ~> /^Asset$/i]')
 
     if (results) {
       return [].concat(results).map((r) => document.constructor.Asset.from(document, r))
     }
 
     return []
-  }
 
+  }
   /**
    * The content associated with this ADI asset.
    * @public
@@ -381,18 +381,18 @@ class Asset extends Entity {
    */
   get content() {
     const { document, node } = this
-    const result = node.query('[name ~> /^Content/i]:first')
+    const result = node.query('[name ~> /^Content$/i]:first')
     return result ? document.constructor.Content.from(document, result) : null
   }
 }
 
 /**
- * A module to provide atomic classes for working with ADI documents.
  * @public
+ * A module to provide atomic classes for working with ADI documents.
  * @module adi
  * @see {@link https://community.cablelabs.com/wiki/plugins/servlet/cablelabs/alfresco/download?id=8f900e8b-d1eb-4834-bd26-f04bd623c3d2}
  * @example
- * const xmltv = require('mediaxml/adi')
+ * const adi = require('mediaxml/adi')
  * const fs = require('fs')
  *
  * const stream = fs.createReadStream('./package.xml')

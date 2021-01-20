@@ -1,6 +1,7 @@
 const { Timecode: NPTTimecode } = require('npt-timecode')
 const SMPTETimecode = require('smpte-timecode')
 const camelcase = require('camelcase')
+const duration = require('tinyduration')
 
 /**
  * Regex used to match a SMPTE time code.
@@ -47,12 +48,25 @@ function normalizeValue(value) {
     void err
   }
 
+  try {
+    const result = duration.parse(value)
+    if (result) {
+      Object.defineProperty(result, 'toString', {
+        enumerable: false,
+        value: () => value
+      })
+    }
+    return result
+  } catch (err) {
+    void err
+  }
+
   if (/([0-9|\-|\.]+|now)/g.test(value)) {
     const normalPlayTime = NPTTimecode.from(value)
     if (normalPlayTime.start.isValid && !normalPlayTime.stop.isValid) {
       return normalPlayTime
     }
-}
+  }
 
   return value
 }

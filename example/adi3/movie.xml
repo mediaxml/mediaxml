@@ -129,7 +129,6 @@
 		<terms:BillingGracePeriod>PT300S</terms:BillingGracePeriod>
 		<terms:UsagePeriod>P00DT24H00M</terms:UsagePeriod>
 		<terms:HomeVideoWindow>P1000D</terms:HomeVideoWindow>
-		<terms:SubscriberViewLimit startDateTime="2002-02-01T00:00:00Z" endDateTime="2002-02-28T23:59:59Z" maximumViews="5"/>
 		<terms:SubscriberViewLimit startDateTime="2002-03-01T00:00:00Z" endDateTime="2002-03-31T23:59:59Z" maximumViews="5"/>
 		<terms:SuggestedPrice>5.95</terms:SuggestedPrice>
 		<terms:DistributorRoyaltyInfo>
