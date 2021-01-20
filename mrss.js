@@ -1,6 +1,5 @@
 const { normalizeValue } = require('./normalize')
 const { Entity } = require('./entity')
-const Timecode = require('smpte-timecode')
 const mime = require('mime')
 const path = require('path')
 const rss = require('./rss')
@@ -1890,8 +1889,8 @@ class MediaDescription extends Entity {
 
 /**
  * A media thumbnail container to store the image width, height, url and
- * a SMPTE timecode that corresponds to the media content this thumbnail
- * is associated with.
+ * a NPT (Normal Play Time) timecode that corresponds to the media content
+ * this thumbnail is associated with.
  * @public
  * @memberof mrss
  * @param {Document} document
@@ -1900,12 +1899,12 @@ class MediaDescription extends Entity {
 class MediaThumbnail extends rss.Image {
 
   /**
-   * The SMPTE timecode this thumbnail may correspond to in relation to
+   * The NTP timecode this thumbnail may correspond to in relation to
    * a media content object.
    * @public
    * @accessor
-   * @type {?Timecode}
-   * @see {@link https://github.com/CrystalComputerCorp/smpte-timecode}
+   * @type {?Number}
+   * @see {@link https://github.com/little-core-labs/npt-timecode}
    */
   get time() {
     return normalizeValue(this.node.attributes.time)
@@ -2067,18 +2066,27 @@ class MediaCredit extends Entity {
 }
 
 /**
+ * A container for media copyright information.
  * @public
  * @memberof mrss
  * @param {Document} document
  * @param {ParserNode} node
  */
 class MediaCopyright extends Entity {
+
+  /**
+   * The url for the copyright terms
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get url() {
     return this.node.attributes.url || null
   }
 }
 
 /**
+ * A container for transcript text.
  * @public
  * @memberof mrss
  * @param {Document} document
@@ -2097,6 +2105,12 @@ class MediaText extends Entity {
     return 'plain'
   }
 
+  /**
+   * The media text type.
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get type() {
     return (
       this.node.attributes.type ||
@@ -2106,44 +2120,97 @@ class MediaText extends Entity {
     )
   }
 
+  /**
+   * The media text language.
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get lang() {
-    return this.node.attributes.type || null
+    return this.node.attributes.lang || null
   }
 
+  /**
+   * The NPT (normal play time) start timecode this text is associated with.
+   * @public
+   * @accessor
+   * @type {?npt.Timecode}
+   * @see {@link https://github.com/little-core-labs/npt-timecode}
+   * @see {@link https://www.ietf.org/rfc/rfc2326.txt}
+   */
   get start() {
-    return normalizeValue(this.node.attributes.type)
+    return normalizeValue(this.node.attributes.start)
   }
 
+  /**
+   * The NPT (normal play time) stop/end timecode this text is associated with.
+   * @public
+   * @accessor
+   * @type {?npt.Timecode}
+   * @see {@link https://github.com/little-core-labs/npt-timecode}
+   * @see {@link https://www.ietf.org/rfc/rfc2326.txt}
+   */
   get end() {
-    return normalizeValue(this.node.attributes.type)
+    return normalizeValue(this.node.attributes.end)
   }
 
+  /**
+   * The text contents value.
+   * @public
+   * @accessor
+   * @type {?Number}
+   * @see {@link https://github.com/little-core-labs/npt-timecode}
+   * @see {@link https://www.ietf.org/rfc/rfc2326.txt}
+   */
   get value() {
     return this.text
   }
 }
 
 /**
+ * A container for a media restriction.
  * @public
  * @memberof mrss
  * @param {Document} document
  * @param {ParserNode} node
  */
 class MediaRestriction extends Entity {
+
+  /**
+   * The relationship of the restriction describes such as
+   * "allow" or "deny"
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get relationship() {
     return this.node.attributes.relationship || null
   }
 
+  /**
+   * The type of the restriction describes such "country" or "uri".
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get type() {
     return this.node.attributes.type || null
   }
 
+  /**
+   * The text contents value of the restriction.
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get value() {
     return this.text
   }
 }
 
 /**
+ * A container for media community information such as star ratings,
+ * statistics, and tags.
  * @public
  * @memberof mrss
  * @param {Document} document
@@ -2152,15 +2219,17 @@ class MediaRestriction extends Entity {
 class MediaCommunity extends Entity {
 
   /**
+   * An object describing the star rating attributes.
    * @public
    * @accessor
    * @type {?Object}
    */
   get starRating() {
-    return this.node.query('[name ~> /^media:starRating$/i]:first::attrs')
+    return this.node.query('[name ~> /^media:starRating$/i]:first:attrs')
   }
 
   /**
+   * An object describing various statistic attributes.
    * @public
    * @accessor
    * @type {?Object}
@@ -2170,9 +2239,10 @@ class MediaCommunity extends Entity {
   }
 
   /**
+   * An array of possible tag values.
    * @public
    * @accessor
-   * @type {?Object}
+   * @type {?Array<String>}
    */
   get tags() {
     const result = this.node.query('[name ~> /^media:tags$/i]:text')
@@ -2190,6 +2260,7 @@ class MediaCommunity extends Entity {
 }
 
 /**
+ * A media container for embedded media.
  * @public
  * @memberof mrss
  * @param {Document} document
@@ -2241,6 +2312,7 @@ class MediaEmbed extends Entity {
 }
 
 /**
+ * A container for reading media embed parameters.
  * @public
  * @memberof mrss
  * @param {Document} document
@@ -2249,6 +2321,8 @@ class MediaEmbed extends Entity {
 class MediaEmbedParameters extends Entity {
 
   /**
+   * Queries for the text contents of a media embed params
+   * that is the value for the named parameter.
    * @return {?Mixed}
    */
   get(key) {
@@ -2259,6 +2333,7 @@ class MediaEmbedParameters extends Entity {
 }
 
 /**
+ * A container for describing media status.
  * @public
  * @memberof mrss
  * @param {Document} document
@@ -2266,150 +2341,302 @@ class MediaEmbedParameters extends Entity {
  */
 class MediaStatus extends Entity {
 
+  /**
+   * Describes the media status state such as "blocked" or "deleted".
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get state() {
     return this.node.attributes.state
   }
 
+  /**
+   * Describes the media status reason for the state. It can be plain text or a URL.
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get reason() {
     return this.node.attributes.reason
   }
 }
 
 /**
+ * A container for describing the price of media content.
  * @public
  * @memberof mrss
  * @param {Document} document
  * @param {ParserNode} node
  */
 class MediaPrice extends Entity {
+
+  /**
+   * The price type such as: "rent", "purchase", "package" or "subscription".
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get type() {
     return this.node.attributes.type
   }
 
+  /**
+   * Describes if the price is for a "package" or "subscription".
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get info() {
     return this.node.attributes.info
   }
 
+  /**
+   * The actual price.
+   * @public
+   * @accessor
+   * @type {Number}
+   */
   get price() {
-    return this.node.attributes.price
+    return parseFloat(this.node.attributes.price)
   }
 
+  /**
+   * The currency of the price.
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get currency() {
     return this.node.attributes.currency
   }
 }
 
 /**
+ * A container for a media license backed by a URL.
  * @public
  * @memberof mrss
  * @param {Document} document
  * @param {ParserNode} node
  */
 class MediaLicense extends Entity {
+
+  /**
+   * The content type where the license lives at the href.
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get type() {
     return this.node.attributes.type
   }
 
+  /**
+   * The URL to the license.
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get href() {
     return this.node.attributes.href
   }
 
+  /**
+   * The human readable license name.
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get label() {
     return this.text
   }
 }
 
 /**
+ * A container for a subtitle file.
  * @public
  * @memberof mrss
  * @param {Document} document
  * @param {ParserNode} node
  */
 class MediaSubTitle extends Entity {
+
+  /**
+   * The content type of the subtitle fie.
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get type() {
     return this.node.attributes.type
   }
 
+  /**
+   * The URL of the subtitle tile.
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get href() {
     return this.node.attributes.href
   }
 
+  /**
+   * The language the subtitles are in.
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get lang() {
     return this.node.attributes.lang
   }
 }
 
 /**
+ * A container for a peerlink.
  * @public
  * @memberof mrss
  * @param {Document} document
  * @param {ParserNode} node
  */
 class MediaPeerLink extends Entity {
+
+  /**
+   * The peer link type, such as: "application/x-bittorrent".
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get type() {
     return this.node.attributes.type
   }
 
+  /**
+   * The URL of the peer link.
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get href() {
     return this.node.attributes.href
   }
 }
 
 /**
+ * A container for media rights.
  * @public
  * @memberof mrss
  * @param {Document} document
  * @param {ParserNode} node
  */
 class MediaRights extends Entity {
+
+  /**
+   * The status value of the media rights, such as: "userCreated" or "official".
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get status() {
     return this.node.attributes.status
   }
 }
 
 /**
+ * A container for media location data.
  * @public
  * @memberof mrss
  * @param {Document} document
  * @param {ParserNode} node
  */
 class MediaLocation extends Entity {
+
+  /**
+   * The description of the location.
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get description() {
     return this.node.attributes.description
   }
 
+  /**
+   * The NPT (normal play time) start time code.
+   * @public
+   * @accessor
+   * @type {npt.Timecode}
+   */
   get start() {
     return normalizeValue(this.node.attributes.start)
   }
 
+  /**
+   * The NPT (normal play time) stop time code.
+   * @public
+   * @accessor
+   * @type {npt.Timecode}
+   */
   get end() {
     return normalizeValue(this.node.attributes.end)
   }
 
+  /**
+   * A reference to the `<georss:where />` node.
+   * @public
+   * @accessor
+   * @type {?ParserNode}
+   */
   get georss() {
     return this.node.query('[name ~> /^georss:where$/i]')
   }
 }
 
 /**
+ * A container for a media scene.
  * @public
  * @memberof mrss
  * @param {Document} document
  * @param {ParserNode} node
  */
 class MediaScene extends Entity {
+
+  /**
+   * The media scene title.
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get title() {
     return this.node.query('[name ~> /^sceneTitle$/i]:first:text')
   }
 
+  /**
+   * The media scene description.
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get description() {
     return this.node.query('[name ~> /^sceneDescription$/i]:first:text')
   }
 
+  /**
+   * The NPT (normal play time) start time code.
+   * @public
+   * @accessor
+   * @type {npt.Timecode}
+   */
   get startTime() {
     return normalizeValue(this.node.query('[name ~> /^sceneStartTime$/i]:first:text'))
   }
 
+  /**
+   * The NPT (normal play time) end time code.
+   * @public
+   * @accessor
+   * @type {String}
+   */
   get endTime() {
     return normalizeValue(this.node.query('[name ~> /^sceneEndTime$/i]:first:text'))
   }

@@ -1,4 +1,5 @@
-const Timecode = require('smpte-timecode')
+const { Timecode: NPTTimecode } = require('npt-timecode')
+const SMPTETimecode = require('smpte-timecode')
 const camelcase = require('camelcase')
 
 /**
@@ -24,6 +25,11 @@ function normalizeValue(value) {
   }
 
   if ('string' === typeof value) {
+    const normalPlayTime = NPTTimecode.from(value)
+    if (normalPlayTime.start.isValid) {
+      return normalPlayTime
+    }
+
     if (/[0-9]?[0-9]\:[0-9]?[0-9]/.test(value)) {
       const [ m, s ] = value.split(':')
       value = ['00', m.padStart(2, 0), m.padEnd(2, 0)].join(':')
@@ -32,8 +38,9 @@ function normalizeValue(value) {
   }
 
   if (SMPTE_TIMECODE_REGEX.test(value)) {
-    return new Timecode(value)
+    return new SMPTETimecode(value)
   }
+
 
   if ('' === value) {
     return ''
