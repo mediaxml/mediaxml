@@ -1,12 +1,32 @@
 const { ParserNode, Parser } = require('./parser')
 
 /**
+ * An abstract document node.
+ * @public
+ * @abstract
+ * @memberof document
+ */
+class Node extends ParserNode {}
+
+/**
  * An abstract document object model.
  * @public
  * @abstract
  * @memberof document
  */
 class AbstractDocument extends ParserNode {
+
+  /**
+   * A reference to the `Node` class used by this
+   * document.
+   * @public
+   * @static
+   * @accessor
+   * @type {Node}
+   */
+  static get Node() {
+    return Node
+  }
 
   /**
    * The node name of the document. This static class property is an abstract
@@ -93,6 +113,18 @@ class AbstractDocument extends ParserNode {
   ready(callback) {
     return this.parser.then(callback)
   }
+
+  /**
+   * Creates and appends a child node to this node.
+   * @public
+   * @param {ParserNode} node
+   * @return {ParserNode}
+   * @throws TypeError
+   */
+  createChild(...args) {
+    const child = this.constructor.Node.from(...args)
+    return this.appendChild(child)
+  }
 }
 
 /**
@@ -124,5 +156,6 @@ class Document extends AbstractDocument {
  */
 module.exports = {
   AbstractDocument,
-  Document
+  Document,
+  Node
 }

@@ -1123,6 +1123,8 @@ class ParserNode {
     if ('function' === typeof node.onconnect) {
       node.onconnect(this, node)
     }
+
+    return node
   }
 
   /**
