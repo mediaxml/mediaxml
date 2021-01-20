@@ -43,10 +43,6 @@ class Entity {
       enumerable: false,
       value: node
     })
-
-    for (const [ key, value ] of node.attributes) {
-      Object.defineProperty(this, key, { value })
-    }
   }
 
   /**

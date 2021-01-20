@@ -17,30 +17,15 @@ const SMPTE_TIMECODE_REGEX = /^([012]\\d):(\\d\\d):(\\d\\d)(:|;|\\.)(\\d\\d)$/
  */
 function normalizeValue(value) {
   const { isFinite = global.isFinite } = Number
+  if (undefined === value) {
+    return null
+  }
 
   // `typeof` is not used so we can detect input that
   // boxes or extends a `String`
-  if (false === (value instanceof String)) {
+  if (false === (value instanceof String) && 'string' !== typeof value) {
     return value
   }
-
-  if ('string' === typeof value) {
-    const normalPlayTime = NPTTimecode.from(value)
-    if (normalPlayTime.start.isValid) {
-      return normalPlayTime
-    }
-
-    if (/[0-9]?[0-9]\:[0-9]?[0-9]/.test(value)) {
-      const [ m, s ] = value.split(':')
-      value = ['00', m.padStart(2, 0), m.padEnd(2, 0)].join(':')
-      value += ';00'
-    }
-  }
-
-  if (SMPTE_TIMECODE_REGEX.test(value)) {
-    return new SMPTETimecode(value)
-  }
-
 
   if ('' === value) {
     return ''
@@ -54,8 +39,17 @@ function normalizeValue(value) {
     return parseFloat(value)
   } else if (!Number.isNaN(Date.parse(value))) {
     return new Date(value)
-  } else if (undefined === value) {
-    return null
+  }
+
+  try {
+    return new SMPTETimecode(value)
+  } catch (err) {
+    void err
+  }
+
+  const normalPlayTime = NPTTimecode.from(value)
+  if (normalPlayTime.start.isValid) {
+    return normalPlayTime
   }
 
   return value
