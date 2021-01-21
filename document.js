@@ -5,8 +5,30 @@ const { ParserNode, Parser } = require('./parser')
  * @public
  * @abstract
  * @memberof document
+ * @param {String} name
+ * @param {?Object} attributes
+ * @param {?Number} depth
+ * @param {?Object} opts
  */
-class Node extends ParserNode {}
+class Node extends ParserNode {
+
+  /**
+   * Creates a new `Node` from input.
+   * @public
+   * @static
+   * @param {String|Node|Object} nameOrNode
+   * @param {?Object} attributes
+   * @param {?Object} opts
+   * @return {Node}
+   * @example
+   * const node = Node.from('App_Data', { app: 'SVOD', name: 'Type', value: 'title' })
+   * console.log(node)
+   * // <App_Data app="SVOD" name="Type" value="title" />
+   */
+  static from (nameOrNode, attributes, opts) {
+    return super.from(nameOrNode, attributes, opts)
+  }
+}
 
 /**
  * An abstract document object model.
