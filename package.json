@@ -41,9 +41,10 @@
     "mime": "^2.5.0",
     "minimist": "^1.2.5",
     "nanoassert": "^2.0.0",
-    "npt-timecode": "^0.1.0",
+    "npt-timecode": "^0.1.2",
     "number-to-words": "^1.2.4",
     "smpte-timecode": "^1.2.3",
+    "streamx": "^2.10.1",
     "tinyduration": "^3.2.0"
   },
   "devDependencies": {

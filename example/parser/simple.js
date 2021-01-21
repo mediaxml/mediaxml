@@ -6,26 +6,8 @@ const filename = path.resolve(__dirname, '..', 'adi1', 'tvshow.xml')
 const stream = fs.createReadStream(filename)
 const parser = new Parser()
 
-module.exports = parser
-
 stream.pipe(parser.createWriteStream())
   .on('error', (err) => { console.log(err.message || err) })
   .on('finish', () => {
-    const { rootNode } = parser
-    return console.log(rootNode);
-    console.log(getADIMetadata(rootNode))
-    console.log(getADIAssets(rootNode));
-    console.log(getADIAssets(rootNode).map(getAssetMetadata));
+    parser.createReadStream().pipe(process.stdout)
   })
-
-function getADIMetadata(node) {
-  return node.query('[name="metadata"]')
-}
-
-function getADIAssets(node) {
-  return node.query('[name="asset"]')
-}
-
-function getAssetMetadata(node) {
-  return node.query('[name="metadata"]')
-}

@@ -1,4 +1,5 @@
 const { WritableStream } = require('htmlparser2/lib/WritableStream')
+const { Readable } = require('streamx')
 const htmlparser2 = require('htmlparser2')
 const { inspect } = require('util')
 const camelcase = require('camelcase')
@@ -180,9 +181,18 @@ class ParserNodeAttributes {
   }
 
   /**
+   * Returns an iterable generator for this attributes object.
+   * @public
+   * @return {Generator}
+   */
+  iterator() {
+    return this[Symbol.iterator]()
+  }
+
+  /**
    * Implements `Symbol.iterator` symbol for converting this to an
    * iterable object of key-value pairs
-   * @public
+   * @protected
    * @return {Iterator}
    */
   *[Symbol.iterator]() {
@@ -299,6 +309,15 @@ class ParserNodeText extends String {
    */
   get isText() {
     return true
+  }
+
+  /**
+   * Returns an iterable generator for this text node.
+   * @public
+   * @return {Generator}
+   */
+  iterator() {
+    return this[Symbol.iterator]()
   }
 
   /**
@@ -1200,6 +1219,15 @@ class ParserNode {
     // lazy load
     const { query } = require('./query')
     return query(this, queryString, opts)
+  }
+
+  /**
+   * Returns an iterable generator for this node.
+   * @public
+   * @return {Generator}
+   */
+  iterator() {
+    return this[Symbol.iterator]()
   }
 
   /**
@@ -2232,6 +2260,48 @@ class Parser extends htmlparser2.Parser {
     Object.defineProperty(stream, 'parser', { get: () => stream._parser })
     this.catch((err) => stream.emit('error', err))
     return stream
+  }
+
+  /**
+   * Creates a `ReadableStream` for the `Parser` instance.
+   * @public
+   * @param {?Object} opts
+   * @return {ReadableStream}
+   * @see {@link https://github.com/streamxorg/streamx#readable-stream}
+   * @example
+   * parser.createReadStream().pipe(process.stdout)
+   */
+  createReadStream(opts) {
+    const { rootNode } = this
+    const stream = new Readable({ read })
+    const BYTES = 4096
+    let view = null
+    let i = 0
+
+    process.nextTick(ontick)
+
+    return stream
+
+    function ontick() {
+      try {
+        view = Buffer.from(rootNode.toString())
+      } catch (err) {
+        stream.emit('error', err)
+      }
+    }
+
+    function read(done) {
+      const buffer = view.slice(i, i + BYTES)
+      i += BYTES
+
+      if (buffer.length) {
+        this.push(buffer)
+      } else {
+        this.push(null)
+      }
+
+      done(null)
+    }
   }
 
   /**
