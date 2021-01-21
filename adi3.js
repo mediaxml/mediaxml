@@ -715,6 +715,12 @@ class Asset extends adi.Asset {
   }
 }
 
+/**
+ * @public
+ * @memberof adi3
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class SubscriberViewLimit extends Entity {
   get startDateTime() {
     return normalizeValue(this.node.attributes.startDateTime)
@@ -729,6 +735,12 @@ class SubscriberViewLimit extends Entity {
   }
 }
 
+/**
+ * @public
+ * @memberof adi3
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class AlternateId extends Entity {
   get identifierSystem() {
     return this.node.attributes.identifierSystem || null
@@ -739,21 +751,45 @@ class AlternateId extends Entity {
   }
 }
 
+/**
+ * @public
+ * @memberof adi3
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class Extension extends adi.Metadata {
 }
 
+/**
+ * @public
+ * @memberof adi3
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class EncryptionInfo extends Entity {
   get receiverType() {
     return this.node.query('[name ~> /^content:ReceiverType$/i]:first:text') || null
   }
 }
 
+/**
+ * @public
+ * @memberof adi3
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class CopyControlInfo extends Entity {
   get isCopyProtection() {
     return 'true' === this.node.query('[name ~> /^title:IsCopyProtection$/i]:text')
   }
 }
 
+/**
+ * @public
+ * @memberof adi3
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class Rating extends Entity {
   get system() {
     return this.node.attributes.ratingSystem || super.system
@@ -764,6 +800,12 @@ class Rating extends Entity {
   }
 }
 
+/**
+ * @public
+ * @memberof adi3
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class DistributorRoyaltyInfo extends Entity {
   get organizationName() {
     return this.node.query('[name ~> /^terms:OrganizationName$/i]:first:text') || null
@@ -782,6 +824,12 @@ class DistributorRoyaltyInfo extends Entity {
   }
 }
 
+/**
+ * @public
+ * @memberof adi3
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class StudioRoyaltyInfo extends Entity {
   get organizationCode() {
     return this.node.query('[name ~> /^terms:OrganizationCode$/i]:first:text') || null
@@ -804,6 +852,12 @@ class StudioRoyaltyInfo extends Entity {
   }
 }
 
+/**
+ * @public
+ * @memberof adi3
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class LocalizableTitle extends Entity {
   get titleSortName() {
     return this.node.query('[name ~> /^title:TitleSortName$/i]:first:text') || null
@@ -913,6 +967,12 @@ class LocalizableTitle extends Entity {
   }
 }
 
+/**
+ * @public
+ * @memberof adi3
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class Actor extends Entity {
   get fullName() {
     return this.node.attributes.fullName || null
@@ -931,6 +991,12 @@ class Actor extends Entity {
   }
 }
 
+/**
+ * @public
+ * @memberof adi3
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class Director extends Entity {
   get fullName() {
     return this.node.attributes.fullName || null
@@ -949,6 +1015,12 @@ class Director extends Entity {
   }
 }
 
+/**
+ * @public
+ * @memberof adi3
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class Chapter extends Entity {
   get heading() {
     return this.node.attributes.heading || null
@@ -959,12 +1031,18 @@ class Chapter extends Entity {
   }
 }
 
+/**
+ * @public
+ * @memberof adi3
+ * @param {Document} document
+ * @param {ParserNode} node
+ */
 class Presentation extends Entity {
 
   /**
    * @public
    * @accessor
-   * @type {}
+   * @type {?String}
    */
   get categoryRef() {
     return this.node.query('[name ~> /^offer:CategoryRef$/i]:first:attr(uriId)') || null
@@ -973,7 +1051,7 @@ class Presentation extends Entity {
   /**
    * @public
    * @accessor
-   * @type {}
+   * @type {?String}
    */
   get displayAsNew() {
     return this.node.query('[name ~> /^offer:DisplayAsNew$/i]:first:text') || null
@@ -982,7 +1060,7 @@ class Presentation extends Entity {
   /**
    * @public
    * @accessor
-   * @type {}
+   * @type {?String}
    */
   get displayAsLastChance() {
     return this.node.query('[name ~> /^offer:DisplayAsLastChance$/i]:first:text') || null

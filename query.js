@@ -113,6 +113,12 @@ function query(node, queryString, opts) {
     expression = jsonata(queryString)
     cache.set(queryString, expression)
 
+    // $int(input: any): int
+    expression.registerFunction('int', (input) => parseInt(+normalizeValue(String(input))))
+
+    // $float(input: any): float
+    expression.registerFunction('float', (input) => parseFloat(+normalizeValue(String(input))))
+
     // $camelcase(input: string): string
     expression.registerFunction('camelcase', (...args) => camelcase(...args))
 

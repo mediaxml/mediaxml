@@ -1222,7 +1222,7 @@ class Programme extends Entity {
 /**
  * A module to provide atomic classes for working with XMLTV documents.
  * @public
- * @module adi
+ * @module xmltv
  * @see {@link http://wiki.xmltv.org/index.php/XMLTVFormat}
  * @see {@link https://github.com/XMLTV/xmltv/blob/master/xmltv.dtd}
  * @example

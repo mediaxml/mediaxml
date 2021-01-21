@@ -650,11 +650,10 @@ class Item extends Entity {
   }
 
   /**
-   * Computed category for this item. Queries the first `<category />`
-   * node for text value.
+   * Computed category for this item.
    * @public
    * @accessor
-   * @type {?String}
+   * @type {?Category}
    */
   get category() {
     return this.categories[0] || null
@@ -665,7 +664,7 @@ class Item extends Entity {
    * nodes for text values.
    * @public
    * @accessor
-   * @type {?String}
+   * @type {<Category>}
    */
   get categories() {
     const result = this.node.query(':children[name ~> /^category$/i]')
@@ -675,8 +674,7 @@ class Item extends Entity {
   }
 
   /**
-   * Computed comments for this channel. Queries the all `<category />`
-   * nodes for text values.
+   * Computed comments for this channel.
    * @public
    * @accessor
    * @type {?String}
@@ -684,6 +682,32 @@ class Item extends Entity {
   get comments() {
     const result = this.node.query(':children[name ~> /^comment$/i]:text')
     return result ? [].concat(result) : []
+  }
+
+  /**
+   * Computed sources for this channel.
+   * @public
+   * @accessor
+   * @type {Array<Source>}
+   */
+  get sources() {
+    const result = this.node.query(':children[name ~> /^source$/i]')
+    return !result ? [] : [].concat(result).map((source) => {
+      return this.document.constructor.Source.from(this.document, source)
+    })
+  }
+
+  /**
+   * Computed enclosures for this channel.
+   * @public
+   * @accessor
+   * @type {Array<Enclosure>}
+   */
+  get enclosures() {
+    const result = this.node.query(':children[name ~> /^Enclosure$/i]')
+    return !result ? [] : [].concat(result).map((source) => {
+      return this.document.constructor.Enclosure.from(this.document, source)
+    })
   }
 }
 

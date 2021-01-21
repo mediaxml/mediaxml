@@ -99,29 +99,6 @@ function getComputedBackLinks(entity) {
 }
 
 /**
- * Queries and returns an array of computed backLinks
- * found in `<media:backLinks />` nodes.
- * @private
- * @param {Entity} entity
- * @return {Array<String>}
- */
-function getComputedBackLinks(entity) {
-  const { node } = entity
-  const backLinks = []
-  const results = []
-    .concat(node.query(':children[name ~> /^media:backLinks$/i]:children[name ~> /^media:backLink$/i]:text'))
-    .filter(Boolean)
-
-  for (const result of results) {
-    if ('string' === typeof result) {
-      backLinks.push(result.trim())
-    }
-  }
-
-  return backLinks
-}
-
-/**
  * Queries and returns an array of computed ratings as MediaRating
  * instances found in `<media:rating />` nodes.
  * @private

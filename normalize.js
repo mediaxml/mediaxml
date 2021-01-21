@@ -132,8 +132,9 @@ function normalizeAttributeValue(value) {
 }
 
 /**
- * Module exports.
- * @private
+ * A module that provides various normalization functions.
+ * @public
+ * @module normalize
  */
 module.exports = {
   normalizeAttributes,

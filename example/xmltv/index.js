@@ -6,6 +6,6 @@ const filename = path.resolve(__dirname, 'epg.xml')
 const document = xmltv.Document.from(fs.createReadStream(filename))
 
 document.ready(() => {
-  console.log(document.query('programmes.title[lang="en"].value'))
+  console.log(document.query(`programmes[$int(start) > $int("${Date()}")]`))
 })
 .catch(console.error)

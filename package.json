@@ -4,8 +4,8 @@
   "description": "A module for working with media manifests represented by XML like ADI, mRSS, and SCTE236.",
   "scripts": {
     "test": "tape tests",
-    "docs:server": "documentation serve -w index.js -a public -g",
-    "docs:build": "documentation build index.js -a public -g -o docs/api"
+    "docs:server": "documentation serve -w index.js -a public -g -c documentation.yml",
+    "docs:build": "documentation build index.js -a public -f html -g -o docs -c documentation.yml"
   },
   "bin": {
     "mxml": "bin/mxml"
@@ -50,5 +50,19 @@
     "documentation": "^13.1.0",
     "nyc": "^15.1.0",
     "tape": "^5.1.1"
-  }
+  },
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "example",
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/little-core-labs/mediaxml.git"
+  },
+  "bugs": {
+    "url": "https://github.com/little-core-labs/mediaxml/issues"
+  },
+  "homepage": "https://github.com/little-core-labs/mediaxml#readme"
 }

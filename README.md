@@ -21,7 +21,7 @@ See the [Usage Guide](docs/guide).
 
 ## API
 
-See the [API Documentation](docs/api).
+See the [API Documentation](https://little-core-labs.github.io/mediaxml/docs).
 
 ## See Also
   * [Media RSS Specification](https://www.rssboard.org/media-rss)

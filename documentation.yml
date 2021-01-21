@@ -1,0 +1,36 @@
+project-name: MediaXML
+toc:
+  - name: "Guide"
+    file: "docs/guide/README.md"
+    description: "Installation and usage guides."
+    children:
+      - name: "Installation"
+        file: "docs/guide/installation.md"
+      - name: "Usage"
+        file: "docs/guide/usage.md"
+      - name: "ADI"
+        file: "docs/guide/adi.md"
+      - name: "ADI3 (SCTE-236)"
+        file: "docs/guide/adi3.md"
+      - name: "RSS"
+        file: "docs/guide/rss.md"
+      - name: "mRSS"
+        file: "docs/guide/mrss.md"
+      - name: "XMLTV"
+        file: "docs/guide/xmltv.md"
+  - name: "API"
+    description: "MediaXML modules that provide atomic classes and views for various XML documents."
+    children:
+      - adi
+      - adi3
+      - rss
+      - mrss
+      - xmltv
+  - name: "Core"
+    description: "Core modules for implementing the MediaXML API."
+    children:
+      - parser
+      - document
+      - entity
+      - query
+      - normalize
