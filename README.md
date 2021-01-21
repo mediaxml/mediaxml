@@ -12,7 +12,18 @@ $ npm install mediaxml
 ## Example
 
 ```js
-// TODO
+const path = require('path')
+const rss = require('mediaxml/rss')
+const fs = require('fs')
+
+const stream = fs.createReadStream('feed.rss')
+const document = rss.Document.from(stream)
+
+document.ready(() => {
+  for (const item of document.channel.items) {
+    console.log(item.title, item.description, item.link)
+  }
+})
 ```
 
 ## Usage

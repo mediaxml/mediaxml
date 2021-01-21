@@ -1,4 +1,11 @@
-## Getting Started
+The `mediaxml` module provides various implementations of XML formats
+for describing media packages, manifests, and feeds such as [RSS](#rss),
+[mRSS](#mrss), [ADI](#adi), and [XMLTV](#xmltv).
+
+### Simple Example
+
+In the example below, we parse a [rss](#rss) feed and enumerate
+all of the items in the document's channel.
 
 ```js
 const path = require('path')
@@ -15,7 +22,9 @@ document.ready(() => {
 })
 ```
 
-## Parsing Documents
+### Parsing Documents
+
+Parsing a XML document using streams:
 
 ```js
 const { Parser } = require('mediaxml/parser')
@@ -28,10 +37,16 @@ const parser = new Parser()
 stream.pipe(parser.createWriteStream()).on('finish', () => {
   console.log(parser.rootNode.sourceInfoUrl, parser.rootNode.sourceInfoName)
   console.log(parser.rootNode.children)
+  parser.createReadStream().pipe(process.stdout)
 })
 ```
 
-### Querying Data Parsed Documents
+#### Querying the Document Object Model
+
+The [query](#query-guide) API is a powerful tool for querying the
+document object model produced by the [parser](#parsing-documents)
+using [JSONata](https://jsonata.org) query syntax with a [preprocessor
+syntax](#query-preprocessor).
 
 ```js
 const { rootNode } = parser
@@ -43,19 +58,19 @@ const channels = rootNode.query('[name="channel"]')
 const programmes = rootNode.query('[name="programme"]')
 
 // query all nodes in document with tag name "category"
-// and select the text content
+// and select the text content (selected with the `:text` preprocessor function)
 const categories = rootNode.query('**[name="category"]:text')
 
 // query all nodes in document with tag name "programme"
-// an `start` attribute (selected with the `attr()` function)
+// an `start` attribute (selected with the `attr()` preprocessor function)
 // integer value greater than todays
 const programmesInFuture = rootNode.query(`[
-  name="programmes" AND
+  name = "programmes" AND
   $int(attr(start)) > $int("${Date()}")
 ]`)
 ```
 
-## Creating Documents
+### Creating Documents
 
 ```js
 const { Document } = require('mediaxml/document')
@@ -92,3 +107,7 @@ console.log(document.toString())
 //   </Metadata>
 // </ADI>
 ```
+
+### See Also
+
+

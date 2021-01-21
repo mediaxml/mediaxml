@@ -5,7 +5,9 @@
   "scripts": {
     "test": "tape tests",
     "docs:server": "documentation serve -w index.js -a public -g -c documentation.yml",
-    "docs:build": "documentation build index.js -a public -f html -g -o docs -c documentation.yml"
+    "docs:build": "npm run docs:build:html && npm run docs:build:md",
+    "docs:build:html": "documentation build index.js -a public -f html -g -o docs -c docs/html.yml",
+    "docs:build:md": "documentation build index.js -a public -f md -g -o docs/api.md -c docs/md.yml"
   },
   "bin": {
     "mxml": "bin/mxml"

@@ -1,0 +1,19 @@
+project-name: "MediaXML"
+toc:
+  - name: "API"
+    description: "MediaXML modules that provide atomic classes and views for various XML documents."
+    children:
+      - "adi"
+      - "adi3"
+      - "rss"
+      - "mrss"
+      - "xmltv"
+
+  - name: "Core"
+    description: "Core modules for implementing the MediaXML API."
+    children:
+      - "parser"
+      - "document"
+      - "entity"
+      - "query"
+      - "normalize"

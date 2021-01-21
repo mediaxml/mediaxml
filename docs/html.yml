@@ -1,38 +1,38 @@
 project-name: "MediaXML"
 toc:
   - name: "Installation"
-    file: "docs/guide/installation.md"
+    file: "guide/installation.md"
 
   - name: "Getting Started"
-    file: "docs/guide/README.md"
+    file: "guide/README.md"
     description: "Installation and usage guides."
 
   - name: "Usage Guide"
-    file: "docs/guide/usage.md"
+    file: "guide/usage.md"
     description: "General usage guide."
 
   - name: "Query Guide"
-    file: "docs/guide/query.md"
+    file: "guide/query.md"
     description: "Query syntax and user guide."
 
   - name: "ADI"
-    file: "docs/guide/adi.md"
+    file: "guide/adi.md"
     description: "Asset Delivery Interface 1.1 (ADI) (CableLabsVOD1.1) user guide."
 
   - name: "ADI3 (SCTE-236)"
-    file: "docs/guide/adi3.md"
+    file: "guide/adi3.md"
     description: "Asset Delivery Interface 3 (ADI3) (SCTE-236) user guide."
 
   - name: "RSS"
-    file: "docs/guide/rss.md"
+    file: "guide/rss.md"
     description: "RSS user guide."
 
   - name: "mRSS"
-    file: "docs/guide/mrss.md"
+    file: "guide/mrss.md"
     description: "mRSS user guide."
 
   - name: "XMLTV"
-    file: "docs/guide/xmltv.md"
+    file: "guide/xmltv.md"
     description: "XMLTV user guide."
 
   - name: "API"
