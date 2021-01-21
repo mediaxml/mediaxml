@@ -10,7 +10,7 @@ const XMLTV_DATETIME_FORMAT = 'YYYYMMDDHHmmss Z'
  * An extended `Document` that represents an XMLTV document with special
  * entity access.
  * @public
- * @memberof adi
+ * @memberof xmltv
  * @param {Document|Parser|String|ReadableStream} input
  * @param {?Object} opts
  * @example
