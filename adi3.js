@@ -1068,6 +1068,17 @@ class Presentation extends Entity {
 }
 
 /**
+ * Factory for creating `Document` instances.
+ * @public
+ * @memberof adi3
+ * @return {Document}
+ * @see {Document}
+ */
+function createDocument(...args) {
+  return Document.from(...args)
+}
+
+/**
  * A module to provide atomic classes for working with ADI3 documents.
  * @public
  * @module adi3
@@ -1077,7 +1088,7 @@ class Presentation extends Entity {
  * const fs = require('fs')
  *
  * const stream = fs.createReadStream('./package.xml')
- * const document = adi3.Document.from(stream)
+ * const document = adi3.createDocument(stream)
  *
  * document.ready(() => {
  *   for (const asset of document.assets) {
@@ -1090,6 +1101,7 @@ module.exports = {
   Asset,
   Chapter,
   CopyControlInfo,
+  createDocument,
   Director,
   DistributorRoyaltyInfo,
   Document,

@@ -253,12 +253,18 @@ class ParserNodeText extends String {
    * @param {String} text
    */
   constructor(text) {
-    super(text || '')
+    if ('string' !== typeof text) {
+      text = ''
+    }
+
+    text = text.trim()
+
+    super(text)
 
     Object.defineProperty(this, 'text', {
       enumerable: false,
       configurable: false,
-      get: () => text || ''
+      get: () => text
     })
 
     const descriptors = Object.getOwnPropertyDescriptors(String.prototype)
@@ -567,9 +573,10 @@ class ParserNode {
    */
   static isParserNode(input) {
     return (
-      input instanceof this ||
+      input instanceof ParserNode ||
+      input instanceof this.Fragment ||
       input instanceof this.Text ||
-      input instanceof this.Fragment
+      input instanceof this
     )
   }
 
@@ -708,6 +715,12 @@ class ParserNode {
       Array.from(Array.isArray(opts && opts.children) ? opts.children : [])
       .map((child) => child && child._data ? child._data : child)
     )
+
+    Object.defineProperty(children, 'toJSON', {
+      configurable: false,
+      enumerable: false,
+      get: () => children.map((child) => child.toJSON())
+    })
 
     Object.defineProperty(this, 'children', {
       configurable: false,
@@ -1123,6 +1136,7 @@ class ParserNode {
    */
   appendChild(node) {
     if (!node || !this.constructor.isParserNode(node)) {
+      console.log(this.constructor.isParserNode(node))
       throw new TypeError(
         'Invalid input node for appendChild: ' +
         'The node to be appened is not an instance of \'ParserNode\'.')

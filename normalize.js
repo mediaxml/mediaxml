@@ -11,10 +11,41 @@ const duration = require('tinyduration')
 const SMPTE_TIMECODE_REGEX = /^([012]\\d):(\\d\\d):(\\d\\d)(:|;|\\.)(\\d\\d)$/
 
 /**
- * Normalize a value from a string or mixed input
- * @ignore
- * @param {?Mixed} value
- * @return {?Mixed}
+ * Normalize a value from a string or mixed input.
+ * @public
+ * @memberof normalize
+ * @param {?*} value
+ * @return {?*}
+ * @see https://github.com/MelleB/tinyduration
+ * @see https://github.com/little-core-labs/npt-timecode
+ * @see https://github.com/CrystalComputerCorp/smpte-timecode
+ * @example
+ * console.log(normalizeValue())
+ * // null
+ * @example
+ * console.log(normalizeValue(true))
+ * // true
+ * @example
+ * console.log(normalizeValue(false))
+ * // true
+ * @example
+ * console.log(normalizeValue('foo'))
+ * // 'foo'
+ * @example
+ * console.log(normalizeValue('123.45'))
+ * // 123.45
+ * @example
+ * console.log(normalizeValue('2021-01-23T18:12:42.963Z'))
+ * // Date (2021-01-23T18:12:42.963Z)
+ * @example
+ * console.log('NPT Timecode', normalizeValue('00:45))
+ * // Timecode (00:00:45-) { start: Time (00:45:32) { value: 2732 }, ... }
+ * @example
+ * console.log('SMPTE Timecode', normalizeValue('00:45:32;00'))
+ * // Timecode  { frameRate: 29.97, dropFrame: true, .... }
+ * @example
+ * console.log('ISO-8601 Duration', normalizeValue('P1Y2M3DT4H5M6S'))
+ * // { years: 1, months: 2, days: 3, ... }
  */
 function normalizeValue(value) {
   const { isFinite = global.isFinite } = Number
@@ -61,9 +92,9 @@ function normalizeValue(value) {
     void err
   }
 
-  if (/([0-9|\-|\.]+|now)/g.test(value)) {
+  if (/([0-9|-|.|:]+|now)/g.test(value)) {
     const normalPlayTime = NPTTimecode.from(value)
-    if (normalPlayTime.start.isValid && !normalPlayTime.stop.isValid) {
+    if (normalPlayTime.start.isValid || normalPlayTime.stop.isVald) {
       return normalPlayTime
     }
   }
@@ -73,14 +104,23 @@ function normalizeValue(value) {
 
 /**
  * Normalize attribute key-value pairs.
- * @ignore
+ * @public
+ * @memberof normalize
  * @param {Object} attribute
  * @param {?Object} opts
  * @param {?Boolean} [opts.preserveConsecutiveUppercase = true] - Preserve consecutive uppercase characters in keys
  * @param {?Boolean} [opts.normalizeValues = true] - Preserve consecutive uppercase characters in keys
  * @return {Object}
+ * @example
+ * const attrs = normalizeAttributes({ Time_Code: '00:01.5-01:00' })
+ * console.log(attrs.timeCode)
+ * // Timecode (00:00:01.5-00:01:00) {
+ * //   start: Time (00:00:01.5) { value: 1.5 },
+ * //   stop: Time (00:01:00) { value: 60 }
+ * // }
  */
 function normalizeAttributes(attributes, opts) {
+  if (!opts) { opts = {} }
   if (!attributes) { return {} }
 
   const keys = Object.keys(attributes)
@@ -106,15 +146,47 @@ function normalizeAttributes(attributes, opts) {
 }
 
 /**
+ * Normalize key.
+ * @public
+ * @memberof normalize
+ * @param {String} key - Key to normalize
+ * @param {?Object} opts - Key normalization options
+ * @param {?Boolean} [opts.preserveConsecutiveUppercase = false] - Preserve consecutive uppercase characters
+ * @return {String}
+ * @see https://github.com/sindresorhus/camelcase
+ * @example
+ * console.log(normalizeKey('Asset_ID'))
+ * // 'assetId'
+ * @example
+ * console.log(normalizeKey('Asset_ID'), { preserveConsecutiveUppercase: true })
+ * // 'assetID'
+ */
+function normalizeKey(key, opts) {
+  return camelcase(key, {
+    preserveConsecutiveUppercase: false,
+    ...opts
+  })
+}
+
+/**
  * Normalize attribute key.
- * @ignore
+ * @public
+ * @memberof normalize
  * @param {String} key - Key to normalize
  * @param {?Object} opts - Key normalization options
  * @param {?Boolean} [opts.preserveConsecutiveUppercase = true] - Preserve consecutive uppercase characters
  * @return {String}
+ * @see normalizeKey
+ * @see https://github.com/sindresorhus/camelcase
+ * @example
+ * console.log(normalizeAttributeKey('Provider_ID'))
+ * // 'providerID'
+ * @example
+ * console.log(normalizeAttributeKey('Provider_ID'), { preserveConsecutiveUppercase: false })
+ * // 'providerId'
  */
 function normalizeAttributeKey(key, opts) {
-  return camelcase(key, {
+  return normalizeKey(key, {
     preserveConsecutiveUppercase: true,
     ...opts
   })
@@ -122,10 +194,14 @@ function normalizeAttributeKey(key, opts) {
 
 /**
  * Normalize attribute value.
- * @ignore
+ * @public
+ * @memberof normalize
  * @param {String} value - Value to normalize
- * @param {?Object} opts - Value normalization options **unusued**
  * @return {String}
+ * @see normalizeValue
+ * @example
+ * console.log(normalizeAttributeValue('2021-01-23T18:12:42.963Z'))
+ * // Date (2021-01-23T18:12:42.963Z)
  */
 function normalizeAttributeValue(value) {
   return normalizeValue(value)
@@ -135,10 +211,24 @@ function normalizeAttributeValue(value) {
  * A module that provides various normalization functions.
  * @public
  * @module normalize
+ * @example
+ * const { normalizeKey, normalizeValue, normalizeAttributes } = require('mediaxml/normalize')
+ * console.log(normalizeKey('Asset_ID'))
+ * // 'assetId'
+ *
+ * console.log(normalizeValue('2021-01-23T18:12:42.963Z'))
+ * // Date (2021-01-23T18:12:42.963Z)
+ *
+ * console.log(normalizeAttributes({ Time_Code: '00:01.5-01:00' }).timeCode)
+ * // Timecode (00:00:01.5-00:01:00) {
+ * //   start: Time (00:00:01.5) { value: 1.5 },
+ * //   stop: Time (00:01:00) { value: 60 }
+ * // }
  */
 module.exports = {
   normalizeAttributes,
   normalizeAttributeKey,
   normalizeAttributeValue,
+  normalizeKey,
   normalizeValue
 }

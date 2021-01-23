@@ -5,30 +5,13 @@ const { ParserNode, Parser } = require('./parser')
  * @public
  * @abstract
  * @memberof document
+ * @see [ParserNode](#parserparsernode)
  * @param {String} name
  * @param {?Object} attributes
  * @param {?Number} depth
  * @param {?Object} opts
  */
-class Node extends ParserNode {
-
-  /**
-   * Creates a new `Node` from input.
-   * @public
-   * @static
-   * @param {String|Node|Object} nameOrNode
-   * @param {?Object} attributes
-   * @param {?Object} opts
-   * @return {Node}
-   * @example
-   * const node = Node.from('App_Data', { app: 'SVOD', name: 'Type', value: 'title' })
-   * console.log(node)
-   * // <App_Data app="SVOD" name="Type" value="title" />
-   */
-  static from (nameOrNode, attributes, opts) {
-    return super.from(nameOrNode, attributes, opts)
-  }
-}
+class Node extends ParserNode { }
 
 /**
  * An abstract document object model.
@@ -36,7 +19,7 @@ class Node extends ParserNode {
  * @abstract
  * @memberof document
  */
-class AbstractDocument extends ParserNode {
+class AbstractDocument extends Node {
 
   /**
    * A reference to the `Node` class used by this
@@ -85,7 +68,14 @@ class AbstractDocument extends ParserNode {
     }
 
     if ('string' === typeof input) {
-      return new this(Parser.from(input), opts)
+      if (/[<|>|=|"|'|.]+/g.test(input)) {
+        return new this(Parser.from(input), opts)
+      } else {
+        return new this(Parser.from(input), {
+          ...opts,
+          nodeName: input
+        })
+      }
     }
 
     if (input && input.pipe) {
@@ -115,15 +105,15 @@ class AbstractDocument extends ParserNode {
       value: parser
     })
 
-    parser.then(() => {
-      const { rootNode } = parser
+    const { rootNode } = parser
+    if (rootNode) {
       this.name = rootNode.originalName
       this.body = rootNode.body
       this.comments.push(...rootNode.comments)
       this.attributes.set(rootNode.attributes)
       this.children.splice(0, this.children.length, ...rootNode.children)
       Object.assign(this.originalAttributes, rootNode.originalAttributes)
-    })
+    }
   }
 
   /**
@@ -172,12 +162,75 @@ class Document extends AbstractDocument {
 }
 
 /**
- * Module exports.
+ * Factory for creating `Document` instances.
+ * @public
+ * @memberof document
+ * @return {Document}
+ */
+function createDocument(...args) {
+  return Document.from(...args)
+}
+
+/**
+ * Factory for creating `Node` instances.
+ * @public
+ * @memberof node
+ * @return {Node}
+ */
+function createNode(...args) {
+  return Node.from(...args)
+}
+
+/**
+ * A core module for working with and building XML documents. The
+ * interfaces provided by this module are porcelain and be used instead
+ * of the [_parser API_](#parser).
  * @public
  * @module document
+ * @see [ParserNode](#parserparsernode)
+ * @example
+ * const { createDocument, createNode } = require('mediaxml/document')
+ *
+ * const assets = []
+ * const document = createDocument(`
+ * <?xml version="1.0"?>
+ * <package>
+ *   <assets />
+ * </package>
+ * `)
+ *
+ * assets.push(createNode('asset', {
+ *   name: 'first',
+ *   url: 'https://example.com/first.mp4'
+ * }))
+ *
+ * assets.push(createNode('asset', {
+ *   name: 'second',
+ *   url: 'https://example.com/second.mp4'
+ * }))
+ *
+ * document.query('[name="assets"]').append(...assets)
+ *
+ * console.log(document)
+ * // <package>
+ * //   <assets>
+ * //     <asset name="first" url="https://example.com/first.mp4" />
+ * //     <asset name="second" url="https://example.com/second.mp4" />
+ * //   </assets>
+ * // </package>
+ *
+ * const urls = document.query('**[name="asset"]:attr(url)')
+ *
+ * console.log(urls)
+ * // ParserNodeFragment(2) [
+ * //   'https://example.com/first.mp4',
+ * //   'https://example.com/second.mp4'
+ * // ]
  */
 module.exports = {
   AbstractDocument,
+  createDocument,
+  createNode,
   Document,
   Node
 }

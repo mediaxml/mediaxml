@@ -850,7 +850,7 @@ class Item extends rss.Item {
    */
   get author() {
     return super.author || this.node.query(`
-      **[name ~> /^media:credit$/i AND attr(role)="author"]:first
+      **[name ~> /^media:credit$/i AND attr(role)="author"]:first:text
     `)
   }
 
@@ -2620,6 +2620,17 @@ class MediaScene extends Entity {
 }
 
 /**
+ * Factory for creating `Document` instances.
+ * @public
+ * @memberof mrss
+ * @return {Document}
+ * @see {Document}
+ */
+function createDocument(...args) {
+  return Document.from(...args)
+}
+
+/**
  * A module to provide atomic classes for working with mRSS documents.
  * @public
  * @module mrss
@@ -2629,7 +2640,7 @@ class MediaScene extends Entity {
  * const fs = require('fs')
  *
  * const stream = fs.createReadStream('./feed.rss')
- * const document = mrss.Document.from(stream)
+ * const document = mrss.createDocument(stream)
  *
  * document.ready(() => {
  *   const { channel } = document
@@ -2641,6 +2652,7 @@ class MediaScene extends Entity {
  */
 module.exports = {
   Channel,
+  createDocument,
   Document,
   Item,
 

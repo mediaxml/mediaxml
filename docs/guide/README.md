@@ -1,10 +1,11 @@
-The `mediaxml` module provides various implementations of XML formats
-for describing media packages, manifests, and feeds such as [RSS](#rss),
-[mRSS](#mrss), [ADI](#adi), and [XMLTV](#xmltv).
+The **mediaxml** module provides various implementations of XML formats
+for describing media packages, manifests, and feeds such as
+[RSS](#rss-guide), [mRSS](#mrss-guide), [ADI](#adi-guide),
+and [XMLTV](#xmltv-guide).
 
 ### Simple Example
 
-In the example below, we parse a [rss](#rss) feed and enumerate
+In the example below, we parse a [rss](#rss-guide) feed and enumerate
 all of the items in the document's channel.
 
 ```js
@@ -13,7 +14,7 @@ const rss = require('mediaxml/rss')
 const fs = require('fs')
 
 const stream = fs.createReadStream('feed.rss')
-const document = rss.Document.from(stream)
+const document = rss.createDocument(stream)
 
 document.ready(() => {
   for (const item of document.channel.items) {
@@ -73,9 +74,9 @@ const programmesInFuture = rootNode.query(`[
 ### Creating Documents
 
 ```js
-const { Document } = require('mediaxml/document')
+const { createDocument } = require('mediaxml/document')
 
-const document = Document.from({ nodeName: 'ADI' })
+const document = createDocument({ nodeName: 'ADI' })
 const metadata = document.createChild('Metadata')
 
 metadata.createChild('AMS', {
@@ -110,4 +111,8 @@ console.log(document.toString())
 
 ### See Also
 
-
+* [RSS](#rss-guide)
+* [mRSS](#mrss-guide)
+* [ADI](#adi-guide)
+* [ADI3](#adi3-guide)
+* [XMLTV](#adi3-guide)

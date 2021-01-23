@@ -772,6 +772,17 @@ class Enclosure extends Entity {
 }
 
 /**
+ * Factory for creating `Document` instances.
+ * @public
+ * @memberof rss
+ * @return {Document}
+ * @see {Document}
+ */
+function createDocument(...args) {
+  return Document.from(...args)
+}
+
+/**
  * A module to provide atomic classes for working with RSS documents.
  * @public
  * @module rss
@@ -781,7 +792,7 @@ class Enclosure extends Entity {
  * const fs = require('fs')
  *
  * const stream = fs.createReadStream('./feed.rss')
- * const document = rss.Document.from(stream)
+ * const document = rss.createDocument(stream)
  *
  * document.ready(() => {
  *   const { channel } = document
@@ -794,6 +805,7 @@ class Enclosure extends Entity {
 module.exports = {
   Category,
   Channel,
+  createDocument,
   Document,
   Enclosure,
   Image,

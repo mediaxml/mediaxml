@@ -1220,6 +1220,17 @@ class Programme extends Entity {
 }
 
 /**
+ * Factory for creating `Document` instances.
+ * @public
+ * @memberof xmltv
+ * @return {Document}
+ * @see {Document}
+ */
+function createDocument(...args) {
+  return Document.from(...args)
+}
+
+/**
  * A module to provide atomic classes for working with XMLTV documents.
  * @public
  * @module xmltv
@@ -1230,7 +1241,7 @@ class Programme extends Entity {
  * const fs = require('fs')
  *
  * const stream = fs.createReadStream('./epg.xml')
- * const document = xmltv.Document.from(stream)
+ * const document = xmltv.createDocument(stream)
  *
  * document.ready(() => {
  *   console.log(document.channels)
@@ -1243,6 +1254,7 @@ module.exports = {
   AudioDescription,
   Category,
   Channel,
+  createDocument,
   Credits,
   Description,
   DisplayName,

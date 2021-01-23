@@ -16,22 +16,240 @@ const {
  * @public
  * @type {Map}
  * @memberof query
+ * @example
+ * const { cache } = require('mediaxml/query')
+ * // clear the query cache of all entries (compiled expressions, etc)
+ * cache.clear()
  */
 const cache = new Map()
 
 /**
- * Query the document object model represented by a node
- * using "JSONata" query syntax.
  * @public
  * @param {?ParserNode} node - The parser node to query
  * @param {?String} [queryString = '$'] - A [JSONata](https://jsonata.org) query string
  * @param {?Object} opts - Query options
  * @param {?Object} [opts.model = {}] - An optional model to query, instead of one derived from the input `node`
  * @param {?Object} [opts.bindings = node.options.bindings] - Bindings to use instead of the ones derived from the input `node`
- * @return {?(ParserNode|ParserNodeFragment|String|Mixed)}
- * @see {@link https://jsonata.org}
+ * @return {?(ParserNode|ParserNodeFragment|String|*)}
+ * @see https://jsonata.org
  * @memberof query
+ *
  * @example
+ * // select first node with node name "channel"
+ * const channel = query(node, '[name="channel"]:first')
+ *
+ * @example
+ * // select the 'href' attribute value from the first child with a node name
+ * // of "atom:link" from the first "channel" node
+ * const atom = query(node, '[name="channel"]:first:children:first[name="atom:link"]:attr(href)')
+ *
+ * @example
+ * // select the text of the first node with a name that matches the
+ * `/^offer:BillingId$/i` regular expression
+ * const billingId = query(node, '[name ~> /^offer:BillingId$/i]:first:text')
+ *
+ * @description
+ * Query the document object model represented by a node
+ * using ["JSONata"](https://jsonata.org) query syntax with
+ * special selector syntax for working with {ParserNode} instances.
+ *
+ * ### JSONata functions
+ *
+ * In addition to the [already built-in JSONata functions
+ * ](https://docs.jsonata.org/array-functions), the following
+ * functions are registered as JSONata syntax functions and can be used
+ * in the query string.
+ *
+ * #### `$now(): int`
+ *
+ * The epoch in milliseconds as returned by `Date.now()`
+ *
+ * ```js
+ * $now()
+ * ```
+ *
+ * #### `$int(input: any): int`
+ *
+ * Converts input into an integer or `NaN`.
+ *
+ * ```js
+ * [ $int(attr("timestamp")) > $now() ]
+ * ```
+ *
+ * #### `$float(input: any): float`
+ *
+ * Converts input into a float or `NaN`.
+ *
+ * ```js
+ * [ $float(attr("rating")) > 0.5 ]
+ * ```
+ *
+ * #### `$camelcase(input: string): string`
+ *
+ * Converts input string into a camel case string.
+ *
+ * ```js
+ * **.$camelcase(attr("value"))
+ * ```
+ *
+ * #### `$concat(...input: (array | *)?): array`
+ *
+ * Concat input into a single array.
+ *
+ * ```js
+ * $concat(**)
+ * ```
+ *
+ * #### `$slice(node: (ParserNode | array), start: number, stop: number): array`
+ *
+ * Slice children or an array of items.
+ *
+ * ```js
+ * **.$slice(children, 0, 2)
+ * ```
+ *
+ * ### Query Selector Syntax
+ *
+ * The built in `query(node, queryString[, options]): ?*` function that is the
+ * core query function for the node object model is built on
+ * ["JSONata"](https://jsonata.org) query syntax with special query selector
+ * syntax for working with {ParserNode} instances and other objects provided
+ * by the **MediaXML** module.
+ *
+ * #### Root node reference
+ *
+ * The root node as defined by the `$` symbol in JSONata syntax can be
+ * referenced by a less ambiguous syntax called `:root`
+ *
+ * ##### `:root`
+ *
+ * The root and its children can be referenced.
+ *
+ * ```js
+ * :root:children
+ * ```
+ *
+ * #### Reading node attributes
+ *
+ * `ParserNode` attributes can easily be read by simply accessing the property
+ * on the instance like: `node.attributes.property`. However, one can query
+ * this property directly or the entire attributes object itself in a query
+ * string with a selector: `:?attr(name)` or `:attrs|:attributes`.
+ *
+ * ##### `:?attr(name)`
+ *
+ * Select an attribute by name.
+ *
+ * ```js
+ * **:attr("providerId")
+ * ```
+ *
+ * When filtering, omit the `:` like the example below:
+ *
+ * ```js
+ * [ attr("providerId") = "12345" ]
+ * ```
+ *
+ * ##### `:?attrs|:?attributes`
+ *
+ * The entire attributes object can be read in a similar way.
+ *
+ * ```js
+ * **:attrs
+ * ```
+ *
+ * ### Reading children
+ *
+ * Child nodes can easily be addressed by using the `:children` or
+ * `nth-child()` selectors. A slice of the children can be selected or
+ * just a single node.
+ *
+ * #### `:children`
+ *
+ * Selects all of the children of a node.
+ *
+ * ```js
+ * [name="asset"]:children
+ * ```
+ *
+ * Children of children can be selected in a similar way.
+ *
+ * ```js
+ * [name="asset"]:children:children
+ * ```
+ *
+ * #### `:?children([start[, stop])`
+ *
+ * Children can be selected in slices.
+ *
+ * ```js
+ * [name="asset"]:children(0, 4)
+ * ```
+ *
+ * The `stop` argument is optional and be omitted.
+ *
+ * ```js
+ * [name="asset"]:children(4)
+ * ```
+ *
+ * #### `:?nth-child(n)`
+ *
+ * The `nth` child can be selected.
+ *
+ * ```js
+ * [name="asset"]:nth-child(4)
+ * ```
+ *
+ * ### Reading object keys
+ *
+ * Objects, like a node's attributes, or the node itself can be enumerated
+ * to list its keys.
+ *
+ * #### `:keys`
+ *
+ * The keys of an attributes object can be selected for each child.
+ *
+ * ```js
+ * [name="asset"]:children:attrs:keys
+ * ```
+ *
+ * The keys of a node can be selected too.
+ *
+ * ```js
+ * [name="asset"]:attrs:keys
+ * ```
+ *
+ * ### Reading node text
+ *
+ * The text contents of a node's body can be selected much like a
+ * node's attributes
+ *
+ * #### `:text`
+ *
+ * The text of all children can be selected.
+ *
+ * ```js
+ * **:text
+ * ```
+ *
+ * The root node text can be selected in a similar way.
+ *
+ * ```js
+ * :root:text
+ * ```
+ *
+ * ### Reading data as JSON
+ *
+ * Objects can be converted to plain JSON structures by using the
+ * `:json` selector. This is an alias to the `$toJSON()` JSONata function.
+ *
+ * #### `:json`
+ *
+ * Attributes can be converted to JSON easily with the `:json` selector.
+ *
+ * ```js
+ * :attrs:json
+ * ```
  */
 function query(node, queryString, opts) {
   queryString = queryString || '$' // reference to root node
@@ -59,20 +277,34 @@ function query(node, queryString, opts) {
       .replace(/\s?(AND|OR)\s?/g, ($1) => $1.toLowerCase())
       // add '*' by default because we are always searching the same node hierarchy
       .replace(/^\[/, '*[')
+      // `:root` - selector to return the current root
+      .replace(/:root/g, '$')
       // `:keys` - selector to return the keys of the target
       .replace(/:keys/g, '.$keys($)')
+      // `:json` - selector to return JSON object representation of target
+      .replace(/:json/g, '.$toJSON($)')
       // `:text` - selector to return body text of node
-      .replace(/:text/g, '.body.text')
+      .replace(/(:|a^)?text/g, (_, $1, offset, source) => {
+        const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
+        return `${prefix}body.text`
+      })
       // `:children()` - selector to return child nodes
-      .replace(/:children\(([\s]+)?\)/g, '.children')
+      .replace(/(:|a^)?children\(([\s]+)?\)/g, (_, $1, $2, offset, source) => {
+        const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
+        return '.children'
+      })
       // `:children(start[, stop]) - slice children into a fragment array
-      .replace(/(:children\()([0-9]+)?\s?(,?)\s?([0-9]+)?(.*)(\))/, '.$slice(children, $2$3$4)')
+      .replace(/(:|a^)?(children\()([0-9]+)?\s?(,?)\s?([0-9]+)?(.*)(\))/, (_, $1, $2, $3, $4, $5, offset, source) => {
+        const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
+        return `${prefix}$slice(children, ${$3}${$4}${$5})`
+      })
       // `:children` - fallback and alias for `.children` property access
       .replace(/:children/g, '.children')
       // `attr(key)` attribute selector
-      .replace(/(:)?attr\((.*)\)/g, (str, $1, name, offset, source) => {
+      .replace(/(:)?attr\(([0-9|-|_|a-z|A-Z|'|"]+)\)/g, (str, $1, name, offset, source) => {
         const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
-        return `${prefix}attributes.${normalizeAttributeKey(name)}`
+        const quote = '"' === name[0] ? '' : '"'
+        return `${prefix}attributes.get(${quote}${name}${quote})`
       })
       // `:attr or `:attributes` - gets all attributes
       .replace(/(:)?attr(s)?(ibutes)?(\(\))?/g, (_, $1, $2, $3, $4, offset, source) => {
@@ -80,7 +312,10 @@ function query(node, queryString, opts) {
         return `${prefix}attributes`
       })
       // `:nth-child(n)` - return the nth child of the node
-      .replace(/:nth-child\(([0-9]+)\)/g, '.children[$1]')
+      .replace(/(:|a^)?nth-child\(([0-9]+)\)/g, (_, $1, $2, offset, source) => {
+        const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
+        return `${prefix}children[${$2}]`
+      })
       // `:{first,second,...,last} - return the nth node denoted by an ordinal
       .replace(RegExp(`^\((\:)(${ordinals.join('|')})\)`, 'i'), '$1$2')
       // `:is(type)` - predicate function to determine type
@@ -113,6 +348,29 @@ function query(node, queryString, opts) {
     expression = jsonata(queryString)
     cache.set(queryString, expression)
 
+    // $toJSON(): (object | array | string | number | boolean)?
+    expression.registerFunction('toJSON', function toJSON(input) {
+      if ('string' === typeof input) {
+        try {
+          return JSON.parse(input)
+        } catch (err) {
+          return input
+        }
+      } else if (input && 'function' !== typeof input) {
+        if (Array.isArray(input)) {
+          return input.map(toJSON)
+        } else {
+          input = input.toJSON ? input.toJSON() : input
+          return JSON.parse(JSON.stringify(input))
+        }
+      } else {
+        return null
+      }
+    })
+
+    // $now(): int
+    expression.registerFunction('now', (input) => Date.now())
+
     // $int(input: any): int
     expression.registerFunction('int', (input) => parseInt(+normalizeValue(String(input))))
 
@@ -122,7 +380,7 @@ function query(node, queryString, opts) {
     // $camelcase(input: string): string
     expression.registerFunction('camelcase', (...args) => camelcase(...args))
 
-    // $concat(...input: (array | mixed)?): array
+    // $concat(...input: (array | *)?): array
     expression.registerFunction('concat', (...args) => {
       return [].concat(...args)
     })

@@ -1,10 +1,13 @@
 #!/usr/bin/env node
 
+const { Parser, ParserNode, ParserNodeFragment, ParserNodeAttributes } = require('../parser')
 const { inspect } = require('util')
-const { Parser } = require('../')
 const chromafi = require('@12core/chromafi')
+const mkdirp = require('mkdirp')
 const debug = require('debug')('mediaxml')
+const paths = require('env-paths')('mediaxml')
 const path = require('path')
+const repl = require('repl')
 const pkg = require('../package.json')
 const fs = require('fs')
 
@@ -53,7 +56,7 @@ if (argv.version) {
 }
 
 if (argv.debug) {
-  require('debug').enable('mediamxl*')
+  require('debug').enable('mediaxml')
   debug('Debug output enabled')
 }
 
@@ -75,7 +78,7 @@ stream.pipe(parser.createWriteStream())
   .on('finish', () => {
     const [, query ] = argv._
 
-    if (query || argv.inspect) {
+    if (query) {
       const result = parser.query(query, {
         inspect: Boolean(argv.inspect)
       })
@@ -95,6 +98,7 @@ stream.pipe(parser.createWriteStream())
           tabsToSpaces: 8,
           lineNumbers: false,
           stripIndent: false,
+          decorate: false,
           codePad: 0,
           lang: 'xml'
         })
@@ -103,5 +107,143 @@ stream.pipe(parser.createWriteStream())
       } else {
         console.log(result)
       }
+    } else {
+      const replServerHistoryPath = path.join(paths.data, 'repl.history')
+      const server = repl.start({
+        completer,
+        preview: true,
+        prompt: `mxml (${path.basename(filename)})> `,
+        eval: evaluate
+      })
+
+      server.on('error', (err) => {
+        console.error('error:', err.message)
+        debug(err.stack || err)
+      })
+
+      try {
+        mkdirp.sync(path.dirname(replServerHistoryPath))
+      } catch (err) {
+        console.error('error:', err.message)
+        debug(err.stack || err)
+        process.exit(1)
+        return
+      }
+
+      server.setupHistory(replServerHistoryPath, (err) => {
+        if (err) {
+          debug(err.stack || err)
+        }
+      })
     }
   })
+
+function pretty(result) {
+  if (
+    !ParserNode.isParserNode(result) &&
+    false === (result instanceof ParserNodeAttributes)
+  ) {
+    return inspect(result, { colors: true })
+  }
+
+  let output = inspect.custom in result ? result[inspect.custom]() : result
+
+  if (Array.isArray(output)) {
+    return output.reduce((s, o) => s + (
+      print((o && 'object' === typeof o && inspect.custom in o ) ? o[inspect.custom]() : o)
+    ) + '\n', '')
+  }
+
+  return print(output)
+
+  function print(out) {
+    return chromafi(out, {
+      consoleTabWidth: 2,
+      lineNumberPad: 0,
+      tabsToSpaces: 8,
+      lineNumbers: false,
+      stripIndent: false,
+      decorate: false,
+      codePad: 0,
+      lang: 'xml'
+    })
+  }
+}
+
+function evaluate(query, context, file, callback) {
+  query = query.trim()
+
+  if (!query) {
+    return callback(null)
+  }
+
+  try {
+    const result = parser.rootNode.query(query)
+    if (result  && 'object' === typeof result) {
+      const output = pretty(result)
+      if (output) {
+        process.stdout.write(output)
+        process.stdout.write('\n')
+      }
+    } else {
+      console.log(result)
+    }
+    callback(null)
+  } catch (err) {
+    debug(err.stack || err)
+    callback(err.message)
+  }
+}
+
+function completer(query) {
+  const parts = query.split(':')
+  const end = parts.pop()
+
+  const completions = [
+    ':is',
+    ':json',
+    ':keys',
+    ':text',
+
+    ':attr',
+    ':attrs',
+
+    ':children',
+    ':nth-child',
+  ]
+
+  if (/\:children\:/.test(query)) {
+    completions.push(
+      ':first',
+      ':second',
+      ':third',
+      ':fourth',
+      ':fifth',
+      ':sixth',
+      ':seventh',
+      ':eighth',
+      ':ninth',
+      ':tenth'
+    )
+  }
+
+  if (!query || ':' === query || /\:?r?o?o?t?/.test(query)) {
+    completions.unshift(':root')
+  }
+
+  if (/\[\s+$/.test(query)) {
+    completions.push(...[
+      'attributes',
+      'children',
+      'attr(',
+      'name',
+      'text'
+    ])
+  }
+
+  const hits = completions
+    .filter((c) => c.startsWith(`:${end}`))
+    .map((c) => parts.join(':') + c)
+
+  return  [hits.length ? hits.sort() : completions.sort(), query]
+}

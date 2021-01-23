@@ -5,6 +5,18 @@ const { inspect } = require('util')
  * @public
  * @abstract
  * @memberof entity
+ * @example
+ * const { Entity } = require('mediaxml/entity')
+ *
+ * class Programme extends Entity {
+ *   get channel() {
+ *     return this.attributes.channel
+ *   }
+ * }
+ *
+ * const node = document.query('[name="programme"]')
+ * const programme = Programme.from(document, node)
+ * console.log(programme.channel)
  */
 class Entity {
 
@@ -12,9 +24,11 @@ class Entity {
    * Create an `Entity` from input.
    * @public
    * @static
-   * @param {Document} document
-   * @param {ParserNode} node
+   * @param {Document} document - The document this entity node is owned by
+   * @param {ParserNode} node - The node this entity represents a view over
    * @return {Entity}
+   * @example
+   * const entity = Entity.from(document, node)
    */
   static from(document, node) {
     if (node && node.node) {
@@ -28,8 +42,8 @@ class Entity {
    * `Entity` class constructor
    * @protected
    * @constructor
-   * @param {Document} document
-   * @param {ParserNode} node
+   * @param {Document} document - The document this entity node is owned by
+   * @param {ParserNode} node - The node this entity represents a view over
    */
   constructor(document, node) {
     Object.defineProperty(this, 'document', {
@@ -69,6 +83,10 @@ class Entity {
    * Computed keys for this instance
    * @public
    * @return {Array<String>}
+   * @example
+   * for (const key of entity.keys()) {
+   *  console.log(key, entity[key])
+   * }
    */
   keys() {
     let prototype = this.constructor.prototype
@@ -104,6 +122,9 @@ class Entity {
    * @param {?Object} opts - Query options
    * @return {Array|Object|null}
    * @see {@link https://jsonata.org}
+   * @example
+   * const now = Date()
+   * entity.query(`programmes[$int(attr(start)) > $int("${now}")`)
    */
   query(queryString, opts) {
     return this.node.query(queryString, {
@@ -164,6 +185,10 @@ class Entity {
  *     return normalizeValue(this.attributes.stop)
  *   }
  * }
+ *
+ * const node = document.query('[name="programme"]')
+ * const programme = Programme.from(document, node)
+ * console.log(programme.channel, programme.start, programme.stop)
  */
 module.exports = {
   Entity

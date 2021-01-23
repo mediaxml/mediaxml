@@ -5,50 +5,29 @@ toc:
 
   - name: "Getting Started"
     file: "guide/README.md"
-    description: "Installation and usage guides."
 
-  - name: "Usage Guide"
+  - name: "Usage"
     file: "guide/usage.md"
-    description: "General usage guide."
 
-  - name: "Query Guide"
+  - name: "Query User Guide"
     file: "guide/query.md"
-    description: "Query syntax and user guide."
-
-  - name: "ADI"
-    file: "guide/adi.md"
-    description: "Asset Delivery Interface 1.1 (ADI) (CableLabsVOD1.1) user guide."
-
-  - name: "ADI3 (SCTE-236)"
-    file: "guide/adi3.md"
-    description: "Asset Delivery Interface 3 (ADI3) (SCTE-236) user guide."
-
-  - name: "RSS"
-    file: "guide/rss.md"
-    description: "RSS user guide."
-
-  - name: "mRSS"
-    file: "guide/mrss.md"
-    description: "mRSS user guide."
-
-  - name: "XMLTV"
-    file: "guide/xmltv.md"
-    description: "XMLTV user guide."
 
   - name: "API"
     description: "MediaXML modules that provide atomic classes and views for various XML documents."
-    children:
-      - "adi"
-      - "adi3"
-      - "rss"
-      - "mrss"
-      - "xmltv"
+    file: "guide/api.md"
+
+  - "adi"
+  - "adi3"
+  - "rss"
+  - "mrss"
+  - "xmltv"
+  - "document"
+  - "query"
 
   - name: "Core"
     description: "Core modules for implementing the MediaXML API."
-    children:
-      - "parser"
-      - "document"
-      - "entity"
-      - "query"
-      - "normalize"
+    file: "guide/core.md"
+
+  - "parser"
+  - "entity"
+  - "normalize"

@@ -4,11 +4,11 @@ const SMPTETimecode = require('smpte-timecode')
 const { Entity } = require('./entity')
 
 /**
- * An extended `Document` that represents an ADI document with special
+ * A class that represents an ADI document with special
  * entity access.
  * @public
  * @memberof adi
- * @param {Document|Parser|String|ReadableStream} input
+ * @param {adi.Document|Parser|String|ReadableStream} input
  * @param {?Object} opts
  * @example
  * const fs = require('fs')
@@ -387,16 +387,27 @@ class Asset extends Entity {
 }
 
 /**
+ * Factory for creating `Document` instances.
+ * @public
+ * @memberof adi
+ * @return {Document}
+ * @see {Document}
+ */
+function createDocument(...args) {
+  return Document.from(...args)
+}
+
+/**
  * @public
  * A module to provide atomic classes for working with ADI documents.
  * @module adi
- * @see {@link https://community.cablelabs.com/wiki/plugins/servlet/cablelabs/alfresco/download?id=8f900e8b-d1eb-4834-bd26-f04bd623c3d2}
+ * @see https://community.cablelabs.com/wiki/plugins/servlet/cablelabs/alfresco/download?id=8f900e8b-d1eb-4834-bd26-f04bd623c3d2
  * @example
  * const adi = require('mediaxml/adi')
  * const fs = require('fs')
  *
  * const stream = fs.createReadStream('./package.xml')
- * const document = adi.Document.from(stream)
+ * const document = adi.createDocument(stream)
  *
  * document.ready(() => {
  *   console.log(document.metadata)
@@ -410,6 +421,7 @@ module.exports = {
   AppData,
   Asset,
   Content,
+  createDocument,
   Document,
   Metadata
 }
