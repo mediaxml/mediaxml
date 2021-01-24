@@ -3,11 +3,14 @@
 const { Parser, ParserNode, ParserNodeFragment, ParserNodeAttributes } = require('../parser')
 const { inspect } = require('util')
 const chromafi = require('@12core/chromafi')
+const { URL } = require('url')
 const mkdirp = require('mkdirp')
 const debug = require('debug')('mediaxml')
+const chalk = require('chalk')
 const paths = require('env-paths')('mediaxml')
 const path = require('path')
 const repl = require('repl')
+const get = require('get-uri')
 const pkg = require('../package.json')
 const fs = require('fs')
 
@@ -60,83 +63,136 @@ if (argv.debug) {
   debug('Debug output enabled')
 }
 
-if (!argv._[0]) {
-  console.error('error: Please specify a filename')
-  console.error('usage: mxml [-hiDV] [options] <filename> [query]')
+if (!argv._[0] && process.stdin.isTTY) {
+  console.error('error: Please specify a file path or URL')
+  console.error('usage: mxml [-hiDV] [options] <uri> [query]')
   process.exit(1)
 }
 
-const filename = path.resolve(process.cwd(), argv._[0])
-const stream = fs.createReadStream(filename)
 const parser = new Parser()
+let [ arg0, query = arg0 ] = argv._
+let filename = null
 
-stream.pipe(parser.createWriteStream())
-  .on('error', (err) => {
+if (arg0 && query && arg0 === query) {
+  query = null
+}
+
+// try to load query as file
+if (query) {
+  try {
+    fs.accessSync(query)
+    query = fs.readFileSync(query, 'utf8')
+  } catch (err) {
+    void err
+  }
+}
+
+if ('-' === argv._[0] || !process.stdin.isTTY) {
+
+  if (!query) {
+    console.error('error: stdin is not a TTY and no query was given')
+    console.error('usage: mxml [-hiDV] [options] <uri> [query]')
+    process.exit(1)
+  }
+
+  onstream(null, process.stdin)
+} else {
+  try {
+    const { protocol } = new URL(argv._[0])
+    filename = argv._[0]
+  } catch (err) {
+    if (err && 'ERR_INVALID_URL' !== err.code) {
+      debug(err)
+    } else {
+      try {
+        filename = path.resolve(process.cwd(), argv._[0])
+        fs.accessSync(filename, fs.constants.R_OK | fs.constants.F_OK)
+        filename = `file://${filename}`
+      } catch (err) {
+        void err
+      }
+    }
+  }
+
+  get(filename, onstream)
+}
+
+function onstream(err, stream) {
+  if (err) {
     console.error('error: %s', err.message)
     debug(err.stack || err)
-  })
-  .on('finish', () => {
-    const [, query ] = argv._
+    process.exit(1)
+    return
+  }
 
-    if (query) {
-      const result = parser.query(query, {
-        inspect: Boolean(argv.inspect)
-      })
+  stream.pipe(parser.createWriteStream())
+    .on('error', (err) => {
+      console.error('error: %s', err.message)
+      debug(err.stack || err)
+    })
+    .on('finish', () => {
 
-      if (result && argv.inspect) {
-        let output = inspect.custom in result ? result[inspect.custom]() : result
-
-        if (Array.isArray(output)) {
-          output = output.reduce((s, o) => s + (
-            (o && 'object' === typeof o && inspect.custom in o ) ? o[inspect.custom]() : o
-          ) + '\n', '')
-        }
-
-        output = chromafi(output.trim(), {
-          consoleTabWidth: 2,
-          lineNumberPad: 0,
-          tabsToSpaces: 8,
-          lineNumbers: false,
-          stripIndent: false,
-          decorate: false,
-          codePad: 0,
-          lang: 'xml'
+      if (query) {
+        const result = parser.query(query, {
+          inspect: Boolean(argv.inspect)
         })
 
-        console.log('\n%s', output.trim())
-      } else {
-        console.log(result)
-      }
-    } else {
-      const replServerHistoryPath = path.join(paths.data, 'repl.history')
-      const server = repl.start({
-        completer,
-        preview: true,
-        prompt: `mxml (${path.basename(filename)})> `,
-        eval: evaluate
-      })
+        if (result && argv.inspect) {
+          let output = inspect.custom in result ? result[inspect.custom]() : result
 
-      server.on('error', (err) => {
-        console.error('error:', err.message)
-        debug(err.stack || err)
-      })
+          if (Array.isArray(output)) {
+            output = output.reduce((s, o) => s + (
+              (o && 'object' === typeof o && inspect.custom in o ) ? o[inspect.custom]() : o
+            ) + '\n', '')
+          }
 
-      try {
-        mkdirp.sync(path.dirname(replServerHistoryPath))
-      } catch (err) {
-        console.error('error:', err.message)
-        debug(err.stack || err)
-        process.exit(1)
-        return
-      }
+          output = chromafi(output.trim(), {
+            consoleTabWidth: 2,
+            lineNumberPad: 0,
+            tabsToSpaces: 8,
+            lineNumbers: false,
+            stripIndent: false,
+            decorate: false,
+            codePad: 0,
+            lang: 'xml'
+          })
 
-      server.setupHistory(replServerHistoryPath, (err) => {
-        if (err) {
-          debug(err.stack || err)
+          console.log('\n%s', output.trim())
+        } else {
+          console.log(result)
         }
-      })
-    }
-  })
+      } else if (process.stdin.isTTY) {
+        const replServerHistoryPath = path.join(paths.data, 'repl.history')
+        const server = repl.start({
+          completer,
+          terminal: true,
+          preview: true,
+          prompt: `${chalk.bold('mxml')} (${filename ? path.basename(filename.split('?')[0]) : '-'})> `,
+          eval: evaluate
+        })
+
+        server.on('error', (err) => {
+          console.error('error:', err.message)
+          debug(err.stack || err)
+        })
+
+        try {
+          mkdirp.sync(path.dirname(replServerHistoryPath))
+        } catch (err) {
+          console.error('error:', err.message)
+          debug(err.stack || err)
+          process.exit(1)
+          return
+        }
+
+        server.setupHistory(replServerHistoryPath, (err) => {
+          if (err) {
+            debug(err.stack || err)
+          }
+        })
+      }
+    })
+}
 
 function pretty(result) {
   if (
@@ -157,6 +213,10 @@ function pretty(result) {
   return print(output)
 
   function print(out) {
+    if (false === (out instanceof String) && 'object' !== typeof out && 'string' !== typeof out) {
+      return out
+    }
+
     return chromafi(out, {
       consoleTabWidth: 2,
       lineNumberPad: 0,
@@ -173,6 +233,7 @@ function pretty(result) {
 function evaluate(query, context, file, callback) {
   query = query.trim()
 
+  console.time(chalk.bold('query'))
   if (!query) {
     return callback(null)
   }
@@ -188,9 +249,11 @@ function evaluate(query, context, file, callback) {
     } else {
       console.log(result)
     }
+    console.timeEnd(chalk.bold('query'))
     callback(null)
   } catch (err) {
     debug(err.stack || err)
+    console.timeEnd(chalk.bold('query'))
     callback(err.message)
   }
 }
@@ -199,20 +262,36 @@ function completer(query) {
   const parts = query.split(':')
   const end = parts.pop()
 
-  const completions = [
-    ':is',
-    ':json',
-    ':keys',
-    ':text',
+  const completions = [ ]
 
-    ':attr',
-    ':attrs',
+  if (query && !/^\$\.$/.test(query)) {
+    if (/^\$[a-z|A-Z|0-9|_]+$/g.test(end)) {
+      completions.push(
+        '$camelcase(',
+        '$concat(',
+        '$unique(',
+        '$float(',
+        '$int(',
+        '$now(',
+        '$slice(',
+        '$toJSON',
+      )
+    } else if (/\.\$?([a-z|A-Z|0-9|_]+)?$/g.test(end)) {
+      const i = query.lastIndexOf('.')
+      const prefix = query.slice(0, i)
+      completions.push(
+        `${prefix}.$camelcase(`,
+        `${prefix}.$concat(`,
+        `${prefix}.$unique(`,
+        `${prefix}.$float(`,
+        `${prefix}.$int(`,
+        `${prefix}.$now(`,
+        `${prefix}.$slice`,
+      )
+    }
+  }
 
-    ':children',
-    ':nth-child',
-  ]
-
-  if (/\:children\:/.test(query)) {
+  if (/\:children\:/.test(end)) {
     completions.push(
       ':first',
       ':second',
@@ -225,25 +304,67 @@ function completer(query) {
       ':ninth',
       ':tenth'
     )
+
+    completions.push(
+      '[0]',
+      '[1]',
+      '[2]',
+      '[3]',
+      '[4]',
+      '[5]',
+      '[6]',
+      '[7]',
+      '[8]',
+      '[9]',
+    )
   }
 
   if (!query || ':' === query || /\:?r?o?o?t?/.test(query)) {
-    completions.unshift(':root')
+    if (!/\.$/.test(end)) {
+      completions.unshift(':root')
+    }
   }
 
-  if (/\[\s+$/.test(query)) {
-    completions.push(...[
+  if (/\[\s+$/.test(end)) {
+    completions.push(
       'attributes',
       'children',
       'attr(',
       'name',
       'text'
-    ])
+    )
+  }
+
+  if (/\.$/.test(end)) {
+    completions.push(
+      'name',
+      'body',
+      'children',
+      'attributes',
+      'length'
+    )
+  } else {
+    completions.push(
+      ':is',
+      ':json',
+      ':keys',
+      ':text',
+
+      ':attr',
+      ':attrs',
+
+      ':children',
+      ':nth-child',
+    )
   }
 
   const hits = completions
-    .filter((c) => c.startsWith(`:${end}`))
+    .filter((c) => c.startsWith(`:${end}`) || c.startsWith(query))
     .map((c) => parts.join(':') + c)
 
-  return  [hits.length ? hits.sort() : completions.sort(), query]
+  return  [hits.length ? unique(hits.sort()) : unique(completions.sort()), query]
+
+  function unique(array) {
+    return Array.from(new Set(array))
+  }
 }

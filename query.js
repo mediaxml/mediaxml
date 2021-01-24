@@ -1,4 +1,5 @@
 const { toWordsOrdinal } = require('number-to-words')
+const camelcase = require('camelcase')
 const jsonata = require('jsonata')
 const debug = require('debug')('mediaxml')
 
@@ -277,6 +278,8 @@ function query(node, queryString, opts) {
       .replace(/\s?(AND|OR)\s?/g, ($1) => $1.toLowerCase())
       // add '*' by default because we are always searching the same node hierarchy
       .replace(/^\[/, '*[')
+      // `:name` - selector to return the current node name
+      .replace(/:name/g, '.name')
       // `:root` - selector to return the current root
       .replace(/:root/g, '$')
       // `:keys` - selector to return the keys of the target
@@ -304,7 +307,11 @@ function query(node, queryString, opts) {
       .replace(/(:)?attr\(([0-9|-|_|a-z|A-Z|'|"]+)\)/g, (str, $1, name, offset, source) => {
         const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
         const quote = '"' === name[0] ? '' : '"'
-        return `${prefix}attributes.get(${quote}${name}${quote})`
+        if (prefix) {
+          return `${prefix}attributes.get(${quote}${name}${quote})`
+        } else {
+          return `attributes[${quote}${name}${quote}]`
+        }
       })
       // `:attr or `:attributes` - gets all attributes
       .replace(/(:)?attr(s)?(ibutes)?(\(\))?/g, (_, $1, $2, $3, $4, offset, source) => {
@@ -319,9 +326,10 @@ function query(node, queryString, opts) {
       // `:{first,second,...,last} - return the nth node denoted by an ordinal
       .replace(RegExp(`^\((\:)(${ordinals.join('|')})\)`, 'i'), '$1$2')
       // `:is(type)` - predicate function to determine type
-      .replace(/:is\(([a-z|A-Z|_|0-9]+)\)/g, (_, type, offset, source) => {
-        const prefix = /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
+      .replace(/(:|a^)?is\(([a-z|A-Z|_|0-9|.]+)\)/g, (_, $1, type, offset, source) => {
+        const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
         switch (type) {
+          case 'body.text':
           case 'text': return prefix + 'isText'
           case 'node': return prefix + 'isParserNode'
           case 'fragment': return prefix + 'isFragment'
@@ -371,6 +379,17 @@ function query(node, queryString, opts) {
     // $now(): int
     expression.registerFunction('now', (input) => Date.now())
 
+    // $length(input: any): int
+    expression.registerFunction('length', (input) => {
+      if (input && input.length) {
+        return input.length
+      } else if (!input) {
+        return 0
+      } else {
+        return String(input).length
+      }
+    })
+
     // $int(input: any): int
     expression.registerFunction('int', (input) => parseInt(+normalizeValue(String(input))))
 
@@ -383,6 +402,15 @@ function query(node, queryString, opts) {
     // $concat(...input: (array | *)?): array
     expression.registerFunction('concat', (...args) => {
       return [].concat(...args)
+    })
+
+    // $unique(input: (array | *)?): array
+    expression.registerFunction('unique', (input) => {
+      if (Array.isArray(input)) {
+        return Array.from(new Set(input))
+      } else {
+        return input
+      }
     })
 
     // $slice(node: ParserNode, start: number, stop: number): Array

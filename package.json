@@ -34,10 +34,12 @@
   "dependencies": {
     "@12core/chromafi": "^3.0.1",
     "camelcase": "^6.2.0",
+    "chalk": "^4.1.0",
     "date-and-time": "^0.14.2",
     "debug": "^4.3.1",
     "defined": "^1.0.0",
     "env-paths": "^2.2.0",
+    "get-uri": "^3.0.2",
     "highlight.js": "^10.5.0",
     "htmlparser2": "^6.0.0",
     "jsonata": "^1.8.4",

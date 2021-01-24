@@ -253,10 +253,7 @@ class ParserNodeText extends String {
    * @param {String} text
    */
   constructor(text) {
-    if ('string' !== typeof text) {
-      text = ''
-    }
-
+    text = text || ''
     text = text.trim()
 
     super(text)
@@ -1022,6 +1019,26 @@ class ParserNode {
    */
   get isParserNode() {
     return true
+  }
+
+  /**
+   * `false` to indicate that this node is not text.
+   * @public
+   * @accessor
+   * @type {Boolean}
+   */
+  get isText() {
+    return false
+  }
+
+  /**
+   * `false` to indicate that this node is not a fragment.
+   * @public
+   * @accessor
+   * @type {Boolean}
+   */
+  get isFragment() {
+    return false
   }
 
   /**

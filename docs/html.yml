@@ -12,6 +12,9 @@ toc:
   - name: "Query User Guide"
     file: "guide/query.md"
 
+  - name: "REPL"
+    file: "guide/repl.md"
+
   - name: "API"
     description: "MediaXML modules that provide atomic classes and views for various XML documents."
     file: "guide/api.md"
