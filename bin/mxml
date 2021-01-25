@@ -275,32 +275,35 @@ function completer(query) {
       )
     }
   }
+  if (/children:?[a-z|A-Z|-]*$/.test(query)) {
+    const colon = /children\:([a-z|A-Z|-]+)?$/.test(query)
 
-  if (/\:children\:/.test(end)) {
-    completions.push(
-      ':first',
-      ':second',
-      ':third',
-      ':fourth',
-      ':fifth',
-      ':sixth',
-      ':seventh',
-      ':eighth',
-      ':ninth',
-      ':tenth'
-    )
+    if (!colon) {
+      completions.push(
+        `${query}[0]`,
+        `${query}[1]`,
+        `${query}[2]`,
+        `${query}[3]`,
+        `${query}[4]`,
+        `${query}[5]`,
+        `${query}[6]`,
+        `${query}[7]`,
+        `${query}[8]`,
+        `${query}[9]`
+      )
+    }
 
     completions.push(
-      '[0]',
-      '[1]',
-      '[2]',
-      '[3]',
-      '[4]',
-      '[5]',
-      '[6]',
-      '[7]',
-      '[8]',
-      '[9]',
+      `${parts.join(':')}:first`,
+      `${parts.join(':')}:second`,
+      `${parts.join(':')}:third`,
+      `${parts.join(':')}:fourth`,
+      `${parts.join(':')}:fifth`,
+      `${parts.join(':')}:sixth`,
+      `${parts.join(':')}:seventh`,
+      `${parts.join(':')}:eighth`,
+      `${parts.join(':')}:ninth`,
+      `${parts.join(':')}:tenth`
     )
   }
 
@@ -345,7 +348,7 @@ function completer(query) {
 
   const hits = completions
     .filter((c) => parts.length && end ? c.startsWith(`:${end}`) : c.startsWith(query))
-    .map((c) => parts.join(':') + c)
+    //.map((c) => parts.join(':') + c)
 
   return  [hits.length ? unique(hits.sort()) : unique(completions.sort()), query]
 
