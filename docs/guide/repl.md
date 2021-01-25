@@ -46,4 +46,13 @@ An attribute value can be queried by specifying the name of the
 attribute as an argument to the `:attr(name)` selector.
 
 ```sh
+mxml (feed.xml)> :root:attr(xmlns:media)
+http://search.yahoo.com/mrss/
+query: 41.854ms
+mxml (feed.xml)> :root:attr(xmlns:atom)
+http://www.w3.org/2005/Atom
+query: 3.631ms
+mxml (feed.xml)> :root:attr(version)
+2
+query: 4.891ms
 ```

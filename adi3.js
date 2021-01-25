@@ -968,70 +968,137 @@ class LocalizableTitle extends Entity {
 }
 
 /**
+ * A container for actor data.
  * @public
  * @memberof adi3
  * @param {Document} document
  * @param {ParserNode} node
  */
 class Actor extends Entity {
+
+  /**
+   * The actors full name.
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get fullName() {
     return this.node.attributes.fullName || null
   }
 
+  /**
+   * The actors first name.
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get firstName() {
     return this.node.attributes.firstName || null
   }
 
+  /**
+   * The actors last name.
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get lastName() {
     return this.node.attributes.lastName || null
   }
 
+  /**
+   * The actors sortable name.
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get sortableName() {
     return this.node.attributes.sortableName || null
   }
 }
 
 /**
+ * A container for director data.
  * @public
  * @memberof adi3
  * @param {Document} document
  * @param {ParserNode} node
  */
 class Director extends Entity {
+
+  /**
+   * The directors full name.
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get fullName() {
     return this.node.attributes.fullName || null
   }
 
+  /**
+   * The directors first name.
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get firstName() {
     return this.node.attributes.firstName || null
   }
 
+  /**
+   * The directors last name.
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get lastName() {
     return this.node.attributes.lastName || null
   }
 
+  /**
+   * The directors sortable name.
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get sortableName() {
     return this.node.attributes.sortableName || null
   }
 }
 
 /**
+ * A container for chapter heading and time code data.
  * @public
  * @memberof adi3
  * @param {Document} document
  * @param {ParserNode} node
  */
 class Chapter extends Entity {
+
+  /**
+   * The chapter heading.
+   * @public
+   * @accessor
+   * @type {?String}
+   */
   get heading() {
     return this.node.attributes.heading || null
   }
 
+  /**
+   * The SMPTE timecode for this chaper.
+   * @public
+   * @accessor
+   * @type {?SMPTETimecode}
+   */
   get timeCode() {
     return normalizeValue(this.node.attributes.timeCode)
   }
 }
 
 /**
+ * A container for an offer's presentation data.
  * @public
  * @memberof adi3
  * @param {Document} document
@@ -1040,6 +1107,7 @@ class Chapter extends Entity {
 class Presentation extends Entity {
 
   /**
+   * The category ref object for a presentation.
    * @public
    * @accessor
    * @type {?String}
@@ -1049,6 +1117,7 @@ class Presentation extends Entity {
   }
 
   /**
+   * The `displayAsNew` text value for a presentation.
    * @public
    * @accessor
    * @type {?String}
@@ -1058,6 +1127,7 @@ class Presentation extends Entity {
   }
 
   /**
+   * The `displayAsLastChance` text value for a presentation.
    * @public
    * @accessor
    * @type {?String}

@@ -1,4 +1,5 @@
-project-name: "MediaXML"
+name: "MediaXML"
+version: "0.1.x"
 toc:
   - name: "Installation"
     file: "guide/installation.md"

@@ -252,6 +252,8 @@ const cache = new Map()
  * ```js
  * :attrs:json
  * ```
+ *
+ * #### `as json|
  */
 function query(node, queryString, opts) {
   queryString = queryString || '$' // reference to root node
@@ -294,8 +296,14 @@ function query(node, queryString, opts) {
       .replace(/(:|as)\s*json/g, '~> $toJSON($)')
       // `(:|as)tuple` - selector to return tuple key-value pair of target
       .replace(/(:|as)\s*tuple/g, '~> $toTuple($)')
-      // `(:|as)tuple` - selector to return tuple key-value pair of target
-      .replace(/(:|as)\s*number/g, '~> $float($)')
+      // `(:|as)number` - selector to return number representation of target
+      .replace(/(:|as)\s*(number|float)/g, '~> $float($)')
+      // `(:|as)int` - selector to return number representation of target
+      .replace(/(:|as)\s*int/g, '~> $int($)')
+      // `(:|as)string` - selector to return string representation of target
+      .replace(/(:|as)\s*string/g, '~> $string($)')
+      // `(:|as)array` - selector to return array representation of target
+      .replace(/(:|as)\s*array/g, '~> $array($)')
 
       // `:children()` - selector to return child nodes
       .replace(/(:|a^)?children\(([\s]+)?\)/g, (_, $1, $2, offset, source) => {
@@ -366,18 +374,20 @@ function query(node, queryString, opts) {
       queryString = queryString.replace(RegExp(`\:${ordinals[i]}`, 'g'), (ordinal, offset, source) => {
         return `[${i}]`
       })
-
-      if (i === ordinals.length - 1) {
-        queryString = queryString.replace(RegExp(`\:last`, 'g'), `[${i}]`)
-      }
     }
 
+    queryString = queryString.replace(RegExp(`\:last`, 'g'), `.$slice($, -1)[0]`)
     queryString = queryString.replace(/^[.|\,]+/, '$.')
 
     debug('query: final', queryString)
 
     expression = jsonata(queryString)
     cache.set(queryString, expression)
+
+    // $print(...input: any): int
+    expression.registerFunction('print', (...input) => {
+      return console.log(...input)
+    })
 
     // $toJSON(): (object | array | string | number | boolean)?
     expression.registerFunction('toJSON', function toJSON(input) {
@@ -459,6 +469,12 @@ function query(node, queryString, opts) {
 
     // $float(input: any): float
     expression.registerFunction('float', (input) => parseFloat(+normalizeValue(String(input))))
+
+    // $string(input: any): string
+    expression.registerFunction('string', (input) => String(input))
+
+    // $array(input: any): array
+    expression.registerFunction('array', (input) => Array.isArray(input) ? input : Array.from(input))
 
     // $camelcase(input: string): string
     expression.registerFunction('camelcase', (...args) => camelcase(...args))
