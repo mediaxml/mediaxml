@@ -217,6 +217,7 @@ function pretty(result) {
 
 function evaluate(query, context, file, callback) {
   query = query.trim()
+    .replace(/^(this|self)/g, ':root')
 
   console.time(chalk.bold('query'))
   if (!query) {
@@ -238,9 +239,23 @@ function evaluate(query, context, file, callback) {
     console.timeEnd(chalk.bold('query'))
     callback(null)
   } catch (err) {
-    debug(err.stack || err)
-    console.timeEnd(chalk.bold('query'))
-    callback(err.message)
+    if (err && 'position' in err) {
+      if (err.token) {
+        console.error('%s: %s',
+          chalk.red('error'),
+          chalk.bold(err.message.replace(`"${err.token}"`, `"${chalk.yellow(err.token)}"`))
+        )
+      } else {
+        console.error('%s: %s', chalk.red('error'), chalk.bold(err.message))
+      }
+
+      console.timeEnd(chalk.bold('query'))
+      callback(null)
+    } else {
+      debug(err.stack || err)
+      console.timeEnd(chalk.bold('query'))
+      callback(err.message)
+    }
   }
 }
 

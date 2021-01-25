@@ -54,6 +54,12 @@ class ParserNodeAttributes {
       value: new Set()
     })
 
+    Object.defineProperty(this, 'originalKeys', {
+      configurable: false,
+      enumerable: false,
+      value: new Set()
+    })
+
     Object.defineProperty(this, 'options', {
       configurable: false,
       enumerable: false,
@@ -103,6 +109,7 @@ class ParserNodeAttributes {
     }
 
     this.keylist.clear()
+    this.originalKeys.clear()
   }
 
   /**
@@ -141,6 +148,7 @@ class ParserNodeAttributes {
       const normalizedKey = normalizeAttributeKey(key, this.options)
       value = normalizeAttributeValue(value, this.options)
 
+      this.originalKeys.add(key)
       this.keylist.add(key)
       this.keylist.add(normalizedKey)
 
@@ -168,7 +176,7 @@ class ParserNodeAttributes {
    * @return {Array<String>}
    */
   keys() {
-    return Object.keys(this)
+    return Array.from(this.originalKeys)
   }
 
   /**
@@ -209,9 +217,16 @@ class ParserNodeAttributes {
    * @return {String}
    */
   [inspect.custom]() {
-    const attributes = this.toJSON({ normalize: true, normalizeValues: true })
+    const attributes = this.toJSON({ normalize: false, normalizeValues: true })
     const { name } = this.constructor
-    return `${name} ${inspect(attributes, { colors: true })}`
+    const json = {}
+    for (const key of Array.from(this.originalKeys)) {
+      const normal = normalizeAttributeKey(key)
+      if (normal in attributes) {
+        json[key] = attributes[normal]
+      }
+    }
+    return `${name} ${inspect(json, { colors: true })}`
   }
 
   /**
@@ -1085,6 +1100,25 @@ class ParserNode {
   }
 
   /**
+   * Computed keys for this parser node.
+   * @public
+   * @return {Array<String>}
+   */
+  keys() {
+    return ['name', 'attributes', 'children', 'length', 'body', 'text']
+  }
+
+  /**
+   * Computed values for this parser node.
+   * @public
+   * @return {Array<String>}
+   */
+  values() {
+    const keys = this.keys()
+    return keys.map((key) => this[key])
+  }
+
+  /**
    * Checks if node is contained within this one.
    * @public
    * @param {ParserNode} node
@@ -1153,7 +1187,6 @@ class ParserNode {
    */
   appendChild(node) {
     if (!node || !this.constructor.isParserNode(node)) {
-      console.log(this.constructor.isParserNode(node))
       throw new TypeError(
         'Invalid input node for appendChild: ' +
         'The node to be appened is not an instance of \'ParserNode\'.')
@@ -2379,6 +2412,8 @@ class Parser extends htmlparser2.Parser {
    * @param {?Boolean} [opts.inspect = false] - If `true`, will set `util.inspect.custom` symbols
    * @return {?ParserNode|ParserNodeFragment|ParserNodeText}
    * @see {@link https://jsonata.org}
+   * @example
+   * const childrenFragment parser.query('[name="rss"]:children')
    */
   query(query, opts) {
     if (!this.rootNode) {
@@ -2386,6 +2421,18 @@ class Parser extends htmlparser2.Parser {
     }
 
     return this.rootNode.query(query, opts)
+  }
+
+  /**
+   * Converts this instance into a string. Returns the root nodes
+   * string value
+   * @public
+   * @return {String}
+   * @example
+   * const sourceString = parser.toString()
+   */
+  toString(...args) {
+    return this.rootNode ? this.rootNode.toString(...args) : ''
   }
 }
 

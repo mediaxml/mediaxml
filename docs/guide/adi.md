@@ -40,41 +40,24 @@ const stream = fs.createReadStream('package.xml')
 const document = createDocument(stream)
 
 document.ready(() => {
+  // A container for `<Metadata />
   console.log(document.metadata)
+
+  // A container for `<Asset />
   console.log(document.asset)
+
+  // computed `<AMS />` (Asset Management Service) node for this ADI metadata.
+  console.log(document.metadata.ams)
+
+  // computed `<App_Data />` for this ADI metadata node. If none could be found
+  // then an empty array is given.
+  console.log(document.metadata.appData)
 })
 ```
 
 ##### See Also
 
 * [ADI API](#adi)
-
-##### `document.metadata`
-
-The metadata associated with this ADI document. This is the first
-`<Metadata />` node in an `<ADI />` document.
-
-```js
-// computed `<AMS />` (Asset Management Service) node for this ADI metadata.
-console.log(document.metadata.ams)
-
-// computed `<App_Data />` for this ADI metadata node. If none could be found
-// then an empty array is given.
-console.log(document.metadata.appData)
-```
-
-##### See Also
-
-* [ADI API](#adi)
-
-
-##### `document.asset`
-
-#### Metadata
-#### AMS
-#### AppData
-#### Asset
-#### Content
 
 <a name="adi-example-xml-document"></a>
 ### Example XML Document

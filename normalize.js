@@ -162,6 +162,7 @@ function normalizeAttributes(attributes, opts) {
  * // 'assetID'
  */
 function normalizeKey(key, opts) {
+  key = key.replace(/[:|-]+/g, '_')
   return camelcase(key, {
     preserveConsecutiveUppercase: false,
     ...opts

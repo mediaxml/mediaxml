@@ -9,7 +9,8 @@ const {
   normalizeAttributeValue,
   normalizeAttributeKey,
   normalizeAttributes,
-  normalizeValue
+  normalizeValue,
+  normalizeKey
 } = require('./normalize')
 
 /**
@@ -274,16 +275,28 @@ function query(node, queryString, opts) {
     // JSONata clean up and sugars
     queryString = queryString
       .trim()
+      // replace trailing `:` with `.`
+      .replace(/\:$/, '.')
       // add '*' by default because we are always searching the same node hierarchy
       .replace(/^\[/, '*[')
       // `:name` - selector to return the current node name
       .replace(/:name/g, '.name')
+      // `:key` - selector to return the 'key' property
+      .replace(/:key/g, '.key')
+      // `:value` - selector to return the 'value' property
+      .replace(/:value/g, '.value')
       // `:root` - selector to return the current root
       .replace(/:root/g, '$')
       // `:keys` - selector to return the keys of the target
       .replace(/:keys/g, '.$keys($)')
-      // `:json` - selector to return JSON object representation of target
-      .replace(/:json/g, '.$toJSON($)')
+
+      // `(:|as)json` - selector to return JSON object representation of target
+      .replace(/(:|as)\s*json/g, '~> $toJSON($)')
+      // `(:|as)tuple` - selector to return tuple key-value pair of target
+      .replace(/(:|as)\s*tuple/g, '~> $toTuple($)')
+      // `(:|as)tuple` - selector to return tuple key-value pair of target
+      .replace(/(:|as)\s*number/g, '~> $float($)')
+
       // `:children()` - selector to return child nodes
       .replace(/(:|a^)?children\(([\s]+)?\)/g, (_, $1, $2, offset, source) => {
         const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
@@ -297,16 +310,10 @@ function query(node, queryString, opts) {
       // `:children` - fallback and alias for `.children` property access
       .replace(/:children/g, '.children')
       // `attr(key)` attribute selector
-      .replace(/(:)?attr\(([0-9|-|_|a-z|A-Z|'|"]+)\)/g, (str, $1, name, offset, source) => {
+      .replace(/(:)?attr\(['|"|`]?([0-9|-|_|a-z|A-Z|\:]+)['|"|`]?\)/g, (str, $1, name, offset, source) => {
         const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
-        const quote = '"' === name[0] ? '' : name[0] === '\'' ? '"' : ''
-        if (prefix) {
-          return `${prefix}attributes.get(${quote}${name}${quote})`
-        } else if (quote) {
-          return `attributes[${quote}${name}${quote}]`
-        } else {
-          return `attributes.${name}`
-        }
+        name = normalizeKey(name)
+        return `${prefix}attributes.${name}`
       })
       // `:attr or `:attributes` - gets all attributes
       .replace(/(:)?attr(s)?(ibutes)?(\(\))?/g, (_, $1, $2, $3, $4, offset, source) => {
@@ -334,6 +341,11 @@ function query(node, queryString, opts) {
           case 'fragment': return prefix + 'isFragment'
           default: return prefix + `is${camelcase(type)}`
         }
+      })
+      // `:match` - selector to return match from regex
+      .replace(/(:)match/g, (_, $1, offset, source) => {
+        const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
+        return `${prefix}match`
       })
       // `:text` - selector to return body text of node
       .replace(/(:)text/g, (_, $1, offset, source) => {
@@ -387,6 +399,38 @@ function query(node, queryString, opts) {
       }
     })
 
+    // $toNumber(): int
+    expression.registerFunction('toNumber', (input) => {
+      return input
+    })
+
+    // $toTuple(): int
+    expression.registerFunction('toTuple', (input) => {
+      if (input) {
+        if ('function' === typeof input.keys && 'function' === typeof input.values) {
+          const keys = input.keys()
+          const values = input.values()
+          const result = []
+
+          for (let i = 0; i < keys.length; ++i) {
+            result.push({key: keys[i], value: values[i]})
+          }
+
+          return result
+        } else {
+          const keys = Object.keys(input)
+          const values = Object.values(input)
+          const result = []
+
+          for (let i = 0; i < keys.length; ++i) {
+            result.push({key: keys[i], value: values[i]})
+          }
+
+          return result
+        }
+      }
+    })
+
     // $now(): int
     expression.registerFunction('now', (input) => Date.now())
 
@@ -398,6 +442,15 @@ function query(node, queryString, opts) {
         return 0
       } else {
         return String(input).length
+      }
+    })
+
+    // $keys(input: any): array
+    expression.registerFunction('keys', (input) => {
+      if (input && 'function' === typeof input.keys) {
+        return input.keys()
+      } else {
+        return Object.keys(input)
       }
     })
 

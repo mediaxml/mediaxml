@@ -12,6 +12,9 @@ toc:
   - name: "Query User Guide"
     file: "guide/query.md"
 
+  - name: "Command Line Interface"
+    file: "guide/cli.md"
+
   - name: "REPL"
     file: "guide/repl.md"
 

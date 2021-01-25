@@ -1,4 +1,4 @@
-const { Document, Node } = require('./document')
+const { Document, Node, createDocument, createNode } = require('./document')
 const { Parser } = require('./parser')
 const { Entity } = require('./entity')
 const { query } = require('./query')
@@ -15,6 +15,9 @@ const adi = require('./adi')
 module.exports = {
   adi,
   adi3,
+
+  createDocument,
+  createNode,
 
   Document,
   Entity,
