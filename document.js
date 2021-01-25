@@ -174,7 +174,7 @@ function createDocument(...args) {
 /**
  * Factory for creating `Node` instances.
  * @public
- * @memberof node
+ * @memberof document
  * @return {Node}
  */
 function createNode(...args) {
