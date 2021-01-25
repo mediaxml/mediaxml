@@ -274,8 +274,6 @@ function query(node, queryString, opts) {
     // JSONata clean up and sugars
     queryString = queryString
       .trim()
-      // lowercase 'AND' 'OR'
-      .replace(/\s?(AND|OR)\s?/g, ($1) => $1.toLowerCase())
       // add '*' by default because we are always searching the same node hierarchy
       .replace(/^\[/, '*[')
       // `:name` - selector to return the current node name
@@ -286,11 +284,6 @@ function query(node, queryString, opts) {
       .replace(/:keys/g, '.$keys($)')
       // `:json` - selector to return JSON object representation of target
       .replace(/:json/g, '.$toJSON($)')
-      // `:text` - selector to return body text of node
-      .replace(/(:|a^)?text/g, (_, $1, offset, source) => {
-        const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
-        return `${prefix}body.text`
-      })
       // `:children()` - selector to return child nodes
       .replace(/(:|a^)?children\(([\s]+)?\)/g, (_, $1, $2, offset, source) => {
         const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
@@ -325,17 +318,33 @@ function query(node, queryString, opts) {
       })
       // `:{first,second,...,last} - return the nth node denoted by an ordinal
       .replace(RegExp(`^\((\:)(${ordinals.join('|')})\)`, 'i'), '$1$2')
+      .replace(/(is)\s*(node|text|node|fragment)/ig, (_, $1, $2) => `is(${$2.toLowerCase()})`)
       // `:is(type)` - predicate function to determine type
-      .replace(/(:|a^)?is\(([a-z|A-Z|_|0-9|.]+)\)/g, (_, $1, type, offset, source) => {
+      .replace(/(:|a^)?is\(\s*([a-z|A-Z|_|-|0-9|.]+\s*[a-z|A-Z|_|-|0-9|.]+)\s*\)/g, (_, $1, type, offset, source) => {
         const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
+        type = type.replace(/(not)(\s*)(null)/ig, (_, $1) => `${($1 || '').toLowerCase()} null`.trim())
+        type = type.replace(/(node|text|null|fragment)/gi, (_, $1) => $1.toLowerCase())
         switch (type) {
-          case 'body.text':
+          case 'not null': return '!= null'
+          case 'null': return '= null'
           case 'text': return prefix + 'isText'
           case 'node': return prefix + 'isParserNode'
           case 'fragment': return prefix + 'isFragment'
           default: return prefix + `is${camelcase(type)}`
         }
       })
+      // `:text` - selector to return body text of node
+      .replace(/:text/g, (_, $1, offset, source) => {
+        const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
+        return `${prefix}body.text`
+      })
+      // lowercase special key words
+      .replace(/\s?(AND|OR|NULL)\s?/g, ($1) => $1.toLowerCase())
+      .replace(/\s?(And|Or|Null)\s?/g, ($1) => $1.toLowerCase())
+      // transform 'IS NOT NULL' -> '!= null'
+      .replace(/is not null/ig, '!= null')
+      // transform 'IS NULL' -> '== null'
+      .replace(/is null/ig, '= null')
 
     debug('query: before ordinals', queryString)
 

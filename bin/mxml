@@ -138,26 +138,11 @@ function onstream(err, stream) {
         })
 
         if (result && argv.inspect) {
-          let output = inspect.custom in result ? result[inspect.custom]() : result
+          output = pretty(result)
 
-          if (Array.isArray(output)) {
-            output = output.reduce((s, o) => s + (
-              (o && 'object' === typeof o && inspect.custom in o ) ? o[inspect.custom]() : o
-            ) + '\n', '')
+          if (output) {
+            console.log('\n%s', output.trim())
           }
-
-          output = chromafi(output.trim(), {
-            consoleTabWidth: 2,
-            lineNumberPad: 0,
-            tabsToSpaces: 8,
-            lineNumbers: false,
-            stripIndent: false,
-            decorate: false,
-            codePad: 0,
-            lang: 'xml'
-          })
-
-          console.log('\n%s', output.trim())
         } else {
           console.log(result)
         }
@@ -218,9 +203,9 @@ function pretty(result) {
     }
 
     return chromafi(out, {
-      consoleTabWidth: 2,
+      consoleTabWidth: 0,
       lineNumberPad: 0,
-      tabsToSpaces: 8,
+      tabsToSpaces: 2,
       lineNumbers: false,
       stripIndent: false,
       decorate: false,
@@ -359,7 +344,7 @@ function completer(query) {
   }
 
   const hits = completions
-    .filter((c) => c.startsWith(`:${end}`) || c.startsWith(query))
+    .filter((c) => parts.length && end ? c.startsWith(`:${end}`) : c.startsWith(query))
     .map((c) => parts.join(':') + c)
 
   return  [hits.length ? unique(hits.sort()) : unique(completions.sort()), query]
