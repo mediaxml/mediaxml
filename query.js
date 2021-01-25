@@ -299,11 +299,13 @@ function query(node, queryString, opts) {
       // `attr(key)` attribute selector
       .replace(/(:)?attr\(([0-9|-|_|a-z|A-Z|'|"]+)\)/g, (str, $1, name, offset, source) => {
         const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
-        const quote = '"' === name[0] ? '' : '"'
+        const quote = '"' === name[0] ? '' : name[0] === '\'' ? '"' : ''
         if (prefix) {
           return `${prefix}attributes.get(${quote}${name}${quote})`
-        } else {
+        } else if (quote) {
           return `attributes[${quote}${name}${quote}]`
+        } else {
+          return `attributes.${name}`
         }
       })
       // `:attr or `:attributes` - gets all attributes
@@ -334,7 +336,7 @@ function query(node, queryString, opts) {
         }
       })
       // `:text` - selector to return body text of node
-      .replace(/:text/g, (_, $1, offset, source) => {
+      .replace(/(:)text/g, (_, $1, offset, source) => {
         const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
         return `${prefix}body.text`
       })

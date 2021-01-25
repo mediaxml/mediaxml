@@ -220,6 +220,7 @@ function evaluate(query, context, file, callback) {
 
   console.time(chalk.bold('query'))
   if (!query) {
+    console.timeEnd(chalk.bold('query'))
     return callback(null)
   }
 
