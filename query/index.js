@@ -1,17 +1,9 @@
-const { toWordsOrdinal } = require('number-to-words')
+const { ParserNode } = require('../parser')
 const camelcase = require('camelcase')
+const bindings = require('./bindings')
+const defined = require('defined')
 const jsonata = require('jsonata')
 const debug = require('debug')('mediaxml')
-
-const { ParserNode } = require('./parser')
-
-const {
-  normalizeAttributeValue,
-  normalizeAttributeKey,
-  normalizeAttributes,
-  normalizeValue,
-  normalizeKey
-} = require('./normalize')
 
 /**
  * An internal cache used to cache compiled queries.
@@ -243,7 +235,7 @@ const cache = new Map()
  * ### Reading data as JSON
  *
  * Objects can be converted to plain JSON structures by using the
- * `:json` selector. This is an alias to the `$toJSON()` JSONata function.
+ * `:json` selector. This is an alias to the `$json()` JSONata function.
  *
  * #### `:json`
  *
@@ -260,256 +252,54 @@ function query(node, queryString, opts) {
   opts = { ...opts }
 
   const { Node = node.constructor, children = node.children } = opts
-  const { bindings = node.options.bindings } = opts
   const { model = {} } = opts
+
+  const queryBindings = {
+    ...bindings,
+    ...node.options.bindings,
+    ...opts.bindings,
+  }
+
+  const transforms = [
+    require('./transform/prepare'),
+    require('./transform/symbols'),
+    require('./transform/as'),
+    require('./transform/children'),
+    require('./transform/attributes'),
+    require('./transform/ordinals'),
+    require('./transform/is'),
+    require('./transform/typeof'),
+    require('./transform/cleanup'),
+
+    ...(!Array.isArray(opts.transform)
+      ? [{ transform: opts.transform }]
+      : opts.transform)
+  ]
 
   let expression = cache.get(queryString)
 
   if (!expression) {
-    const ordinals = []
+    debug('query: before transform', queryString)
 
-    for (let i = 0; i < 10; ++i) {
-      ordinals.push(toWordsOrdinal(i + 1))
+    const reduceQueryString = (qs, t) => {
+      return t && 'function' === typeof t.transform ? t.transform(qs) : qs
     }
 
-    debug('query: before preparation', queryString)
+    queryString = transforms.reduce(reduceQueryString, queryString)
 
-    // JSONata clean up and sugars
-    queryString = queryString
-      .trim()
-      // replace trailing `:` with `.`
-      .replace(/\:$/, '.')
-      // add '*' by default because we are always searching the same node hierarchy
-      .replace(/^\[/, '*[')
-      // `:name` - selector to return the current node name
-      .replace(/:name/g, '.name')
-      // `:key` - selector to return the 'key' property
-      .replace(/:key/g, '.key')
-      // `:value` - selector to return the 'value' property
-      .replace(/:value/g, '.value')
-      // `:root` - selector to return the current root
-      .replace(/:root/g, '$')
-      // `:keys` - selector to return the keys of the target
-      .replace(/:keys/g, '.$keys($)')
-
-      // `(:|as)json` - selector to return JSON object representation of target
-      .replace(/(:|as)\s*json/g, '~> $toJSON($)')
-      // `(:|as)tuple` - selector to return tuple key-value pair of target
-      .replace(/(:|as)\s*tuple/g, '~> $toTuple($)')
-      // `(:|as)number` - selector to return number representation of target
-      .replace(/(:|as)\s*(number|float)/g, '~> $float($)')
-      // `(:|as)int` - selector to return number representation of target
-      .replace(/(:|as)\s*int/g, '~> $int($)')
-      // `(:|as)string` - selector to return string representation of target
-      .replace(/(:|as)\s*string/g, '~> $string($)')
-      // `(:|as)array` - selector to return array representation of target
-      .replace(/(:|as)\s*array/g, '~> $array($)')
-
-      // `:children()` - selector to return child nodes
-      .replace(/(:|a^)?children\(([\s]+)?\)/g, (_, $1, $2, offset, source) => {
-        const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
-        return '.children'
-      })
-      // `:children(start[, stop]) - slice children into a fragment array
-      .replace(/(:|a^)?(children\()([0-9]+)?\s?(,?)\s?([0-9]+)?(.*)(\))/, (_, $1, $2, $3, $4, $5, offset, source) => {
-        const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
-        return `${prefix}$slice(children, ${$3}${$4}${$5})`
-      })
-      // `:children` - fallback and alias for `.children` property access
-      .replace(/:children/g, '.children')
-      // `attr(key)` attribute selector
-      .replace(/(:)?attr\(['|"|`]?([0-9|-|_|a-z|A-Z|\:]+)['|"|`]?\)/g, (str, $1, name, offset, source) => {
-        const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
-        name = normalizeKey(name)
-        return `${prefix}attributes.${name}`
-      })
-      // `:attr or `:attributes` - gets all attributes
-      .replace(/(:)?attr(s)?(ibutes)?(\(\))?/g, (_, $1, $2, $3, $4, offset, source) => {
-        const prefix = ':' !== $1 || /(\(|\[|\.|^$)/.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
-        return `${prefix}attributes`
-      })
-      // `:nth-child(n)` - return the nth child of the node
-      .replace(/(:|a^)?nth-child\(([0-9]+)\)/g, (_, $1, $2, offset, source) => {
-        const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
-        return `${prefix}children[${$2}]`
-      })
-      // `:{first,second,...,last} - return the nth node denoted by an ordinal
-      .replace(RegExp(`^\((\:)(${ordinals.join('|')})\)`, 'i'), '$1$2')
-      .replace(/(is)\s*(node|text|node|fragment)/ig, (_, $1, $2) => `is(${$2.toLowerCase()})`)
-      // `:is(type)` - predicate function to determine type
-      .replace(/(:|a^)?is\(\s*([a-z|A-Z|_|-|0-9|.]+\s*[a-z|A-Z|_|-|0-9|.]+)\s*\)/g, (_, $1, type, offset, source) => {
-        const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
-        type = type.replace(/(not)(\s*)(null)/ig, (_, $1) => `${($1 || '').toLowerCase()} null`.trim())
-        type = type.replace(/(node|text|null|fragment)/gi, (_, $1) => $1.toLowerCase())
-        switch (type) {
-          case 'not null': return '!= null'
-          case 'null': return '= null'
-          case 'text': return prefix + 'isText'
-          case 'node': return prefix + 'isParserNode'
-          case 'fragment': return prefix + 'isFragment'
-          default: return prefix + `is${camelcase(type)}`
-        }
-      })
-      // `:match` - selector to return match from regex
-      .replace(/(:)match/g, (_, $1, offset, source) => {
-        const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
-        return `${prefix}match`
-      })
-      // `:text` - selector to return body text of node
-      .replace(/(:)text/g, (_, $1, offset, source) => {
-        const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
-        return `${prefix}body.text`
-      })
-      // lowercase special key words
-      .replace(/\s?(AND|OR|NULL)\s?/g, ($1) => $1.toLowerCase())
-      .replace(/\s?(And|Or|Null)\s?/g, ($1) => $1.toLowerCase())
-      // transform 'IS NOT NULL' -> '!= null'
-      .replace(/is not null/ig, '!= null')
-      // transform 'IS NULL' -> '== null'
-      .replace(/is null/ig, '= null')
-
-    debug('query: before ordinals', queryString)
-
-    for (let i = 0; i < ordinals.length; ++i) {
-      queryString = queryString.replace(RegExp(`\:${ordinals[i]}`, 'g'), (ordinal, offset, source) => {
-        return `[${i}]`
-      })
-    }
-
-    queryString = queryString.replace(RegExp(`\:last`, 'g'), `.$slice($, -1)[0]`)
-    queryString = queryString.replace(/^[.|\,]+/, '$.')
-
-    debug('query: final', queryString)
+    debug('query: after transform', queryString)
 
     expression = jsonata(queryString)
     cache.set(queryString, expression)
 
-    // $print(...input: any): int
-    expression.registerFunction('print', (...input) => {
-      return console.log(...input)
-    })
-
-    // $toJSON(): (object | array | string | number | boolean)?
-    expression.registerFunction('toJSON', function toJSON(input) {
-      if ('string' === typeof input) {
-        try {
-          return JSON.parse(input)
-        } catch (err) {
-          return input
-        }
-      } else if (input && 'function' !== typeof input) {
-        if (Array.isArray(input)) {
-          return input.map(toJSON)
-        } else {
-          input = input.toJSON ? input.toJSON() : input
-          return JSON.parse(JSON.stringify(input))
-        }
-      } else {
-        return null
-      }
-    })
-
-    // $toNumber(): int
-    expression.registerFunction('toNumber', (input) => {
-      return input
-    })
-
-    // $toTuple(): int
-    expression.registerFunction('toTuple', (input) => {
-      if (input) {
-        if ('function' === typeof input.keys && 'function' === typeof input.values) {
-          const keys = input.keys()
-          const values = input.values()
-          const result = []
-
-          for (let i = 0; i < keys.length; ++i) {
-            result.push({key: keys[i], value: values[i]})
-          }
-
-          return result
-        } else {
-          const keys = Object.keys(input)
-          const values = Object.values(input)
-          const result = []
-
-          for (let i = 0; i < keys.length; ++i) {
-            result.push({key: keys[i], value: values[i]})
-          }
-
-          return result
-        }
-      }
-    })
-
-    // $now(): int
-    expression.registerFunction('now', (input) => Date.now())
-
-    // $length(input: any): int
-    expression.registerFunction('length', (input) => {
-      if (input && input.length) {
-        return input.length
-      } else if (!input) {
-        return 0
-      } else {
-        return String(input).length
-      }
-    })
-
-    // $keys(input: any): array
-    expression.registerFunction('keys', (input) => {
-      if (input && 'function' === typeof input.keys) {
-        return input.keys()
-      } else {
-        return Object.keys(input)
-      }
-    })
-
-    // $int(input: any): int
-    expression.registerFunction('int', (input) => parseInt(+normalizeValue(String(input))))
-
-    // $float(input: any): float
-    expression.registerFunction('float', (input) => parseFloat(+normalizeValue(String(input))))
-
-    // $string(input: any): string
-    expression.registerFunction('string', (input) => String(input))
-
-    // $array(input: any): array
-    expression.registerFunction('array', (input) => Array.isArray(input) ? input : Array.from(input))
-
-    // $camelcase(input: string): string
-    expression.registerFunction('camelcase', (...args) => camelcase(...args))
-
-    // $concat(...input: (array | *)?): array
-    expression.registerFunction('concat', (...args) => {
-      return [].concat(...args)
-    })
-
-    // $unique(input: (array | *)?): array
-    expression.registerFunction('unique', (input) => {
-      if (Array.isArray(input)) {
-        return Array.from(new Set(input))
-      } else {
-        return input
-      }
-    })
-
-    // $slice(node: ParserNode, start: number, stop: number): Array
-    expression.registerFunction('slice', (node, start, stop) => {
-      if (node && node.children) {
-        return node.children.slice(start, stop)
-      } else if (node.slice) {
-        return node.slice(start, stop)
-      } else {
-        return node
-      }
-    })
-
-    for (const key in bindings) {
-      const value = bindings[key]
+    for (const key in queryBindings) {
+      const value = queryBindings[key]
 
       if ('function' === typeof value) {
-        expression.registerFunction(key, value.bind(node))
-        debug('query: expression function register:', key)
+        const { signature = '<x-:x>' } = value
+        const fn = value.bind(node)
+        debug('query: registering function `%s(%s)`', key, signature)
+        expression.registerFunction(key, fn, signature)
       }
     }
   }

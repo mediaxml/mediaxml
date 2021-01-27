@@ -134,9 +134,31 @@ function onstream(err, stream) {
     .on('finish', () => {
 
       if (query) {
-        const result = parser.query(query, {
-          inspect: Boolean(argv.inspect)
-        })
+        let result = null
+        const now = Date.now()
+        try {
+          query = query.trim()
+
+          result = parser.query(query, {
+            inspect: Boolean(argv.inspect)
+          })
+        } catch (err) {
+          if (err && 'position' in err) {
+            if (err.token) {
+              console.error('%s: %s',
+                chalk.red('error'),
+                chalk.bold(err.message.replace(`"${err.token}"`, `"${chalk.yellow(err.token)}"`))
+              )
+            } else {
+              console.error('%s: %s', chalk.red('error'), chalk.bold(err.message))
+            }
+
+            console.log('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
+          } else {
+            debug(err.stack || err)
+            console.log('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
+          }
+        }
 
         if (result && argv.inspect) {
           output = pretty(result)
@@ -157,6 +179,7 @@ function onstream(err, stream) {
           eval: evaluate
         })
 
+        server.context = parser.rootNode
         server.on('error', (err) => {
           console.error('error:', err.message)
           debug(err.stack || err)
@@ -218,7 +241,6 @@ function pretty(result) {
 
 function evaluate(query, context, file, callback) {
   query = query.trim()
-    .replace(/^(this|self)/g, ':root')
 
   const now = Date.now()
 
@@ -229,14 +251,10 @@ function evaluate(query, context, file, callback) {
 
   try {
     const result = parser.rootNode.query(query)
-    if (result  && 'object' === typeof result) {
-      const output = pretty(result)
-      if (output) {
-        process.stdout.write(output)
-        process.stdout.write('\n')
-      }
-    } else {
-      console.log(result)
+    const output = pretty(result)
+    if (output) {
+      process.stdout.write(output)
+      process.stdout.write('\n')
     }
 
     console.log('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
@@ -294,7 +312,8 @@ function completer(query) {
         `${prefix}.$float(`,
         `${prefix}.$int(`,
         `${prefix}.$now(`,
-        `${prefix}.$slice`,
+        `${prefix}.$slice(`,
+        `${prefix}.$string(`,
       )
     }
   }
@@ -336,13 +355,22 @@ function completer(query) {
     }
   }
 
-  if (/\[\s+$/.test(end)) {
+  if (/\[(is|attributes|children|name|text)?\s*(.*)$/i.test(end)) {
     completions.push(
       'attributes',
       'children',
       'attr(',
       'name',
-      'text'
+      'text',
+      'is',
+      'is array',
+      'is date',
+      'is fragment',
+      'is node',
+      'is number',
+      'is object',
+      'is text',
+      'is string',
     )
   }
 
@@ -357,6 +385,14 @@ function completer(query) {
   } else {
     completions.push(
       ':is',
+      ':is(array)',
+      ':is(date)',
+      ':is(fragment)',
+      ':is(node)',
+      ':is(number)',
+      ':is(object)',
+      ':is(text)',
+      ':is(string)',
       ':json',
       ':keys',
       ':text',
@@ -369,10 +405,14 @@ function completer(query) {
     )
   }
 
-  const hits = completions
-    .filter((c) => parts.length && end ? c.startsWith(`:${end}`) : c.startsWith(query))
+  const hits = completions.filter((c) => {
+    return parts.length && end ? c.startsWith(`:${end}`) : c.startsWith(query)
+  })
 
-  return  [hits.length ? unique(hits.sort()) : unique(completions.sort()), query]
+  return  [
+    hits.length ? unique(hits.sort()) : unique(completions.sort()),
+    query
+  ]
 
   function unique(array) {
     return Array.from(new Set(array))

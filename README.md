@@ -138,6 +138,8 @@ more information.
   * [CableLabs ADI 1 Specification](https://community.cablelabs.com/wiki/plugins/servlet/cablelabs/alfresco/download?id=8f900e8b-d1eb-4834-bd26-f04bd623c3d2)
   * [CableLabs ADI 1 Various Mappings](https://www.w3.org/2008/WebVideo/Annotations/drafts/ontology10/CR/mappings_tested/CableLabs1.htm)
   * [SCTE-236 - Content Metadata Specification](https://scte-cms-resource-storage.s3.amazonaws.com/ANSI_SCTE-35-2019a-1582645390859.pdf)
+  * [XMLTV DTD](https://github.com/XMLTV/xmltv/blob/master/xmltv.dtd)
+  * [XMLTV Format](http://wiki.xmltv.org/index.php/XMLTVFormat)
 
 ## License
 

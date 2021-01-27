@@ -11,6 +11,12 @@ const duration = require('tinyduration')
 const SMPTE_TIMECODE_REGEX = /^([012]\\d):(\\d\\d):(\\d\\d)(:|;|\\.)(\\d\\d)$/
 
 /**
+ * TODO
+ * @private
+ */
+const ISO_8601_2004_2019_REGEX = /([0-9]{4})-?([0-9]{2})-?([0-9]{2})T?([0-9]{2})([0-9]{2})?([0-9]{2})?\s?([-|+|:|0-9]+)?/
+
+/**
  * Normalize a value from a string or mixed input.
  * @public
  * @memberof normalize
@@ -59,6 +65,21 @@ function normalizeValue(value) {
     return value
   }
 
+  try {
+    let [_, year, month, date, hour, minute, second, tz] = value.match(ISO_8601_2004_2019_REGEX)
+    if (tz) {
+      tz = tz.replace(/^([-|+])?([0-9]?[0-9])([0-9][0-9])?$/g, (_, $1, $2, $3) => `${$1 || '+'}${$2.padStart(2, 0)}:${($3 || '').padStart(2, 0)}`)
+    }
+
+    const dateString = `${year}-${month}-${date}T${hour}:${minute}:${second}.000${tz || ''}`
+    const dateValue = new Date(dateString)
+    if (!Number.isNaN(dateValue.valueOf())) {
+      return dateValue
+    }
+  } catch (err) {
+    void err
+  }
+
   if ('' === value) {
     return ''
   } else if ('true' === value) {
@@ -92,7 +113,7 @@ function normalizeValue(value) {
     void err
   }
 
-  if (/([0-9|-|.|:]+|now)/g.test(value)) {
+  if (/(^-?[0-9|.|:]+|now-?$)/g.test(value)) {
     const normalPlayTime = NPTTimecode.from(value)
     if (normalPlayTime.start.isValid || normalPlayTime.stop.isVald) {
       return normalPlayTime
