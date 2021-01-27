@@ -10,7 +10,25 @@ function binding(signature, fn) {
     fn = () => void 0
   }
 
-  return Object.assign(fn, { signature })
+  return Object.assign(bound, { signature })
+
+  function bound(...args) {
+    try {
+      const result = fn(...args)
+
+      if (args[0] instanceof Promise) {
+        return args[0].then(() => Promise.resolve(result))
+      }
+    } catch (err) {
+      if (args[0] instanceof Promise) {
+        return Promise.reject(err)
+      }
+
+      throw err
+    }
+
+    return result
+  }
 }
 
 module.exports = {
@@ -36,7 +54,7 @@ module.exports = {
 
   // $classConstructorName(input: any): string
   classConstructorName: binding('<j-:s>', (input) => {
-    return input && input.constructor && input.constructor.name
+    return (input && input.constructor && input.constructor.name) || ''
   }),
 
   // $print(...input: any)
@@ -69,13 +87,13 @@ module.exports = {
     }
   }),
 
-  // $toNumber(): int
-  toNumber: binding('<j-:n>', (input) => {
+  // $number(): int
+  number: binding('<j-:n>', (input) => {
     return Number(input)
   }),
 
-  // $toTuple(): int
-  toTuple: binding('<j-:o>', (input) => {
+  // $tuple(): int
+  tuple: binding('<j-:o>', (input) => {
     if (input) {
       if ('function' === typeof input.keys && 'function' === typeof input.values) {
         const keys = input.keys()
@@ -233,4 +251,8 @@ module.exports = {
       return node
     }
   }),
+
+  join: binding('<a-s?:s>', (array, delimiter) => {
+    return Array.from(array).join(delimiter || ',')
+  })
 }

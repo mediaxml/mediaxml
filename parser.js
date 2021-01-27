@@ -1676,6 +1676,13 @@ class ParserState {
   pop() {
     return this.stack.pop() || null
   }
+
+  /**
+   * Clear the stack state.
+   */
+  clear() {
+    this.stack.splice(0, this.length)
+  }
 }
 
 /**
@@ -2369,6 +2376,39 @@ class Parser extends htmlparser2.Parser {
   }
 
   /**
+   * Query the root document object model using "JSONata" query syntax.
+   * @public
+   * @param {?String} [queryString = '$'] - A "JSONata" query string
+   * @param {?Object} opts - Query options
+   * @param {?Boolean} [opts.inspect = false] - If `true`, will set `util.inspect.custom` symbols
+   * @return {?ParserNode|ParserNodeFragment|ParserNodeText}
+   * @see {@link https://jsonata.org}
+   * @example
+   * const childrenFragment parser.query('[name="rss"]:children')
+   */
+  query(queryString, opts) {
+    if (!this.rootNode) {
+      // lazy load
+      const { query } = require('./query')
+      const empty = ParserNode.from('#empty', {}, this.options)
+      return query(empty, queryString, opts)
+    }
+
+    return this.rootNode.query(queryString, opts)
+  }
+
+  /**
+   * Clear the parser state
+   */
+  clear() {
+    this.promise = makePromise()
+    this.ended = false
+    this.error = null
+    this.reset()
+    this.state.clear()
+  }
+
+  /**
    * Called when the parser has finished parser.
    * @private
    */
@@ -2402,25 +2442,6 @@ class Parser extends htmlparser2.Parser {
    */
   catch(reject) {
     return this.promise.catch(reject)
-  }
-
-  /**
-   * Query the root document object model using "JSONata" query syntax.
-   * @public
-   * @param {?String} [query = '$'] - A "JSONata" query string
-   * @param {?Object} opts - Query options
-   * @param {?Boolean} [opts.inspect = false] - If `true`, will set `util.inspect.custom` symbols
-   * @return {?ParserNode|ParserNodeFragment|ParserNodeText}
-   * @see {@link https://jsonata.org}
-   * @example
-   * const childrenFragment parser.query('[name="rss"]:children')
-   */
-  query(query, opts) {
-    if (!this.rootNode) {
-      return null
-    }
-
-    return this.rootNode.query(query, opts)
   }
 
   /**

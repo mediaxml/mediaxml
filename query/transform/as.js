@@ -7,7 +7,7 @@ function transform(queryString) {
     .replace(/(:|as)(\s*)json(\(\s*['|"|`]?([a-z|A-Z|0-9|_]+)?['|"|`]?\s*\))?/ig, as('$json(@1@3)'))
 
     // `(:|as)tuple` - selector to return tuple key-value pair of target
-    .replace(/(:|as)(\s*)tuple/ig, as('$toTuple(@1)'))
+    .replace(/(:|as)(\s*)tuple/ig, as('$tuple(@1)'))
 
     // `(:|as)number` - selector to return number representation of target
     .replace(/(:|as)(\s*)(number|float)(\(\s*['|"|`]?([a-z|A-Z|0-9|_]+)?['|"|`]?\s*\))?/ig, as('$float(@1@4)'))

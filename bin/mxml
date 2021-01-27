@@ -3,15 +3,17 @@
 const { Parser, ParserNode, ParserNodeFragment, ParserNodeAttributes } = require('../parser')
 const { inspect } = require('util')
 const chromafi = require('@12core/chromafi')
-const { URL } = require('url')
 const prettyMs = require('pretty-ms')
+const { URL } = require('url')
 const mkdirp = require('mkdirp')
 const debug = require('debug')('mediaxml')
 const chalk = require('chalk')
 const paths = require('env-paths')('mediaxml')
+const glob = require('glob')
 const path = require('path')
 const repl = require('repl')
 const get = require('get-uri')
+const ora = require('ora')
 const pkg = require('../package.json')
 const fs = require('fs')
 
@@ -64,7 +66,7 @@ if (argv.debug) {
   debug('Debug output enabled')
 }
 
-if (!argv._[0] && process.stdin.isTTY) {
+if (0 && !argv._[0] && process.stdin.isTTY) {
   console.error('error: Please specify a file path or URL')
   console.error('usage: mxml [-hiDV] [options] <uri> [query]')
   process.exit(1)
@@ -73,6 +75,16 @@ if (!argv._[0] && process.stdin.isTTY) {
 const parser = new Parser()
 let [ arg0, query = arg0 ] = argv._
 let filename = null
+const spinners = {
+  loading: ora({
+    discardStdin: false,
+    hideCursor: false,
+    indent: 0,
+    spinner: 'aesthetic',
+    color: 'cyan',
+    prefixText: `${chalk.bold(chalk.italic('loading'))}:`
+  })
+}
 
 if (arg0 && query && arg0 === query) {
   query = null
@@ -89,7 +101,6 @@ if (query) {
 }
 
 if ('-' === argv._[0] || !process.stdin.isTTY) {
-
   if (!query) {
     console.error('error: stdin is not a TTY and no query was given')
     console.error('usage: mxml [-hiDV] [options] <uri> [query]')
@@ -115,7 +126,11 @@ if ('-' === argv._[0] || !process.stdin.isTTY) {
     }
   }
 
-  get(filename, onstream)
+  if (filename) {
+    get(filename, onstream)
+  } else {
+    startRepl()
+  }
 }
 
 function onstream(err, stream) {
@@ -132,7 +147,6 @@ function onstream(err, stream) {
       debug(err.stack || err)
     })
     .on('finish', () => {
-
       if (query) {
         let result = null
         const now = Date.now()
@@ -170,37 +184,84 @@ function onstream(err, stream) {
           console.log(result)
         }
       } else if (process.stdin.isTTY) {
-        const replServerHistoryPath = path.join(paths.data, 'repl.history')
-        const server = repl.start({
-          completer,
-          terminal: true,
-          preview: true,
-          prompt: `${chalk.bold('mxml')} (${filename ? path.basename(filename.split('?')[0]) : '-'})> `,
-          eval: evaluate
-        })
-
-        server.context = parser.rootNode
-        server.on('error', (err) => {
-          console.error('error:', err.message)
-          debug(err.stack || err)
-        })
-
-        try {
-          mkdirp.sync(path.dirname(replServerHistoryPath))
-        } catch (err) {
-          console.error('error:', err.message)
-          debug(err.stack || err)
-          process.exit(1)
-          return
-        }
-
-        server.setupHistory(replServerHistoryPath, (err) => {
-          if (err) {
-            debug(err.stack || err)
-          }
-        })
+        startRepl()
       }
     })
+}
+
+function startRepl() {
+  const replServerHistoryPath = path.join(paths.data, 'repl.history')
+  const server = repl.start({
+    completer,
+    terminal: true,
+    preview: true,
+    prompt: `${chalk.bold('mxml')} (${chalk.italic(filename ? path.basename(filename.split('?')[0]) : '-')})> `,
+    eval: evaluate
+  })
+
+  server.context = parser.rootNode
+  server.on('error', (err) => {
+    console.error('error:', err.message)
+    debug(err.stack || err)
+  })
+
+  try {
+    mkdirp.sync(path.dirname(replServerHistoryPath))
+  } catch (err) {
+    console.error('error:', err.message)
+    debug(err.stack || err)
+    process.exit(1)
+    return
+  }
+
+  server.setupHistory(replServerHistoryPath, (err) => {
+    if (err) {
+      debug(err.stack || err)
+    }
+  })
+
+  parser.options.bindings.load = (filename) => {
+    try {
+      const { protocol } = new URL(filename)
+    } catch (err) {
+      if (err && 'ERR_INVALID_URL' !== err.code) {
+        debug(err)
+      } else {
+        try {
+          filename = path.resolve(process.cwd(), filename)
+          fs.accessSync(filename, fs.constants.R_OK | fs.constants.F_OK)
+          filename = `file://${filename}`
+        } catch (err) {
+          void err
+        }
+      }
+    }
+
+    return new Promise((resolve, reject) => {
+      get(filename, (err, stream) => {
+        if (err) {
+          console.error('%s: %s', chalk.red('error'), chalk.bold(err.message))
+          debug(err.stack || err)
+          reject(err)
+        } else {
+          parser.clear()
+          spinners.loading.start()
+          process.nextTick(() => {
+            stream.pipe(parser.createWriteStream())
+            //.on('data', () => spinners.loading.render())
+              .on('error', reject)
+              .on('finish', () => {
+                spinners.loading.stop()
+                server.setPrompt(`${chalk.bold('mxml')} (${chalk.italic(filename ? path.basename(filename.split('?')[0]) : '-')})> `)
+                resolve(parser.rootNode)
+              })
+          })
+        }
+      })
+    })
+  }
+
+  parser.options.bindings.load.signature = '<s:x>'
 }
 
 function pretty(result) {
@@ -239,48 +300,65 @@ function pretty(result) {
   }
 }
 
-function evaluate(query, context, file, callback) {
-  query = query.trim()
-
-  const now = Date.now()
-
-  if (!query) {
-    console.log('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
-    return callback(null)
-  }
-
+async function evaluate(query, context, file, callback) {
   try {
-    const result = parser.rootNode.query(query)
-    const output = pretty(result)
-    if (output) {
-      process.stdout.write(output)
-      process.stdout.write('\n')
+    query = query.trim()
+      .replace(/(\$?load\s*?)[\'|"]?([0-9|a-z|A-Z|\-|_|\$|.|\:|\(|\)|\&|\%|\#|\@|\*|\!|\/|\\|\?|=|\+]+)[\'|"]?\s*?/ig, '$load("$2")')
+
+    const now = Date.now()
+
+    if (!query) {
+      console.log('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
+      return callback(null)
     }
 
-    console.log('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
-    callback(null)
-  } catch (err) {
-    if (err && '(end)' === err.token) {
-      return callback(new repl.Recoverable(err))
-    }
+    try {
+      let result = parser.query(query)
 
-    if (err && 'position' in err) {
-      if (err.token) {
-        console.error('%s: %s',
-          chalk.red('error'),
-          chalk.bold(err.message.replace(`"${err.token}"`, `"${chalk.yellow(err.token)}"`))
-        )
-      } else {
-        console.error('%s: %s', chalk.red('error'), chalk.bold(err.message))
+      if (result instanceof Promise) {
+        result = await result
+      }
+
+      if (!parser.rootNode) {
+        console.error('%s: %s', chalk.bold(chalk.yellow('warn')), 'Document not loaded.')
+        console.error('%s: %s', chalk.bold(chalk.yellow('warn')), 'Query cannot be executed.')
+        console.error('%s: %s', chalk.bold(chalk.yellow('warn')), 'Try using $load(URL)')
+      }
+
+      const output = pretty(result)
+      if (output) {
+        process.stdout.write(output)
+        process.stdout.write('\n')
       }
 
       console.log('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
       callback(null)
-    } else {
-      debug(err.stack || err)
-      console.log('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
-      callback(err.message)
+    } catch (err) {
+      if (err && '(end)' === err.token) {
+        return callback(new repl.Recoverable(err))
+      }
+
+      if (err && 'object' === typeof err && 'position' in err) {
+        if (err.token) {
+          console.error('%s: %s',
+            chalk.red('error'),
+            chalk.bold(err.message.replace(`"${err.token}"`, `"${chalk.yellow(err.token)}"`))
+          )
+        } else {
+          console.error('%s: %s', chalk.red('error'), chalk.bold(err.message))
+        }
+
+        console.log('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
+        callback(null)
+      } else {
+        debug(err.stack || err)
+        console.log('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
+        callback(err.message || err)
+      }
     }
+  } catch (err) {
+    debug(err.stack || err)
+    callback('An unknown error has occurred. Try using relaunching with `--debug`.')
   }
 }
 
@@ -289,6 +367,30 @@ function completer(query) {
   const end = parts.pop()
 
   const completions = [ ]
+
+  if (query) {
+    const pathToLoad = query.match(/\$?load\(?\s*(['|"])?(.*)['|"]?\s*\)?/)
+    if (pathToLoad) {
+      let [, quote, pathspec ] = pathToLoad
+
+      if (pathspec) {
+        let hits = glob.sync(pathspec + '*')
+        if (!hits || !hits.length) {
+          hits = glob.sync(pathspec + '**')
+        }
+
+        for (const hit of hits) {
+          const stat = fs.statSync(hit)
+          if (stat.isDirectory()) {
+            completions.push(query.replace(pathspec, hit + path.sep))
+          } else {
+            completions.push(query.replace(pathspec, hit))
+          }
+        }
+
+      }
+    }
+  }
 
   if (query && !/^\$\.$/.test(query)) {
     if (/^\$[a-z|A-Z|0-9|_]+$/g.test(end)) {
@@ -299,6 +401,7 @@ function completer(query) {
         '$float(',
         '$int(',
         '$now(',
+        '$load(',
         '$slice(',
         '$toJSON',
       )
@@ -362,6 +465,7 @@ function completer(query) {
       'attr(',
       'name',
       'text',
+      'load',
       'is',
       'is array',
       'is date',

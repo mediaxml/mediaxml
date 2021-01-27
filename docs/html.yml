@@ -28,13 +28,13 @@ toc:
   - "rss"
   - "mrss"
   - "xmltv"
-  - "document"
-  - "query"
 
   - name: "Core"
     description: "Core modules for implementing the MediaXML API."
     file: "guide/core.md"
 
-  - "parser"
+  - "document"
   - "entity"
   - "normalize"
+  - "parser"
+  - "query"
