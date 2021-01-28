@@ -4,6 +4,7 @@ const { Parser, ParserNode, ParserNodeFragment, ParserNodeAttributes } = require
 const { clearScreenDown, cursorTo, moveCursor } = require('readline')
 const { inspect } = require('util')
 const stripAnsi = require('strip-ansi')
+const chokidar = require('chokidar')
 const chromafi = require('@12core/chromafi')
 const truncate = require('cli-truncate')
 const prettyMs = require('pretty-ms')
@@ -26,13 +27,15 @@ const argv = require('minimist')(process.argv.slice(2), {
     i: ['inspect'],
     D: ['debug'],
     V: ['version'],
+    W: ['watch'],
   },
 
   boolean: [
-    'version',
-    'inspect',
     'debug',
+    'inspect',
     'help'
+    'version',
+    'watch',
   ]
 })
 
@@ -44,6 +47,7 @@ if (argv.help) {
   console.log('  -i, --inspect   Show inspected output')
   console.log('  -D, --debug     Show debug output')
   console.log('  -V, --version   Show program version')
+  console.log('  -W, --watch     Watch for changes (REPL context only)')
   console.log('')
   console.log('arguments:')
   console.log('  <filename>      Path to XML file (required)')
@@ -76,8 +80,11 @@ if (0 && !argv._[0] && process.stdin.isTTY) {
 }
 
 const parser = new Parser()
+
 let [ arg0, query = arg0 ] = argv._
+let server = null
 let filename = null
+
 const spinners = {
   loading: ora({
     discardStdin: false,
@@ -86,14 +93,7 @@ const spinners = {
     spinner: 'aesthetic',
     color: 'cyan',
     prefixText: `${chalk.bold(chalk.italic('loading'))}:`
-  }),
-
-  preview: ora({
-    discardStdin: false,
-    hideCursor: false,
-    indent: 0,
-    color: 'cyan',
-  }),
+  })
 }
 
 if (arg0 && query && arg0 === query) {
@@ -201,6 +201,7 @@ function onstream(err, stream) {
 
 function startRepl() {
   let historyIndex = 0
+  let watcher = null
   const history = []
   const inputBuffer = []
 
@@ -278,14 +279,17 @@ function startRepl() {
   })
 
   const replServerHistoryPath = path.join(paths.data, 'repl.history')
+
   console.error(`Welcome to the ${chalk.magenta(chalk.bold('MediaXML'))} %s CLI`, pkg.version)
   console.error('Please report bugs to %s', chalk.bold(chalk.italic(pkg.bugs.url)))
 
   if (!parser.rootNode) {
-    console.error('Load a XML document with the `load <URL>`')
+    console.error('Try using '+ chalk.bold('`load <URL>`') +' command to load an XML document into the context.')
+  } else (argv.watch) {
+    watch()
   }
 
-  const server = repl.start({
+  server = repl.start({
     completer,
     terminal: true,
     prompt: `${chalk.bold('mxml')}(${chalk.italic(filename ? path.basename(filename.split('?')[0]) : '-')})> `,
@@ -296,6 +300,12 @@ function startRepl() {
   server.on('error', (err) => {
     console.error('error:', err.message)
     debug(err.stack || err)
+  })
+
+  server.on('exit', () => {
+    if (watcher) {
+      watcher.close()
+    }
   })
 
   try {
@@ -313,7 +323,10 @@ function startRepl() {
     }
   })
 
-  parser.options.bindings.load = (filenameToLoad) => {
+  parser.options.bindings.load = load
+  load.signature = '<s:x>'
+
+  function load(filenameToLoad) {
     filename = filenameToLoad
     try {
       const { protocol } = new URL(filename)
@@ -346,6 +359,11 @@ function startRepl() {
               .on('finish', () => {
                 spinners.loading.stop()
                 server.setPrompt(`${chalk.bold('mxml')}(${chalk.italic(filename ? path.basename(filename.split('?')[0]) : '-')})> `)
+
+                if (argv.watch) {
+                  watch()
+                }
+
                 resolve(parser.rootNode)
               })
           })
@@ -354,7 +372,66 @@ function startRepl() {
     })
   }
 
-  parser.options.bindings.load.signature = '<s:x>'
+  async function watch() {
+    if (watcher) {
+      await watcher.close()
+    }
+
+    const { pathname } = new URL(filename)
+    watcher = chokidar.watch(pathname)
+    watcher.on('change', () => {
+      console.error()
+      load(filename).then(async () => {
+        //server.clearBufferedCommand()
+        //server.displayPrompt()
+        const { cursorPos, displayPos } = getCursorPreviewPosition(server)
+        const cols = displayPos.cols - cursorPos.cols
+        clearScreenDown(server.output)
+        moveCursor(server.output, cols, 0)
+        const query = server.line
+
+        if (query) {
+          try {
+            result = parser.query(query)
+
+            if (result instanceof Promise) {
+              result = await result
+            }
+          } catch (err) {
+          }
+
+          process.nextTick(() => {
+            let output = ''
+
+            const { cursorPos, displayPos } = getCursorPreviewPosition(server)
+            const cols = displayPos.cols - cursorPos.cols
+            const rows = displayPos.rows - cursorPos.rows
+
+            if (result) {
+              output = pretty(result)
+
+              if (output) {
+                output = output.split('\n').slice(0, server.output.rows - rows - 1)
+                const n = output.length
+                output = output
+                  .map((o) => `${truncate(o, server.output.columns - 8)}`)
+                  .join('\n')
+
+                moveCursor(server.output, cols, rows)
+                clearScreenDown(server.output)
+                server.output.write(`${output}`)
+                cursorTo(server.output, cursorPos.cols)
+                moveCursor(server.output, cols, -rows - n -1)
+              }
+            } else if (!query) {
+              moveCursor(server.output, cols, rows)
+              clearScreenDown(server.output)
+            }
+          })
+        }
+      })
+    })
+  }
 }
 
 // borrowed from: https://github.com/nodejs/node/blob/master/lib/internal/repl/utils.js
@@ -421,19 +498,21 @@ async function evaluate(query, context, file, callback) {
         result = await result
       }
 
-      if (!parser.rootNode) {
-        console.error('%s: %s', chalk.bold(chalk.yellow('warn')), 'Document not loaded.')
-        console.error('%s: %s', chalk.bold(chalk.yellow('warn')), 'Query cannot be executed.')
-        console.error('%s: %s', chalk.bold(chalk.yellow('warn')), 'Try using `load <URL>`')
-      }
-
       const output = pretty(result)
       if (output) {
         process.stdout.write(output)
         process.stdout.write('\n')
       }
 
+      if (!parser.rootNode) {
+        console.error()
+        console.error('%s: %s', chalk.bold(chalk.yellow(' warn')), 'Document not loaded into context. The query cannot be executed.')
+        console.error('%s: %s', chalk.bold(chalk.yellow(' warn')), 'Try using `load <URL>` command to load an XML document into the context.')
+        console.error()
+      }
+
       console.error('%s: %s', chalk.magenta(chalk.bold('query')), prettyMs(Date.now() - now))
+
       return process.nextTick(callback, null)
     } catch (err) {
       const { cursorPos, displayPos } = getCursorPreviewPosition(server)

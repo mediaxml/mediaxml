@@ -35,6 +35,7 @@
     "@12core/chromafi": "^3.0.1",
     "camelcase": "^6.2.0",
     "chalk": "^4.1.0",
+    "chokidar": "^3.5.1",
     "cli-truncate": "^2.1.0",
     "date-and-time": "^0.14.2",
     "debug": "^4.3.1",
