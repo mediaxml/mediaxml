@@ -33,7 +33,7 @@ const argv = require('minimist')(process.argv.slice(2), {
   boolean: [
     'debug',
     'inspect',
-    'help'
+    'help',
     'version',
     'watch',
   ]
@@ -285,7 +285,7 @@ function startRepl() {
 
   if (!parser.rootNode) {
     console.error('Try using '+ chalk.bold('`load <URL>`') +' command to load an XML document into the context.')
-  } else (argv.watch) {
+  } else if (argv.watch) {
     watch()
   }
 
