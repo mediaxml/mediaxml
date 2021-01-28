@@ -13,8 +13,10 @@ function binding(signature, fn) {
   return Object.assign(bound, { signature })
 
   function bound(...args) {
+    let result = null
+
     try {
-      const result = fn(...args)
+      result = fn(...args)
 
       if (args[0] instanceof Promise) {
         return args[0].then(() => Promise.resolve(result))

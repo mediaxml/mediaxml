@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 
 const { Parser, ParserNode, ParserNodeFragment, ParserNodeAttributes } = require('../parser')
+const { clearScreenDown, cursorTo, moveCursor } = require('readline')
 const { inspect } = require('util')
+const stripAnsi = require('strip-ansi')
 const chromafi = require('@12core/chromafi')
+const truncate = require('cli-truncate')
 const prettyMs = require('pretty-ms')
 const { URL } = require('url')
 const mkdirp = require('mkdirp')
@@ -83,7 +86,14 @@ const spinners = {
     spinner: 'aesthetic',
     color: 'cyan',
     prefixText: `${chalk.bold(chalk.italic('loading'))}:`
-  })
+  }),
+
+  preview: ora({
+    discardStdin: false,
+    hideCursor: false,
+    indent: 0,
+    color: 'cyan',
+  }),
 }
 
 if (arg0 && query && arg0 === query) {
@@ -167,10 +177,10 @@ function onstream(err, stream) {
               console.error('%s: %s', chalk.red('error'), chalk.bold(err.message))
             }
 
-            console.log('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
+            console.error('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
           } else {
             debug(err.stack || err)
-            console.log('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
+            console.error('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
           }
         }
 
@@ -178,10 +188,10 @@ function onstream(err, stream) {
           output = pretty(result)
 
           if (output) {
-            console.log('\n%s', output.trim())
+            console.error('\n%s', output.trim())
           }
         } else {
-          console.log(result)
+          console.error(result)
         }
       } else if (process.stdin.isTTY) {
         startRepl()
@@ -190,12 +200,98 @@ function onstream(err, stream) {
 }
 
 function startRepl() {
+  let historyIndex = 0
+  const history = []
+  const inputBuffer = []
+
+  process.stdin.setRawMode(true)
+
+  process.stdin.on('keypress', async (str, key) => {
+    if ('backspace' === key.name && 0 === inputBuffer.length) {
+      return
+    }
+
+    if (key.ctrl) {
+      return
+    }
+
+    if ('up' === key.name) {
+      historyIndex = Math.max(0, historyIndex - 1)
+      key = history[historyIndex] || key
+    } else if ('down' === key.name) {
+      historyIndex = Math.min(history.length, historyIndex + 1)
+      key = history[historyIndex] || key
+    }
+
+    if ('backspace' === key.name) {
+      inputBuffer.pop()
+    } else if ('return' === key.name) {
+      inputBuffer.splice(0, inputBuffer.length)
+      history.push(key)
+      historyIndex = history.length - 1
+    } else if (key.sequence) {
+      inputBuffer.push(key.sequence)
+    }
+
+    const query = server.line + key.sequence
+    let result = null
+
+    if (query) {
+      try {
+        result = parser.query(query)
+
+        if (result instanceof Promise) {
+          result = await result
+        }
+      } catch (err) {
+      }
+    }
+
+    process.nextTick(() => {
+      let output = ''
+
+      const { cursorPos, displayPos } = getPreviewPos()
+      const cols = displayPos.cols - cursorPos.cols
+      const rows = displayPos.rows - cursorPos.rows
+
+      if (result) {
+        output = pretty(result)
+
+        if (output) {
+          output = output.split('\n').slice(0, server.output.rows - rows - 2)
+          const n = output.length
+          output = output
+            .map((o) => truncate(o, server.output.columns - 6).padEnd(3, '.'))
+            .join('\n')
+
+          moveCursor(server.output, cols, rows)
+          clearScreenDown(server.output)
+          server.output.write(`\n${output.trim()}`)
+          cursorTo(server.output, cursorPos.cols)
+          moveCursor(server.output, cols, -rows - n)
+        }
+      } else if (!query) {
+        moveCursor(server.output, cols, rows)
+        clearScreenDown(server.output)
+      }
+    })
+
+    // borrowed from: https://github.com/nodejs/node/blob/master/lib/internal/repl/utils.js
+    function getPreviewPos() {
+      const displayPos = server._getDisplayPos(`${server._prompt}${server.line}`)
+      const cursorPos = server.line.length !== server.cursor
+        ? server.getCursorPos()
+        : displayPos
+      return { displayPos, cursorPos }
+    }
+  })
+
   const replServerHistoryPath = path.join(paths.data, 'repl.history')
+  console.error('Welcome to MediaXML %s', pkg.version)
   const server = repl.start({
     completer,
     terminal: true,
-    preview: true,
-    prompt: `${chalk.bold('mxml')} (${chalk.italic(filename ? path.basename(filename.split('?')[0]) : '-')})> `,
+    prompt: `${chalk.bold('mxml')}(${chalk.italic(filename ? path.basename(filename.split('?')[0]) : '-')})> `,
     eval: evaluate
   })
 
@@ -220,7 +316,8 @@ function startRepl() {
     }
   })
 
-  parser.options.bindings.load = (filename) => {
+  parser.options.bindings.load = (filenameToLoad) => {
+    filename = filenameToLoad
     try {
       const { protocol } = new URL(filename)
     } catch (err) {
@@ -248,11 +345,10 @@ function startRepl() {
           spinners.loading.start()
           process.nextTick(() => {
             stream.pipe(parser.createWriteStream())
-            //.on('data', () => spinners.loading.render())
               .on('error', reject)
               .on('finish', () => {
                 spinners.loading.stop()
-                server.setPrompt(`${chalk.bold('mxml')} (${chalk.italic(filename ? path.basename(filename.split('?')[0]) : '-')})> `)
+                server.setPrompt(`${chalk.bold('mxml')}(${chalk.italic(filename ? path.basename(filename.split('?')[0]) : '-')})> `)
                 resolve(parser.rootNode)
               })
           })
@@ -308,8 +404,8 @@ async function evaluate(query, context, file, callback) {
     const now = Date.now()
 
     if (!query) {
-      console.log('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
-      return callback(null)
+      console.error('%s: %s', chalk.magenta(chalk.bold('query')), prettyMs(Date.now() - now))
+      return process.nextTick(callback, null)
     }
 
     try {
@@ -331,11 +427,11 @@ async function evaluate(query, context, file, callback) {
         process.stdout.write('\n')
       }
 
-      console.log('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
-      callback(null)
+      console.error('%s: %s', chalk.magenta(chalk.bold('query')), prettyMs(Date.now() - now))
+      return process.nextTick(callback, null)
     } catch (err) {
       if (err && '(end)' === err.token) {
-        return callback(new repl.Recoverable(err))
+        return process.nextTick(callback, new repl.Recoverable(err))
       }
 
       if (err && 'object' === typeof err && 'position' in err) {
@@ -348,12 +444,12 @@ async function evaluate(query, context, file, callback) {
           console.error('%s: %s', chalk.red('error'), chalk.bold(err.message))
         }
 
-        console.log('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
-        callback(null)
+        console.error('%s: %s', chalk.magenta(chalk.bold('query')), prettyMs(Date.now() - now))
+        return process.nextTick(callback, null)
       } else {
         debug(err.stack || err)
-        console.log('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
-        callback(err.message || err)
+        console.error('%s: %s', chalk.magenta(chalk.bold('query')), prettyMs(Date.now() - now))
+        return process.nextTick(callback, err.message || err)
       }
     }
   } catch (err) {
