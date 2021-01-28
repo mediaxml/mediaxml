@@ -233,7 +233,7 @@ function startRepl() {
       inputBuffer.push(key.sequence)
     }
 
-    const query = server.line + key.sequence
+    const query = inputBuffer.join('').trim()
     let result = null
 
     if (query) {
@@ -250,7 +250,7 @@ function startRepl() {
     process.nextTick(() => {
       let output = ''
 
-      const { cursorPos, displayPos } = getPreviewPos()
+      const { cursorPos, displayPos } = getCursorPreviewPosition(server)
       const cols = displayPos.cols - cursorPos.cols
       const rows = displayPos.rows - cursorPos.rows
 
@@ -261,12 +261,12 @@ function startRepl() {
           output = output.split('\n').slice(0, server.output.rows - rows - 2)
           const n = output.length
           output = output
-            .map((o) => truncate(o, server.output.columns - 6).padEnd(3, '.'))
+            .map((o) => `${truncate(o, server.output.columns - 8)}`)
             .join('\n')
 
           moveCursor(server.output, cols, rows)
           clearScreenDown(server.output)
-          server.output.write(`\n${output.trim()}`)
+          server.output.write(`\n${output}`)
           cursorTo(server.output, cursorPos.cols)
           moveCursor(server.output, cols, -rows - n)
         }
@@ -275,19 +275,16 @@ function startRepl() {
         clearScreenDown(server.output)
       }
     })
-
-    // borrowed from: https://github.com/nodejs/node/blob/master/lib/internal/repl/utils.js
-    function getPreviewPos() {
-      const displayPos = server._getDisplayPos(`${server._prompt}${server.line}`)
-      const cursorPos = server.line.length !== server.cursor
-        ? server.getCursorPos()
-        : displayPos
-      return { displayPos, cursorPos }
-    }
   })
 
   const replServerHistoryPath = path.join(paths.data, 'repl.history')
-  console.error('Welcome to MediaXML %s', pkg.version)
+  console.error(`Welcome to the ${chalk.magenta(chalk.bold('MediaXML'))} %s CLI`, pkg.version)
+  console.error('Please report bugs to %s', chalk.bold(chalk.italic(pkg.bugs.url)))
+
+  if (!parser.rootNode) {
+    console.error('Load a XML document with the `load <URL>`')
+  }
+
   const server = repl.start({
     completer,
     terminal: true,
@@ -360,6 +357,15 @@ function startRepl() {
   parser.options.bindings.load.signature = '<s:x>'
 }
 
+// borrowed from: https://github.com/nodejs/node/blob/master/lib/internal/repl/utils.js
+function getCursorPreviewPosition(server) {
+  const displayPos = server._getDisplayPos(`${server._prompt}${server.line}`)
+  const cursorPos = server.line.length !== server.cursor
+    ? server.getCursorPos()
+    : displayPos
+  return { displayPos, cursorPos }
+}
+
 function pretty(result) {
   if (
     !ParserNode.isParserNode(result) &&
@@ -418,7 +424,7 @@ async function evaluate(query, context, file, callback) {
       if (!parser.rootNode) {
         console.error('%s: %s', chalk.bold(chalk.yellow('warn')), 'Document not loaded.')
         console.error('%s: %s', chalk.bold(chalk.yellow('warn')), 'Query cannot be executed.')
-        console.error('%s: %s', chalk.bold(chalk.yellow('warn')), 'Try using $load(URL)')
+        console.error('%s: %s', chalk.bold(chalk.yellow('warn')), 'Try using `load <URL>`')
       }
 
       const output = pretty(result)
@@ -430,6 +436,13 @@ async function evaluate(query, context, file, callback) {
       console.error('%s: %s', chalk.magenta(chalk.bold('query')), prettyMs(Date.now() - now))
       return process.nextTick(callback, null)
     } catch (err) {
+      const { cursorPos, displayPos } = getCursorPreviewPosition(server)
+      const cols = displayPos.cols - cursorPos.cols
+      const rows = displayPos.rows - cursorPos.rows
+
+      moveCursor(server.output, cols, rows + 1)
+      clearScreenDown(server.output)
+
       if (err && '(end)' === err.token) {
         return process.nextTick(callback, new repl.Recoverable(err))
       }
@@ -445,11 +458,11 @@ async function evaluate(query, context, file, callback) {
         }
 
         console.error('%s: %s', chalk.magenta(chalk.bold('query')), prettyMs(Date.now() - now))
-        return process.nextTick(callback, null)
+        process.nextTick(callback, null)
       } else {
         debug(err.stack || err)
         console.error('%s: %s', chalk.magenta(chalk.bold('query')), prettyMs(Date.now() - now))
-        return process.nextTick(callback, err.message || err)
+        process.nextTick(callback, err.message || err)
       }
     }
   } catch (err) {
