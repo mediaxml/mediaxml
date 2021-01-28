@@ -448,7 +448,17 @@ function pretty(result) {
     !ParserNode.isParserNode(result) &&
     false === (result instanceof ParserNodeAttributes)
   ) {
-    return inspect(result, { colors: true })
+    if (result && result._jsonata_function) {
+      const name = (result.implementation.name || 'bound').replace(/^\$/, '')
+      const signature = result.signature.definition
+      return chalk.italic(`${chalk.cyan(name)}(${chalk.bold(signature)})`)
+    } else if ('function' === typeof result) {
+      const name = (result.name || 'bound').replace(/^\$/, '')
+      const signature = '...'
+      return chalk.italic(`${chalk.cyan(name)}(${chalk.bold(signature)})`)
+    } else {
+      return inspect(result, { colors: true })
+    }
   }
 
   let output = inspect.custom in result ? result[inspect.custom]() : result
@@ -499,16 +509,17 @@ async function evaluate(query, context, file, callback) {
       }
 
       const output = pretty(result)
-      if (output) {
-        process.stdout.write(output)
-        process.stdout.write('\n')
-      }
 
       if (!parser.rootNode) {
         console.error()
         console.error('%s: %s', chalk.bold(chalk.yellow(' warn')), 'Document not loaded into context. The query cannot be executed.')
         console.error('%s: %s', chalk.bold(chalk.yellow(' warn')), 'Try using `load <URL>` command to load an XML document into the context.')
         console.error()
+      }
+
+      if (output) {
+        process.stdout.write(output)
+        process.stdout.write('\n')
       }
 
       console.error('%s: %s', chalk.magenta(chalk.bold('query')), prettyMs(Date.now() - now))

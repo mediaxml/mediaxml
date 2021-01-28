@@ -10,9 +10,7 @@ function binding(signature, fn) {
     fn = () => void 0
   }
 
-  return Object.assign(bound, { signature })
-
-  function bound(...args) {
+  const bound = new Function('fn', `return function ${fn.name || '$bound'}(...args) {
     let result = null
 
     try {
@@ -30,17 +28,19 @@ function binding(signature, fn) {
     }
 
     return result
-  }
+  }`)(fn)
+
+  return Object.assign(bound, { signature })
 }
 
 module.exports = {
   binding,
 
   // $null(input: any): null
-  null: binding('<j-:l>', () => null),
+  null: binding('<j-:l>', function $null() { return null }),
 
   // $typeof(input: any): string
-  typeof: binding('<j-:s>', (input) => {
+  typeof: binding('<j-:s>', function $typeof (input) {
     if ('string' === typeof input || input instanceof String) {
       return 'string'
     } else if (Array.isArray(input)) {
@@ -55,22 +55,42 @@ module.exports = {
   }),
 
   // $classConstructorName(input: any): string
-  classConstructorName: binding('<j-:s>', (input) => {
+  classConstructorName: binding('<j-:s>', function $classConstructorName(input) {
     return (input && input.constructor && input.constructor.name) || ''
   }),
 
   // $print(...input: any)
-  print: binding('<j-:l>', (...input) => {
+  print: binding('<j-:l>', function $print(...input) {
     return console.log(...input)
   }),
 
   // $isArray(input: any): boolean
-  isArray: binding('<j-:b>', (input) => {
+  isArray: binding('<j-:b>', function $isArray(input) {
     return Array.isArray(input)
   }),
 
+  // $isObject(input: any): boolean
+  isObject: binding('<j-:b>', function $isObject(input) {
+    return null !== input && 'object' === typeof input
+  }),
+
+  // $isString(input: any): boolean
+  isString: binding('<j-:b>', function $isString(input) {
+    return input instanceof String || 'string' === typeof input
+  }),
+
+  // $isNumber(input: any): boolean
+  isNumber: binding('<j-:b>', function $isNumber(input) {
+    return input instanceof Number || 'number' === typeof input
+  }),
+
+  // $isBoolean(input: any): boolean
+  isBoolean: binding('<j-:b>', function $isBoolean(input) {
+    return input instanceof Boolean || 'boolean' === typeof input
+  }),
+
   // $json(): (object | array | string | number | boolean)?
-  json: binding('<j-j?:j>', function toJSON(input, arg) {
+  json: binding('<j-j?:j>', function $json(input, arg) {
     if ('string' === typeof input) {
       try {
         return JSON.parse(input)
@@ -79,7 +99,7 @@ module.exports = {
       }
     } else if (input && 'function' !== typeof input) {
       if (Array.isArray(input)) {
-        return input.map(toJSON)
+        return input.map($json)
       } else {
         input = input.toJSON ? input.toJSON(arg) : input
         return JSON.parse(JSON.stringify(input))
@@ -90,12 +110,12 @@ module.exports = {
   }),
 
   // $number(): int
-  number: binding('<j-:n>', (input) => {
+  number: binding('<j-:n>', function $number(input) {
     return Number(input)
   }),
 
   // $tuple(): int
-  tuple: binding('<j-:o>', (input) => {
+  tuple: binding('<j-:o>', function $tuple(input) {
     if (input) {
       if ('function' === typeof input.keys && 'function' === typeof input.values) {
         const keys = input.keys()
@@ -124,10 +144,12 @@ module.exports = {
   }),
 
   // $now(): int
-  now: binding('<j-:n>', (input) => Date.now()),
+  now: binding('<j-:n>', function $now(input) {
+    return Date.now()
+  }),
 
   // $length(input: any): int
-  length: binding('<j-:n>', (input) => {
+  length: binding('<j-:n>', function $length(input) {
     if (input && input.length) {
       return input.length
     } else if (!input) {
@@ -138,7 +160,7 @@ module.exports = {
   }),
 
   // $keys(input: any): array
-  keys: binding('<j-:a>', (input) => {
+  keys: binding('<j-:a>', function $keys(input) {
     if (Array.isArray(keys)) {
       return keys.map(keys)
     } else if (input) {
@@ -157,7 +179,7 @@ module.exports = {
   }),
 
   // $int(input: any): int
-  int: binding('<j-j?:n>', (input, arg) => {
+  int: binding('<j-j?:n>', function $int(input, arg) {
     if (Array.isArray(input)) {
       return input.map((i) => parseInt(+normalizeValue(String(i)), arg))
     } else {
@@ -166,7 +188,7 @@ module.exports = {
   }),
 
   // $float(input: any): float
-  float: binding('<j-j?:n>', (input, arg) => {
+  float: binding('<j-j?:n>', function $float(input, arg) {
     if (Array.isArray(input)) {
       return input.map((i) => parseFloat(+normalizeValue(String(i)), arg))
     } else {
@@ -175,7 +197,7 @@ module.exports = {
   }),
 
   // $true(input: any): true
-  true: binding('<j-:b>', (input) => {
+  true: binding('<j-:b>', function $true(input) {
     if (Array.isArray(input)) {
       return input.map((i) => true)
     } else {
@@ -184,7 +206,7 @@ module.exports = {
   }),
 
   // $false(input: any): false
-  false: binding('<j-:b>', (input) => {
+  false: binding('<j-:b>', function $false(input) {
     if (Array.isArray(input)) {
       return input.map((i) => false)
     } else {
@@ -193,7 +215,7 @@ module.exports = {
   }),
 
   // $boolean(input: any): boolean
-  boolean: binding('<j-:b>', (input) => {
+  boolean: binding('<j-:b>', function $boolean(input) {
     if (Array.isArray(input)) {
       return input.map((i) => Boolean(i))
     } else {
@@ -202,7 +224,7 @@ module.exports = {
   }),
 
   // $string(input: any): string
-  string: binding('<j-j?:s>', (input, arg) => {
+  string: binding('<j-j?:s>', function $string(input, arg) {
     if (Array.isArray(input)) {
       return input.map((i) => i && i.toString ? i.toString(arg) : String(i))
     } else if (input) {
@@ -213,12 +235,12 @@ module.exports = {
   }),
 
   // $array(input: any): array
-  array: binding('<j-:a>', (input) => {
+  array: binding('<j-:a>', function $array(input) {
     return Array.isArray(input) ? input : [ ...[input] ].filter((i) => i !== undefined)
   }),
 
   // $date(input: any): Date
-  date: binding('<j-:o>', (input) => {
+  date: binding('<j-:o>', function $date(input) {
     if (Array.isArray(input)) {
       return input.map((i) => new Date(i))
     } else {
@@ -227,15 +249,17 @@ module.exports = {
   }),
 
   // $camelcase(input: string): string
-  camelcase: binding('<s-:s>', (...args) => camelcase(...args)),
+  camelcase: binding('<s-:s>', function $camelcase(...args) {
+    return camelcase(...args)
+  }),
 
   // $concat(...input: (array | *)?): array
-  concat: binding('<a<j->:a>', (...args) => {
+  concat: binding('<a<j->:a>', function $concat(...args) {
     return [].concat(...args)
   }),
 
   // $unique(input: (array | *)?): array
-  unique: binding('<j-:a>', (input) => {
+  unique: binding('<j-:a>', function $unique(input) {
     if (Array.isArray(input)) {
       return Array.from(new Set(input))
     } else {
@@ -244,7 +268,7 @@ module.exports = {
   }),
 
   // $slice(node: ParserNode, start: number, stop: number): Array
-  slice: binding('<j-:a>', (node, start, stop) => {
+  slice: binding('<j-:a>', function $slice(node, start, stop) {
     if (node && node.children) {
       return node.children.slice(start, stop)
     } else if (node.slice) {
@@ -254,7 +278,7 @@ module.exports = {
     }
   }),
 
-  join: binding('<a-s?:s>', (array, delimiter) => {
+  join: binding('<a-s?:s>', function $join(array, delimiter) {
     return Array.from(array).join(delimiter || ',')
   })
 }

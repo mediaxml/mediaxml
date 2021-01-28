@@ -97,22 +97,34 @@ class AbstractDocument extends Node {
    */
   constructor(parser, opts) {
     opts = { ...opts }
+
     super(opts.nodeName, opts.attributes, 0, opts)
+
     this.parser = null
+
     Object.defineProperty(this, 'parser', {
       configurable: false,
       enumerable: false,
       value: parser
     })
 
-    const { rootNode } = parser
-    if (rootNode) {
-      this.name = rootNode.originalName
-      this.body = rootNode.body
-      this.comments.push(...rootNode.comments)
-      this.attributes.set(rootNode.attributes)
-      this.children.splice(0, this.children.length, ...rootNode.children)
-      Object.assign(this.originalAttributes, rootNode.originalAttributes)
+    const init = () => {
+      const { rootNode } = parser
+      if (rootNode) {
+        this.name = rootNode.originalName
+        this.body = rootNode.body
+        this.comments.push(...rootNode.comments)
+        this.attributes.set(rootNode.attributes)
+        this.children.splice(0, this.children.length, ...rootNode.children)
+        Object.assign(this.originalAttributes, rootNode.originalAttributes)
+      }
+    }
+
+    // sync
+    if (parser.rootNode) {
+      init()
+    } else {
+      parser.then(init)
     }
   }
 
