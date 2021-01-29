@@ -100,6 +100,7 @@ function query(node, queryString, opts) {
 
       if ('function' === typeof value) {
         const { signature = '<x-:x>' } = value
+        const fn = new Function('fn', `return function ${value.name || 'binding'}(...args) { return fn(...args) }`)(value)
         debug('query: registering function `%s(%s)`', key, signature)
         expression.registerFunction(key, value, signature)
       }

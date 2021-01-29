@@ -4,7 +4,7 @@ function transform(queryString) {
     .replace(/(is)\s*((not)?\s*)?(node|text|node|fragment|number|string|object|function|array|date|null|false|true)/ig, (_, $1, $2, $3, $4) => `is(${$2 || ''}${($4 || '').toLowerCase()})`)
 
     // `:is([not] type)` - predicate function to determine type
-    .replace(/([\(|\[|a^]|and|or|in)?\s*([a-z|A-Z|_|\-|0-9|\.|*]+)?\s*(:|a^)?is\s*\(\s*([a-z|A-Z|_|-|0-9|.]+\s*[a-z|A-Z|_|-|0-9|.]+)\s*\)/g, (_, $1, $2, $3, type, offset, source) => {
+    .replace(/([\(|\[|^]|and|or|in)?\s*([a-z|A-Z|_|\-|0-9|\.|*]+)?\s*(:|a^)?is\s*\(\s*([a-z|A-Z|_|-|0-9|.]+\s*[a-z|A-Z|_|-|0-9|.]+)\s*\)/g, (_, $1, $2, $3, type, offset, source) => {
       $1 = $1 || ''
       $2 = $2 || '$'
       type = type || ''
