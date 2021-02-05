@@ -1,7 +1,7 @@
 function transform(queryString) {
   return queryString
     // transform `is [not] <thing>` -> `is([not] thing)
-    .replace(/(is)\s*((not)?\s*)?(node|text|node|fragment|number|string|object|function|array|date|null|false|true)/ig, (_, $1, $2, $3, $4) => `is(${$2 || ''}${($4 || '').toLowerCase()})`)
+    .replace(/(is)\s*((not)?\s*)?(node|text|node|fragment|number|string|object|function|array|date|null|false|true|empty)/ig, (_, $1, $2, $3, $4) => `is(${$2 || ''}${($4 || '').toLowerCase()})`)
 
     // `:is([not] type)` - predicate function to determine type
     .replace(/([\(|\[|^]|and|or|in)?\s*([a-z|A-Z|_|\-|0-9|\.|*]+)?\s*(:|a^)?is\s*\(\s*([a-z|A-Z|_|-|0-9|.]+\s*[a-z|A-Z|_|-|0-9|.]+)\s*\)/g, (_, $1, $2, $3, type, offset, source) => {
@@ -15,7 +15,7 @@ function transform(queryString) {
       )
 
       type = type.replace(/(not)(\s*)(null)/ig, (_, $1) => `${($1 || '').toLowerCase()} null`.trim())
-      type = type.replace(/(node|text|node|fragment|number|string|object|function|array|date|null|true|false)/gi, (_, $1) => $1.toLowerCase())
+      type = type.replace(/(node|text|node|fragment|number|string|object|function|array|date|null|true|false|empty)/gi, (_, $1) => $1.toLowerCase())
 
       switch (type) {
         case 'null': return `${$1}${prefix}${$2} = null`
@@ -56,6 +56,9 @@ function transform(queryString) {
 
         case 'document': return `${$1} ${prefix}${$2}.$classConstructorName($) = "Document"`
         case 'not document': return `${$1} ${prefix}${$2}.$classConstructorName($) != "Document"`
+
+        case 'empty': return `${$1} ${prefix}${$2}.$length($) = 0`
+        case 'not empty': return `${$1} ${prefix}${$2}.$length($) > 0`
 
         default: return type ? (` ${$1}${prefix}${$2}is${camelcase(type)}`) : ''
       }

@@ -151,7 +151,7 @@ module.exports = {
   // $length(input: any): int
   length: binding('<j-:n>', function $length(input) {
     if (input && input.length) {
-      return input.length
+      return input.length || 0
     } else if (!input) {
       return 0
     } else {
