@@ -1,21 +1,21 @@
 function transform(queryString) {
   return queryString
     // transform `is [not] <thing>` -> `is([not] thing)
-    .replace(/(is)\s*((not)?\s*)?(node|text|node|fragment|number|string|object|function|array|date|null|false|true|empty)/ig, (_, $1, $2, $3, $4) => `is(${$2 || ''}${($4 || '').toLowerCase()})`)
+    .replace(/(is)\s*((not)?\s*)?(node|text|node|fragment|number|string|object|function|array|date|null|false|true|empty|boolean)/ig, (_, $1, $2, $3, $4) => `is(${$2 || ''}${($4 || '').toLowerCase()})`)
 
     // `:is([not] type)` - predicate function to determine type
-    .replace(/([\(|\[|^]|and|or|in)?\s*([a-z|A-Z|_|\-|0-9|\.|*]+)?\s*(:|a^)?is\s*\(\s*([a-z|A-Z|_|-|0-9|.]+\s*[a-z|A-Z|_|-|0-9|.]+)\s*\)/g, (_, $1, $2, $3, type, offset, source) => {
+    .replace(/([\(|\[|^]|and|or|in)?\s*([a-z|A-Z|_|\-|0-9|\.|\'|"|*]+)?\s*(:|a^)?is\s*\(\s*([a-z|A-Z|_|-|0-9|.]+\s*[a-z|A-Z|_|-|0-9|.]+)\s*\)/g, (_, $1, $2, $3, type, offset, source) => {
       $1 = $1 || ''
-      $2 = $2 || '$'
+      $2 = $2 || ''
       type = type || ''
 
       const prefix = (
-        ':' !== $2 && (/(\(|\[|\.)/.test($2) || ($1 && /(\(|\[|\.|and|or|in)/.test($1)))
+        ':' !== $2 && (/^(\(|\[|\.|'|"|true|false|[0-9]|null)/.test($2) || ($1 && /(\(|\[|\.|and|or|in)/.test($1)))
         ? '  ' : '.'
       )
 
       type = type.replace(/(not)(\s*)(null)/ig, (_, $1) => `${($1 || '').toLowerCase()} null`.trim())
-      type = type.replace(/(node|text|node|fragment|number|string|object|function|array|date|null|true|false|empty)/gi, (_, $1) => $1.toLowerCase())
+      type = type.replace(/(node|text|node|fragment|number|string|object|function|array|date|null|true|false|empty|boolean)/gi, (_, $1) => $1.toLowerCase())
 
       switch (type) {
         case 'null': return `${$1}${prefix}${$2} = null`
@@ -39,8 +39,8 @@ function transform(queryString) {
         case 'number': return ` ${$1}${prefix}${$2}.$typeof($) = "number"`
         case 'not number': return ` ${$1}${prefix}${$2}.$typeof($) != "number"`
 
-        case 'string': return ` ${$1}${prefix}${$2}.$typeof($) = "string"`
-        case 'not string': return `${$1}${prefix}${$2}.$typeof($) != "string"`
+        case 'string': return ` ${$1}${prefix}${$2} ~> $typeof() = "string"`
+        case 'not string': return `${$1}${prefix}${$2} ~> $typeof() != "string"`
 
         case 'object': return ` ${$1}${prefix}${$2}.$typeof($) = "object"`
         case 'not object': return `${$1} ${prefix}${$2}.$typeof($) != "object"`
