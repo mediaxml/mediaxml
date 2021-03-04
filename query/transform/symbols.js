@@ -2,7 +2,7 @@ function transform(queryString) {
   return queryString
     .trim()
     // replace `this` and `self` references with `$`
-    .replace(/((^|\[|\())?(\s*)?(this|self)(\s*)?/g, '$1 $ ')
+    .replace(/((^|\[|\())?(\s*)?\b(this|self)\b(\s*)/g, '$1 $ ')
     // `:name` - selector to return the current node name
     .replace(/:name/g, '.name')
     // `:key` - selector to return the 'key' property

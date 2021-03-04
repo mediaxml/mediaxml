@@ -5,7 +5,7 @@ function transform(queryString) {
   return result
 
   function replace(_, prefix,type) {
-    prefix = prefix || ''
+    prefix = (prefix || '').replace(REGEX, replace)
 
     const normalizedPrefix = prefix.trim()
     const output = [prefix]

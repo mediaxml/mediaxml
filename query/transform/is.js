@@ -1,11 +1,11 @@
 const camelcase = require('camelcase')
 
-const REGEX = /((?![\(|\[|\{]$)(?!\s$)?.*)?\s*?(\:)?\bis\b(\s*\bnot\b\s*)?(\s*|(\s*?\(\s*?))(["|']?[a-z|A-Z|0-9]+["|']?)((?!\s$)?.*)?\)?/g
+const REGEX = /((?![\(|\[|\{]$)(?!\s$)?.*)?\s*?(\:)?is(\s*not\s*)?\s*?\(?\s*?(["|']?[a-z|A-Z|0-9]+["|']?)((?!\s$)?.*)?\)?/g
 
 function transform(queryString) {
   return queryString.replace(REGEX, replace)
 
-  function replace(_, prefix, selector, not, __, type, postfix) {
+  function replace(_, prefix, selector, not, type, postfix) {
     if (prefix) {
       prefix = prefix.replace(REGEX, replace)
     }
@@ -57,7 +57,7 @@ function compile({ prefix, postfix, selector, not, type }) {
       if (/['|"]/.test(normalizedPrefix.slice(-1)) && !isNumberCheck) {
         isInputStreamed = true
         output.push('~>')
-      } else if (/^[0-9]+$/.test(normalizedPrefix) && !isNumberCheck) {
+      } else if (/[0-9]+$/.test(normalizedPrefix) && !isNumberCheck) {
         isInputStreamed = true
         output.push('~>')
       } else if (!/[\(|\[|\{|\$|\.|`]/.test(normalizedPrefix.slice(-1))) {

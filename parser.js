@@ -677,11 +677,25 @@ class ParserNode {
     if (nameOrNode && 'object' === typeof nameOrNode) {
       const { originalName, originalAttributes } = nameOrNode
       const { name, attributes, depth } = nameOrNode
-      const { options, ...rest } = nameOrNode
+      let { options, children, ...rest } = nameOrNode
+
+      if (Array.isArray(children)) {
+        children = children.map((child) => {
+          if (child instanceof ParserNode) {
+            return child
+          } else if ('string' === typeof child && !/^</.test(child.trim()) && !/>$/.test(child.trim())) {
+            return ParserNodeText.from(child)
+          } else {
+            return this.from(child)
+          }
+        })
+      }
+
       return new this(
         originalName || name,
         originalAttributes || attributes,
-        { ...options, ...rest })
+        0,
+        { ...options, ...rest, children })
     }
 
     return new this(nameOrNode, attributes, 0, opts)
@@ -752,7 +766,6 @@ class ParserNode {
       Array.from(Array.isArray(opts && opts.children) ? opts.children : [])
       .map((child) => child && child._data ? child._data : child)
     )
-
     Object.defineProperty(children, 'toJSON', {
       configurable: false,
       enumerable: false,

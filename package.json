@@ -57,7 +57,8 @@
     "smpte-timecode": "^1.2.3",
     "streamx": "^2.10.1",
     "strip-ansi": "^6.0.0",
-    "tinyduration": "^3.2.0"
+    "tinyduration": "^3.2.0",
+    "to-snake-case": "^1.0.0"
   },
   "devDependencies": {
     "clean-documentation-theme": "^0.5.2",

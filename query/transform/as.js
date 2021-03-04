@@ -42,9 +42,11 @@ function transform(queryString) {
     const specials = {
       camelcase: '$camelcase',
       keys: '$keys',
+      pascalcase: '$pascalcase',
+      snakecase: '$snakecase',
+      sorted: '$sorted',
       tuple: '$tuple',
-      unique: '$unique',
-      sorted: '$sorted'
+      unique: '$unique'
     }
 
     const output = [prefix]

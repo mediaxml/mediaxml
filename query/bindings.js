@@ -1,6 +1,8 @@
 const { normalizeValue } = require('../normalize')
 const { Document, Node } = require('../document')
 const { Fragment } = require('../fragment')
+const toSnakeCase = require('to-snake-case')
+const camelcase = require('camelcase')
 const { Text } = require('../text')
 
 function binding(signature, fn) {
@@ -319,7 +321,7 @@ module.exports = {
     '<j-j?:s> # Converts input into a string.',
     function $string(input, arg) {
       if (Array.isArray(input)) {
-        return input.map(toString())
+        return input.map(toString)
       } else if (input) {
         return toString(input)
       } else {
@@ -382,6 +384,20 @@ module.exports = {
     '<s-:s> # Converts input string to camelcase.',
     function $camelcase(...args) {
       return camelcase(...args)
+    }),
+
+  // $pascalcase(input: string): string
+  pascalcase: binding(
+    '<s-:s> # Converts input string to pascalcase.',
+    function $pascalcase(input) {
+      return camelcase(input, { pascalCase: true })
+    }),
+
+  // $snakecase(input: string): string
+  snakecase: binding(
+    '<s-:s> # Converts input string to snakecase.',
+    function $snakecase(input) {
+      return toSnakeCase(input)
     }),
 
   // $concat(...input: (array | *)?): array

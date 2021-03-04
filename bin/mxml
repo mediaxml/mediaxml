@@ -182,6 +182,7 @@ function onstream(err, stream) {
                 chalk.bold(err.message.replace(`"${err.token}"`, `"${chalk.yellow(err.token)}"`))
               )
             } else {
+              debug(err || err.stack)
               console.error('%s: %s', chalk.red('error'), chalk.bold(err.message))
             }
 
@@ -554,6 +555,8 @@ async function evaluate(query, context, file, callback) {
 
       return process.nextTick(callback, null)
     } catch (err) {
+      debug(err || err.stack)
+
       const { cursorPos, displayPos } = getCursorPreviewPosition(server)
       const cols = displayPos.cols - cursorPos.cols
       const rows = displayPos.rows - cursorPos.rows
