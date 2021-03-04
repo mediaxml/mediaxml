@@ -1,4 +1,6 @@
 const { normalizeValue } = require('../normalize')
+const { Document, Node } = require('../document')
+const { Fragment } = require('../fragment')
 const { Text } = require('../text')
 
 function binding(signature, fn) {
@@ -129,7 +131,9 @@ module.exports = {
         try {
           return JSON.parse(input)
         } catch (err) {
-          return input
+          let [ , position ] = (err.message.match(/position\s+([0-9]+)/) || [])
+          const slice = input.slice(parseInt(position))
+          throw new SyntaxError(`${err.message}: \`${slice.slice(0, 8)} ...\``)
         }
       } else if (input && 'function' !== typeof input) {
         if (Array.isArray(input)) {
@@ -205,7 +209,7 @@ module.exports = {
   keys: binding(
     '<j-:a> # Returns computed keys of input as an array.',
     function $keys(input) {
-      if (Array.isArray(keys)) {
+      if (Array.isArray(input)) {
         return keys.map(keys)
       } else if (input) {
         return keys(input)
@@ -266,6 +270,17 @@ module.exports = {
       }
     }),
 
+  // $NaN(input: any): false
+  NaN: binding(
+    '<j-:n> # Returns NaN for any input.',
+    function $NaN(input) {
+      if (Array.isArray(input)) {
+        return input.map(() => Number.NaN)
+      } else {
+        return Number.NaN
+      }
+    }),
+
   // $boolean(input: any): boolean
   boolean: binding(
     '<j-:b> # Converts input into a boolean.',
@@ -277,16 +292,48 @@ module.exports = {
       }
     }),
 
+  // $object(input: any): object
+  object: binding(
+    '<j-:j> # Converts input into an object.',
+    function $object(input) {
+      if (Array.isArray(input)) {
+        return input.map((i) => Object(i))
+      } else {
+        return Object(input)
+      }
+    }),
+
+  // $function(input: any): function
+  function: binding(
+    '<j-:f> # Converts input into a function.',
+    function $function(input) {
+      if (Array.isArray(input)) {
+        return input.map((i) => Function(String(i || '')))
+      } else {
+        return Function(String(input || ''))
+      }
+    }),
+
   // $string(input: any): string
   string: binding(
     '<j-j?:s> # Converts input into a string.',
     function $string(input, arg) {
       if (Array.isArray(input)) {
-        return input.map((i) => i && i.toString ? i.toString(arg) : String(i))
+        return input.map(toString())
       } else if (input) {
-        return input.toString ? input.toString(arg) : String(input)
+        return toString(input)
       } else {
         return ''
+      }
+
+      function toString(i) {
+        if (i && 'object' === typeof i && 'hasOwnProperty' in i && i.hasOwnProperty('toString')) {
+          return i.toString(arg)
+        } else if (i && 'Object' === i.constructor.name) {
+          return JSON.stringify(i)
+        } else {
+          return String(i)
+        }
       }
     }),
 
@@ -298,7 +345,7 @@ module.exports = {
         return input
       }
 
-      if (input && length in input) {
+      if (input && input.length) {
         return Array.from(input)
       }
 
@@ -339,7 +386,7 @@ module.exports = {
 
   // $concat(...input: (array | *)?): array
   concat: binding(
-    '<a<j->:a> # Returns concatenated variable input as an array.',
+    '<x+> # Returns concatenated variable input as an array.',
     function $concat(...args) {
       return [].concat(...args)
     }),
@@ -359,7 +406,22 @@ module.exports = {
       }
     }),
 
-  // $slice(node: (ParserNode | Array), start: number, stop: number): Array
+  // $sorted(input: (array | *)?): array
+  sorted: binding(
+    '<j-:a> # Returns input array with elements sorted.',
+    function $sorted(input) {
+      if (Array.isArray(input)) {
+        return input.sort()
+      } else if ('string' === typeof input) {
+        return $sorted(input.split(''))
+      } else if (undefined !== input) {
+        return [input]
+      } else {
+        return []
+      }
+    }),
+
+  // $slice(node: (ParserNode | Array), start: number, stop: number): array
   slice: binding(
     '<j-:a> # Returns a slice of an array or parser node.',
     function $slice(node, start, stop) {
@@ -372,15 +434,58 @@ module.exports = {
       }
     }),
 
+  // $join(array: array, delimiter: string): string
   join: binding(
-    '<a-s?:s> # Returns an array joined by a given delimiter (default: ",").',
+    '<a-s?:s> # Returns an array (or string) joined by a given delimiter (default: ",").',
     function $join(array, delimiter) {
       return Array.from(array).join(delimiter || ',')
     }),
 
+  has: binding(
+    '<j-s-:b> # Returns true if key is in target',
+    function $has(target, key) {
+      if ('boolean' === typeof target) {
+        return false
+      }
+
+      if (null === target || undefined === target) {
+        return false
+      }
+
+      if ('number' === typeof target) {
+        return false
+      }
+
+
+      return Object.prototype.hasOwnProperty.call(target, key)
+    }
+  ),
+
+  // $text(input: (string | any): Text
   text: binding(
-    '<j-:j> # Returns input as a text node',
+    '<j-:j> # Returns input as a text node.',
     function $text(input) {
       return Text.from(String(input || ''))
+    }),
+
+  // $document(input: (string | any): Document
+  document: binding(
+    '<j-:j> # Returns input as a document.',
+    function $document(input) {
+      return Document.from(input)
+    }),
+
+  // $node(input: (string | any): Document
+  node: binding(
+    '<j-:j> # Returns input as a document node.',
+    function $node(input) {
+      return Node.from(input)
+    }),
+
+  // $fragment(input: (string | any): Document
+  fragment: binding(
+    '<j-:j> # Returns input as a document fragment.',
+    function $node(input) {
+      return Fragment.from(input)
     }),
 }

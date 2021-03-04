@@ -1931,7 +1931,7 @@ class MediaCategory extends rss.Category {
    * @type {String}
    */
   get label() {
-    return this.node.attributes.label || this.node.body
+    return this.node.attributes.label || this.node.text
   }
 
   /**

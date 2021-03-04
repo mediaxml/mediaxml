@@ -112,7 +112,6 @@ class AbstractDocument extends Node {
       const { rootNode } = parser
       if (rootNode) {
         this.name = rootNode.originalName
-        this.body = rootNode.body
         this.comments.push(...rootNode.comments)
         this.attributes.set(rootNode.attributes)
         this.children.splice(0, this.children.length, ...rootNode.children)

@@ -66,10 +66,12 @@ function query(node, queryString, opts) {
   const transforms = [
     require('./transform/prepare'),
     require('./transform/symbols'),
-    require('./transform/as'),
     require('./transform/children'),
     require('./transform/attributes'),
     require('./transform/ordinals'),
+
+    require('./transform/as'),
+    require('./transform/has'),
     require('./transform/is'),
     require('./transform/typeof'),
     require('./transform/cleanup'),
@@ -89,6 +91,7 @@ function query(node, queryString, opts) {
     }
 
     queryString = transforms.reduce(reduceQueryString, queryString)
+    //console.log('queryString', queryString);
 
     debug('query: after transform', queryString)
 

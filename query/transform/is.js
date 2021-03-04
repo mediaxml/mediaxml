@@ -1,28 +1,32 @@
 const camelcase = require('camelcase')
 
-const REGEX = /((?!\s$)?[\(|\)|\[|\]|\}|\$|\.|`|'|"|0-9|a-z|A-Z]+)?\s*?(\:)?is(\s*not\s*)?\s*?\(?\s*?(["|']?[a-z|A-Z|0-9]+["|']?)\s*?\)?/g
+const REGEX = /((?![\(|\[|\{]$)(?!\s$)?.*)?\s*?(\:)?\bis\b(\s*\bnot\b\s*)?(\s*|(\s*?\(\s*?))(["|']?[a-z|A-Z|0-9]+["|']?)((?!\s$)?.*)?\)?/g
 
 function transform(queryString) {
   return queryString.replace(REGEX, replace)
 
-  function replace(_, prefix, selector, not, type) {
-    return compile({ prefix, selector, not, type }).replace(REGEX, replace)
+  function replace(_, prefix, selector, not, __, type, postfix) {
+    if (prefix) {
+      prefix = prefix.replace(REGEX, replace)
+    }
+
+    return compile({ prefix, postfix, selector, not, type })
   }
 }
 
-function compile({ prefix, selector, not, type }) {
+function compile({ prefix, postfix, selector, not, type }) {
   selector = (selector || '').trim()
   prefix = (prefix || '').trim()
   not = (not || '').trim()
 
-  const primitives = ['string', 'array' ,'number', 'boolean', 'function', 'object', 'function']
+  const primitives = ['string', 'array' ,'number', 'boolean', 'object', 'function']
   const instances = { date: 'Date', document: 'Document' }
   const constants = ['null', 'true', 'false', 'nan', 'infinity']
   const specials = { text: 'isText', node: 'isParserNode', fragment: 'isFragment' }
   const negate = 'not' === not.trim()
   const expr = [not, type].join(' ').trim().toLowerCase()
 
-  const hasLeadingKeyword = /and|or|\./.test(prefix)
+  const hasLeadingKeyword = /(and|or|\.)$/.test(prefix)
   const isPrimitiveCheck = primitives.includes(type.toLowerCase())
   const isConstantCheck = constants.includes(type.toLowerCase())
   const isInstanceCheck = type.toLowerCase() in instances
@@ -30,31 +34,36 @@ function compile({ prefix, selector, not, type }) {
   const isStringCheck = (/^"/.test(type) && /"$/.test(type)) || (/^'/.test(type) && /'$/.test(type))
   const isNumberCheck = /^[0-9]+$/.test(type)
 
-  const output = [prefix]
+  const [ leadingCharacter ] = (prefix.match(/^([\(|\[|\{])/) || [])
+  const normalizedPrefix = prefix.replace(/^([\(|\[|\{|\s]+)/g, '')
+  const output = []
 
   let isInputStreamed = false
 
+  output.push(prefix)
+
   if (
-    !hasLeadingKeyword &&
     (!isConstantCheck && !isNumberCheck && !isStringCheck) ||
     'nan' === type.toLowerCase()
   ) {
-    if (selector && '.' !== prefix.slice(-1)) {
+    if (selector && '.' !== normalizedPrefix.slice(-1)) {
       output.push('.')
-    } else if (/[\)|\]|\}|\$|\.|`]/.test(prefix.slice(-1))) {
+    } else if (/[\)|\]|\}|\$|\.|`]/.test(normalizedPrefix.slice(-1))) {
       output.push('.')
-    } else if (/['|"]/.test(prefix.slice(-1)) && !isNumberCheck) {
+    } else if (/(true|false|null|nan)$/i.test(normalizedPrefix) && !isNumberCheck) {
       isInputStreamed = true
       output.push('~>')
-    } else if (/^[0-9]+$/.test(prefix) && !isNumberCheck) {
-      isInputStreamed = true
-      output.push('~>')
-    } else if (/true|false|null|nan/i.test(prefix) && !isNumberCheck) {
-      isInputStreamed = true
-      output.push('~>')
-    } else if (!/[\(|\[|\{|\$|\.|`]/.test(prefix.slice(-1))) {
-      if (!isNumberCheck) {
-        output.push('.')
+    } else if (!hasLeadingKeyword) {
+      if (/['|"]/.test(normalizedPrefix.slice(-1)) && !isNumberCheck) {
+        isInputStreamed = true
+        output.push('~>')
+      } else if (/^[0-9]+$/.test(normalizedPrefix) && !isNumberCheck) {
+        isInputStreamed = true
+        output.push('~>')
+      } else if (!/[\(|\[|\{|\$|\.|`]/.test(normalizedPrefix.slice(-1))) {
+        if (!isNumberCheck) {
+          output.push('.')
+        }
       }
     }
   }
@@ -67,7 +76,11 @@ function compile({ prefix, selector, not, type }) {
     if ('nan' === type.toLowerCase()) {
       output.push(` $isNaN(${inputContext}) ${negate ? '!' : ''}= true`)
     } else {
-      output.push(` ${negate ? '!' : ''}= ${type}`)
+      if (hasLeadingKeyword) {
+        output.push(`$ ${negate ? '!' : ''}= ${type}`)
+      } else {
+        output.push(` ${negate ? '!' : ''}= ${type}`)
+      }
     }
   } else if (isSpecialCheck) {
     output.push(` ${specials[type.toLowerCase()]} ${negate ? '!' : ''}= true`)
@@ -79,6 +92,10 @@ function compile({ prefix, selector, not, type }) {
       case 'not empty': output.push(` $length(${inputContext}) > 0`); break
       default: output.push(`is${camelcase(type)}`)
     }
+  }
+
+  if (postfix) {
+    output.push(postfix)
   }
 
   return output.join(' ')

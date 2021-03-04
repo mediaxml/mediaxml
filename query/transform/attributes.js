@@ -1,6 +1,27 @@
 const { normalizeKey } = require('../../normalize')
 
+const REGEX = /(:)?attr(s)?(ibutes)?\(?\s*?['|"|`]?([0-9|a-z|A-Z|\:\-|_|\$]+)?['|"|`]?\s*\)?/gi
+
 function transform(queryString) {
+  return queryString.replace(REGEX, replace)
+
+  function replace(_, selector, __, ___, name) {
+    const output = []
+
+    if (selector) {
+      output.push('.')
+    }
+
+    output.push('attributes')
+
+    if (name) {
+      output.push('.')
+      output.push(normalizeKey(name))
+    }
+
+    return output.join('')
+  }
+
   return queryString
     // `attr(key)` attribute selector
     .replace(/(:)?attr\(\s*['|"|`]?([0-9|a-z|A-Z|\:\-|_]+)?['|"|`]?\s*\)/g, (str, $1, name, offset, source) => {

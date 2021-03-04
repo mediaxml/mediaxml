@@ -76,7 +76,7 @@ class Entity {
    * @type {String}
    */
   get text() {
-    return this.node.body || ''
+    return this.node.text || ''
   }
 
   /**
@@ -149,7 +149,7 @@ class Entity {
    * @return {String}
    */
   toString() {
-    return this.node.body || ''
+    return this.text || ''
   }
 
   /**

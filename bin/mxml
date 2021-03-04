@@ -222,7 +222,7 @@ function startRepl() {
   process.stdin.setRawMode(true)
 
   process.stdin.on('keypress', async (str, key) => {
-    if (!argv['no-preview']) {
+    if (argv['no-preview']) {
       return
     }
 
@@ -715,7 +715,7 @@ function completer(query) {
   if (/\.$/.test(end)) {
     completions.push(
       'name',
-      'body',
+      'text',
       'children',
       'attributes',
       'length'

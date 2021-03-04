@@ -19,7 +19,7 @@ function transform(queryString) {
     // `:text` - selector to return body text of node
     .replace(/(:)text/g, (_, $1, offset, source) => {
       const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
-      return `${prefix}body.text`
+      return `${prefix}text`
     })
 }
 

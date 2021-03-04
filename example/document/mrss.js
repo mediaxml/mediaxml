@@ -45,12 +45,12 @@ document.ready(() => {
 .catch(console.error)
 
 function reduceChild(object, child) {
-  return { ...object, [child.name]: normalizeValue(child.body) }
+  return { ...object, [child.name]: normalizeValue(child.text) }
 }
 
 function reduceChildContent(object, child) {
-  const value = child.body.length
-    ? normalizeValue(child.body)
+  const value = child.text.length
+    ? normalizeValue(child.text)
     : { ...child.attributes }
 
   return {

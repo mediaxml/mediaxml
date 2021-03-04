@@ -244,7 +244,7 @@ class ParserNodeAttributes {
 }
 
 /**
- * A container for a text found in the body of `ParserNode` instances
+ * A container for a text.
  * @public
  * @memberof parser
  */
@@ -258,8 +258,8 @@ class ParserNodeText extends String {
    * @param {?Mixed} input
    * @return {ParserNodeText}
    */
-  static from(input) {
-    return new this(String(defined(input, '')))
+  static from(input, ...args) {
+    return new this(String(defined(input, '')), ...args)
   }
 
   /**
@@ -267,7 +267,7 @@ class ParserNodeText extends String {
    * @private
    * @param {String} text
    */
-  constructor(text) {
+  constructor(text, opts) {
     text = text || ''
     text = text.trim()
 
@@ -277,6 +277,20 @@ class ParserNodeText extends String {
       enumerable: false,
       configurable: false,
       get: () => text
+    })
+
+    Object.defineProperty(this, 'depth', {
+      enumerable: false,
+      configurable: false,
+      get: () => depth || 0
+    })
+
+    let parent = opts && opts.parent ? opts.parent : null
+    Object.defineProperty(this, 'parent', {
+      configurable: true,
+      enumerable: false,
+      get: () => parent,
+      set: (value) => { parent = value }
     })
 
     const descriptors = Object.getOwnPropertyDescriptors(String.prototype)
@@ -328,6 +342,15 @@ class ParserNodeText extends String {
   get isText() {
     return true
   }
+
+  /**
+   * A reference to the parent node of this text node.
+   * @public
+   * @accessor
+   * @type {?ParserNode}
+   */
+  set parent(value) { void value }
+  get parent() { }
 
   /**
    * Returns an iterable generator for this text node.
@@ -638,6 +661,16 @@ class ParserNode {
     }
 
     if ('string' === typeof nameOrNode) {
+      const trimmed = nameOrNode.trim()
+
+      if (/^</.test(trimmed) && />$/.test(trimmed)) {
+        const tmp = new this()
+        tmp.innerXML = nameOrNode
+        if (tmp.children && tmp.children.length) {
+          return tmp.children[0]
+        }
+      }
+
       return new this(nameOrNode, attributes, 0, opts)
     }
 
@@ -692,14 +725,6 @@ class ParserNode {
         originalName = value
         name = normalizeName(value)
       }
-    })
-
-    let body = new ParserNodeText(opts && opts.body ? opts.body : null, opts)
-    Object.defineProperty(this, 'body', {
-      configurable: true,
-      enumerable: true,
-      get: () => body,
-      set: (value) => { body = new ParserNodeText(value || null, opts) }
     })
 
     Object.defineProperty(this, 'depth', {
@@ -815,20 +840,17 @@ class ParserNode {
   get innerXML() { return this.children.join('\n') }
   set innerXML(value) {
     if (null === value || '' === value) {
-      this.body = ''
       this.remove(...this.children)
       return value
     }
 
     if (value instanceof this.constructor) {
-      this.body = ''
       this.remove(...this.children)
       this.appendChild(value)
       return value
     }
 
     if (Array.isArray(value)) {
-      this.body = ''
       this.remove(...this.children)
 
       for (const child of value) {
@@ -848,7 +870,6 @@ class ParserNode {
     const post = `\n</node>`
     const parser = Parser.from(pre + value + post)
 
-    this.body = parser.rootNode.body
     this.remove(...this.children)
     this.append(...parser.rootNode.children)
 
@@ -857,7 +878,7 @@ class ParserNode {
 
   /**
    * The outer XML representation of this node.
-   * Setting the outer XML of this node will update the body, attributes,
+   * Setting the outer XML of this node will update the attributes,
    * name, and children of this node instance. If a string is given,
    * it is parsed and will represent the new node If a `ParserNode`
    * instance is given it will be used to derive the node's new state.
@@ -880,13 +901,11 @@ class ParserNode {
   set outerXML(value) {
     if (null === value || '' === value) {
       this.name = ''
-      this.body = ''
       this.remove(...this.children)
       return value
     }
 
     if (value instanceof this.constructor) {
-      this.body = value.body
       this.name = value.originalName || value.name
       this.remove(...this.children)
       this.append(...value.child)
@@ -899,7 +918,6 @@ class ParserNode {
 
     const parser = Parser.from(value)
 
-    this.body = parser.rootNode.body
     this.name = parser.rootNode.originalName
     this.attributes.clear()
     this.attributes.set(parser.rootNode.attributes)
@@ -926,22 +944,15 @@ class ParserNode {
   get name() { return '' }
 
   /**
-   * The text contents of this node, if available.
-   * @public
-   * @accessor
-   * @type {ParserNodeText}
-   */
-  set body(value) {  }
-  get body() { return '' }
-
-  /**
    * An alias to `this.body`.
    * @public
    * @accessor
    * @type {ParserNodeText}
    */
-  set text(value) {  this.body = value }
-  get text() { return this.body }
+  set text(value) { void value }
+  get text() {
+    return this.children.filter((c) => c.isText).join(' ')
+  }
 
   /**
    * The depth this node appears in the tree.
@@ -1105,7 +1116,7 @@ class ParserNode {
    * @return {Array<String>}
    */
   keys() {
-    return ['name', 'attributes', 'children', 'length', 'body', 'text']
+    return ['name', 'attributes', 'children', 'length', 'text']
   }
 
   /**
@@ -1302,7 +1313,6 @@ class ParserNode {
    * @param {?Boolean} [opts.attributes = true] - Include attributes in the result
    * @param {?Boolean} [opts.normalize = false] - Normalize tag and attributes names
    * @param {?Boolean} [opts.children = true] - Include children in the result
-   * @param {?Boolean} [opts.body = true] - Include node body in the result
    * @param {?Number} [opts.depth = 0] - The starting depth of this node
    * @return {String}
    */
@@ -1323,7 +1333,7 @@ class ParserNode {
       attributes = this.attributes
     }
 
-    const { body, children } = this
+    const { children } = this
     const { depth = 0 } = opts
     const indent = ''.padStart(2*depth, ' ')
 
@@ -1337,38 +1347,46 @@ class ParserNode {
     let selfClosingTag = ''
     let output = ''
 
-    if ((!body || !body.length || false === opts.body) && (!children.length || false === opts.children)) {
+    if (!children.length || false === opts.children) {
       selfClosingTag = '/'
     }
 
     output += `${indent}<${[name, serializedAttributes, selfClosingTag].filter(Boolean).join(' ')}>`
 
-    if (body && false !== opts.body) {
-      output += body.trim()
-    }
+    const containsOnlyTextNodes = (
+      children &&
+      children.length &&
+      children.filter((c) => c.isText && c.length).length > 0
+    )
 
     if (false !== opts.children && children && children.length) {
-      output += '\n'
-      output += children
-        .filter(Boolean)
-        .map((child) => {
-          return child.toString({ ...opts, depth: depth + 1 })
-        })
-        .join('\n')
+      for (const child of children) {
+        if (!child) { continue }
+        if (child.isText) {
+          if (child.length) {
+            output += child.toString()
+          }
+        } else {
+          output += '\n'
+          output += child.toString({ ...opts, depth: depth + 1 })
+        }
+      }
     }
 
-    if (body && false !== opts.body && false !== opts.children && children && children.length) {
-      if ('\n' !== output.slice(-1)[0]) {
+    if (!containsOnlyTextNodes) {
+      if (false !== opts.children && children && children.length) {
+        if ('\n' !== output.slice(-1)[0]) {
+          output += '\n'
+        }
+      } else if (!selfClosingTag && children && children.length) {
         output += '\n'
       }
-    } else if (!selfClosingTag && children && children.length) {
-      output += '\n'
     }
 
     if (!selfClosingTag) {
-      if (children && children.length) {
+      if (!containsOnlyTextNodes) {
         output += `${indent}</${name}>`
-      } else if (body) {
+      } else {
         output += `</${name}>`
       }
     }
@@ -1404,8 +1422,8 @@ class ParserNode {
       attributes = this.attributes.toJSON(true)
     }
 
-    const { children, body } = this
-    const output = { name, body }
+    const { text, children } = this
+    const output = { name, text }
 
     if (false !== opts.attributes) {
       output.attributes = attributes
@@ -1844,13 +1862,13 @@ class ParserHandler {
    * @see {@link https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L182}
    */
   ontext(text) {
+    text = text.trim()
     debug('ParserHandler::ontext %s', text)
 
     const { currentNode } = this
 
-    if (currentNode && text) {
-      const { body } = currentNode
-      currentNode.body = ParserNodeText.from((body || '') + text)
+    if (currentNode && text && text.length) {
+      currentNode.appendChild(ParserNodeText.from(text))
     }
   }
 
@@ -1870,7 +1888,7 @@ class ParserHandler {
 
     if (currentNode) {
       const comment = new ParserNode('', null, this.parser.state.depth, this.parser.options)
-      comment.body = data
+      comment.appendChild(ParserNodeText.from(comment))
       currentNode.comments.push(comment)
     }
   }
