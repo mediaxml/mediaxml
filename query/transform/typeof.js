@@ -1,6 +1,16 @@
+const REGEX = /([^\$]|^|\s|\()typeof\s*(["|']?[a-z|A-Z|0-9|\.|_|-|\$|\(|\)|\[|\]|\s]+["|']?)/g
+
 function transform(queryString) {
-  return queryString
-    .replace(/[^|\s]+(typeof\s*?)([0-9|a-z|A-Z|\-|_|\`|\'|"|\$|\.|\:|\s|\(|\)|\&|\%|\#|\@|\*|\!]+)\s*?/ig, (_, $1, $2) => `$typeof(${($2 || '').replace(/(\s*[\(|\[][\)|\]]\s*)/g, '')})`)
+  return queryString.replace(REGEX, replace)
+  //.replace(/([\$]+typeof)/g, '$typeof')
+
+  function replace(_, prefix, input) {
+    const result = `${prefix}$typeof(${input})`
+    return result.replace(REGEX, replace)
+  }
+}
+
+function compile() {
 }
 
 module.exports = {

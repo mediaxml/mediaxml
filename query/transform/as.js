@@ -1,4 +1,25 @@
+const REGEX = /((?!\s$)[\)|\]|\}|\$|\.|`|'|"|0-9|a-z|A-Z]+)?\s*?(\:)?as\s*?\(?\s*?([a-z|A-Z|0-9]+)/g
+
 function transform(queryString) {
+
+  return queryString.replace(REGEX, replace)
+
+  function replace(_, prefix, selector, type) {
+    selector = (selector || '').trim()
+    prefix = (prefix || '').trim()
+
+    const primitives = ['string', 'number', 'boolean', 'function', 'object', 'function']
+    const constants = ['null', 'true', 'false', 'nan']
+    const instances = { date: 'Date', document: 'Document' }
+    const specials = { text: 'isText', node: 'isParserNode', fragment: 'isFragment' }
+
+    const output = [prefix]
+
+    console.log(prefix, selector, type);
+    return output.join(' ')
+
+  }
+
   return queryString
     // `(:|as)keys` - selector to return the keys of the target
     .replace(/(:|as)(\s*)keys/ig, as('$keys(@1)'))

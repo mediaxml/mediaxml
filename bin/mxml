@@ -26,6 +26,8 @@ const argv = require('minimist')(process.argv.slice(2), {
     h: ['help'],
     i: ['inspect'],
     D: ['debug'],
+    R: ['repl'],
+    T: ['timing'],
     V: ['version'],
     W: ['watch'],
   },
@@ -34,18 +36,23 @@ const argv = require('minimist')(process.argv.slice(2), {
     'debug',
     'inspect',
     'help',
+    'no-preview',
+    'preview',
+    'repl',
+    'timing',
     'version',
     'watch',
   ]
 })
 
 if (argv.help) {
-  console.log('usage: mxml [-hiDV] [options] <filename> [query]')
+  console.log('usage: mxml [-hiDRTV] [options] <filename> [query]')
   console.log('')
   console.log('options:')
   console.log('  -h, --help      Show this message')
   console.log('  -i, --inspect   Show inspected output')
   console.log('  -D, --debug     Show debug output')
+  console.log('  -T, --timing    Show query timing debug output')
   console.log('  -V, --version   Show program version')
   console.log('  -W, --watch     Watch for changes (REPL context only)')
   console.log('')
@@ -84,6 +91,7 @@ const parser = new Parser()
 let [ arg0, query = arg0 ] = argv._
 let server = null
 let filename = null
+let documentNotLoadedWarningShown = false
 
 const spinners = {
   loading: ora({
@@ -177,10 +185,14 @@ function onstream(err, stream) {
               console.error('%s: %s', chalk.red('error'), chalk.bold(err.message))
             }
 
-            console.error('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
+            if (argv.timing) {
+              console.error('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
+            }
           } else {
             debug(err.stack || err)
-            console.error('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
+            if (argv.timing) {
+              console.error('%s: %s', chalk.bold('query'), prettyMs(Date.now() - now))
+            }
           }
         }
 
@@ -190,6 +202,8 @@ function onstream(err, stream) {
           if (output) {
             console.error('\n%s', output.trim())
           }
+        } else if (argv.repl) {
+          startRepl()
         } else {
           console.error(result)
         }
@@ -208,6 +222,10 @@ function startRepl() {
   process.stdin.setRawMode(true)
 
   process.stdin.on('keypress', async (str, key) => {
+    if (!argv['no-preview']) {
+      return
+    }
+
     if ('backspace' === key.name && 0 === inputBuffer.length) {
       return
     }
@@ -451,7 +469,12 @@ function pretty(result) {
     if (result && result._jsonata_function) {
       const name = (result.implementation.name || 'bound').replace(/^\$/, '')
       const signature = result.signature.definition
-      return chalk.italic(`${chalk.cyan(name)}(${chalk.bold(signature)})`)
+      const { description } = result.implementation
+      return chalk.italic(`${chalk.cyan(name)}(${chalk.bold(signature)})`) + (
+        description
+        ? ` ${chalk.magenta('//')} ${chalk.italic(description)}`
+        : ''
+      )
     } else if ('function' === typeof result) {
       const name = (result.name || 'bound').replace(/^\$/, '')
       const signature = '...'
@@ -497,7 +520,9 @@ async function evaluate(query, context, file, callback) {
     const now = Date.now()
 
     if (!query) {
-      console.error('%s: %s', chalk.magenta(chalk.bold('query')), prettyMs(Date.now() - now))
+      if (argv.timing) {
+        console.error('%s: %s', chalk.magenta(chalk.bold('query')), prettyMs(Date.now() - now))
+      }
       return process.nextTick(callback, null)
     }
 
@@ -510,10 +535,11 @@ async function evaluate(query, context, file, callback) {
 
       const output = pretty(result)
 
-      if (!parser.rootNode) {
+      if (!parser.rootNode && !documentNotLoadedWarningShown) {
+        documentNotLoadedWarningShown = true
         console.error()
         console.error('%s: %s', chalk.bold(chalk.yellow(' warn')), 'Document not loaded into context. The query cannot be executed.')
-        console.error('%s: %s', chalk.bold(chalk.yellow(' warn')), 'Try using `load <URL>` command to load an XML document into the context.')
+        console.error('%s: %s', chalk.bold(chalk.yellow(' warn')), `Try using \`${chalk.cyan('load')} <URL>\` command to load an XML document into the context.`)
         console.error()
       }
 
@@ -522,7 +548,9 @@ async function evaluate(query, context, file, callback) {
         process.stdout.write('\n')
       }
 
-      console.error('%s: %s', chalk.magenta(chalk.bold('query')), prettyMs(Date.now() - now))
+      if (argv.timing) {
+        console.error('%s: %s', chalk.magenta(chalk.bold('query')), prettyMs(Date.now() - now))
+      }
 
       return process.nextTick(callback, null)
     } catch (err) {
@@ -547,11 +575,18 @@ async function evaluate(query, context, file, callback) {
           console.error('%s: %s', chalk.red('error'), chalk.bold(err.message))
         }
 
-        console.error('%s: %s', chalk.magenta(chalk.bold('query')), prettyMs(Date.now() - now))
+        if (argv.timing) {
+          console.error('%s: %s', chalk.magenta(chalk.bold('query')), prettyMs(Date.now() - now))
+        }
+
         process.nextTick(callback, null)
       } else {
         debug(err.stack || err)
-        console.error('%s: %s', chalk.magenta(chalk.bold('query')), prettyMs(Date.now() - now))
+
+        if (argv.timing) {
+          console.error('%s: %s', chalk.magenta(chalk.bold('query')), prettyMs(Date.now() - now))
+        }
+
         process.nextTick(callback, err.message || err)
       }
     }

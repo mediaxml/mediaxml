@@ -1,8 +1,6 @@
 function transform(queryString) {
   return queryString
     .trim()
-    // clean up white space
-    .replace(/(\s*)($|\]|\))/g, ' $2').replace(/(^|\[|\()(\s*)/g, '$1 ')
     // replace trailing `:` with `.`
     .replace(/\:$/, '.')
     // add '*' by default because we are always searching the same node hierarchy

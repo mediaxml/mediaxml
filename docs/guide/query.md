@@ -1,6 +1,26 @@
 ### Query Preprocessor
 
+Queries are preprocessed to handle special syntax as sugar on top of
+_JSONata syntax_.
+
 #### Selectors
+
+##### `:children([index[, sliceLength]])`
+
+##### `:attr([name])`
+
+##### `:text`
+
+##### Ordinals
+
+###### `:first`
+###### `:last`
+###### Other Ordinals
+
+#### Operators
+
+##### `is`
+##### `as`
 
 #### Casting
 
@@ -21,7 +41,9 @@ Returns the type of input as a string. This function will return `array` for
 arrays, `date` for `Date` instances, otherwise `typeof input`.
 
 ```js
-``
+$typeof("string") // string
+$typeof(123) // number
+```
 
 ##### `$classConstructorName(<j-:s>)`
 
@@ -33,7 +55,7 @@ always return a string.
 This section contains functions for transforming input into a new
 output.
 
-##### `$tuple()`
+##### `$tuple(<j-:a>)`
 
 Convert input into `{key: ..., value: ...}` pairs.
 
@@ -50,50 +72,89 @@ mxml (epg.xml)> **:attrs.$tuple() /** map all attributes to the `$tuple()` */
 ...
 ```
 
-##### `$keys()`
+##### `$keys(<j-:a>)`
 
-##### `$json()`
+Returns computed keys of input as an array.
 
-##### `$array()`
+##### `$json(<j-j?:j>)`
 
-##### `$date()`
+Converts input into a plain JSON object (parsed).
 
-##### `$int()`
+##### `$array(<j-:a>)`
 
-##### `$float()`
+Converts input to an array.
 
-##### `$boolean()`
+##### `$date(<j-:o>)`
 
-##### `$string()`
+Converts input into a date.
 
-##### `$true()`
+##### `$int(<j-j?:n>)`
 
-##### `$false()`
+Converts input into an integer.
+
+##### `$float(<j-j?:n>)`
+
+Converts input into a float.
+
+##### `$boolean(<j-:b>)`
+
+Converts input into a boolean.
+
+##### `$string(<j-j?:s>)`
+
+Converts input into a string.
+
+##### `$true(<j-:b>)`
+
+Returns true for any input.
+
+##### `$false(<j-:b>)`
+
+Returns false for any input.
 
 #### Strings
 
-##### `$camelcase()`
+##### `$camelcase(<s-:s>)`
 
-##### `$length()`
+Converts input string to camelcase.
+
+##### `$length(<j-:n>)`
+
+Returns the length of input string.
 
 #### Arrays
 
-##### `$concat()`
+##### `$concat(<a<j->:a>)`
 
-##### `$length()`
+Returns concatenated variable input as an array.
 
-##### `$unique()`
+##### `$length(<j-:n>)`
 
-##### `$slice()`
+Returns the length of input array.
 
-##### `$join()`
+##### `$unique(<j-:a>)`
 
-##### `$isArray()`
+Returns input array with only unique elements.
+
+##### `$slice(<j-:a>)`
+
+Returns a slice of an array or parser node.
+
+##### `$join(<a-s?:s>)`
+
+Returns an array joined by a given delimiter (default: ",").
+
+##### `$isArray(<j-:b>)`
+
+Returns true if input is an array, otherwise false.
 
 #### Utility
 
-##### `$print()`
+##### `$print(<j-:l>)`
 
-##### `$now()`
+Prints variable input to stdout.
 
+##### `$now(<j-:n>)`
+
+Returns the UNIX Epoch in milliseconds.
 

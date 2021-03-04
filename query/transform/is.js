@@ -1,68 +1,87 @@
+const camelcase = require('camelcase')
+
+const REGEX = /((?!\s$)?[\(|\)|\[|\]|\}|\$|\.|`|'|"|0-9|a-z|A-Z]+)?\s*?(\:)?is(\s*not\s*)?\s*?\(?\s*?(["|']?[a-z|A-Z|0-9]+["|']?)\s*?\)?/g
+
 function transform(queryString) {
-  return queryString
-    // transform `is [not] <thing>` -> `is([not] thing)
-    .replace(/(is)\s*((not)?\s*)?(node|text|node|fragment|number|string|object|function|array|date|null|false|true|empty|boolean)/ig, (_, $1, $2, $3, $4) => `is(${$2 || ''}${($4 || '').toLowerCase()})`)
+  return queryString.replace(REGEX, replace)
 
-    // `:is([not] type)` - predicate function to determine type
-    .replace(/([\(|\[|^]|and|or|in)?\s*([a-z|A-Z|_|\-|0-9|\.|\'|"|*]+)?\s*(:|a^)?is\s*\(\s*([a-z|A-Z|_|-|0-9|.]+\s*[a-z|A-Z|_|-|0-9|.]+)\s*\)/g, (_, $1, $2, $3, type, offset, source) => {
-      $1 = $1 || ''
-      $2 = $2 || ''
-      type = type || ''
+  function replace(_, prefix, selector, not, type) {
+    return compile({ prefix, selector, not, type }).replace(REGEX, replace)
+  }
+}
 
-      const prefix = (
-        ':' !== $2 && (/^(\(|\[|\.|'|"|true|false|[0-9]|null)/.test($2) || ($1 && /(\(|\[|\.|and|or|in)/.test($1)))
-        ? '  ' : '.'
-      )
+function compile({ prefix, selector, not, type }) {
+  selector = (selector || '').trim()
+  prefix = (prefix || '').trim()
+  not = (not || '').trim()
 
-      type = type.replace(/(not)(\s*)(null)/ig, (_, $1) => `${($1 || '').toLowerCase()} null`.trim())
-      type = type.replace(/(node|text|node|fragment|number|string|object|function|array|date|null|true|false|empty|boolean)/gi, (_, $1) => $1.toLowerCase())
+  const primitives = ['string', 'array' ,'number', 'boolean', 'function', 'object', 'function']
+  const instances = { date: 'Date', document: 'Document' }
+  const constants = ['null', 'true', 'false', 'nan', 'infinity']
+  const specials = { text: 'isText', node: 'isParserNode', fragment: 'isFragment' }
+  const negate = 'not' === not.trim()
+  const expr = [not, type].join(' ').trim().toLowerCase()
 
-      switch (type) {
-        case 'null': return `${$1}${prefix}${$2} = null`
-        case 'not null': return `${$1}${prefix}${$2} != null`
+  const hasLeadingKeyword = /and|or|\./.test(prefix)
+  const isPrimitiveCheck = primitives.includes(type.toLowerCase())
+  const isConstantCheck = constants.includes(type.toLowerCase())
+  const isInstanceCheck = type.toLowerCase() in instances
+  const isSpecialCheck = type.toLowerCase() in specials
+  const isStringCheck = (/^"/.test(type) && /"$/.test(type)) || (/^'/.test(type) && /'$/.test(type))
+  const isNumberCheck = /^[0-9]+$/.test(type)
 
-        case 'true': return `${$1} ${prefix}${$2} = true`
-        case 'not true': return `${$1} ${prefix}${$2} != true`
+  const output = [prefix]
 
-        case 'false': return `${$1} ${prefix}${$2} = false`
-        case 'not false': return `${$1} ${prefix}${$2} != true`
+  let isInputStreamed = false
 
-        case 'text': return ` ${$1}${prefix}isText`
-        case 'not text': return ` ${$1}${prefix}isText != true`
-
-        case 'node': return ` ${$1}${prefix}isParserNode`
-        case 'not node': return ` ${$1}${prefix}isParserNode != true`
-
-        case 'fragment': return ` ${$1}${prefix}isFragment`
-        case 'not fragment': return ` ${$1}${prefix}isFragment != true`
-
-        case 'number': return ` ${$1}${prefix}${$2}.$typeof($) = "number"`
-        case 'not number': return ` ${$1}${prefix}${$2}.$typeof($) != "number"`
-
-        case 'string': return ` ${$1}${prefix}${$2} ~> $typeof() = "string"`
-        case 'not string': return `${$1}${prefix}${$2} ~> $typeof() != "string"`
-
-        case 'object': return ` ${$1}${prefix}${$2}.$typeof($) = "object"`
-        case 'not object': return `${$1} ${prefix}${$2}.$typeof($) != "object"`
-
-        case 'boolean': return `${$1} ${prefix}${$2}.$typeof($) = "boolean"`
-        case 'not boolean': return `${$1} ${prefix}${$2}.$typeof($) != "boolean"`
-
-        case 'array': return ` ${$1}${prefix}${$2}.$isArray($)`
-        case 'not array': return `${$1} ${prefix}${$2}.$isArray($) != true`
-
-        case 'date': return ` ${$1}${prefix}${$2}.$classConstructorName($) = "Date"`
-        case 'not date': return ` ${$1}${prefix}${$2}.$classConstructorName($) != "Date"`
-
-        case 'document': return `${$1} ${prefix}${$2}.$classConstructorName($) = "Document"`
-        case 'not document': return `${$1} ${prefix}${$2}.$classConstructorName($) != "Document"`
-
-        case 'empty': return `${$1} ${prefix}${$2}.$length($) = 0`
-        case 'not empty': return `${$1} ${prefix}${$2}.$length($) > 0`
-
-        default: return type ? (` ${$1}${prefix}${$2}is${camelcase(type)}`) : ''
+  if (
+    !hasLeadingKeyword &&
+    (!isConstantCheck && !isNumberCheck && !isStringCheck) ||
+    'nan' === type.toLowerCase()
+  ) {
+    if (selector && '.' !== prefix.slice(-1)) {
+      output.push('.')
+    } else if (/[\)|\]|\}|\$|\.|`]/.test(prefix.slice(-1))) {
+      output.push('.')
+    } else if (/['|"]/.test(prefix.slice(-1)) && !isNumberCheck) {
+      isInputStreamed = true
+      output.push('~>')
+    } else if (/^[0-9]+$/.test(prefix) && !isNumberCheck) {
+      isInputStreamed = true
+      output.push('~>')
+    } else if (/true|false|null|nan/i.test(prefix) && !isNumberCheck) {
+      isInputStreamed = true
+      output.push('~>')
+    } else if (!/[\(|\[|\{|\$|\.|`]/.test(prefix.slice(-1))) {
+      if (!isNumberCheck) {
+        output.push('.')
       }
-    })
+    }
+  }
+
+  const inputContext = isInputStreamed ? '' : '$'
+
+  if (isPrimitiveCheck) {
+    output.push(` $typeof(${inputContext}) ${negate ? '!' : ''}= "${type}"`)
+  } else if (isConstantCheck || isNumberCheck || isStringCheck) {
+    if ('nan' === type.toLowerCase()) {
+      output.push(` $isNaN(${inputContext}) ${negate ? '!' : ''}= true`)
+    } else {
+      output.push(` ${negate ? '!' : ''}= ${type}`)
+    }
+  } else if (isSpecialCheck) {
+    output.push(` ${specials[type.toLowerCase()]} ${negate ? '!' : ''}= true`)
+  } else if (isInstanceCheck) {
+    output.push(` $classConstructorName(${inputContext}) = "${instances[type.toLowerCase()]}"`)
+  } else {
+    switch (expr) {
+      case 'empty': output.push(` $length(${inputContext}) = 0`); break
+      case 'not empty': output.push(` $length(${inputContext}) > 0`); break
+      default: output.push(`is${camelcase(type)}`)
+    }
+  }
+
+  return output.join(' ')
 }
 
 module.exports = {
