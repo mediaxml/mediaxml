@@ -91,7 +91,7 @@ function query(node, queryString, opts) {
     }
 
     queryString = transforms.reduce(reduceQueryString, queryString)
-    //console.log('queryString', queryString);
+    ///console.log('queryString', queryString);
 
     debug('query: after transform', queryString)
 

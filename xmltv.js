@@ -896,6 +896,10 @@ class Programme extends Entity {
   get start() {
     const { start } = this.node.attributes
 
+    if (start instanceof Date) {
+      return start
+    }
+
     if (start && XMLTV_DATETIME_REGEX.test(start)) {
       return date.parse(start, XMLTV_DATETIME_FORMAT)
     } else if (start) {
@@ -913,6 +917,10 @@ class Programme extends Entity {
    */
   get stop() {
     const { stop } = this.node.attributes
+
+    if (stop instanceof Date) {
+      return stop
+    }
 
     if (stop && XMLTV_DATETIME_REGEX.test(stop)) {
       return date.parse(stop, XMLTV_DATETIME_FORMAT)
