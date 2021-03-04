@@ -212,7 +212,7 @@ module.exports = {
     '<j-:a> # Returns computed keys of input as an array.',
     function $keys(input) {
       if (Array.isArray(input)) {
-        return keys.map(keys)
+        return input.map(keys)
       } else if (input) {
         return keys(input)
       } else {
