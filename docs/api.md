@@ -3738,7 +3738,7 @@ Returns **[Document][143]**
 
 ### xmltv
 
-[xmltv.js:1253-1273][541]
+[xmltv.js:1261-1281][541]
 
 -   **See: [http://wiki.xmltv.org/index.php/XMLTVFormat][542]
     **
@@ -4444,7 +4444,7 @@ Type: Description
 
 #### Programme
 
-[xmltv.js:872-1220][616]
+[xmltv.js:872-1228][616]
 
 **Extends Entity**
 
@@ -4465,7 +4465,7 @@ Type: [Date][152]?
 
 ##### start
 
-[xmltv.js:896-906][618]
+[xmltv.js:896-910][618]
 
 The start date and time of the programme.
 
@@ -4473,7 +4473,7 @@ Type: [Date][152]?
 
 ##### stop
 
-[xmltv.js:914-924][619]
+[xmltv.js:918-932][619]
 
 The stop date and time of the programme.
 
@@ -4481,7 +4481,7 @@ Type: [Date][152]?
 
 ##### channel
 
-[xmltv.js:932-934][620]
+[xmltv.js:940-942][620]
 
 The channel id for this programme.
 
@@ -4489,7 +4489,7 @@ Type: Title
 
 ##### titles
 
-[xmltv.js:942-953][621]
+[xmltv.js:950-961][621]
 
 The titles for this programme.
 
@@ -4497,7 +4497,7 @@ Type: [Array][146]&lt;Title>
 
 ##### title
 
-[xmltv.js:961-963][622]
+[xmltv.js:969-971][622]
 
 The default (first) title for this programme.
 
@@ -4505,7 +4505,7 @@ Type: Title
 
 ##### subtitles
 
-[xmltv.js:971-982][623]
+[xmltv.js:979-990][623]
 
 The subtitles for this programme.
 
@@ -4513,7 +4513,7 @@ Type: [Array][146]&lt;SubTitle>
 
 ##### subtitle
 
-[xmltv.js:990-992][624]
+[xmltv.js:998-1000][624]
 
 The default (first) subtitle for this programme.
 
@@ -4521,7 +4521,7 @@ Type: SubTitle
 
 ##### descriptions
 
-[xmltv.js:1000-1011][625]
+[xmltv.js:1008-1019][625]
 
 The descriptions for this programme.
 
@@ -4529,7 +4529,7 @@ Type: [Array][146]&lt;Description>
 
 ##### description
 
-[xmltv.js:1019-1021][626]
+[xmltv.js:1027-1029][626]
 
 The default (first) description for this programme.
 
@@ -4537,7 +4537,7 @@ Type: Description
 
 ##### credits
 
-[xmltv.js:1029-1038][627]
+[xmltv.js:1037-1046][627]
 
 The credits for this programme.
 
@@ -4545,7 +4545,7 @@ Type: [Array][146]&lt;Credits>
 
 ##### video
 
-[xmltv.js:1046-1055][628]
+[xmltv.js:1054-1063][628]
 
 The video description for this programme.
 
@@ -4553,7 +4553,7 @@ Type: [Array][146]&lt;VideoDescription>
 
 ##### rating
 
-[xmltv.js:1063-1072][629]
+[xmltv.js:1071-1080][629]
 
 The rating for this programme.
 
@@ -4561,7 +4561,7 @@ Type: [Array][146]&lt;Rating>
 
 ##### countries
 
-[xmltv.js:1080-1089][630]
+[xmltv.js:1088-1097][630]
 
 An array of countries for this programme.
 
@@ -4569,7 +4569,7 @@ Type: [Array][146]&lt;[String][132]>
 
 ##### keywords
 
-[xmltv.js:1097-1106][631]
+[xmltv.js:1105-1114][631]
 
 An array of keywords for this programme.
 
@@ -4577,7 +4577,7 @@ Type: [Array][146]&lt;[String][132]>
 
 ##### originalLanguage
 
-[xmltv.js:1114-1123][632]
+[xmltv.js:1122-1131][632]
 
 An array of original languages for this programme.
 
@@ -4585,7 +4585,7 @@ Type: [Array][146]&lt;OriginalLanguage>
 
 ##### languages
 
-[xmltv.js:1131-1142][633]
+[xmltv.js:1139-1150][633]
 
 An array of languages for this programme.
 
@@ -4593,7 +4593,7 @@ Type: [Array][146]&lt;Language>
 
 ##### language
 
-[xmltv.js:1150-1152][634]
+[xmltv.js:1158-1160][634]
 
 Default (first) language for this programme.
 
@@ -4601,7 +4601,7 @@ Type: Language?
 
 ##### icon
 
-[xmltv.js:1160-1162][635]
+[xmltv.js:1168-1170][635]
 
 Default (first) icon for this programme.
 
@@ -4609,7 +4609,7 @@ Type: Icon?
 
 ##### icons
 
-[xmltv.js:1170-1181][636]
+[xmltv.js:1178-1189][636]
 
 An array of icons for this programme.
 
@@ -4617,7 +4617,7 @@ Type: [Array][146]&lt;Icon>
 
 ##### categories
 
-[xmltv.js:1189-1200][637]
+[xmltv.js:1197-1208][637]
 
 An array of categories for this programme.
 
@@ -4625,7 +4625,7 @@ Type: [Array][146]&lt;Category>
 
 ##### episodeNumbers
 
-[xmltv.js:1208-1219][638]
+[xmltv.js:1216-1227][638]
 
 An array of episode numbers for this programme.
 
@@ -4633,7 +4633,7 @@ Type: [Array][146]&lt;EpisodeNumber>
 
 #### createDocument
 
-[xmltv.js:1229-1231][639]
+[xmltv.js:1237-1239][639]
 
 -   **See: {Document}
     **
@@ -4653,7 +4653,7 @@ Core modules for implementing the MediaXML API.
 
 ### parser
 
-[parser.js:2507-2519][640]
+[parser.js:2520-2532][640]
 
 The core parsing API for the MediaXML module that creates a document
 object model for a parsed XML file with a robust query API built on top
@@ -4976,7 +4976,7 @@ Returns **ParserNodeFragment**
 
 #### ParserNode
 
-[parser.js:578-1619][671]
+[parser.js:578-1632][671]
 
 A container for a parsed XML node with references to
 its parent node and children.
@@ -5003,7 +5003,7 @@ console.log(metadata)
 
 ##### innerXML
 
-[parser.js:840-840][672]
+[parser.js:853-853][672]
 
 The inner XML representation of this node.
 Setting the inner XML of this node will update body and children
@@ -5051,7 +5051,7 @@ console.log(node)
 
 ##### outerXML
 
-[parser.js:900-900][673]
+[parser.js:913-913][673]
 
 The outer XML representation of this node.
 Setting the outer XML of this node will update the attributes,
@@ -5078,7 +5078,7 @@ node.outerXML = `
 
 ##### originalName
 
-[parser.js:934-934][674]
+[parser.js:947-947][674]
 
 The original name of this node.
 
@@ -5090,7 +5090,7 @@ Type: [String][132]
 
 ##### name
 
-[parser.js:943-943][675]
+[parser.js:956-956][675]
 
 The normalized name of this node in camelcase.
 
@@ -5102,7 +5102,7 @@ Type: [String][132]
 
 ##### text
 
-[parser.js:952-952][676]
+[parser.js:965-965][676]
 
 An alias to `this.body`.
 
@@ -5114,7 +5114,7 @@ Type: ParserNodeText
 
 ##### depth
 
-[parser.js:963-963][677]
+[parser.js:976-976][677]
 
 The depth this node appears in the tree.
 
@@ -5126,7 +5126,7 @@ Type: [Number][418]
 
 ##### parent
 
-[parser.js:972-972][678]
+[parser.js:985-985][678]
 
 A reference to the parent node of this node.
 
@@ -5138,7 +5138,7 @@ Type: ParserNode?
 
 ##### options
 
-[parser.js:981-981][679]
+[parser.js:994-994][679]
 
 A reference to the options used when this instance was created
 
@@ -5150,7 +5150,7 @@ Type: [Object][133]?
 
 ##### children
 
-[parser.js:990-990][680]
+[parser.js:1003-1003][680]
 
 A reference to the child nodes in this node.
 
@@ -5162,7 +5162,7 @@ Type: [Array][146]&lt;ParserNode>
 
 ##### comments
 
-[parser.js:999-999][681]
+[parser.js:1012-1012][681]
 
 A reference to the comment nodes in this node.
 
@@ -5174,7 +5174,7 @@ Type: [Array][146]&lt;ParserNode>
 
 ##### attributes
 
-[parser.js:1008-1008][682]
+[parser.js:1021-1021][682]
 
 A key-value mapping of normalized attributes in this node.
 
@@ -5186,7 +5186,7 @@ Type: [Object][133]
 
 ##### originalAttributes
 
-[parser.js:1017-1017][683]
+[parser.js:1030-1030][683]
 
 The original attributes, before normalization.
 
@@ -5198,7 +5198,7 @@ Type: [Object][133]?
 
 ##### isConnected
 
-[parser.js:1026-1028][684]
+[parser.js:1039-1041][684]
 
 `true` if this node is connected to a parent node.
 
@@ -5206,7 +5206,7 @@ Type: [Boolean][422]
 
 ##### isOrphaned
 
-[parser.js:1036-1038][685]
+[parser.js:1049-1051][685]
 
 `true` if this node is not connected to a parent node and is not a root node.
 
@@ -5214,7 +5214,7 @@ Type: [Boolean][422]
 
 ##### isParserNode
 
-[parser.js:1046-1048][686]
+[parser.js:1059-1061][686]
 
 `true` to indicate that this is a node.
 
@@ -5222,7 +5222,7 @@ Type: [Boolean][422]
 
 ##### isText
 
-[parser.js:1056-1058][687]
+[parser.js:1069-1071][687]
 
 `false` to indicate that this node is not text.
 
@@ -5230,7 +5230,7 @@ Type: [Boolean][422]
 
 ##### isFragment
 
-[parser.js:1066-1068][688]
+[parser.js:1079-1081][688]
 
 `false` to indicate that this node is not a fragment.
 
@@ -5238,7 +5238,7 @@ Type: [Boolean][422]
 
 ##### index
 
-[parser.js:1076-1082][689]
+[parser.js:1089-1095][689]
 
 Computed index this node exists in its parent tree.
 
@@ -5246,7 +5246,7 @@ Type: [Number][418]
 
 ##### length
 
-[parser.js:1090-1092][690]
+[parser.js:1103-1105][690]
 
 Computed number of child nodes in this node.
 
@@ -5254,7 +5254,7 @@ Type: [Number][418]
 
 ##### ondisconnect
 
-[parser.js:1109-1111][691]
+[parser.js:1122-1124][691]
 
 Called when disconnected from a parent node.
 
@@ -5265,7 +5265,7 @@ Called when disconnected from a parent node.
 
 ##### keys
 
-[parser.js:1118-1120][692]
+[parser.js:1131-1133][692]
 
 Computed keys for this parser node.
 
@@ -5273,7 +5273,7 @@ Returns **[Array][146]&lt;[String][132]>**
 
 ##### values
 
-[parser.js:1127-1130][693]
+[parser.js:1140-1143][693]
 
 Computed values for this parser node.
 
@@ -5281,7 +5281,7 @@ Returns **[Array][146]&lt;[String][132]>**
 
 ##### includes
 
-[parser.js:1138-1140][694]
+[parser.js:1151-1153][694]
 
 Checks if node is contained within this one.
 
@@ -5293,7 +5293,7 @@ Returns **[Boolean][422]**
 
 ##### append
 
-[parser.js:1158-1174][695]
+[parser.js:1171-1187][695]
 
 Append one or more nodes to this node.
 
@@ -5320,7 +5320,7 @@ Returns **ParserNode**
 
 ##### remove
 
-[parser.js:1184-1190][696]
+[parser.js:1197-1203][696]
 
 Remove one or more nodes to this node.
 
@@ -5336,7 +5336,7 @@ Returns **ParserNode**
 
 ##### appendChild
 
-[parser.js:1199-1222][697]
+[parser.js:1212-1235][697]
 
 Appends a child node to this node.
 
@@ -5351,7 +5351,7 @@ Returns **ParserNode**
 
 ##### removeChild
 
-[parser.js:1231-1254][698]
+[parser.js:1244-1267][698]
 
 Removes a child node to this node.
 
@@ -5365,7 +5365,7 @@ Removes a child node to this node.
 
 ##### clone
 
-[parser.js:1262-1271][699]
+[parser.js:1275-1284][699]
 
 Clone node, optionally cloning all children.
 
@@ -5378,7 +5378,7 @@ Returns **ParserNode**
 
 ##### cloneNode
 
-[parser.js:1278-1280][700]
+[parser.js:1291-1293][700]
 
 An alias to `clone()`.
 
@@ -5390,7 +5390,7 @@ Returns **ParserNode**
 
 ##### query
 
-[parser.js:1293-1297][701]
+[parser.js:1306-1310][701]
 
 -   **See: [https://jsonata.org][641]
     **
@@ -5408,7 +5408,7 @@ Returns **([Array][146] \| [Object][133] | null)**
 
 ##### iterator
 
-[parser.js:1304-1306][702]
+[parser.js:1317-1319][702]
 
 Returns an iterable generator for this node.
 
@@ -5416,7 +5416,7 @@ Returns **Generator**
 
 ##### iterator
 
-[parser.js:1467-1471][703]
+[parser.js:1480-1484][703]
 
 Implements `Symbol.iterator` symbol for converting this node
 to an iterable
@@ -5425,7 +5425,7 @@ Returns **Iterator**
 
 ##### toString
 
-[parser.js:1319-1399][704]
+[parser.js:1332-1412][704]
 
 Converts this node ands children to a XML string
 representing this node and its children.
@@ -5442,7 +5442,7 @@ Returns **[String][132]**
 
 ##### toJSON
 
-[parser.js:1410-1450][705]
+[parser.js:1423-1463][705]
 
 Converts this node to a JSON structure suitable for serialization.
 
@@ -5457,7 +5457,7 @@ Returns **[Object][133]**
 
 ##### slice
 
-[parser.js:1482-1487][706]
+[parser.js:1495-1500][706]
 
 Implements a simple `slice` function to slice a selection of children
 
@@ -5477,7 +5477,7 @@ Returns **ParserNodeFragment**
 
 ##### forEach
 
-[parser.js:1498-1505][707]
+[parser.js:1511-1518][707]
 
 Implements a simple `forEach` function over the children in this node
 
@@ -5495,7 +5495,7 @@ nodes.forEach((node) => { ... })
 
 ##### map
 
-[parser.js:1518-1534][708]
+[parser.js:1531-1547][708]
 
 Implements a simple `map` function to map children to new `ParserNode`
 fragment instance.
@@ -5516,7 +5516,7 @@ Returns **ParserNode**
 
 ##### flatMap
 
-[parser.js:1547-1567][709]
+[parser.js:1560-1580][709]
 
 Implements a simple `flatMap` function to map children to new `ParserNode`
 fragment instance.
@@ -5537,7 +5537,7 @@ Returns **ParserNode**
 
 ##### filter
 
-[parser.js:1580-1591][710]
+[parser.js:1593-1604][710]
 
 Implements a simple `filter` function to filter children into a resulting
 `ParserNode` fragment instance.
@@ -5558,7 +5558,7 @@ Returns **ParserNode**
 
 ##### traverse
 
-[parser.js:1601-1618][711]
+[parser.js:1614-1631][711]
 
 Implements a simple `traverse` function to visit every node in this tree.
 The first call will be to the root (this) node, and all subsequent calls will
@@ -5631,7 +5631,7 @@ Returns **ParserNodeText**
 
 ##### from
 
-[parser.js:656-688][717]
+[parser.js:656-702][717]
 
 Creates a new `ParserNode` from input.
 
@@ -5653,7 +5653,7 @@ Returns **ParserNode**
 
 ##### empty
 
-[parser.js:696-698][718]
+[parser.js:710-712][718]
 
 Create an empty `ParserNode` instance.
 
@@ -5661,7 +5661,7 @@ Returns **ParserNode**
 
 #### ParserState
 
-[parser.js:1626-1704][719]
+[parser.js:1639-1717][719]
 
 A simple stack to store parser state.
 
@@ -5671,7 +5671,7 @@ A simple stack to store parser state.
 
 ##### head
 
-[parser.js:1643-1645][720]
+[parser.js:1656-1658][720]
 
 The first node in the parser state stack.
 
@@ -5679,7 +5679,7 @@ Type: ParserNode?
 
 ##### tail
 
-[parser.js:1653-1656][721]
+[parser.js:1666-1669][721]
 
 The last node in the parser state stack.
 
@@ -5687,7 +5687,7 @@ Type: ParserNode?
 
 ##### length
 
-[parser.js:1664-1666][722]
+[parser.js:1677-1679][722]
 
 The number of nodes in the parser state stack.
 
@@ -5695,7 +5695,7 @@ Type: [Number][418]
 
 ##### depth
 
-[parser.js:1674-1676][723]
+[parser.js:1687-1689][723]
 
 An alias to `state.length`
 
@@ -5703,7 +5703,7 @@ Type: [Number][418]
 
 ##### push
 
-[parser.js:1684-1687][724]
+[parser.js:1697-1700][724]
 
 Push one or more nodes on to the state stack.
 
@@ -5715,7 +5715,7 @@ Returns **ParserState**
 
 ##### pop
 
-[parser.js:1694-1696][725]
+[parser.js:1707-1709][725]
 
 Pop off the tail of the parser state stack and return it.
 
@@ -5723,7 +5723,7 @@ Returns **ParserNode?**
 
 #### ParserHandler
 
-[parser.js:1713-1955][726]
+[parser.js:1726-1968][726]
 
 -   **See: [https://github.com/fb55/htmlparser2][727]
     **
@@ -5734,7 +5734,7 @@ Callback handlers for a `Parser` instance.
 
 ##### rootNode
 
-[parser.js:1721-1723][729]
+[parser.js:1734-1736][729]
 
 A reference to the parser state head.
 
@@ -5742,7 +5742,7 @@ Type: ParserNode?
 
 ##### currentNode
 
-[parser.js:1731-1733][730]
+[parser.js:1744-1746][730]
 
 A reference to the parser state tail.
 
@@ -5750,7 +5750,7 @@ Type: ParserNode?
 
 ##### onparserinit
 
-[parser.js:1744-1747][731]
+[parser.js:1757-1760][731]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L156][732]
     **
@@ -5766,7 +5766,7 @@ the super method_.
 
 ##### onreset
 
-[parser.js:1757-1759][733]
+[parser.js:1770-1772][733]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L161][734]
     **
@@ -5778,7 +5778,7 @@ the super method._
 
 ##### onend
 
-[parser.js:1769-1772][735]
+[parser.js:1782-1785][735]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L166][736]
     **
@@ -5790,7 +5790,7 @@ the super method._
 
 ##### onerror
 
-[parser.js:1783-1786][737]
+[parser.js:1796-1799][737]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L167][738]
     **
@@ -5806,7 +5806,7 @@ the super method_.
 
 ##### onopentag
 
-[parser.js:1798-1809][740]
+[parser.js:1811-1822][740]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L181][741]
     **
@@ -5823,7 +5823,7 @@ the super method_.
 
 ##### onopentagname
 
-[parser.js:1820-1822][742]
+[parser.js:1833-1835][742]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L169][743]
     **
@@ -5839,7 +5839,7 @@ the super method_.
 
 ##### onclosetag
 
-[parser.js:1833-1838][744]
+[parser.js:1846-1851][744]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L168][745]
     **
@@ -5855,7 +5855,7 @@ the super method_.
 
 ##### onattribute
 
-[parser.js:1851-1853][746]
+[parser.js:1864-1866][746]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L176][747]
     **
@@ -5873,7 +5873,7 @@ the super method_.
 
 ##### ontext
 
-[parser.js:1864-1873][748]
+[parser.js:1877-1886][748]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L182][749]
     **
@@ -5889,7 +5889,7 @@ the super method_.
 
 ##### oncomment
 
-[parser.js:1884-1894][750]
+[parser.js:1897-1907][750]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L183][751]
     **
@@ -5905,7 +5905,7 @@ the super method_.
 
 ##### oncommentend
 
-[parser.js:1904-1906][752]
+[parser.js:1917-1919][752]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L186][753]
     **
@@ -5917,7 +5917,7 @@ the super method_.
 
 ##### oncdatastart
 
-[parser.js:1916-1925][754]
+[parser.js:1929-1938][754]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L184][755]
     **
@@ -5929,7 +5929,7 @@ the super method_.
 
 ##### oncdataend
 
-[parser.js:1935-1942][756]
+[parser.js:1948-1955][756]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L185][757]
     **
@@ -5941,7 +5941,7 @@ the super method_.
 
 ##### onprocessinginstruction
 
-[parser.js:1952-1954][758]
+[parser.js:1965-1967][758]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L187][759]
     **
@@ -5958,7 +5958,7 @@ the super method_.
 
 #### ParserOptions
 
-[parser.js:1964-2146][760]
+[parser.js:1977-2159][760]
 
 -   **See: [https://github.com/fb55/htmlparser2][727]
     **
@@ -5973,7 +5973,7 @@ Options with defaults for a `ParserHandler` instance
 
 ##### set
 
-[parser.js:2025-2037][762]
+[parser.js:2038-2050][762]
 
 Set an enumerable option value by key.
 
@@ -5984,7 +5984,7 @@ Set an enumerable option value by key.
 
 ##### get
 
-[parser.js:2045-2047][763]
+[parser.js:2058-2060][763]
 
 Get an enumerable option by key
 
@@ -5996,7 +5996,7 @@ Returns **Mixed?**
 
 ##### bindings
 
-[parser.js:2056-2056][764]
+[parser.js:2069-2069][764]
 
 -   **See: [https://docs.jsonata.org/embedding-extending#expressionregisterfunctionname-implementation-signature][765]
     **
@@ -6011,7 +6011,7 @@ Type: [Object][133]
 
 ##### handler
 
-[parser.js:2065-2065][766]
+[parser.js:2078-2078][766]
 
 Parser runtime handler functions for handling state building.
 
@@ -6023,7 +6023,7 @@ Type: ParserHandler
 
 ##### state
 
-[parser.js:2074-2074][767]
+[parser.js:2087-2087][767]
 
 Parser runtime state that can be seeded optionally through `ParserOptions`.
 
@@ -6035,7 +6035,7 @@ Type: ParserState
 
 ##### xmlMode
 
-[parser.js:2084-2084][768]
+[parser.js:2097-2097][768]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L110][769]
     **
@@ -6050,7 +6050,7 @@ Type: [Boolean][422]
 
 ##### lowerCaseTags
 
-[parser.js:2094-2094][770]
+[parser.js:2107-2107][770]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L124][771]
     **
@@ -6065,7 +6065,7 @@ Type: [Boolean][422]
 
 ##### decodeEntities
 
-[parser.js:2104-2104][772]
+[parser.js:2117-2117][772]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L117][773]
     **
@@ -6080,7 +6080,7 @@ Type: [Boolean][422]
 
 ##### recognizeCDATA
 
-[parser.js:2114-2114][774]
+[parser.js:2127-2127][774]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L139][775]
     **
@@ -6095,7 +6095,7 @@ Type: [Boolean][422]
 
 ##### recognizeSelfClosing
 
-[parser.js:2124-2124][776]
+[parser.js:2137-2137][776]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L147][777]
     **
@@ -6110,7 +6110,7 @@ Type: [Boolean][422]
 
 ##### lowerCaseAttributeNames
 
-[parser.js:2134-2134][778]
+[parser.js:2147-2147][778]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L131][779]
     **
@@ -6125,7 +6125,7 @@ Type: [Boolean][422]
 
 ##### preserveConsecutiveUppercase
 
-[parser.js:2144-2144][780]
+[parser.js:2157-2157][780]
 
 -   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L131][779]
     **
@@ -6140,7 +6140,7 @@ Type: [Boolean][422]
 
 ##### from
 
-[parser.js:1991-1993][781]
+[parser.js:2004-2006][781]
 
 Create a new `ParserOptions` instance.
 
@@ -6174,7 +6174,7 @@ Returns **ParserOptions**
 
 #### Parser
 
-[parser.js:2154-2476][782]
+[parser.js:2167-2489][782]
 
 **Extends htmlparser2.Parser**
 
@@ -6189,7 +6189,7 @@ An XML parser that creates a document object model.
 
 ##### options
 
-[parser.js:2250-2250][783]
+[parser.js:2263-2263][783]
 
 A reference to the parser options used to configure this parser instance.
 
@@ -6201,7 +6201,7 @@ Type: ParserOptions
 
 ##### state
 
-[parser.js:2259-2259][784]
+[parser.js:2272-2272][784]
 
 A reference to the parser state maintained by this parser instance.
 
@@ -6213,7 +6213,7 @@ Type: ParserState
 
 ##### handler
 
-[parser.js:2268-2268][785]
+[parser.js:2281-2281][785]
 
 A reference to the parser handlers that build the parser state for this instance.
 
@@ -6225,7 +6225,7 @@ Type: ParserHandler
 
 ##### ended
 
-[parser.js:2277-2277][786]
+[parser.js:2290-2290][786]
 
 A boolean to indicate if the parser has finished parsing its input.
 
@@ -6237,7 +6237,7 @@ Type: [Boolean][422]
 
 ##### error
 
-[parser.js:2286-2286][787]
+[parser.js:2299-2299][787]
 
 An error, if one occurred during parsing.
 
@@ -6249,7 +6249,7 @@ Type: [Error][739]?
 
 ##### nodes
 
-[parser.js:2295-2297][788]
+[parser.js:2308-2310][788]
 
 A pointer to the parsed state nodes
 
@@ -6257,7 +6257,7 @@ Type: [Array][146]
 
 ##### rootNode
 
-[parser.js:2305-2307][789]
+[parser.js:2318-2320][789]
 
 A pointer to the root node on the parsed state stack.
 
@@ -6265,7 +6265,7 @@ Type: ParserNode
 
 ##### rootType
 
-[parser.js:2315-2323][790]
+[parser.js:2328-2336][790]
 
 Returns the type of root node associated with this parser.
 
@@ -6273,7 +6273,7 @@ Type: [String][132]?
 
 ##### rootAttributes
 
-[parser.js:2331-2339][791]
+[parser.js:2344-2352][791]
 
 Returns the attributes of the root node associated with this parser.
 
@@ -6281,7 +6281,7 @@ Type: [Object][133]?
 
 ##### createWriteStream
 
-[parser.js:2346-2352][792]
+[parser.js:2359-2365][792]
 
 Creates a `WritableStream` for the `Parser` instance.
 
@@ -6293,7 +6293,7 @@ Returns **WritableStream**
 
 ##### createReadStream
 
-[parser.js:2363-2394][793]
+[parser.js:2376-2407][793]
 
 -   **See: [https://github.com/streamxorg/streamx#readable-stream][794]
     **
@@ -6314,7 +6314,7 @@ Returns **ReadableStream**
 
 ##### query
 
-[parser.js:2407-2416][795]
+[parser.js:2420-2429][795]
 
 -   **See: [https://jsonata.org][641]
     **
@@ -6337,7 +6337,7 @@ Returns **(ParserNode? | ParserNodeFragment | ParserNodeText)**
 
 ##### then
 
-[parser.js:2453-2455][796]
+[parser.js:2466-2468][796]
 
 Implements `then` for async/await and `Promise` compat.
 
@@ -6350,7 +6350,7 @@ Returns **[Promise][797]**
 
 ##### toString
 
-[parser.js:2473-2475][798]
+[parser.js:2486-2488][798]
 
 Converts this instance into a string. Returns the root nodes
 string value
@@ -6369,7 +6369,7 @@ Returns **[String][132]**
 
 ##### from
 
-[parser.js:2163-2186][799]
+[parser.js:2176-2199][799]
 
 Create a new `Parser` from input.
 
@@ -6382,7 +6382,7 @@ Returns **Parser**
 
 ##### createWriteStream
 
-[parser.js:2194-2197][800]
+[parser.js:2207-2210][800]
 
 Creates a `WritableStream` for a new `Parser` instance.
 
@@ -6733,7 +6733,7 @@ Returns **Entity**
 
 ### query
 
-[query/index.js:282-285][824]
+[query/index.js:291-294][824]
 
 Module exports.
 
@@ -6755,7 +6755,7 @@ cache.clear()
 
 #### query
 
-[query/index.js:53-193][827]
+[query/index.js:53-202][827]
 
 -   **See: [https://jsonata.org][641]
     **
@@ -7295,1426 +7295,1426 @@ A high level container for text content.
 
 [128]: #text-1
 
-[129]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L419-L427 "Source code on GitHub"
+[129]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L419-L427 "Source code on GitHub"
 
 [130]: https://community.cablelabs.com/wiki/plugins/servlet/cablelabs/alfresco/download?id=8f900e8b-d1eb-4834-bd26-f04bd623c3d2
 
-[131]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L23-L112 "Source code on GitHub"
+[131]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L23-L112 "Source code on GitHub"
 
 [132]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
 [133]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[134]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L97-L100 "Source code on GitHub"
+[134]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L97-L100 "Source code on GitHub"
 
-[135]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L108-L111 "Source code on GitHub"
+[135]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L108-L111 "Source code on GitHub"
 
-[136]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L32-L34 "Source code on GitHub"
+[136]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L32-L34 "Source code on GitHub"
 
-[137]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L43-L45 "Source code on GitHub"
+[137]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L43-L45 "Source code on GitHub"
 
-[138]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L54-L56 "Source code on GitHub"
+[138]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L54-L56 "Source code on GitHub"
 
-[139]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L65-L67 "Source code on GitHub"
+[139]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L65-L67 "Source code on GitHub"
 
-[140]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L76-L78 "Source code on GitHub"
+[140]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L76-L78 "Source code on GitHub"
 
-[141]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L87-L89 "Source code on GitHub"
+[141]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L87-L89 "Source code on GitHub"
 
-[142]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L121-L152 "Source code on GitHub"
+[142]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L121-L152 "Source code on GitHub"
 
 [143]: https://developer.mozilla.org/docs/Web/API/Document
 
-[144]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L129-L133 "Source code on GitHub"
+[144]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L129-L133 "Source code on GitHub"
 
-[145]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L142-L151 "Source code on GitHub"
+[145]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L142-L151 "Source code on GitHub"
 
 [146]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[147]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L161-L261 "Source code on GitHub"
+[147]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L161-L261 "Source code on GitHub"
 
-[148]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L168-L170 "Source code on GitHub"
+[148]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L168-L170 "Source code on GitHub"
 
-[149]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L177-L179 "Source code on GitHub"
+[149]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L177-L179 "Source code on GitHub"
 
-[150]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L186-L188 "Source code on GitHub"
+[150]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L186-L188 "Source code on GitHub"
 
-[151]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L195-L197 "Source code on GitHub"
+[151]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L195-L197 "Source code on GitHub"
 
 [152]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date
 
-[153]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L204-L206 "Source code on GitHub"
+[153]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L204-L206 "Source code on GitHub"
 
-[154]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L213-L215 "Source code on GitHub"
+[154]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L213-L215 "Source code on GitHub"
 
-[155]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L222-L224 "Source code on GitHub"
+[155]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L222-L224 "Source code on GitHub"
 
-[156]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L231-L233 "Source code on GitHub"
+[156]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L231-L233 "Source code on GitHub"
 
-[157]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L240-L242 "Source code on GitHub"
+[157]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L240-L242 "Source code on GitHub"
 
-[158]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L249-L251 "Source code on GitHub"
+[158]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L249-L251 "Source code on GitHub"
 
-[159]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L258-L260 "Source code on GitHub"
+[159]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L258-L260 "Source code on GitHub"
 
-[160]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L270-L316 "Source code on GitHub"
+[160]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L270-L316 "Source code on GitHub"
 
-[161]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L277-L279 "Source code on GitHub"
+[161]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L277-L279 "Source code on GitHub"
 
-[162]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L286-L288 "Source code on GitHub"
+[162]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L286-L288 "Source code on GitHub"
 
-[163]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L295-L297 "Source code on GitHub"
+[163]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L295-L297 "Source code on GitHub"
 
-[164]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L304-L306 "Source code on GitHub"
+[164]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L304-L306 "Source code on GitHub"
 
-[165]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L313-L315 "Source code on GitHub"
+[165]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L313-L315 "Source code on GitHub"
 
-[166]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L325-L336 "Source code on GitHub"
+[166]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L325-L336 "Source code on GitHub"
 
-[167]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L333-L335 "Source code on GitHub"
+[167]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L333-L335 "Source code on GitHub"
 
-[168]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L345-L387 "Source code on GitHub"
+[168]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L345-L387 "Source code on GitHub"
 
-[169]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L353-L357 "Source code on GitHub"
+[169]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L353-L357 "Source code on GitHub"
 
-[170]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L365-L375 "Source code on GitHub"
+[170]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L365-L375 "Source code on GitHub"
 
-[171]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L382-L386 "Source code on GitHub"
+[171]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L382-L386 "Source code on GitHub"
 
-[172]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi.js#L396-L398 "Source code on GitHub"
+[172]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi.js#L396-L398 "Source code on GitHub"
 
-[173]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L1168-L1185 "Source code on GitHub"
+[173]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L1168-L1185 "Source code on GitHub"
 
 [174]: https://scte-cms-resource-storage.s3.amazonaws.com/ANSI_SCTE-35-2019a-1582645390859.pdf
 
-[175]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L22-L195 "Source code on GitHub"
+[175]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L22-L195 "Source code on GitHub"
 
-[176]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L184-L194 "Source code on GitHub"
+[176]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L184-L194 "Source code on GitHub"
 
-[177]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L31-L33 "Source code on GitHub"
+[177]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L31-L33 "Source code on GitHub"
 
-[178]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L42-L44 "Source code on GitHub"
+[178]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L42-L44 "Source code on GitHub"
 
-[179]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L53-L55 "Source code on GitHub"
+[179]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L53-L55 "Source code on GitHub"
 
-[180]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L64-L66 "Source code on GitHub"
+[180]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L64-L66 "Source code on GitHub"
 
-[181]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L75-L77 "Source code on GitHub"
+[181]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L75-L77 "Source code on GitHub"
 
-[182]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L86-L88 "Source code on GitHub"
+[182]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L86-L88 "Source code on GitHub"
 
-[183]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L97-L99 "Source code on GitHub"
+[183]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L97-L99 "Source code on GitHub"
 
-[184]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L108-L110 "Source code on GitHub"
+[184]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L108-L110 "Source code on GitHub"
 
-[185]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L119-L121 "Source code on GitHub"
+[185]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L119-L121 "Source code on GitHub"
 
-[186]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L130-L132 "Source code on GitHub"
+[186]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L130-L132 "Source code on GitHub"
 
-[187]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L141-L143 "Source code on GitHub"
+[187]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L141-L143 "Source code on GitHub"
 
-[188]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L152-L154 "Source code on GitHub"
+[188]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L152-L154 "Source code on GitHub"
 
-[189]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L163-L165 "Source code on GitHub"
+[189]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L163-L165 "Source code on GitHub"
 
-[190]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L174-L176 "Source code on GitHub"
+[190]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L174-L176 "Source code on GitHub"
 
-[191]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L204-L716 "Source code on GitHub"
+[191]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L204-L716 "Source code on GitHub"
 
-[192]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L212-L214 "Source code on GitHub"
+[192]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L212-L214 "Source code on GitHub"
 
-[193]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L221-L223 "Source code on GitHub"
+[193]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L221-L223 "Source code on GitHub"
 
-[194]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L230-L232 "Source code on GitHub"
+[194]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L230-L232 "Source code on GitHub"
 
-[195]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L239-L241 "Source code on GitHub"
+[195]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L239-L241 "Source code on GitHub"
 
-[196]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L248-L250 "Source code on GitHub"
+[196]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L248-L250 "Source code on GitHub"
 
-[197]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L257-L259 "Source code on GitHub"
+[197]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L257-L259 "Source code on GitHub"
 
-[198]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L266-L268 "Source code on GitHub"
+[198]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L266-L268 "Source code on GitHub"
 
-[199]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L275-L286 "Source code on GitHub"
+[199]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L275-L286 "Source code on GitHub"
 
-[200]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L293-L295 "Source code on GitHub"
+[200]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L293-L295 "Source code on GitHub"
 
-[201]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L302-L304 "Source code on GitHub"
+[201]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L302-L304 "Source code on GitHub"
 
-[202]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L311-L313 "Source code on GitHub"
+[202]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L311-L313 "Source code on GitHub"
 
-[203]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L320-L322 "Source code on GitHub"
+[203]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L320-L322 "Source code on GitHub"
 
-[204]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L329-L331 "Source code on GitHub"
+[204]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L329-L331 "Source code on GitHub"
 
-[205]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L338-L349 "Source code on GitHub"
+[205]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L338-L349 "Source code on GitHub"
 
-[206]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L356-L365 "Source code on GitHub"
+[206]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L356-L365 "Source code on GitHub"
 
-[207]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L372-L376 "Source code on GitHub"
+[207]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L372-L376 "Source code on GitHub"
 
-[208]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L387-L389 "Source code on GitHub"
+[208]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L387-L389 "Source code on GitHub"
 
-[209]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L396-L400 "Source code on GitHub"
+[209]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L396-L400 "Source code on GitHub"
 
-[210]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L407-L411 "Source code on GitHub"
+[210]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L407-L411 "Source code on GitHub"
 
-[211]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L418-L422 "Source code on GitHub"
+[211]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L418-L422 "Source code on GitHub"
 
-[212]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L429-L433 "Source code on GitHub"
+[212]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L429-L433 "Source code on GitHub"
 
-[213]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L440-L444 "Source code on GitHub"
+[213]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L440-L444 "Source code on GitHub"
 
-[214]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L451-L455 "Source code on GitHub"
+[214]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L451-L455 "Source code on GitHub"
 
-[215]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L462-L466 "Source code on GitHub"
+[215]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L462-L466 "Source code on GitHub"
 
-[216]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L473-L482 "Source code on GitHub"
+[216]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L473-L482 "Source code on GitHub"
 
-[217]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L489-L497 "Source code on GitHub"
+[217]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L489-L497 "Source code on GitHub"
 
-[218]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L655-L657 "Source code on GitHub"
+[218]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L655-L657 "Source code on GitHub"
 
-[219]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L664-L666 "Source code on GitHub"
+[219]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L664-L666 "Source code on GitHub"
 
-[220]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L673-L681 "Source code on GitHub"
+[220]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L673-L681 "Source code on GitHub"
 
-[221]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L688-L696 "Source code on GitHub"
+[221]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L688-L696 "Source code on GitHub"
 
-[222]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L724-L736 "Source code on GitHub"
+[222]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L724-L736 "Source code on GitHub"
 
-[223]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L744-L752 "Source code on GitHub"
+[223]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L744-L752 "Source code on GitHub"
 
-[224]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L760-L761 "Source code on GitHub"
+[224]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L760-L761 "Source code on GitHub"
 
-[225]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L769-L773 "Source code on GitHub"
+[225]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L769-L773 "Source code on GitHub"
 
-[226]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L781-L785 "Source code on GitHub"
+[226]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L781-L785 "Source code on GitHub"
 
-[227]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L793-L801 "Source code on GitHub"
+[227]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L793-L801 "Source code on GitHub"
 
-[228]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L809-L825 "Source code on GitHub"
+[228]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L809-L825 "Source code on GitHub"
 
-[229]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L833-L853 "Source code on GitHub"
+[229]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L833-L853 "Source code on GitHub"
 
-[230]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L861-L968 "Source code on GitHub"
+[230]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L861-L968 "Source code on GitHub"
 
-[231]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L977-L1018 "Source code on GitHub"
+[231]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L977-L1018 "Source code on GitHub"
 
-[232]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L985-L987 "Source code on GitHub"
+[232]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L985-L987 "Source code on GitHub"
 
-[233]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L995-L997 "Source code on GitHub"
+[233]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L995-L997 "Source code on GitHub"
 
-[234]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L1005-L1007 "Source code on GitHub"
+[234]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L1005-L1007 "Source code on GitHub"
 
-[235]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L1015-L1017 "Source code on GitHub"
+[235]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L1015-L1017 "Source code on GitHub"
 
-[236]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L1027-L1068 "Source code on GitHub"
+[236]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L1027-L1068 "Source code on GitHub"
 
-[237]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L1035-L1037 "Source code on GitHub"
+[237]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L1035-L1037 "Source code on GitHub"
 
-[238]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L1045-L1047 "Source code on GitHub"
+[238]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L1045-L1047 "Source code on GitHub"
 
-[239]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L1055-L1057 "Source code on GitHub"
+[239]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L1055-L1057 "Source code on GitHub"
 
-[240]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L1065-L1067 "Source code on GitHub"
+[240]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L1065-L1067 "Source code on GitHub"
 
-[241]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L1077-L1098 "Source code on GitHub"
+[241]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L1077-L1098 "Source code on GitHub"
 
-[242]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L1085-L1087 "Source code on GitHub"
+[242]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L1085-L1087 "Source code on GitHub"
 
-[243]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L1095-L1097 "Source code on GitHub"
+[243]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L1095-L1097 "Source code on GitHub"
 
-[244]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L1107-L1138 "Source code on GitHub"
+[244]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L1107-L1138 "Source code on GitHub"
 
-[245]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L1115-L1117 "Source code on GitHub"
+[245]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L1115-L1117 "Source code on GitHub"
 
-[246]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L1125-L1127 "Source code on GitHub"
+[246]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L1125-L1127 "Source code on GitHub"
 
-[247]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L1135-L1137 "Source code on GitHub"
+[247]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L1135-L1137 "Source code on GitHub"
 
-[248]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/adi3.js#L1147-L1149 "Source code on GitHub"
+[248]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/adi3.js#L1147-L1149 "Source code on GitHub"
 
-[249]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L805-L815 "Source code on GitHub"
+[249]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L805-L815 "Source code on GitHub"
 
 [250]: https://validator.w3.org/feed/docs/rss2.html
 
-[251]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L22-L139 "Source code on GitHub"
+[251]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L22-L139 "Source code on GitHub"
 
-[252]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L119-L128 "Source code on GitHub"
+[252]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L119-L128 "Source code on GitHub"
 
-[253]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L136-L138 "Source code on GitHub"
+[253]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L136-L138 "Source code on GitHub"
 
-[254]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L31-L33 "Source code on GitHub"
+[254]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L31-L33 "Source code on GitHub"
 
-[255]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L42-L44 "Source code on GitHub"
+[255]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L42-L44 "Source code on GitHub"
 
-[256]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L53-L55 "Source code on GitHub"
+[256]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L53-L55 "Source code on GitHub"
 
-[257]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L64-L66 "Source code on GitHub"
+[257]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L64-L66 "Source code on GitHub"
 
-[258]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L75-L77 "Source code on GitHub"
+[258]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L75-L77 "Source code on GitHub"
 
-[259]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L86-L88 "Source code on GitHub"
+[259]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L86-L88 "Source code on GitHub"
 
 [260]: https://developer.mozilla.org/docs/Web/API/HTMLImageElement/Image
 
-[261]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L97-L99 "Source code on GitHub"
+[261]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L97-L99 "Source code on GitHub"
 
-[262]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L108-L110 "Source code on GitHub"
+[262]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L108-L110 "Source code on GitHub"
 
-[263]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L148-L416 "Source code on GitHub"
+[263]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L148-L416 "Source code on GitHub"
 
-[264]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L157-L159 "Source code on GitHub"
+[264]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L157-L159 "Source code on GitHub"
 
-[265]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L168-L170 "Source code on GitHub"
+[265]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L168-L170 "Source code on GitHub"
 
-[266]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L179-L181 "Source code on GitHub"
+[266]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L179-L181 "Source code on GitHub"
 
-[267]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L190-L192 "Source code on GitHub"
+[267]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L190-L192 "Source code on GitHub"
 
-[268]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L201-L204 "Source code on GitHub"
+[268]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L201-L204 "Source code on GitHub"
 
-[269]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L213-L215 "Source code on GitHub"
+[269]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L213-L215 "Source code on GitHub"
 
-[270]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L224-L226 "Source code on GitHub"
+[270]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L224-L226 "Source code on GitHub"
 
-[271]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L235-L237 "Source code on GitHub"
+[271]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L235-L237 "Source code on GitHub"
 
-[272]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L246-L248 "Source code on GitHub"
+[272]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L246-L248 "Source code on GitHub"
 
-[273]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L257-L259 "Source code on GitHub"
+[273]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L257-L259 "Source code on GitHub"
 
-[274]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L268-L270 "Source code on GitHub"
+[274]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L268-L270 "Source code on GitHub"
 
-[275]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L279-L284 "Source code on GitHub"
+[275]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L279-L284 "Source code on GitHub"
 
-[276]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L293-L295 "Source code on GitHub"
+[276]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L293-L295 "Source code on GitHub"
 
-[277]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L304-L306 "Source code on GitHub"
+[277]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L304-L306 "Source code on GitHub"
 
-[278]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L315-L317 "Source code on GitHub"
+[278]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L315-L317 "Source code on GitHub"
 
-[279]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L326-L328 "Source code on GitHub"
+[279]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L326-L328 "Source code on GitHub"
 
-[280]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L336-L339 "Source code on GitHub"
+[280]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L336-L339 "Source code on GitHub"
 
-[281]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L348-L353 "Source code on GitHub"
+[281]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L348-L353 "Source code on GitHub"
 
-[282]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L362-L365 "Source code on GitHub"
+[282]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L362-L365 "Source code on GitHub"
 
-[283]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L374-L379 "Source code on GitHub"
+[283]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L374-L379 "Source code on GitHub"
 
-[284]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L388-L391 "Source code on GitHub"
+[284]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L388-L391 "Source code on GitHub"
 
-[285]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L400-L402 "Source code on GitHub"
+[285]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L400-L402 "Source code on GitHub"
 
-[286]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L410-L415 "Source code on GitHub"
+[286]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L410-L415 "Source code on GitHub"
 
-[287]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L425-L470 "Source code on GitHub"
+[287]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L425-L470 "Source code on GitHub"
 
-[288]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L434-L436 "Source code on GitHub"
+[288]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L434-L436 "Source code on GitHub"
 
-[289]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L445-L447 "Source code on GitHub"
+[289]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L445-L447 "Source code on GitHub"
 
-[290]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L456-L458 "Source code on GitHub"
+[290]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L456-L458 "Source code on GitHub"
 
-[291]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L467-L469 "Source code on GitHub"
+[291]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L467-L469 "Source code on GitHub"
 
-[292]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L479-L546 "Source code on GitHub"
+[292]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L479-L546 "Source code on GitHub"
 
-[293]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L488-L490 "Source code on GitHub"
+[293]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L488-L490 "Source code on GitHub"
 
-[294]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L499-L501 "Source code on GitHub"
+[294]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L499-L501 "Source code on GitHub"
 
-[295]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L510-L512 "Source code on GitHub"
+[295]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L510-L512 "Source code on GitHub"
 
-[296]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L521-L523 "Source code on GitHub"
+[296]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L521-L523 "Source code on GitHub"
 
-[297]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L532-L534 "Source code on GitHub"
+[297]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L532-L534 "Source code on GitHub"
 
-[298]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L543-L545 "Source code on GitHub"
+[298]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L543-L545 "Source code on GitHub"
 
-[299]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L555-L586 "Source code on GitHub"
+[299]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L555-L586 "Source code on GitHub"
 
-[300]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L564-L566 "Source code on GitHub"
+[300]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L564-L566 "Source code on GitHub"
 
-[301]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L574-L576 "Source code on GitHub"
+[301]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L574-L576 "Source code on GitHub"
 
-[302]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L583-L585 "Source code on GitHub"
+[302]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L583-L585 "Source code on GitHub"
 
-[303]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L595-L712 "Source code on GitHub"
+[303]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L595-L712 "Source code on GitHub"
 
-[304]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L604-L606 "Source code on GitHub"
+[304]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L604-L606 "Source code on GitHub"
 
-[305]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L615-L617 "Source code on GitHub"
+[305]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L615-L617 "Source code on GitHub"
 
-[306]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L626-L628 "Source code on GitHub"
+[306]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L626-L628 "Source code on GitHub"
 
-[307]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L637-L639 "Source code on GitHub"
+[307]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L637-L639 "Source code on GitHub"
 
-[308]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L648-L650 "Source code on GitHub"
+[308]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L648-L650 "Source code on GitHub"
 
-[309]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L658-L660 "Source code on GitHub"
+[309]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L658-L660 "Source code on GitHub"
 
-[310]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L669-L674 "Source code on GitHub"
+[310]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L669-L674 "Source code on GitHub"
 
-[311]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L682-L685 "Source code on GitHub"
+[311]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L682-L685 "Source code on GitHub"
 
-[312]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L693-L698 "Source code on GitHub"
+[312]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L693-L698 "Source code on GitHub"
 
-[313]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L706-L711 "Source code on GitHub"
+[313]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L706-L711 "Source code on GitHub"
 
-[314]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L721-L732 "Source code on GitHub"
+[314]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L721-L732 "Source code on GitHub"
 
-[315]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L729-L731 "Source code on GitHub"
+[315]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L729-L731 "Source code on GitHub"
 
-[316]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L741-L772 "Source code on GitHub"
+[316]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L741-L772 "Source code on GitHub"
 
-[317]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L749-L751 "Source code on GitHub"
+[317]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L749-L751 "Source code on GitHub"
 
-[318]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L759-L761 "Source code on GitHub"
+[318]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L759-L761 "Source code on GitHub"
 
-[319]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L769-L771 "Source code on GitHub"
+[319]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L769-L771 "Source code on GitHub"
 
-[320]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/rss.js#L781-L783 "Source code on GitHub"
+[320]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/rss.js#L781-L783 "Source code on GitHub"
 
-[321]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2653-L2691 "Source code on GitHub"
+[321]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2653-L2691 "Source code on GitHub"
 
 [322]: https://www.rssboard.org/media-rss
 
-[323]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L280-L578 "Source code on GitHub"
+[323]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L280-L578 "Source code on GitHub"
 
-[324]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L574-L577 "Source code on GitHub"
+[324]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L574-L577 "Source code on GitHub"
 
-[325]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L289-L291 "Source code on GitHub"
+[325]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L289-L291 "Source code on GitHub"
 
-[326]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L300-L302 "Source code on GitHub"
+[326]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L300-L302 "Source code on GitHub"
 
-[327]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L311-L313 "Source code on GitHub"
+[327]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L311-L313 "Source code on GitHub"
 
-[328]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L322-L324 "Source code on GitHub"
+[328]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L322-L324 "Source code on GitHub"
 
-[329]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L333-L335 "Source code on GitHub"
+[329]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L333-L335 "Source code on GitHub"
 
-[330]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L344-L346 "Source code on GitHub"
+[330]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L344-L346 "Source code on GitHub"
 
-[331]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L355-L357 "Source code on GitHub"
+[331]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L355-L357 "Source code on GitHub"
 
-[332]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L366-L368 "Source code on GitHub"
+[332]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L366-L368 "Source code on GitHub"
 
-[333]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L377-L379 "Source code on GitHub"
+[333]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L377-L379 "Source code on GitHub"
 
-[334]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L388-L390 "Source code on GitHub"
+[334]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L388-L390 "Source code on GitHub"
 
-[335]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L399-L401 "Source code on GitHub"
+[335]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L399-L401 "Source code on GitHub"
 
-[336]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L410-L412 "Source code on GitHub"
+[336]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L410-L412 "Source code on GitHub"
 
-[337]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L421-L423 "Source code on GitHub"
+[337]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L421-L423 "Source code on GitHub"
 
-[338]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L432-L434 "Source code on GitHub"
+[338]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L432-L434 "Source code on GitHub"
 
-[339]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L443-L445 "Source code on GitHub"
+[339]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L443-L445 "Source code on GitHub"
 
-[340]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L454-L456 "Source code on GitHub"
+[340]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L454-L456 "Source code on GitHub"
 
-[341]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L465-L467 "Source code on GitHub"
+[341]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L465-L467 "Source code on GitHub"
 
-[342]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L476-L478 "Source code on GitHub"
+[342]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L476-L478 "Source code on GitHub"
 
-[343]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L487-L489 "Source code on GitHub"
+[343]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L487-L489 "Source code on GitHub"
 
-[344]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L498-L500 "Source code on GitHub"
+[344]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L498-L500 "Source code on GitHub"
 
-[345]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L509-L511 "Source code on GitHub"
+[345]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L509-L511 "Source code on GitHub"
 
-[346]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L520-L522 "Source code on GitHub"
+[346]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L520-L522 "Source code on GitHub"
 
-[347]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L531-L533 "Source code on GitHub"
+[347]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L531-L533 "Source code on GitHub"
 
-[348]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L542-L544 "Source code on GitHub"
+[348]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L542-L544 "Source code on GitHub"
 
-[349]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L553-L555 "Source code on GitHub"
+[349]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L553-L555 "Source code on GitHub"
 
-[350]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L564-L566 "Source code on GitHub"
+[350]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L564-L566 "Source code on GitHub"
 
-[351]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L587-L822 "Source code on GitHub"
+[351]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L587-L822 "Source code on GitHub"
 
-[352]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L597-L603 "Source code on GitHub"
+[352]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L597-L603 "Source code on GitHub"
 
-[353]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L613-L619 "Source code on GitHub"
+[353]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L613-L619 "Source code on GitHub"
 
-[354]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L627-L629 "Source code on GitHub"
+[354]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L627-L629 "Source code on GitHub"
 
-[355]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L637-L639 "Source code on GitHub"
+[355]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L637-L639 "Source code on GitHub"
 
-[356]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L647-L649 "Source code on GitHub"
+[356]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L647-L649 "Source code on GitHub"
 
-[357]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L657-L659 "Source code on GitHub"
+[357]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L657-L659 "Source code on GitHub"
 
-[358]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L667-L669 "Source code on GitHub"
+[358]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L667-L669 "Source code on GitHub"
 
-[359]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L677-L679 "Source code on GitHub"
+[359]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L677-L679 "Source code on GitHub"
 
-[360]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L687-L689 "Source code on GitHub"
+[360]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L687-L689 "Source code on GitHub"
 
-[361]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L697-L699 "Source code on GitHub"
+[361]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L697-L699 "Source code on GitHub"
 
-[362]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L707-L709 "Source code on GitHub"
+[362]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L707-L709 "Source code on GitHub"
 
-[363]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L717-L719 "Source code on GitHub"
+[363]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L717-L719 "Source code on GitHub"
 
-[364]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L727-L729 "Source code on GitHub"
+[364]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L727-L729 "Source code on GitHub"
 
-[365]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L737-L739 "Source code on GitHub"
+[365]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L737-L739 "Source code on GitHub"
 
-[366]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L747-L749 "Source code on GitHub"
+[366]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L747-L749 "Source code on GitHub"
 
-[367]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L757-L761 "Source code on GitHub"
+[367]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L757-L761 "Source code on GitHub"
 
-[368]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L769-L773 "Source code on GitHub"
+[368]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L769-L773 "Source code on GitHub"
 
-[369]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L781-L785 "Source code on GitHub"
+[369]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L781-L785 "Source code on GitHub"
 
-[370]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L793-L797 "Source code on GitHub"
+[370]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L793-L797 "Source code on GitHub"
 
-[371]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L805-L809 "Source code on GitHub"
+[371]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L805-L809 "Source code on GitHub"
 
-[372]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L817-L821 "Source code on GitHub"
+[372]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L817-L821 "Source code on GitHub"
 
-[373]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L831-L1064 "Source code on GitHub"
+[373]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L831-L1064 "Source code on GitHub"
 
-[374]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L840-L842 "Source code on GitHub"
+[374]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L840-L842 "Source code on GitHub"
 
-[375]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L851-L855 "Source code on GitHub"
+[375]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L851-L855 "Source code on GitHub"
 
-[376]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L863-L873 "Source code on GitHub"
+[376]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L863-L873 "Source code on GitHub"
 
-[377]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L881-L883 "Source code on GitHub"
+[377]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L881-L883 "Source code on GitHub"
 
-[378]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L891-L893 "Source code on GitHub"
+[378]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L891-L893 "Source code on GitHub"
 
-[379]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L901-L903 "Source code on GitHub"
+[379]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L901-L903 "Source code on GitHub"
 
-[380]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L911-L913 "Source code on GitHub"
+[380]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L911-L913 "Source code on GitHub"
 
-[381]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L921-L923 "Source code on GitHub"
+[381]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L921-L923 "Source code on GitHub"
 
-[382]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L931-L933 "Source code on GitHub"
+[382]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L931-L933 "Source code on GitHub"
 
-[383]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L941-L943 "Source code on GitHub"
+[383]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L941-L943 "Source code on GitHub"
 
-[384]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L951-L953 "Source code on GitHub"
+[384]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L951-L953 "Source code on GitHub"
 
-[385]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L961-L963 "Source code on GitHub"
+[385]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L961-L963 "Source code on GitHub"
 
-[386]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L971-L973 "Source code on GitHub"
+[386]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L971-L973 "Source code on GitHub"
 
-[387]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L981-L983 "Source code on GitHub"
+[387]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L981-L983 "Source code on GitHub"
 
-[388]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L991-L993 "Source code on GitHub"
+[388]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L991-L993 "Source code on GitHub"
 
-[389]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1001-L1003 "Source code on GitHub"
+[389]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1001-L1003 "Source code on GitHub"
 
-[390]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1011-L1015 "Source code on GitHub"
+[390]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1011-L1015 "Source code on GitHub"
 
-[391]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1023-L1027 "Source code on GitHub"
+[391]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1023-L1027 "Source code on GitHub"
 
-[392]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1035-L1039 "Source code on GitHub"
+[392]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1035-L1039 "Source code on GitHub"
 
-[393]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1047-L1051 "Source code on GitHub"
+[393]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1047-L1051 "Source code on GitHub"
 
-[394]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1059-L1063 "Source code on GitHub"
+[394]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1059-L1063 "Source code on GitHub"
 
-[395]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1073-L1283 "Source code on GitHub"
+[395]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1073-L1283 "Source code on GitHub"
 
-[396]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1081-L1092 "Source code on GitHub"
+[396]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1081-L1092 "Source code on GitHub"
 
-[397]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1100-L1102 "Source code on GitHub"
+[397]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1100-L1102 "Source code on GitHub"
 
-[398]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1110-L1112 "Source code on GitHub"
+[398]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1110-L1112 "Source code on GitHub"
 
-[399]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1120-L1122 "Source code on GitHub"
+[399]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1120-L1122 "Source code on GitHub"
 
-[400]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1130-L1132 "Source code on GitHub"
+[400]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1130-L1132 "Source code on GitHub"
 
-[401]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1140-L1142 "Source code on GitHub"
+[401]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1140-L1142 "Source code on GitHub"
 
-[402]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1150-L1152 "Source code on GitHub"
+[402]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1150-L1152 "Source code on GitHub"
 
-[403]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1160-L1162 "Source code on GitHub"
+[403]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1160-L1162 "Source code on GitHub"
 
-[404]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1170-L1172 "Source code on GitHub"
+[404]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1170-L1172 "Source code on GitHub"
 
-[405]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1180-L1182 "Source code on GitHub"
+[405]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1180-L1182 "Source code on GitHub"
 
-[406]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1190-L1192 "Source code on GitHub"
+[406]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1190-L1192 "Source code on GitHub"
 
-[407]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1200-L1202 "Source code on GitHub"
+[407]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1200-L1202 "Source code on GitHub"
 
-[408]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1210-L1212 "Source code on GitHub"
+[408]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1210-L1212 "Source code on GitHub"
 
-[409]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1220-L1222 "Source code on GitHub"
+[409]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1220-L1222 "Source code on GitHub"
 
-[410]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1230-L1234 "Source code on GitHub"
+[410]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1230-L1234 "Source code on GitHub"
 
-[411]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1242-L1246 "Source code on GitHub"
+[411]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1242-L1246 "Source code on GitHub"
 
-[412]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1254-L1258 "Source code on GitHub"
+[412]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1254-L1258 "Source code on GitHub"
 
-[413]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1266-L1270 "Source code on GitHub"
+[413]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1266-L1270 "Source code on GitHub"
 
-[414]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1278-L1282 "Source code on GitHub"
+[414]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1278-L1282 "Source code on GitHub"
 
-[415]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1292-L1706 "Source code on GitHub"
+[415]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1292-L1706 "Source code on GitHub"
 
-[416]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1300-L1313 "Source code on GitHub"
+[416]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1300-L1313 "Source code on GitHub"
 
-[417]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1321-L1323 "Source code on GitHub"
+[417]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1321-L1323 "Source code on GitHub"
 
 [418]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
-[419]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1333-L1338 "Source code on GitHub"
+[419]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1333-L1338 "Source code on GitHub"
 
-[420]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1347-L1349 "Source code on GitHub"
+[420]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1347-L1349 "Source code on GitHub"
 
-[421]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1357-L1359 "Source code on GitHub"
+[421]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1357-L1359 "Source code on GitHub"
 
 [422]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
-[423]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1376-L1378 "Source code on GitHub"
+[423]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1376-L1378 "Source code on GitHub"
 
-[424]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1386-L1388 "Source code on GitHub"
+[424]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1386-L1388 "Source code on GitHub"
 
-[425]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1396-L1398 "Source code on GitHub"
+[425]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1396-L1398 "Source code on GitHub"
 
-[426]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1406-L1408 "Source code on GitHub"
+[426]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1406-L1408 "Source code on GitHub"
 
-[427]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1416-L1418 "Source code on GitHub"
+[427]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1416-L1418 "Source code on GitHub"
 
-[428]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1426-L1428 "Source code on GitHub"
+[428]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1426-L1428 "Source code on GitHub"
 
-[429]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1436-L1438 "Source code on GitHub"
+[429]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1436-L1438 "Source code on GitHub"
 
-[430]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1446-L1448 "Source code on GitHub"
+[430]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1446-L1448 "Source code on GitHub"
 
-[431]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1456-L1458 "Source code on GitHub"
+[431]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1456-L1458 "Source code on GitHub"
 
-[432]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1466-L1468 "Source code on GitHub"
+[432]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1466-L1468 "Source code on GitHub"
 
-[433]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1476-L1478 "Source code on GitHub"
+[433]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1476-L1478 "Source code on GitHub"
 
-[434]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1486-L1489 "Source code on GitHub"
+[434]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1486-L1489 "Source code on GitHub"
 
-[435]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1497-L1499 "Source code on GitHub"
+[435]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1497-L1499 "Source code on GitHub"
 
-[436]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1507-L1509 "Source code on GitHub"
+[436]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1507-L1509 "Source code on GitHub"
 
-[437]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1517-L1519 "Source code on GitHub"
+[437]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1517-L1519 "Source code on GitHub"
 
-[438]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1527-L1529 "Source code on GitHub"
+[438]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1527-L1529 "Source code on GitHub"
 
-[439]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1537-L1539 "Source code on GitHub"
+[439]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1537-L1539 "Source code on GitHub"
 
-[440]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1547-L1549 "Source code on GitHub"
+[440]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1547-L1549 "Source code on GitHub"
 
-[441]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1557-L1559 "Source code on GitHub"
+[441]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1557-L1559 "Source code on GitHub"
 
-[442]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1567-L1569 "Source code on GitHub"
+[442]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1567-L1569 "Source code on GitHub"
 
-[443]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1577-L1579 "Source code on GitHub"
+[443]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1577-L1579 "Source code on GitHub"
 
-[444]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1587-L1589 "Source code on GitHub"
+[444]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1587-L1589 "Source code on GitHub"
 
-[445]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1597-L1599 "Source code on GitHub"
+[445]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1597-L1599 "Source code on GitHub"
 
-[446]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1607-L1609 "Source code on GitHub"
+[446]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1607-L1609 "Source code on GitHub"
 
-[447]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1617-L1619 "Source code on GitHub"
+[447]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1617-L1619 "Source code on GitHub"
 
-[448]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1627-L1631 "Source code on GitHub"
+[448]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1627-L1631 "Source code on GitHub"
 
-[449]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1639-L1643 "Source code on GitHub"
+[449]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1639-L1643 "Source code on GitHub"
 
-[450]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1651-L1655 "Source code on GitHub"
+[450]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1651-L1655 "Source code on GitHub"
 
-[451]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1663-L1667 "Source code on GitHub"
+[451]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1663-L1667 "Source code on GitHub"
 
-[452]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1675-L1679 "Source code on GitHub"
+[452]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1675-L1679 "Source code on GitHub"
 
-[453]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1686-L1705 "Source code on GitHub"
+[453]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1686-L1705 "Source code on GitHub"
 
-[454]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1716-L1747 "Source code on GitHub"
+[454]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1716-L1747 "Source code on GitHub"
 
-[455]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1724-L1726 "Source code on GitHub"
+[455]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1724-L1726 "Source code on GitHub"
 
-[456]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1734-L1736 "Source code on GitHub"
+[456]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1734-L1736 "Source code on GitHub"
 
-[457]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1744-L1746 "Source code on GitHub"
+[457]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1744-L1746 "Source code on GitHub"
 
-[458]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1756-L1793 "Source code on GitHub"
+[458]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1756-L1793 "Source code on GitHub"
 
-[459]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1775-L1782 "Source code on GitHub"
+[459]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1775-L1782 "Source code on GitHub"
 
-[460]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1790-L1792 "Source code on GitHub"
+[460]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1790-L1792 "Source code on GitHub"
 
-[461]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1765-L1767 "Source code on GitHub"
+[461]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1765-L1767 "Source code on GitHub"
 
-[462]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1802-L1829 "Source code on GitHub"
+[462]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1802-L1829 "Source code on GitHub"
 
-[463]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1821-L1828 "Source code on GitHub"
+[463]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1821-L1828 "Source code on GitHub"
 
-[464]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1811-L1813 "Source code on GitHub"
+[464]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1811-L1813 "Source code on GitHub"
 
-[465]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1838-L1865 "Source code on GitHub"
+[465]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1838-L1865 "Source code on GitHub"
 
-[466]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1857-L1864 "Source code on GitHub"
+[466]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1857-L1864 "Source code on GitHub"
 
-[467]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1847-L1849 "Source code on GitHub"
+[467]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1847-L1849 "Source code on GitHub"
 
-[468]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1876-L1889 "Source code on GitHub"
+[468]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1876-L1889 "Source code on GitHub"
 
-[469]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1886-L1888 "Source code on GitHub"
+[469]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1886-L1888 "Source code on GitHub"
 
 [470]: https://github.com/little-core-labs/npt-timecode
 
-[471]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1898-L1946 "Source code on GitHub"
+[471]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1898-L1946 "Source code on GitHub"
 
-[472]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1917-L1924 "Source code on GitHub"
+[472]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1917-L1924 "Source code on GitHub"
 
-[473]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1933-L1935 "Source code on GitHub"
+[473]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1933-L1935 "Source code on GitHub"
 
-[474]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1943-L1945 "Source code on GitHub"
+[474]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1943-L1945 "Source code on GitHub"
 
-[475]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1907-L1909 "Source code on GitHub"
+[475]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1907-L1909 "Source code on GitHub"
 
-[476]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1955-L1987 "Source code on GitHub"
+[476]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1955-L1987 "Source code on GitHub"
 
-[477]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1974-L1976 "Source code on GitHub"
+[477]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1974-L1976 "Source code on GitHub"
 
-[478]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1984-L1986 "Source code on GitHub"
+[478]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1984-L1986 "Source code on GitHub"
 
-[479]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1964-L1966 "Source code on GitHub"
+[479]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1964-L1966 "Source code on GitHub"
 
-[480]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L1996-L2043 "Source code on GitHub"
+[480]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L1996-L2043 "Source code on GitHub"
 
-[481]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2015-L2022 "Source code on GitHub"
+[481]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2015-L2022 "Source code on GitHub"
 
-[482]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2030-L2032 "Source code on GitHub"
+[482]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2030-L2032 "Source code on GitHub"
 
-[483]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2040-L2042 "Source code on GitHub"
+[483]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2040-L2042 "Source code on GitHub"
 
-[484]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2005-L2007 "Source code on GitHub"
+[484]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2005-L2007 "Source code on GitHub"
 
-[485]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2052-L2063 "Source code on GitHub"
+[485]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2052-L2063 "Source code on GitHub"
 
-[486]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2060-L2062 "Source code on GitHub"
+[486]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2060-L2062 "Source code on GitHub"
 
-[487]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2072-L2145 "Source code on GitHub"
+[487]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2072-L2145 "Source code on GitHub"
 
-[488]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2091-L2098 "Source code on GitHub"
+[488]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2091-L2098 "Source code on GitHub"
 
-[489]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2106-L2108 "Source code on GitHub"
+[489]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2106-L2108 "Source code on GitHub"
 
-[490]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2118-L2120 "Source code on GitHub"
+[490]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2118-L2120 "Source code on GitHub"
 
 [491]: https://www.ietf.org/rfc/rfc2326.txt
 
-[492]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2130-L2132 "Source code on GitHub"
+[492]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2130-L2132 "Source code on GitHub"
 
-[493]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2142-L2144 "Source code on GitHub"
+[493]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2142-L2144 "Source code on GitHub"
 
-[494]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2081-L2083 "Source code on GitHub"
+[494]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2081-L2083 "Source code on GitHub"
 
-[495]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2154-L2186 "Source code on GitHub"
+[495]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2154-L2186 "Source code on GitHub"
 
-[496]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2163-L2165 "Source code on GitHub"
+[496]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2163-L2165 "Source code on GitHub"
 
-[497]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2173-L2175 "Source code on GitHub"
+[497]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2173-L2175 "Source code on GitHub"
 
-[498]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2183-L2185 "Source code on GitHub"
+[498]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2183-L2185 "Source code on GitHub"
 
-[499]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2196-L2237 "Source code on GitHub"
+[499]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2196-L2237 "Source code on GitHub"
 
-[500]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2204-L2206 "Source code on GitHub"
+[500]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2204-L2206 "Source code on GitHub"
 
-[501]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2214-L2216 "Source code on GitHub"
+[501]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2214-L2216 "Source code on GitHub"
 
-[502]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2224-L2236 "Source code on GitHub"
+[502]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2224-L2236 "Source code on GitHub"
 
-[503]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2246-L2289 "Source code on GitHub"
+[503]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2246-L2289 "Source code on GitHub"
 
-[504]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2254-L2256 "Source code on GitHub"
+[504]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2254-L2256 "Source code on GitHub"
 
-[505]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2264-L2266 "Source code on GitHub"
+[505]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2264-L2266 "Source code on GitHub"
 
-[506]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2274-L2276 "Source code on GitHub"
+[506]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2274-L2276 "Source code on GitHub"
 
-[507]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2284-L2288 "Source code on GitHub"
+[507]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2284-L2288 "Source code on GitHub"
 
-[508]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2298-L2310 "Source code on GitHub"
+[508]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2298-L2310 "Source code on GitHub"
 
-[509]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2319-L2340 "Source code on GitHub"
+[509]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2319-L2340 "Source code on GitHub"
 
-[510]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2327-L2329 "Source code on GitHub"
+[510]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2327-L2329 "Source code on GitHub"
 
-[511]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2337-L2339 "Source code on GitHub"
+[511]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2337-L2339 "Source code on GitHub"
 
-[512]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2349-L2390 "Source code on GitHub"
+[512]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2349-L2390 "Source code on GitHub"
 
-[513]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2357-L2359 "Source code on GitHub"
+[513]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2357-L2359 "Source code on GitHub"
 
-[514]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2367-L2369 "Source code on GitHub"
+[514]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2367-L2369 "Source code on GitHub"
 
-[515]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2377-L2379 "Source code on GitHub"
+[515]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2377-L2379 "Source code on GitHub"
 
-[516]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2387-L2389 "Source code on GitHub"
+[516]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2387-L2389 "Source code on GitHub"
 
-[517]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2399-L2430 "Source code on GitHub"
+[517]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2399-L2430 "Source code on GitHub"
 
-[518]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2407-L2409 "Source code on GitHub"
+[518]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2407-L2409 "Source code on GitHub"
 
-[519]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2417-L2419 "Source code on GitHub"
+[519]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2417-L2419 "Source code on GitHub"
 
-[520]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2427-L2429 "Source code on GitHub"
+[520]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2427-L2429 "Source code on GitHub"
 
-[521]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2439-L2470 "Source code on GitHub"
+[521]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2439-L2470 "Source code on GitHub"
 
-[522]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2447-L2449 "Source code on GitHub"
+[522]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2447-L2449 "Source code on GitHub"
 
-[523]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2457-L2459 "Source code on GitHub"
+[523]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2457-L2459 "Source code on GitHub"
 
-[524]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2467-L2469 "Source code on GitHub"
+[524]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2467-L2469 "Source code on GitHub"
 
-[525]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2479-L2500 "Source code on GitHub"
+[525]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2479-L2500 "Source code on GitHub"
 
-[526]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2487-L2489 "Source code on GitHub"
+[526]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2487-L2489 "Source code on GitHub"
 
-[527]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2497-L2499 "Source code on GitHub"
+[527]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2497-L2499 "Source code on GitHub"
 
-[528]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2509-L2520 "Source code on GitHub"
+[528]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2509-L2520 "Source code on GitHub"
 
-[529]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2517-L2519 "Source code on GitHub"
+[529]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2517-L2519 "Source code on GitHub"
 
-[530]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2529-L2570 "Source code on GitHub"
+[530]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2529-L2570 "Source code on GitHub"
 
-[531]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2537-L2539 "Source code on GitHub"
+[531]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2537-L2539 "Source code on GitHub"
 
-[532]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2547-L2549 "Source code on GitHub"
+[532]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2547-L2549 "Source code on GitHub"
 
-[533]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2557-L2559 "Source code on GitHub"
+[533]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2557-L2559 "Source code on GitHub"
 
-[534]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2567-L2569 "Source code on GitHub"
+[534]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2567-L2569 "Source code on GitHub"
 
-[535]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2579-L2620 "Source code on GitHub"
+[535]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2579-L2620 "Source code on GitHub"
 
-[536]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2587-L2589 "Source code on GitHub"
+[536]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2587-L2589 "Source code on GitHub"
 
-[537]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2597-L2599 "Source code on GitHub"
+[537]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2597-L2599 "Source code on GitHub"
 
-[538]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2607-L2609 "Source code on GitHub"
+[538]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2607-L2609 "Source code on GitHub"
 
-[539]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2617-L2619 "Source code on GitHub"
+[539]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2617-L2619 "Source code on GitHub"
 
-[540]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/mrss.js#L2629-L2631 "Source code on GitHub"
+[540]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/mrss.js#L2629-L2631 "Source code on GitHub"
 
-[541]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L1253-L1273 "Source code on GitHub"
+[541]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L1261-L1281 "Source code on GitHub"
 
 [542]: http://wiki.xmltv.org/index.php/XMLTVFormat
 
 [543]: https://github.com/XMLTV/xmltv/blob/master/xmltv.dtd
 
-[544]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L26-L255 "Source code on GitHub"
+[544]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L26-L255 "Source code on GitHub"
 
-[545]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L221-L223 "Source code on GitHub"
+[545]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L221-L223 "Source code on GitHub"
 
-[546]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L231-L239 "Source code on GitHub"
+[546]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L231-L239 "Source code on GitHub"
 
-[547]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L247-L254 "Source code on GitHub"
+[547]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L247-L254 "Source code on GitHub"
 
-[548]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L35-L37 "Source code on GitHub"
+[548]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L35-L37 "Source code on GitHub"
 
-[549]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L46-L48 "Source code on GitHub"
+[549]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L46-L48 "Source code on GitHub"
 
-[550]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L57-L59 "Source code on GitHub"
+[550]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L57-L59 "Source code on GitHub"
 
-[551]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L68-L70 "Source code on GitHub"
+[551]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L68-L70 "Source code on GitHub"
 
-[552]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L79-L81 "Source code on GitHub"
+[552]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L79-L81 "Source code on GitHub"
 
-[553]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L90-L92 "Source code on GitHub"
+[553]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L90-L92 "Source code on GitHub"
 
-[554]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L101-L103 "Source code on GitHub"
+[554]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L101-L103 "Source code on GitHub"
 
-[555]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L112-L114 "Source code on GitHub"
+[555]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L112-L114 "Source code on GitHub"
 
-[556]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L123-L125 "Source code on GitHub"
+[556]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L123-L125 "Source code on GitHub"
 
-[557]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L134-L136 "Source code on GitHub"
+[557]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L134-L136 "Source code on GitHub"
 
-[558]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L145-L147 "Source code on GitHub"
+[558]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L145-L147 "Source code on GitHub"
 
-[559]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L156-L158 "Source code on GitHub"
+[559]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L156-L158 "Source code on GitHub"
 
-[560]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L167-L169 "Source code on GitHub"
+[560]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L167-L169 "Source code on GitHub"
 
-[561]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L178-L180 "Source code on GitHub"
+[561]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L178-L180 "Source code on GitHub"
 
-[562]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L189-L191 "Source code on GitHub"
+[562]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L189-L191 "Source code on GitHub"
 
-[563]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L200-L202 "Source code on GitHub"
+[563]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L200-L202 "Source code on GitHub"
 
-[564]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L211-L213 "Source code on GitHub"
+[564]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L211-L213 "Source code on GitHub"
 
-[565]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L264-L285 "Source code on GitHub"
+[565]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L264-L285 "Source code on GitHub"
 
-[566]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L272-L274 "Source code on GitHub"
+[566]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L272-L274 "Source code on GitHub"
 
-[567]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L282-L284 "Source code on GitHub"
+[567]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L282-L284 "Source code on GitHub"
 
-[568]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L294-L294 "Source code on GitHub"
+[568]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L294-L294 "Source code on GitHub"
 
-[569]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L303-L303 "Source code on GitHub"
+[569]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L303-L303 "Source code on GitHub"
 
-[570]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L312-L312 "Source code on GitHub"
+[570]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L312-L312 "Source code on GitHub"
 
-[571]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L321-L321 "Source code on GitHub"
+[571]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L321-L321 "Source code on GitHub"
 
-[572]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L330-L330 "Source code on GitHub"
+[572]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L330-L330 "Source code on GitHub"
 
-[573]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L339-L339 "Source code on GitHub"
+[573]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L339-L339 "Source code on GitHub"
 
-[574]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L348-L348 "Source code on GitHub"
+[574]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L348-L348 "Source code on GitHub"
 
-[575]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L357-L388 "Source code on GitHub"
+[575]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L357-L388 "Source code on GitHub"
 
-[576]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L365-L367 "Source code on GitHub"
+[576]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L365-L367 "Source code on GitHub"
 
-[577]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L375-L377 "Source code on GitHub"
+[577]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L375-L377 "Source code on GitHub"
 
-[578]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L385-L387 "Source code on GitHub"
+[578]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L385-L387 "Source code on GitHub"
 
-[579]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L397-L420 "Source code on GitHub"
+[579]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L397-L420 "Source code on GitHub"
 
-[580]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L405-L408 "Source code on GitHub"
+[580]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L405-L408 "Source code on GitHub"
 
-[581]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L416-L419 "Source code on GitHub"
+[581]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L416-L419 "Source code on GitHub"
 
-[582]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L429-L450 "Source code on GitHub"
+[582]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L429-L450 "Source code on GitHub"
 
-[583]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L437-L439 "Source code on GitHub"
+[583]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L437-L439 "Source code on GitHub"
 
-[584]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L447-L449 "Source code on GitHub"
+[584]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L447-L449 "Source code on GitHub"
 
-[585]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L459-L470 "Source code on GitHub"
+[585]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L459-L470 "Source code on GitHub"
 
-[586]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L467-L469 "Source code on GitHub"
+[586]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L467-L469 "Source code on GitHub"
 
-[587]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L479-L529 "Source code on GitHub"
+[587]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L479-L529 "Source code on GitHub"
 
-[588]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L487-L489 "Source code on GitHub"
+[588]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L487-L489 "Source code on GitHub"
 
-[589]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L497-L499 "Source code on GitHub"
+[589]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L497-L499 "Source code on GitHub"
 
-[590]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L507-L509 "Source code on GitHub"
+[590]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L507-L509 "Source code on GitHub"
 
-[591]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L517-L528 "Source code on GitHub"
+[591]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L517-L528 "Source code on GitHub"
 
-[592]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L539-L697 "Source code on GitHub"
+[592]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L539-L697 "Source code on GitHub"
 
-[593]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L547-L555 "Source code on GitHub"
+[593]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L547-L555 "Source code on GitHub"
 
-[594]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L563-L571 "Source code on GitHub"
+[594]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L563-L571 "Source code on GitHub"
 
-[595]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L579-L587 "Source code on GitHub"
+[595]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L579-L587 "Source code on GitHub"
 
-[596]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L595-L603 "Source code on GitHub"
+[596]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L595-L603 "Source code on GitHub"
 
-[597]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L611-L619 "Source code on GitHub"
+[597]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L611-L619 "Source code on GitHub"
 
-[598]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L627-L635 "Source code on GitHub"
+[598]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L627-L635 "Source code on GitHub"
 
-[599]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L643-L651 "Source code on GitHub"
+[599]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L643-L651 "Source code on GitHub"
 
-[600]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L659-L666 "Source code on GitHub"
+[600]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L659-L666 "Source code on GitHub"
 
-[601]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L674-L681 "Source code on GitHub"
+[601]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L674-L681 "Source code on GitHub"
 
-[602]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L689-L696 "Source code on GitHub"
+[602]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L689-L696 "Source code on GitHub"
 
-[603]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L707-L729 "Source code on GitHub"
+[603]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L707-L729 "Source code on GitHub"
 
-[604]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L716-L718 "Source code on GitHub"
+[604]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L716-L718 "Source code on GitHub"
 
-[605]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L726-L728 "Source code on GitHub"
+[605]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L726-L728 "Source code on GitHub"
 
-[606]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L738-L863 "Source code on GitHub"
+[606]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L738-L863 "Source code on GitHub"
 
-[607]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L746-L748 "Source code on GitHub"
+[607]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L746-L748 "Source code on GitHub"
 
-[608]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L756-L767 "Source code on GitHub"
+[608]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L756-L767 "Source code on GitHub"
 
-[609]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L775-L777 "Source code on GitHub"
+[609]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L775-L777 "Source code on GitHub"
 
-[610]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L785-L796 "Source code on GitHub"
+[610]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L785-L796 "Source code on GitHub"
 
-[611]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L804-L813 "Source code on GitHub"
+[611]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L804-L813 "Source code on GitHub"
 
-[612]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L821-L823 "Source code on GitHub"
+[612]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L821-L823 "Source code on GitHub"
 
-[613]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L831-L833 "Source code on GitHub"
+[613]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L831-L833 "Source code on GitHub"
 
-[614]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L841-L852 "Source code on GitHub"
+[614]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L841-L852 "Source code on GitHub"
 
-[615]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L860-L862 "Source code on GitHub"
+[615]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L860-L862 "Source code on GitHub"
 
-[616]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L872-L1220 "Source code on GitHub"
+[616]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L872-L1228 "Source code on GitHub"
 
-[617]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L880-L888 "Source code on GitHub"
+[617]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L880-L888 "Source code on GitHub"
 
-[618]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L896-L906 "Source code on GitHub"
+[618]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L896-L910 "Source code on GitHub"
 
-[619]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L914-L924 "Source code on GitHub"
+[619]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L918-L932 "Source code on GitHub"
 
-[620]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L932-L934 "Source code on GitHub"
+[620]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L940-L942 "Source code on GitHub"
 
-[621]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L942-L953 "Source code on GitHub"
+[621]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L950-L961 "Source code on GitHub"
 
-[622]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L961-L963 "Source code on GitHub"
+[622]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L969-L971 "Source code on GitHub"
 
-[623]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L971-L982 "Source code on GitHub"
+[623]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L979-L990 "Source code on GitHub"
 
-[624]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L990-L992 "Source code on GitHub"
+[624]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L998-L1000 "Source code on GitHub"
 
-[625]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L1000-L1011 "Source code on GitHub"
+[625]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L1008-L1019 "Source code on GitHub"
 
-[626]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L1019-L1021 "Source code on GitHub"
+[626]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L1027-L1029 "Source code on GitHub"
 
-[627]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L1029-L1038 "Source code on GitHub"
+[627]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L1037-L1046 "Source code on GitHub"
 
-[628]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L1046-L1055 "Source code on GitHub"
+[628]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L1054-L1063 "Source code on GitHub"
 
-[629]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L1063-L1072 "Source code on GitHub"
+[629]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L1071-L1080 "Source code on GitHub"
 
-[630]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L1080-L1089 "Source code on GitHub"
+[630]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L1088-L1097 "Source code on GitHub"
 
-[631]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L1097-L1106 "Source code on GitHub"
+[631]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L1105-L1114 "Source code on GitHub"
 
-[632]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L1114-L1123 "Source code on GitHub"
+[632]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L1122-L1131 "Source code on GitHub"
 
-[633]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L1131-L1142 "Source code on GitHub"
+[633]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L1139-L1150 "Source code on GitHub"
 
-[634]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L1150-L1152 "Source code on GitHub"
+[634]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L1158-L1160 "Source code on GitHub"
 
-[635]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L1160-L1162 "Source code on GitHub"
+[635]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L1168-L1170 "Source code on GitHub"
 
-[636]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L1170-L1181 "Source code on GitHub"
+[636]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L1178-L1189 "Source code on GitHub"
 
-[637]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L1189-L1200 "Source code on GitHub"
+[637]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L1197-L1208 "Source code on GitHub"
 
-[638]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L1208-L1219 "Source code on GitHub"
+[638]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L1216-L1227 "Source code on GitHub"
 
-[639]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/xmltv.js#L1229-L1231 "Source code on GitHub"
+[639]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/xmltv.js#L1237-L1239 "Source code on GitHub"
 
-[640]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2507-L2519 "Source code on GitHub"
+[640]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2520-L2532 "Source code on GitHub"
 
 [641]: https://jsonata.org
 
-[642]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L42-L244 "Source code on GitHub"
+[642]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L42-L244 "Source code on GitHub"
 
-[643]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L121-L124 "Source code on GitHub"
+[643]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L121-L124 "Source code on GitHub"
 
-[644]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L132-L134 "Source code on GitHub"
+[644]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L132-L134 "Source code on GitHub"
 
-[645]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L142-L171 "Source code on GitHub"
+[645]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L142-L171 "Source code on GitHub"
 
-[646]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L178-L180 "Source code on GitHub"
+[646]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L178-L180 "Source code on GitHub"
 
-[647]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L187-L189 "Source code on GitHub"
+[647]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L187-L189 "Source code on GitHub"
 
-[648]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L196-L198 "Source code on GitHub"
+[648]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L196-L198 "Source code on GitHub"
 
-[649]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L241-L243 "Source code on GitHub"
+[649]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L241-L243 "Source code on GitHub"
 
 [650]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
-[651]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L251-L412 "Source code on GitHub"
+[651]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L251-L412 "Source code on GitHub"
 
-[652]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L325-L325 "Source code on GitHub"
+[652]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L325-L325 "Source code on GitHub"
 
-[653]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L333-L333 "Source code on GitHub"
+[653]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L333-L333 "Source code on GitHub"
 
-[654]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L342-L344 "Source code on GitHub"
+[654]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L342-L344 "Source code on GitHub"
 
-[655]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L352-L352 "Source code on GitHub"
+[655]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L352-L352 "Source code on GitHub"
 
-[656]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L360-L362 "Source code on GitHub"
+[656]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L360-L362 "Source code on GitHub"
 
-[657]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L407-L411 "Source code on GitHub"
+[657]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L407-L411 "Source code on GitHub"
 
-[658]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L388-L390 "Source code on GitHub"
+[658]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L388-L390 "Source code on GitHub"
 
-[659]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L261-L263 "Source code on GitHub"
+[659]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L261-L263 "Source code on GitHub"
 
-[660]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L420-L561 "Source code on GitHub"
+[660]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L420-L561 "Source code on GitHub"
 
-[661]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L476-L476 "Source code on GitHub"
+[661]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L476-L476 "Source code on GitHub"
 
-[662]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L485-L487 "Source code on GitHub"
+[662]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L485-L487 "Source code on GitHub"
 
-[663]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L495-L497 "Source code on GitHub"
+[663]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L495-L497 "Source code on GitHub"
 
-[664]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L505-L507 "Source code on GitHub"
+[664]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L505-L507 "Source code on GitHub"
 
-[665]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L516-L518 "Source code on GitHub"
+[665]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L516-L518 "Source code on GitHub"
 
-[666]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L526-L528 "Source code on GitHub"
+[666]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L526-L528 "Source code on GitHub"
 
-[667]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L537-L542 "Source code on GitHub"
+[667]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L537-L542 "Source code on GitHub"
 
-[668]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L549-L551 "Source code on GitHub"
+[668]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L549-L551 "Source code on GitHub"
 
-[669]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L558-L560 "Source code on GitHub"
+[669]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L558-L560 "Source code on GitHub"
 
-[670]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L429-L437 "Source code on GitHub"
+[670]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L429-L437 "Source code on GitHub"
 
-[671]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L578-L1619 "Source code on GitHub"
+[671]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L578-L1632 "Source code on GitHub"
 
-[672]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L840-L840 "Source code on GitHub"
+[672]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L853-L853 "Source code on GitHub"
 
-[673]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L900-L900 "Source code on GitHub"
+[673]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L913-L913 "Source code on GitHub"
 
-[674]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L934-L934 "Source code on GitHub"
+[674]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L947-L947 "Source code on GitHub"
 
-[675]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L943-L943 "Source code on GitHub"
+[675]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L956-L956 "Source code on GitHub"
 
-[676]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L952-L952 "Source code on GitHub"
+[676]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L965-L965 "Source code on GitHub"
 
-[677]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L963-L963 "Source code on GitHub"
+[677]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L976-L976 "Source code on GitHub"
 
-[678]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L972-L972 "Source code on GitHub"
+[678]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L985-L985 "Source code on GitHub"
 
-[679]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L981-L981 "Source code on GitHub"
+[679]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L994-L994 "Source code on GitHub"
 
-[680]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L990-L990 "Source code on GitHub"
+[680]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1003-L1003 "Source code on GitHub"
 
-[681]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L999-L999 "Source code on GitHub"
+[681]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1012-L1012 "Source code on GitHub"
 
-[682]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1008-L1008 "Source code on GitHub"
+[682]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1021-L1021 "Source code on GitHub"
 
-[683]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1017-L1017 "Source code on GitHub"
+[683]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1030-L1030 "Source code on GitHub"
 
-[684]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1026-L1028 "Source code on GitHub"
+[684]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1039-L1041 "Source code on GitHub"
 
-[685]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1036-L1038 "Source code on GitHub"
+[685]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1049-L1051 "Source code on GitHub"
 
-[686]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1046-L1048 "Source code on GitHub"
+[686]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1059-L1061 "Source code on GitHub"
 
-[687]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1056-L1058 "Source code on GitHub"
+[687]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1069-L1071 "Source code on GitHub"
 
-[688]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1066-L1068 "Source code on GitHub"
+[688]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1079-L1081 "Source code on GitHub"
 
-[689]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1076-L1082 "Source code on GitHub"
+[689]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1089-L1095 "Source code on GitHub"
 
-[690]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1090-L1092 "Source code on GitHub"
+[690]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1103-L1105 "Source code on GitHub"
 
-[691]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1109-L1111 "Source code on GitHub"
+[691]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1122-L1124 "Source code on GitHub"
 
-[692]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1118-L1120 "Source code on GitHub"
+[692]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1131-L1133 "Source code on GitHub"
 
-[693]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1127-L1130 "Source code on GitHub"
+[693]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1140-L1143 "Source code on GitHub"
 
-[694]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1138-L1140 "Source code on GitHub"
+[694]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1151-L1153 "Source code on GitHub"
 
-[695]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1158-L1174 "Source code on GitHub"
+[695]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1171-L1187 "Source code on GitHub"
 
-[696]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1184-L1190 "Source code on GitHub"
+[696]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1197-L1203 "Source code on GitHub"
 
-[697]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1199-L1222 "Source code on GitHub"
+[697]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1212-L1235 "Source code on GitHub"
 
-[698]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1231-L1254 "Source code on GitHub"
+[698]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1244-L1267 "Source code on GitHub"
 
-[699]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1262-L1271 "Source code on GitHub"
+[699]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1275-L1284 "Source code on GitHub"
 
-[700]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1278-L1280 "Source code on GitHub"
+[700]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1291-L1293 "Source code on GitHub"
 
-[701]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1293-L1297 "Source code on GitHub"
+[701]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1306-L1310 "Source code on GitHub"
 
-[702]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1304-L1306 "Source code on GitHub"
+[702]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1317-L1319 "Source code on GitHub"
 
-[703]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1467-L1471 "Source code on GitHub"
+[703]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1480-L1484 "Source code on GitHub"
 
-[704]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1319-L1399 "Source code on GitHub"
+[704]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1332-L1412 "Source code on GitHub"
 
-[705]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1410-L1450 "Source code on GitHub"
+[705]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1423-L1463 "Source code on GitHub"
 
-[706]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1482-L1487 "Source code on GitHub"
+[706]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1495-L1500 "Source code on GitHub"
 
-[707]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1498-L1505 "Source code on GitHub"
+[707]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1511-L1518 "Source code on GitHub"
 
-[708]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1518-L1534 "Source code on GitHub"
+[708]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1531-L1547 "Source code on GitHub"
 
-[709]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1547-L1567 "Source code on GitHub"
+[709]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1560-L1580 "Source code on GitHub"
 
-[710]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1580-L1591 "Source code on GitHub"
+[710]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1593-L1604 "Source code on GitHub"
 
-[711]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1601-L1618 "Source code on GitHub"
+[711]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1614-L1631 "Source code on GitHub"
 
-[712]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L587-L589 "Source code on GitHub"
+[712]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L587-L589 "Source code on GitHub"
 
-[713]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L598-L600 "Source code on GitHub"
+[713]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L598-L600 "Source code on GitHub"
 
-[714]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L609-L616 "Source code on GitHub"
+[714]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L609-L616 "Source code on GitHub"
 
-[715]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L627-L629 "Source code on GitHub"
+[715]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L627-L629 "Source code on GitHub"
 
-[716]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L639-L641 "Source code on GitHub"
+[716]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L639-L641 "Source code on GitHub"
 
-[717]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L656-L688 "Source code on GitHub"
+[717]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L656-L702 "Source code on GitHub"
 
-[718]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L696-L698 "Source code on GitHub"
+[718]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L710-L712 "Source code on GitHub"
 
-[719]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1626-L1704 "Source code on GitHub"
+[719]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1639-L1717 "Source code on GitHub"
 
-[720]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1643-L1645 "Source code on GitHub"
+[720]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1656-L1658 "Source code on GitHub"
 
-[721]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1653-L1656 "Source code on GitHub"
+[721]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1666-L1669 "Source code on GitHub"
 
-[722]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1664-L1666 "Source code on GitHub"
+[722]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1677-L1679 "Source code on GitHub"
 
-[723]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1674-L1676 "Source code on GitHub"
+[723]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1687-L1689 "Source code on GitHub"
 
-[724]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1684-L1687 "Source code on GitHub"
+[724]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1697-L1700 "Source code on GitHub"
 
-[725]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1694-L1696 "Source code on GitHub"
+[725]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1707-L1709 "Source code on GitHub"
 
-[726]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1713-L1955 "Source code on GitHub"
+[726]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1726-L1968 "Source code on GitHub"
 
 [727]: https://github.com/fb55/htmlparser2
 
 [728]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L155
 
-[729]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1721-L1723 "Source code on GitHub"
+[729]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1734-L1736 "Source code on GitHub"
 
-[730]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1731-L1733 "Source code on GitHub"
+[730]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1744-L1746 "Source code on GitHub"
 
-[731]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1744-L1747 "Source code on GitHub"
+[731]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1757-L1760 "Source code on GitHub"
 
 [732]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L156
 
-[733]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1757-L1759 "Source code on GitHub"
+[733]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1770-L1772 "Source code on GitHub"
 
 [734]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L161
 
-[735]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1769-L1772 "Source code on GitHub"
+[735]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1782-L1785 "Source code on GitHub"
 
 [736]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L166
 
-[737]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1783-L1786 "Source code on GitHub"
+[737]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1796-L1799 "Source code on GitHub"
 
 [738]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L167
 
 [739]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error
 
-[740]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1798-L1809 "Source code on GitHub"
+[740]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1811-L1822 "Source code on GitHub"
 
 [741]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L181
 
-[742]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1820-L1822 "Source code on GitHub"
+[742]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1833-L1835 "Source code on GitHub"
 
 [743]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L169
 
-[744]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1833-L1838 "Source code on GitHub"
+[744]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1846-L1851 "Source code on GitHub"
 
 [745]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L168
 
-[746]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1851-L1853 "Source code on GitHub"
+[746]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1864-L1866 "Source code on GitHub"
 
 [747]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L176
 
-[748]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1864-L1873 "Source code on GitHub"
+[748]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1877-L1886 "Source code on GitHub"
 
 [749]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L182
 
-[750]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1884-L1894 "Source code on GitHub"
+[750]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1897-L1907 "Source code on GitHub"
 
 [751]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L183
 
-[752]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1904-L1906 "Source code on GitHub"
+[752]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1917-L1919 "Source code on GitHub"
 
 [753]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L186
 
-[754]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1916-L1925 "Source code on GitHub"
+[754]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1929-L1938 "Source code on GitHub"
 
 [755]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L184
 
-[756]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1935-L1942 "Source code on GitHub"
+[756]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1948-L1955 "Source code on GitHub"
 
 [757]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L185
 
-[758]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1952-L1954 "Source code on GitHub"
+[758]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1965-L1967 "Source code on GitHub"
 
 [759]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L187
 
-[760]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1964-L2146 "Source code on GitHub"
+[760]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L1977-L2159 "Source code on GitHub"
 
 [761]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L101
 
-[762]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2025-L2037 "Source code on GitHub"
+[762]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2038-L2050 "Source code on GitHub"
 
-[763]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2045-L2047 "Source code on GitHub"
+[763]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2058-L2060 "Source code on GitHub"
 
-[764]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2056-L2056 "Source code on GitHub"
+[764]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2069-L2069 "Source code on GitHub"
 
 [765]: https://docs.jsonata.org/embedding-extending#expressionregisterfunctionname-implementation-signature
 
-[766]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2065-L2065 "Source code on GitHub"
+[766]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2078-L2078 "Source code on GitHub"
 
-[767]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2074-L2074 "Source code on GitHub"
+[767]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2087-L2087 "Source code on GitHub"
 
-[768]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2084-L2084 "Source code on GitHub"
+[768]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2097-L2097 "Source code on GitHub"
 
 [769]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L110
 
-[770]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2094-L2094 "Source code on GitHub"
+[770]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2107-L2107 "Source code on GitHub"
 
 [771]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L124
 
-[772]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2104-L2104 "Source code on GitHub"
+[772]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2117-L2117 "Source code on GitHub"
 
 [773]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L117
 
-[774]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2114-L2114 "Source code on GitHub"
+[774]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2127-L2127 "Source code on GitHub"
 
 [775]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L139
 
-[776]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2124-L2124 "Source code on GitHub"
+[776]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2137-L2137 "Source code on GitHub"
 
 [777]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L147
 
-[778]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2134-L2134 "Source code on GitHub"
+[778]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2147-L2147 "Source code on GitHub"
 
 [779]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L131
 
-[780]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2144-L2144 "Source code on GitHub"
+[780]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2157-L2157 "Source code on GitHub"
 
-[781]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L1991-L1993 "Source code on GitHub"
+[781]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2004-L2006 "Source code on GitHub"
 
-[782]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2154-L2476 "Source code on GitHub"
+[782]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2167-L2489 "Source code on GitHub"
 
-[783]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2250-L2250 "Source code on GitHub"
+[783]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2263-L2263 "Source code on GitHub"
 
-[784]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2259-L2259 "Source code on GitHub"
+[784]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2272-L2272 "Source code on GitHub"
 
-[785]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2268-L2268 "Source code on GitHub"
+[785]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2281-L2281 "Source code on GitHub"
 
-[786]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2277-L2277 "Source code on GitHub"
+[786]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2290-L2290 "Source code on GitHub"
 
-[787]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2286-L2286 "Source code on GitHub"
+[787]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2299-L2299 "Source code on GitHub"
 
-[788]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2295-L2297 "Source code on GitHub"
+[788]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2308-L2310 "Source code on GitHub"
 
-[789]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2305-L2307 "Source code on GitHub"
+[789]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2318-L2320 "Source code on GitHub"
 
-[790]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2315-L2323 "Source code on GitHub"
+[790]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2328-L2336 "Source code on GitHub"
 
-[791]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2331-L2339 "Source code on GitHub"
+[791]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2344-L2352 "Source code on GitHub"
 
-[792]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2346-L2352 "Source code on GitHub"
+[792]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2359-L2365 "Source code on GitHub"
 
-[793]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2363-L2394 "Source code on GitHub"
+[793]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2376-L2407 "Source code on GitHub"
 
 [794]: https://github.com/streamxorg/streamx#readable-stream
 
-[795]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2407-L2416 "Source code on GitHub"
+[795]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2420-L2429 "Source code on GitHub"
 
-[796]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2453-L2455 "Source code on GitHub"
+[796]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2466-L2468 "Source code on GitHub"
 
 [797]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
-[798]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2473-L2475 "Source code on GitHub"
+[798]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2486-L2488 "Source code on GitHub"
 
-[799]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2163-L2186 "Source code on GitHub"
+[799]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2176-L2199 "Source code on GitHub"
 
-[800]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/parser.js#L2194-L2197 "Source code on GitHub"
+[800]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/parser.js#L2207-L2210 "Source code on GitHub"
 
-[801]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/document.js#L241-L247 "Source code on GitHub"
+[801]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/document.js#L241-L247 "Source code on GitHub"
 
 [802]: #parserparsernode
 
-[803]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/document.js#L14-L14 "Source code on GitHub"
+[803]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/document.js#L14-L14 "Source code on GitHub"
 
-[804]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/document.js#L22-L151 "Source code on GitHub"
+[804]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/document.js#L22-L151 "Source code on GitHub"
 
-[805]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/document.js#L136-L138 "Source code on GitHub"
+[805]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/document.js#L136-L138 "Source code on GitHub"
 
-[806]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/document.js#L147-L150 "Source code on GitHub"
+[806]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/document.js#L147-L150 "Source code on GitHub"
 
-[807]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/document.js#L32-L34 "Source code on GitHub"
+[807]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/document.js#L32-L34 "Source code on GitHub"
 
 [808]: https://developer.mozilla.org/docs/Web/API/Node/nextSibling
 
-[809]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/document.js#L46-L48 "Source code on GitHub"
+[809]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/document.js#L46-L48 "Source code on GitHub"
 
-[810]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/document.js#L58-L89 "Source code on GitHub"
+[810]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/document.js#L58-L89 "Source code on GitHub"
 
-[811]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/document.js#L161-L173 "Source code on GitHub"
+[811]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/document.js#L161-L173 "Source code on GitHub"
 
-[812]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/document.js#L170-L172 "Source code on GitHub"
+[812]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/document.js#L170-L172 "Source code on GitHub"
 
-[813]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/document.js#L181-L183 "Source code on GitHub"
+[813]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/document.js#L181-L183 "Source code on GitHub"
 
-[814]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/document.js#L191-L193 "Source code on GitHub"
+[814]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/document.js#L191-L193 "Source code on GitHub"
 
-[815]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/entity.js#L193-L195 "Source code on GitHub"
+[815]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/entity.js#L193-L195 "Source code on GitHub"
 
-[816]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/entity.js#L21-L165 "Source code on GitHub"
+[816]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/entity.js#L21-L165 "Source code on GitHub"
 
-[817]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/entity.js#L68-L70 "Source code on GitHub"
+[817]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/entity.js#L68-L70 "Source code on GitHub"
 
-[818]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/entity.js#L78-L80 "Source code on GitHub"
+[818]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/entity.js#L78-L80 "Source code on GitHub"
 
-[819]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/entity.js#L91-L115 "Source code on GitHub"
+[819]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/entity.js#L91-L115 "Source code on GitHub"
 
-[820]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/entity.js#L129-L134 "Source code on GitHub"
+[820]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/entity.js#L129-L134 "Source code on GitHub"
 
-[821]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/entity.js#L141-L143 "Source code on GitHub"
+[821]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/entity.js#L141-L143 "Source code on GitHub"
 
-[822]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/entity.js#L151-L153 "Source code on GitHub"
+[822]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/entity.js#L151-L153 "Source code on GitHub"
 
-[823]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/entity.js#L33-L39 "Source code on GitHub"
+[823]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/entity.js#L33-L39 "Source code on GitHub"
 
-[824]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/query/index.js#L282-L285 "Source code on GitHub"
+[824]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/query/index.js#L291-L294 "Source code on GitHub"
 
-[825]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/query/index.js#L18-L18 "Source code on GitHub"
+[825]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/query/index.js#L18-L18 "Source code on GitHub"
 
 [826]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map
 
-[827]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/query/index.js#L53-L193 "Source code on GitHub"
+[827]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/query/index.js#L53-L202 "Source code on GitHub"
 
-[828]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/normalize.js#L250-L256 "Source code on GitHub"
+[828]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/normalize.js#L250-L256 "Source code on GitHub"
 
-[829]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/normalize.js#L56-L124 "Source code on GitHub"
+[829]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/normalize.js#L56-L124 "Source code on GitHub"
 
 [830]: https://github.com/MelleB/tinyduration
 
 [831]: https://github.com/CrystalComputerCorp/smpte-timecode
 
-[832]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/normalize.js#L143-L167 "Source code on GitHub"
+[832]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/normalize.js#L143-L167 "Source code on GitHub"
 
-[833]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/normalize.js#L185-L191 "Source code on GitHub"
+[833]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/normalize.js#L185-L191 "Source code on GitHub"
 
 [834]: https://github.com/sindresorhus/camelcase
 
-[835]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/normalize.js#L210-L215 "Source code on GitHub"
+[835]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/normalize.js#L210-L215 "Source code on GitHub"
 
-[836]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/normalize.js#L228-L230 "Source code on GitHub"
+[836]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/normalize.js#L228-L230 "Source code on GitHub"
 
-[837]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/fragment.js#L20-L22 "Source code on GitHub"
+[837]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/fragment.js#L20-L22 "Source code on GitHub"
 
-[838]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/fragment.js#L8-L8 "Source code on GitHub"
+[838]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/fragment.js#L8-L8 "Source code on GitHub"
 
-[839]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/text.js#L20-L22 "Source code on GitHub"
+[839]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/text.js#L20-L22 "Source code on GitHub"
 
-[840]: https://github.com/little-core-labs/mediaxml/blob/a67af9d41c5bfffed81a916823537031f65c15e7/text.js#L8-L8 "Source code on GitHub"
+[840]: https://github.com/little-core-labs/mediaxml/blob/1ada563d7b7e2c457deb8689c3c322d718f0871e/text.js#L8-L8 "Source code on GitHub"

@@ -3,6 +3,10 @@ mediaxml
 
 > A module for working with media manifests represented by XML like ADI, mRSS, and SCTE-236.
 
+## Status
+
+> :warning: **_Under active development_**
+
 ## Installation
 
 ```sh
