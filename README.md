@@ -130,10 +130,40 @@ console.log(document.toString())
 // </ADI>
 ```
 
+### Query API
+
+Querying XML document nodes:
+
+```js
+const { createReadStream } = require('fs')
+const { Document } = require('mediaxml/document')
+
+const document = Document.from(createReadStream('file.xml'))
+document.ready(() => {
+  const textNodes = document.query('**[is text and is not empty]')
+  const textNodes = document.query('')
+})
+```
+
+Query mRSS document objects:
+
+```js
+const { createReadStream } = require('fs')
+const { Document } = require('mediaxml/mrss')
+
+const document = Document.from(createReadStream('file.rss'))
+document.ready(() => {
+  const items = document.query('channel.items')
+  const titles = items.query('title') // items is a `Fragment` with a `query()` function
+  const urls = items.query('mediaContent.url[contains "mp4"]')
+})
+```
+
 See the [Documentation](https://little-core-labs.github.io/mediaxml) for
 more information.
 
 ## See Also
+
   * [Media RSS Specification](https://www.rssboard.org/media-rss)
   * [CableLabs ADI 1 Specification](https://community.cablelabs.com/wiki/plugins/servlet/cablelabs/alfresco/download?id=8f900e8b-d1eb-4834-bd26-f04bd623c3d2)
   * [CableLabs ADI 1 Various Mappings](https://www.w3.org/2008/WebVideo/Annotations/drafts/ontology10/CR/mappings_tested/CableLabs1.htm)

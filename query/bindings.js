@@ -129,7 +129,7 @@ module.exports = {
   json: binding(
     '<j-j?:j> # Converts input into a plain JSON object (parsed).',
     function $json(input, arg) {
-      if ('string' === typeof input) {
+      if ('string' === typeof input || input instanceof String) {
         try {
           return JSON.parse(input)
         } catch (err) {
@@ -412,8 +412,18 @@ module.exports = {
     '<j-:a> # Returns input array with only unique elements.',
     function $unique(input) {
       if (Array.isArray(input)) {
-        return Array.from(new Set(input))
-      } else if ('string' === typeof input) {
+        const results = []
+        const seen = []
+        for (const i of input) {
+          const v = i instanceof String ? String(i) : i
+          if (!seen.includes(v)) {
+            results.push(i)
+            seen.push(v)
+          }
+        }
+
+        return results
+      } else if (input instanceof String || 'string' === typeof input) {
         return $unique(input.split(''))
       } else if (undefined !== input) {
         return [input]
@@ -427,13 +437,33 @@ module.exports = {
     '<j-:a> # Returns input array with elements sorted.',
     function $sorted(input) {
       if (Array.isArray(input)) {
-        return input.sort()
-      } else if ('string' === typeof input) {
+        return input.sort(sort)
+      } else if ('string' === typeof input || input instanceof String) {
         return $sorted(input.split(''))
       } else if (undefined !== input) {
         return [input]
       } else {
         return []
+      }
+
+      function sort(left, right) {
+        if (left instanceof String) {
+          left = String(left)
+        }
+
+        if (right instanceof String) {
+          right = String(right)
+        }
+
+        const sorted = [left, right].sort()
+
+        if (left === right) {
+          return 0
+        } else if (left === sorted[0]) {
+          return -1
+        } else {
+          return 1
+        }
       }
     }),
 
@@ -457,8 +487,9 @@ module.exports = {
       return Array.from(array).join(delimiter || ',')
     }),
 
+  // $has(input: any, key: string): boolean
   has: binding(
-    '<j-s-:b> # Returns true if key is in target',
+    '<j-s-:b> # Returns true if key is in target.',
     function $has(target, key) {
       if ('boolean' === typeof target) {
         return false
@@ -474,6 +505,39 @@ module.exports = {
 
 
       return Object.prototype.hasOwnProperty.call(target, key)
+    }
+  ),
+
+  // $contains(input: any, search: string): boolean
+  contains: binding(
+    '<j-s-:b> # Returns true if search key is in input target.',
+    function $contains(target, search) {
+      if ('boolean' === typeof target) {
+        return false
+      }
+
+      if (null === target || undefined === target) {
+        return false
+      }
+
+      if ('number' === typeof target) {
+        return false
+      }
+
+      if ('string' === typeof target || target instanceof String) {
+        target = String(target)
+        return target.includes(search)
+      }
+
+      if (Array.isArray(target) || 'function' === typeof target.includes) {
+        return target.includes(normalizeValue(search)) || search in target
+      }
+
+      if ('object' === typeof target) {
+        return search in target
+      }
+
+      return false
     }
   ),
 
@@ -503,5 +567,11 @@ module.exports = {
     '<j-:j> # Returns input as a document fragment.',
     function $node(input) {
       return Fragment.from(input)
+    }),
+
+  // $noop()
+  noop: binding(
+    '<:> # No operation function.',
+    function $noop() {
     }),
 }

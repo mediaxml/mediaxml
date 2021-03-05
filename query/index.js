@@ -71,9 +71,12 @@ function query(node, queryString, opts) {
     require('./transform/ordinals'),
 
     require('./transform/as'),
-    require('./transform/has'),
     require('./transform/is'),
+    require('./transform/has'),
+    require('./transform/set'),
+    require('./transform/print'),
     require('./transform/typeof'),
+    require('./transform/contains'),
     require('./transform/cleanup'),
 
     ...(!Array.isArray(opts.transform)
@@ -82,16 +85,22 @@ function query(node, queryString, opts) {
   ]
 
   let expression = cache.get(queryString)
+  const assignments = opts.assignments || {}
+  const context = {
+    assignments,
+    assign(key, value) {
+      assignments[key] = value
+    }
+  }
 
   if (!expression) {
     debug('query: before transform', queryString)
 
     const reduceQueryString = (qs, t) => {
-      return t && 'function' === typeof t.transform ? t.transform(qs) : qs
+      return t && 'function' === typeof t.transform ? t.transform(qs, context) : qs
     }
 
     queryString = transforms.reduce(reduceQueryString, queryString)
-    ///console.log('queryString', queryString);
 
     debug('query: after transform', queryString)
 
@@ -115,7 +124,7 @@ function query(node, queryString, opts) {
   }
 
   const target = model[node.originalName] || model[node.name] || model
-  const result = expression.evaluate(target)
+  const result = expression.evaluate(target, assignments)
 
   if (result) {
     delete result.sequence

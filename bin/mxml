@@ -86,6 +86,7 @@ if (0 && !argv._[0] && process.stdin.isTTY) {
   process.exit(1)
 }
 
+const assignments = {}
 const parser = new Parser()
 
 let [ arg0, query = arg0 ] = argv._
@@ -172,6 +173,7 @@ function onstream(err, stream) {
           query = query.trim()
 
           result = parser.query(query, {
+            assignments,
             inspect: Boolean(argv.inspect)
           })
         } catch (err) {
@@ -257,8 +259,18 @@ function startRepl() {
     let result = null
 
     if (query) {
+      // double wildcards can be expensive
+      if ('**' === query.trim()) {
+        return
+      }
+
+      // don't just preview a print all willy nilly
+      if (/^\s*?print\s*/.test(query.trim())) {
+        return
+      }
+
       try {
-        result = parser.query(query)
+        result = parser.query(query, { assignments })
 
         if (result instanceof Promise) {
           result = await result
@@ -411,7 +423,7 @@ function startRepl() {
 
         if (query) {
           try {
-            result = parser.query(query)
+            result = parser.query(query, { assignments })
 
             if (result instanceof Promise) {
               result = await result
@@ -528,7 +540,7 @@ async function evaluate(query, context, file, callback) {
     }
 
     try {
-      let result = parser.query(query)
+      let result = parser.query(query, { assignments })
 
       if (result instanceof Promise) {
         result = await result
