@@ -469,11 +469,30 @@ module.exports = {
 
   // $slice(node: (ParserNode | Array), start: number, stop: number): array
   slice: binding(
-    '<j-:a> # Returns a slice of an array or parser node.',
+    '<j-n?n?:a> # Returns a slice of an array or parser node.',
     function $slice(node, start, stop) {
-      if (node && node.children) {
+      if ('number' !== typeof start) {
+        start = 0
+      }
+
+      if (
+        node &&
+        node.children &&
+        'function' === typeof node.children.slice
+      ) {
+        if ('number' !== typeof stop) {
+          stop = node.children.length
+        }
+
         return node.children.slice(start, stop)
-      } else if (node.slice) {
+      } else if (node && node.slice && 'function' === typeof node.slice) {
+        if ('number' !== typeof stop) {
+          if ('number' == typeof node.length) {
+            stop = node.length
+          } else {
+            stop = Infinity
+          }
+        }
         return node.slice(start, stop)
       } else {
         return node
