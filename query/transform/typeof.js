@@ -4,12 +4,12 @@ function transform(queryString) {
   return queryString.replace(REGEX, replace)
 
   function replace(_, prefix, input) {
-    const result = `${prefix}$typeof(${input})`
-    return result.replace(REGEX, replace)
+    return compile({ prefix, input }).replace(REGEX, replace)
   }
 }
 
-function compile() {
+function compile({ prefix, input }) {
+  return `${prefix}$typeof(${input})`
 }
 
 module.exports = {
