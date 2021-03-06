@@ -1,3 +1,6 @@
+#!/usr/bin/env mxml
+
 import '../mrss/feed.xml'
+//import "$coalesce($argv1, '../mrss/feed.xml')"
 import './imported.mxq'
 

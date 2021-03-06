@@ -67,6 +67,7 @@ function query(node, queryString, opts) {
   }
 
   const transforms = [
+    require('./transform/comments'),
     require('./transform/prepare'),
     require('./transform/symbols'),
     require('./transform/children'),
@@ -88,7 +89,6 @@ function query(node, queryString, opts) {
 
     ...((node && node.options && node.options.transform) || []),
 
-    require('./transform/comments'),
     require('./transform/cleanup'),
   ]
 

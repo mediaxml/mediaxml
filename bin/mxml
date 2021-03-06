@@ -7,6 +7,7 @@ const stripAnsi = require('strip-ansi')
 const chokidar = require('chokidar')
 const chromafi = require('@12core/chromafi')
 const truncate = require('cli-truncate')
+const mutexify = require('mutexify')
 const prettyMs = require('pretty-ms')
 const { URL } = require('url')
 const mkdirp = require('mkdirp')
@@ -47,32 +48,33 @@ const argv = require('minimist')(process.argv.slice(2), {
 })
 
 if (argv.help) {
-  console.log('usage: mxml [-hiDRTV] [options] <filename> [query]')
-  console.log('')
-  console.log('options:')
-  console.log('  -h, --help      Show this message')
-  console.log('  -i, --inspect   Show inspected output')
-  console.log('  -D, --debug     Show debug output')
-  console.log('  -T, --timing    Show query timing debug output')
-  console.log('  -V, --version   Show program version')
-  console.log('  -W, --watch     Watch for changes (REPL context only)')
-  console.log('')
-  console.log('arguments:')
-  console.log('  <filename>      Path to XML file (required)')
-  console.log('  [query]         Query in JSONata syntax on resulting model [optional]')
-  console.log('')
-  console.log('examples:')
-  console.log('  ## read ADI metadata')
-  console.log('  mxml ./tvshow.xml \'adi:children [name="metadata"]\'')
-  console.log('')
-  console.log('  ## look for ADI3 "Movie" assets')
-  console.log('  mxml ./movie.xml \'adi3:children [`xsi:type`="content:MovieType"]\'')
-  console.log('')
+  process.stdout.write('usage: mxml [-hiDRTV] [options] <filename> [query]\n')
+  process.stdout.write('\n')
+  process.stdout.write('options:\n')
+  process.stdout.write('  -h, --help      Show this message\n')
+  process.stdout.write('  -i, --inspect   Show inspected output\n')
+  process.stdout.write('  -D, --debug     Show debug output\n')
+  process.stdout.write('  -T, --timing    Show query timing debug output\n')
+  process.stdout.write('  -V, --version   Show program version\n')
+  process.stdout.write('  -W, --watch     Watch for changes (REPL context only)\n')
+  process.stdout.write('\n')
+  process.stdout.write('arguments:\n')
+  process.stdout.write('  <filename>      Path to XML file (required)\n')
+  process.stdout.write('  [query]         Query in JSONata syntax on resulting model [optional]\n')
+  process.stdout.write('\n')
+  process.stdout.write('examples:\n')
+  process.stdout.write('  ## read ADI metadata\n')
+  process.stdout.write('  mxml ./tvshow.xml \'adi:children [name="metadata"]\'\n')
+  process.stdout.write('\n')
+  process.stdout.write('  ## look for ADI3 "Movie" assets\n')
+  process.stdout.write('  mxml ./movie.xml \'adi3:children [`xsi:type`="content:MovieType"]\'\n')
+  process.stdout.write('\n')
   process.exit(0)
 }
 
 if (argv.version) {
-  console.log(pkg.version)
+  process.stdout.write(pkg.version)
+  process.stdout.write('\n')
   process.exit(0)
 }
 
@@ -96,9 +98,10 @@ const assignments = {
   argv4: argv['--'][3] || null,
 }
 
-const imports = new Map()
 const importing = new Set()
+const imports = new Map()
 const parser = new Parser()
+const lock = mutexify()
 
 let [ arg0, query = arg0 ] = argv._
 let server = null
@@ -143,7 +146,7 @@ if ('-' === argv._[0] || !process.stdin.isTTY) {
     process.exit(1)
   }
 
-  onstream(null, process.stdin)
+  oninitialstream(null, process.stdin)
 } else {
   try {
     const { protocol } = new URL(argv._[0])
@@ -163,13 +166,13 @@ if ('-' === argv._[0] || !process.stdin.isTTY) {
   }
 
   if (filename) {
-    get(filename, onstream)
+    get(filename, oninitialstream)
   } else {
     startRepl()
   }
 }
 
-function onstream(err, stream) {
+function oninitialstream(err, stream) {
   if (err) {
     console.error('error: %s', err.message)
     debug(err.stack || err)
@@ -275,127 +278,126 @@ async function load(filenameToLoad) {
     }
   }
 
-  return new Promise((resolve, reject) => {
-    get(filenameToLoad, (err, stream) => {
-      if (err) {
-        console.error('%s: %s', chalk.red('error'), chalk.bold(err.message))
-        debug(err.stack || err)
-        reject(err)
-      } else {
-        filename = filenameToLoad
-        currentDirname = path.dirname(filename).replace('file://', '')
-        spinners.loading.start()
-        process.nextTick(() => {
-          const bytes = []
-          const previousXML = parser.node && parser.node.outerXML
-          stream
-            .on('data', (d) => bytes.push(d))
-            .on('error', reject)
-            .on('end', async () => {
-              spinners.loading.stop()
+  const promise = new Promise((resolve, reject) => {
+    lock((release) => {
+      get(filenameToLoad, (err, stream) => {
+        if (err) {
+          console.error('%s: %s', chalk.red('error'), chalk.bold(err.message))
+          debug(err.stack || err)
+          reject(err)
+          release()
+        } else {
+          filename = filenameToLoad
+          currentDirname = path.dirname(filename).replace('file://', '')
+          spinners.loading.start()
+          process.nextTick(() => {
+            const bytes = []
+            const previousXML = parser.node && parser.node.outerXML
+            stream
+              .on('data', (d) => bytes.push(d))
+              .on('error', (err) => {
+                release()
+                reject(err)
+              })
+              .on('end', async () => {
+                spinners.loading.stop()
 
-              if (server) {
-                server.setPrompt(`${chalk.bold('mxml')}(${chalk.italic(filename ? path.basename(filename.split('?')[0]) : '-')})> `)
-              }
+                if (server) {
+                  server.setPrompt(`${chalk.bold('mxml')}(${chalk.italic(filename ? path.basename(filename.split('?')[0]) : '-')})> `)
+                }
 
-              if (argv.watch) {
-                watch()
-              }
+                if (argv.watch) {
+                  watch()
+                }
 
-              const data = Buffer.concat(bytes).toString()
-              const tmp = Parser.from(data)
+                const data = Buffer.concat(bytes).toString()
+                const tmp = Parser.from(data)
 
-              if (tmp.rootNode) {
-                parser.clear()
-                parser.write(tmp.rootNode.outerXML)
-                parser.end()
-              }
 
-              if (!parser.rootNode) {
-                if (previousXML) {
+                if (tmp.rootNode) {
                   parser.clear()
-                  parser.write(previousXML)
+                  parser.write(tmp.rootNode.outerXML)
                   parser.end()
                 }
 
-                const query = Buffer.concat(bytes).toString()
-                lastQuery = query
+                release()
+                if (!tmp.rootNode) {
+                  const query = data
+                  lastQuery = query
 
-                let result = null
-                let endOfInput = false
+                  let result = null
+                  let endOfInput = false
 
-                try {
-                  result = parser.query(query, { load, imports, assignments })
-                } catch (err) {
-                  if (err && '(end)' !== err.token && !imports.size) {
-                    return reject(err)
-                  }
+                  try {
+                    result = parser.query(query, { load, imports, assignments })
+                  } catch (err) {
+                    if (err && '(end)' !== err.token && !imports.size) {
+                      release()
+                      return reject(err)
+                    }
 
-                  if (err && '(end)' === err.token) {
-                    endOfInput = true
-                  }
-                }
-
-                if (imports.size) {
-                  for (const [ importPath, importPromise ] of imports.entries()) {
-                    if (!importing.has(importPromise)) {
-                      await importPromise
-                      importing.add(importPromise)
+                    if (err && '(end)' === err.token) {
+                      endOfInput = true
                     }
                   }
 
-                  currentDirname = path.dirname(filename).replace('file://', '')
-                  if (!endOfInput) {
+                  if (imports.size) {
+                    currentDirname = path.dirname(filename).replace('file://', '')
+                    if (!endOfInput) {
+                      result = parser.query(query, { load, imports, assignments })
+                    }
+                  }
+
+                  if (result) {
+                    if (result instanceof Promise) {
+                      result = await result
+                    }
+
+                    const output = pretty(result)
+
+                    if (output) {
+                      process.stdout.write(output)
+                      process.stdout.write('\n')
+                    }
+                  }
+                } else {
+                  let result = null
+
+                  try {
+                    query = data || query
                     result = parser.query(query, { load, imports, assignments })
+                  } catch (err) {
+                    if (err && '(end)' !== err.token && !imports.size) {
+                      return reject(err)
+                    }
+                  }
+
+                  if (result) {
+                    if (result instanceof Promise) {
+                      result = await result
+                    }
+
+                    const output = pretty(result)
+
+                    if (output) {
+                      process.stdout.write(output)
+                      process.stdout.write('\n')
+                    }
+
+                    return resolve(result)
                   }
                 }
 
-                if (result) {
-                  if (result instanceof Promise) {
-                    result = await result
-                  }
-
-                  const output = pretty(result)
-
-                  if (output) {
-                    process.stdout.write(output)
-                    process.stdout.write('\n')
-                  }
-                }
-              } else {
-                let result = null
-
-                try {
-                  query = data || query
-                  result = parser.query(query, { load, imports, assignments })
-                } catch (err) {
-                  if (err && '(end)' !== err.token && !imports.size) {
-                    return reject(err)
-                  }
-                }
-
-                if (result) {
-                  if (result instanceof Promise) {
-                    result = await result
-                  }
-
-                  const output = pretty(result)
-
-                  if (output) {
-                    process.stdout.write(output)
-                    process.stdout.write('\n')
-                  }
-
-                  return resolve(result)
-                }
-              }
-
-              resolve(parser.rootNode)
-            })
-        })
-      }
+                resolve(parser.rootNode)
+              })
+          })
+        }
+      })
     })
   })
+
+  importing.add(promise)
+  return promise
 }
 
 async function watch() {
@@ -704,19 +706,6 @@ async function evaluate(query, context, file, callback) {
 
         if (err && '(end)' === err.token) {
           endOfInput = true
-        }
-      }
-
-      if (imports.size) {
-        for (const [ importPath, importPromise ] of imports.entries()) {
-          if (!importing.has(importPromise)) {
-            await importPromise
-            importing.add(importPromise)
-          }
-        }
-
-        if (!endOfInput) {
-          result = parser.query(query, { load, imports, assignments })
         }
       }
 

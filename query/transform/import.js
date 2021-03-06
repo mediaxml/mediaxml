@@ -15,21 +15,38 @@ function transform(queryString, ctx) {
 function compile({ target }, ctx) {
   target = target.replace(/;$/, '')
 
+  if (/^'/.test(target) || /'$/.test(target)) {
+    if (!('\'' === target[0] && '\'' === target.slice(-1))) {
+      throw new Error('Missing corresponding `\'` in import statement.')
+    }
+  }
+
+  if (/^"/.test(target) || /"$/.test(target)) {
+    if (!('"' === target[0] && '"' === target.slice(-1))) {
+      throw new Error('Missing corresponding `"` in import statement.')
+    }
+  }
+
   if ('string' === typeof target || target instanceof String) {
     try {
       target = target.replace(/^'/, '"').replace(/'$/, '"')
       target = JSON.parse(target)
     } catch (err) {
+      debug(err.stack || err)
     }
   }
 
   try {
-    target = jsonata(target).evaluate({}, {
-      ...ctx.assignments,
-      ...ctx.bindings
-    }) || target
+    const expression = jsonata(target)
+
+    for (const key in ctx.bindings) {
+      const binding = ctx.bindings[key]
+      expression.registerFunction(key, binding, binding.signature)
+    }
+
+    target = expression.evaluate({}, ctx.assignments) || target
   } catch (err) {
-    //debug(err.stack || err)
+    debug(err.stack || err)
   }
 
   for (const bound in ctx.assignments) {

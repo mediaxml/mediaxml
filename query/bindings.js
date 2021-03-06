@@ -629,4 +629,12 @@ module.exports = {
     '<:> # No operation function.',
     function $noop() {
     }),
+
+  // $coalesce(...args: any): any
+  coalesce: binding(
+    '<x?x?x?x?x?x?x?x?:x?> # Coalesce value by selecting first defined input for up to 8 input values that is not null.',
+    function $coalesce(...args) {
+      return args.find((arg) => arg !== undefined && arg !== null) || null
+    }),
+
 }
