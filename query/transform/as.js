@@ -1,4 +1,4 @@
-const REGEX = /((?![\(|\[|\{]$)(?!\s$)(.*))?\s*?(\:)?\bas\b(\s*|(\s*?\(\s*?))([a-z|A-Z|0-9]+)(\s*?\))?/g
+const REGEX = /((?![\(|\[|\{]$)(?!\s$)(.*))?\s*?(\:)?\bas\b(\s*|(\s*?\(\s*?))([a-z|A-Z|0-9|<|>]+)(\s*?\))?/g
 
 function transform(queryString) {
   return queryString.replace(REGEX, replace)
@@ -10,6 +10,8 @@ function transform(queryString) {
       prefix = prefix.slice(0, -1)
     }
 
+    const originalType = type
+    type = type.split('<')[0]
     prefix = (prefix || '').trim().replace(REGEX, replace)
 
     const primitives = {
@@ -18,7 +20,6 @@ function transform(queryString) {
       float: '$float',
       function: '$function',
       int: '$int',
-      json: '$json',
       number: '$number',
       object: '$object',
       string: '$string'
@@ -41,8 +42,10 @@ function transform(queryString) {
 
     const specials = {
       camelcase: '$camelcase',
+      json: '$json',
       keys: '$keys',
       pascalcase: '$pascalcase',
+      reversed: '$reversed',
       snakecase: '$snakecase',
       sorted: '$sorted',
       tuple: '$tuple',
@@ -70,7 +73,20 @@ function transform(queryString) {
     }
 
     if (target) {
-      output.push(`${target[type.toLowerCase()]}(${prefix})`)
+      const [, innerType ] = (originalType.match(RegExp(`${type}<(.*)>`)) || [])
+      if (/int|float|string|array/.test(type.toLowerCase())) {
+        prefix = prefix
+          .replace(/^\(+/g, '')
+
+        if (postfix) {
+          postfix = postfix
+            .replace(/\)+$/g, '')
+        }
+
+        output.push(`${target[type.toLowerCase()]}(${prefix}, "${innerType || ''}")`)
+      } else {
+        output.push(`${target[type.toLowerCase()]}(${prefix})`)
+      }
     }
 
     if (postfix) {

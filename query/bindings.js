@@ -162,8 +162,8 @@ module.exports = {
     function $tuple(input) {
       if (input) {
         if ('function' === typeof input.keys && 'function' === typeof input.values) {
-          const keys = input.keys()
-          const values = input.values()
+          const keys = [ ...input.keys() ]
+          const values = [ ...input.values() ]
           const result = []
 
           for (let i = 0; i < keys.length; ++i) {
@@ -221,7 +221,7 @@ module.exports = {
 
       function keys(input) {
         if (input && 'function' === typeof input.keys) {
-          return input.keys()
+          return [ ...input.keys() ]
         } else {
           return Object.keys(input)
         }
@@ -341,18 +341,34 @@ module.exports = {
 
   // $array(input: any): array
   array: binding(
-    '<j-:a> # Converts input into an array.',
-    function $array(input) {
+    '<j-s?:a> # Converts input into an array.',
+    function $array(input, valueType) {
       if (Array.isArray(input)) {
-        return input
+        return input.map((value) => {
+          if (!valueType) {
+            return value
+          }
+
+          switch (valueType.toLowerCase()) {
+            case 'json': return JSON.parse(value)
+            case 'number': return Number(value)
+            case 'int': return parseInt(value)
+            case 'float': return parseFloat(value)
+            case 'string': return String(value)
+            case 'object': return Object(value)
+            case 'boolean': return !!value
+            case 'array': return $array(value)
+            default: return value
+          }
+        })
       }
 
       if (input && input.length) {
-        return Array.from(input)
+        return $array(Array.from(input), valueType)
       }
 
       if (undefined !== input) {
-        return [input]
+        return $array([input], valueType)
       }
 
       return []
@@ -407,9 +423,9 @@ module.exports = {
       return [].concat(...args)
     }),
 
-  // $unique(input: (array | *)?): array
+  // $unique(input: (array | *)?): array | string
   unique: binding(
-    '<j-:a> # Returns input array with only unique elements.',
+    '<j-:(as)> # Returns input array with only unique elements.',
     function $unique(input) {
       if (Array.isArray(input)) {
         const results = []
@@ -424,7 +440,7 @@ module.exports = {
 
         return results
       } else if (input instanceof String || 'string' === typeof input) {
-        return $unique(input.split(''))
+        return $unique(input.split('')).join('')
       } else if (undefined !== input) {
         return [input]
       } else {
@@ -432,14 +448,14 @@ module.exports = {
       }
     }),
 
-  // $sorted(input: (array | *)?): array
+  // $sorted(input: (array | *)?): array | string
   sorted: binding(
-    '<j-:a> # Returns input array with elements sorted.',
-    function $sorted(input) {
+    '<j-:(as)> # Returns input array with elements sorted.',
+    function $sorted(input, arg) {
       if (Array.isArray(input)) {
         return input.sort(sort)
       } else if ('string' === typeof input || input instanceof String) {
-        return $sorted(input.split(''))
+        return $sorted(input.split('')).join('')
       } else if (undefined !== input) {
         return [input]
       } else {
@@ -467,9 +483,24 @@ module.exports = {
       }
     }),
 
-  // $slice(node: (ParserNode | Array), start: number, stop: number): array
+  // $reversed(input: (array | *)?): array | string
+  reversed: binding(
+    '<j-:(as)> # Returns input array or string with elements reversed.',
+    function $reversed(input) {
+      if (Array.isArray(input)) {
+        return input.reverse()
+      } else if ('string' === typeof input || input instanceof String) {
+        return $reversed(input.split('')).join('')
+      } else if (undefined !== input) {
+        return [input]
+      } else {
+        return []
+      }
+    }),
+
+  // $slice(node: (ParserNode | Array), start: number, stop: number): array | string
   slice: binding(
-    '<j-n?n?:a> # Returns a slice of an array or parser node.',
+    '<j-n?n?:(sa)> # Returns a slice of an array, string, or parser node.',
     function $slice(node, start, stop) {
       if ('number' !== typeof start) {
         start = 0
@@ -493,7 +524,12 @@ module.exports = {
             stop = Infinity
           }
         }
-        return node.slice(start, stop)
+
+        if ('string' === typeof node || node instanceof String) {
+          return node.slice(start, stop)
+        } else {
+          return node.slice(start, stop)
+        }
       } else {
         return node
       }

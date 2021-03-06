@@ -1,8 +1,8 @@
 const camelcase = require('camelcase')
 
-const REGEX = /((?![\(|\[|\{]$)(?!\s$)?.*)?\s*?(\:)?is(\s*not\s*)?\s*?\(?\s*?(["|']?[a-z|A-Z|0-9]+["|']?)((?!\s$)?.*)?\)?/g
+const REGEX = /((?![\(|\[|\{|\*]+$)(?!\s$)?.*)?\s*?(\:)?is(\s*not\s*)?\s*?\(?\s*?(["|']?[\$|_|\-|\.|a-z|A-Z|0-9]+["|']?)((?!\s$)?.*)?\)?/g
 
-function transform(queryString) {
+function transform(queryString, ctx) {
   return queryString.replace(REGEX, replace)
 
   function replace(_, prefix, selector, not, type, postfix) {
@@ -21,14 +21,19 @@ function compile({ prefix, postfix, selector, not, type }) {
 
   const primitives = ['string', 'array' ,'number', 'boolean', 'object', 'function']
   const instances = { date: 'Date', document: 'Document' }
-  const constants = ['null', 'true', 'false', 'nan', 'infinity']
+  const constants = ['null', 'true', 'false', 'nan', 'infinity', '$', '$i', '%']
   const specials = { text: 'isText', node: 'isParserNode', fragment: 'isFragment' }
   const negate = 'not' === not.trim()
   const expr = [not, type].join(' ').trim().toLowerCase()
 
+  const isConstantCheck = (
+    constants.includes(type.toLowerCase()) ||
+    /^[@|#]\$/.test(type.toLowerCase()) ||
+    /^$/.test(type.toLowerCase())
+  )
+
   const hasLeadingKeyword = /(and|or|\.)$/.test(prefix)
   const isPrimitiveCheck = primitives.includes(type.toLowerCase())
-  const isConstantCheck = constants.includes(type.toLowerCase())
   const isInstanceCheck = type.toLowerCase() in instances
   const isSpecialCheck = type.toLowerCase() in specials
   const isStringCheck = (/^"/.test(type) && /"$/.test(type)) || (/^'/.test(type) && /'$/.test(type))
@@ -69,6 +74,15 @@ function compile({ prefix, postfix, selector, not, type }) {
   }
 
   const inputContext = isInputStreamed ? '' : '$'
+
+  if (!isSpecialCheck && !isInstanceCheck) {
+    if (inputContext && output.slice(-1)[0] !== inputContext) {
+      if (/\[$/.test(normalizedPrefix)) {
+        output.push(inputContext)
+      }
+    }
+  }
+
 
   if (isPrimitiveCheck) {
     output.push(` $typeof(${inputContext}) ${negate ? '!' : ''}= "${type}"`)

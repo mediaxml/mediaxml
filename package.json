@@ -57,6 +57,7 @@
     "smpte-timecode": "^1.2.3",
     "streamx": "^2.10.1",
     "strip-ansi": "^6.0.0",
+    "strip-json-comments": "^2.0.1",
     "tinyduration": "^3.2.0",
     "to-snake-case": "^1.0.0"
   },

@@ -24,6 +24,9 @@ const cache = new Map()
  * @param {?Object} opts - Query options
  * @param {?Object} [opts.model = {}] - An optional model to query, instead of one derived from the input `node`
  * @param {?Object} [opts.bindings = node.options.bindings] - Bindings to use instead of the ones derived from the input `node`
+ * @param {?Object} [opts.assignmentss] - A key-value object of variable assignments. This function will modify this object.
+ * @param {?Map} [opts.imports] - A map of existing imports. This function will modify this map.
+ * @param {?Function} [opts.load] - An import loader function. This function must be given if queries use the `import <path|URL>` statement.
  * @return {?(ParserNode|ParserNodeFragment|String|*)}
  * @see https://jsonata.org
  * @memberof query
@@ -69,27 +72,54 @@ function query(node, queryString, opts) {
     require('./transform/children'),
     require('./transform/attributes'),
     require('./transform/ordinals'),
-
+    require('./transform/hex'),
     require('./transform/as'),
     require('./transform/is'),
     require('./transform/has'),
-    require('./transform/set'),
+    require('./transform/let'),
     require('./transform/print'),
     require('./transform/typeof'),
+    require('./transform/import'),
     require('./transform/contains'),
-    require('./transform/cleanup'),
 
-    ...(!Array.isArray(opts.transform)
+    ...(opts.transform && !Array.isArray(opts.transform)
       ? [{ transform: opts.transform }]
-      : opts.transform)
+      : opts.transform || []),
+
+    ...((node && node.options && node.options.transform) || []),
+
+    require('./transform/comments'),
+    require('./transform/cleanup'),
   ]
 
   let expression = cache.get(queryString)
   const assignments = opts.assignments || {}
+  const imports = opts.imports || new Map()
   const context = {
+    bindings: queryBindings,
     assignments,
+    imports,
     assign(key, value) {
       assignments[key] = value
+    },
+
+    import(target) {
+      if (!imports.has(target)) {
+        const tmp = {}
+        const promise = new Promise((resolve, reject) => {
+          Object.assign(tmp, { resolve, reject })
+          if ('function' === typeof opts.load) {
+            opts.load(target).then(resolve).catch(reject)
+          } else {
+            return reject(new Error('Missing import loader.'))
+          }
+        })
+
+        imports.set(target, Object.assign(promise, tmp))
+        return promise
+      } else {
+        return imports.get(target)
+      }
     }
   }
 

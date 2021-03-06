@@ -22,6 +22,7 @@ const pkg = require('../package.json')
 const fs = require('fs')
 
 const argv = require('minimist')(process.argv.slice(2), {
+  '--': true,
   alias: {
     h: ['help'],
     i: ['inspect'],
@@ -86,12 +87,25 @@ if (0 && !argv._[0] && process.stdin.isTTY) {
   process.exit(1)
 }
 
-const assignments = {}
+const assignments = {
+  cwd: process.cwd(),
+  argv0: argv._[0] || null,
+  argv1: argv['--'][0] || null,
+  argv2: argv['--'][1] || null,
+  argv3: argv['--'][2] || null,
+  argv4: argv['--'][3] || null,
+}
+
+const imports = new Map()
+const importing = new Set()
 const parser = new Parser()
 
 let [ arg0, query = arg0 ] = argv._
 let server = null
+let watcher = null
 let filename = null
+let lastQuery = null
+let currentDirname = process.cwd()
 let documentNotLoadedWarningShown = false
 
 const spinners = {
@@ -104,6 +118,9 @@ const spinners = {
     prefixText: `${chalk.bold(chalk.italic('loading'))}:`
   })
 }
+
+process.on('uncaughtException', debug)
+process.on('unhandledRejection', debug)
 
 if (arg0 && query && arg0 === query) {
   query = null
@@ -160,20 +177,25 @@ function onstream(err, stream) {
     return
   }
 
-  stream.pipe(parser.createWriteStream())
+  const bytes = []
+  parser.clear()
+  stream
+    .on('data', (d) => bytes.push(d))
+    .pipe(parser.createWriteStream())
     .on('error', (err) => {
       console.error('error: %s', err.message)
       debug(err.stack || err)
     })
-    .on('finish', () => {
+    .on('finish', async () => {
       if (query) {
         let result = null
         const now = Date.now()
         try {
           query = query.trim()
-
           result = parser.query(query, {
             assignments,
+            imports,
+            load,
             inspect: Boolean(argv.inspect)
           })
         } catch (err) {
@@ -211,21 +233,257 @@ function onstream(err, stream) {
           console.error(result)
         }
       } else if (process.stdin.isTTY) {
-        startRepl()
+        if (!parser.rootNode) {
+          try {
+            await load(arg0)
+            if (argv.repl) {
+              startRepl()
+            }
+          } catch (err) {
+            console.error('%s: %s', chalk.red('error'), chalk.bold(err.message))
+            debug(err.stack || err)
+            process.exit(1)
+          }
+        } else {
+          startRepl()
+        }
       }
     })
 }
 
+async function load(filenameToLoad) {
+  filenameToLoad = filenameToLoad.replace(/file:\//, '')
+  try {
+    const { protocol } = new URL(filenameToLoad)
+  } catch (err) {
+    if (err && ('ERR_INVALID_URL' !== err.code && !err.message.test(/protocol/))) {
+      debug(err)
+    } else {
+      filenameToLoad = path.resolve(currentDirname, filenameToLoad).replace('file://', '')
+      try {
+        fs.accessSync(filenameToLoad, fs.constants.R_OK | fs.constants.F_OK)
+        if (!/file:\/\//.test(filenameToLoad)) {
+          filenameToLoad = `file://${filenameToLoad}`
+        }
+      } catch (err) {
+        if (err && 'ENOENT' !== err.code) {
+          return Promise.reject(err)
+        }
+
+        return Promise.resolve(null)
+      }
+    }
+  }
+
+  return new Promise((resolve, reject) => {
+    get(filenameToLoad, (err, stream) => {
+      if (err) {
+        console.error('%s: %s', chalk.red('error'), chalk.bold(err.message))
+        debug(err.stack || err)
+        reject(err)
+      } else {
+        filename = filenameToLoad
+        currentDirname = path.dirname(filename).replace('file://', '')
+        spinners.loading.start()
+        process.nextTick(() => {
+          const bytes = []
+          const previousXML = parser.node && parser.node.outerXML
+          stream
+            .on('data', (d) => bytes.push(d))
+            .on('error', reject)
+            .on('end', async () => {
+              spinners.loading.stop()
+
+              if (server) {
+                server.setPrompt(`${chalk.bold('mxml')}(${chalk.italic(filename ? path.basename(filename.split('?')[0]) : '-')})> `)
+              }
+
+              if (argv.watch) {
+                watch()
+              }
+
+              const data = Buffer.concat(bytes).toString()
+              const tmp = Parser.from(data)
+
+              if (tmp.rootNode) {
+                parser.clear()
+                parser.write(tmp.rootNode.outerXML)
+                parser.end()
+              }
+
+              if (!parser.rootNode) {
+                if (previousXML) {
+                  parser.clear()
+                  parser.write(previousXML)
+                  parser.end()
+                }
+
+                const query = Buffer.concat(bytes).toString()
+                lastQuery = query
+
+                let result = null
+                let endOfInput = false
+
+                try {
+                  result = parser.query(query, { load, imports, assignments })
+                } catch (err) {
+                  if (err && '(end)' !== err.token && !imports.size) {
+                    return reject(err)
+                  }
+
+                  if (err && '(end)' === err.token) {
+                    endOfInput = true
+                  }
+                }
+
+                if (imports.size) {
+                  for (const [ importPath, importPromise ] of imports.entries()) {
+                    if (!importing.has(importPromise)) {
+                      await importPromise
+                      importing.add(importPromise)
+                    }
+                  }
+
+                  currentDirname = path.dirname(filename).replace('file://', '')
+                  if (!endOfInput) {
+                    result = parser.query(query, { load, imports, assignments })
+                  }
+                }
+
+                if (result) {
+                  if (result instanceof Promise) {
+                    result = await result
+                  }
+
+                  const output = pretty(result)
+
+                  if (output) {
+                    process.stdout.write(output)
+                    process.stdout.write('\n')
+                  }
+                }
+              } else {
+                let result = null
+
+                try {
+                  query = data || query
+                  result = parser.query(query, { load, imports, assignments })
+                } catch (err) {
+                  if (err && '(end)' !== err.token && !imports.size) {
+                    return reject(err)
+                  }
+                }
+
+                if (result) {
+                  if (result instanceof Promise) {
+                    result = await result
+                  }
+
+                  const output = pretty(result)
+
+                  if (output) {
+                    process.stdout.write(output)
+                    process.stdout.write('\n')
+                  }
+
+                  return resolve(result)
+                }
+              }
+
+              resolve(parser.rootNode)
+            })
+        })
+      }
+    })
+  })
+}
+
+async function watch() {
+  if (watcher) {
+    await watcher.close()
+  }
+
+  const { pathname } = new URL(filename)
+  watcher = chokidar.watch(pathname)
+  watcher.on('change', () => {
+    console.error()
+    load(filename).then(async () => {
+      //server.clearBufferedCommand()
+      //server.displayPrompt()
+      const { cursorPos, displayPos } = getCursorPreviewPosition(server)
+      const cols = displayPos.cols - cursorPos.cols
+      clearScreenDown(server.output)
+      moveCursor(server.output, cols, 0)
+      const query = server.line
+
+      if (query) {
+        let result = null
+
+        try {
+          result = parser.query(query, { load, imports, assignments })
+        } catch (err) {
+          if (err && '(end)' !== err.token && !imports.size) {
+            throw err
+          }
+        }
+
+        if (imports.size) {
+          for (const [ importPath, importPromise ] of imports.entries()) {
+            if (!importing.has(importPromise)) {
+              await importPromise
+              importing.add(importPromise)
+            }
+          }
+
+          result = parser.query(query, { load, imports, assignments })
+        }
+
+        if (result instanceof Promise) {
+          result = await result
+        }
+
+        process.nextTick(() => {
+          let output = ''
+
+          const { cursorPos, displayPos } = getCursorPreviewPosition(server)
+          const cols = displayPos.cols - cursorPos.cols
+          const rows = displayPos.rows - cursorPos.rows
+
+          if (result) {
+            output = pretty(result)
+
+            if (output) {
+              output = output.split('\n').slice(0, server.output.rows - rows - 1)
+              const n = output.length
+              output = output
+                .map((o) => `${truncate(o, server.output.columns - 8)}`)
+                .join('\n')
+
+              moveCursor(server.output, cols, rows)
+              clearScreenDown(server.output)
+              server.output.write(`${output}`)
+              cursorTo(server.output, cursorPos.cols)
+              moveCursor(server.output, cols, -rows - n -1)
+            }
+          } else if (!query) {
+            moveCursor(server.output, cols, rows)
+            clearScreenDown(server.output)
+          }
+        })
+      }
+    })
+  })
+}
+
 function startRepl() {
   let historyIndex = 0
-  let watcher = null
   const history = []
   const inputBuffer = []
 
   process.stdin.setRawMode(true)
 
   process.stdin.on('keypress', async (str, key) => {
-    if (argv['no-preview']) {
+    if (argv['no-preview'] || argv.debug) {
       return
     }
 
@@ -251,6 +509,7 @@ function startRepl() {
       inputBuffer.splice(0, inputBuffer.length)
       history.push(key)
       historyIndex = history.length - 1
+      clearScreenDown(server.output)
     } else if (key.sequence) {
       inputBuffer.push(key.sequence)
     }
@@ -270,7 +529,7 @@ function startRepl() {
       }
 
       try {
-        result = parser.query(query, { assignments })
+        result = parser.query(query, { load, imports, assignments })
 
         if (result instanceof Promise) {
           result = await result
@@ -315,7 +574,7 @@ function startRepl() {
   console.error('Please report bugs to %s', chalk.bold(chalk.italic(pkg.bugs.url)))
 
   if (!parser.rootNode) {
-    console.error('Try using '+ chalk.bold('`load <URL>`') +' command to load an XML document into the context.')
+    console.error('Try using '+ chalk.bold('`import <URL>`') +' command to load an XML document into the context.')
   } else if (argv.watch) {
     watch()
   }
@@ -353,116 +612,6 @@ function startRepl() {
       debug(err.stack || err)
     }
   })
-
-  parser.options.bindings.load = load
-  load.signature = '<s:x>'
-
-  function load(filenameToLoad) {
-    filename = filenameToLoad
-    try {
-      const { protocol } = new URL(filename)
-    } catch (err) {
-      if (err && 'ERR_INVALID_URL' !== err.code) {
-        debug(err)
-      } else {
-        try {
-          filename = path.resolve(process.cwd(), filename)
-          fs.accessSync(filename, fs.constants.R_OK | fs.constants.F_OK)
-          filename = `file://${filename}`
-        } catch (err) {
-          void err
-        }
-      }
-    }
-
-    return new Promise((resolve, reject) => {
-      get(filename, (err, stream) => {
-        if (err) {
-          console.error('%s: %s', chalk.red('error'), chalk.bold(err.message))
-          debug(err.stack || err)
-          reject(err)
-        } else {
-          parser.clear()
-          spinners.loading.start()
-          process.nextTick(() => {
-            stream.pipe(parser.createWriteStream())
-              .on('error', reject)
-              .on('finish', () => {
-                spinners.loading.stop()
-                server.setPrompt(`${chalk.bold('mxml')}(${chalk.italic(filename ? path.basename(filename.split('?')[0]) : '-')})> `)
-
-                if (argv.watch) {
-                  watch()
-                }
-
-                resolve(parser.rootNode)
-              })
-          })
-        }
-      })
-    })
-  }
-
-  async function watch() {
-    if (watcher) {
-      await watcher.close()
-    }
-
-    const { pathname } = new URL(filename)
-    watcher = chokidar.watch(pathname)
-    watcher.on('change', () => {
-      console.error()
-      load(filename).then(async () => {
-        //server.clearBufferedCommand()
-        //server.displayPrompt()
-        const { cursorPos, displayPos } = getCursorPreviewPosition(server)
-        const cols = displayPos.cols - cursorPos.cols
-        clearScreenDown(server.output)
-        moveCursor(server.output, cols, 0)
-        const query = server.line
-
-        if (query) {
-          try {
-            result = parser.query(query, { assignments })
-
-            if (result instanceof Promise) {
-              result = await result
-            }
-          } catch (err) {
-          }
-
-          process.nextTick(() => {
-            let output = ''
-
-            const { cursorPos, displayPos } = getCursorPreviewPosition(server)
-            const cols = displayPos.cols - cursorPos.cols
-            const rows = displayPos.rows - cursorPos.rows
-
-            if (result) {
-              output = pretty(result)
-
-              if (output) {
-                output = output.split('\n').slice(0, server.output.rows - rows - 1)
-                const n = output.length
-                output = output
-                  .map((o) => `${truncate(o, server.output.columns - 8)}`)
-                  .join('\n')
-
-                moveCursor(server.output, cols, rows)
-                clearScreenDown(server.output)
-                server.output.write(`${output}`)
-                cursorTo(server.output, cursorPos.cols)
-                moveCursor(server.output, cols, -rows - n -1)
-              }
-            } else if (!query) {
-              moveCursor(server.output, cols, rows)
-              clearScreenDown(server.output)
-            }
-          })
-        }
-      })
-    })
-  }
 }
 
 // borrowed from: https://github.com/nodejs/node/blob/master/lib/internal/repl/utils.js
@@ -528,7 +677,10 @@ function pretty(result) {
 async function evaluate(query, context, file, callback) {
   try {
     query = query.trim()
-      .replace(/(\$?load\s*?)[\'|"]?([0-9|a-z|A-Z|\-|_|\$|.|\:|\(|\)|\&|\%|\#|\@|\*|\!|\/|\\|\?|=|\+]+)[\'|"]?\s*?/ig, '$load("$2")')
+
+    if (!query) {
+      return callback(null, null)
+    }
 
     const now = Date.now()
 
@@ -540,7 +692,33 @@ async function evaluate(query, context, file, callback) {
     }
 
     try {
-      let result = parser.query(query, { assignments })
+      let result = null
+      let endOfInput = false
+
+      try {
+        result = parser.query(query, { load, imports, assignments })
+      } catch (err) {
+        if (err && '(end)' !== err.token && !imports.size) {
+          throw err
+        }
+
+        if (err && '(end)' === err.token) {
+          endOfInput = true
+        }
+      }
+
+      if (imports.size) {
+        for (const [ importPath, importPromise ] of imports.entries()) {
+          if (!importing.has(importPromise)) {
+            await importPromise
+            importing.add(importPromise)
+          }
+        }
+
+        if (!endOfInput) {
+          result = parser.query(query, { load, imports, assignments })
+        }
+      }
 
       if (result instanceof Promise) {
         result = await result
@@ -618,7 +796,7 @@ function completer(query) {
   const completions = [ ]
 
   if (query) {
-    const pathToLoad = query.match(/\$?load\(?\s*(['|"])?(.*)['|"]?\s*\)?/)
+    const pathToLoad = query.match(/\bimport\s*(['|"])?(.*)['|"]?\s*?/)
     if (pathToLoad) {
       let [, quote, pathspec ] = pathToLoad
 
@@ -650,7 +828,7 @@ function completer(query) {
         '$float(',
         '$int(',
         '$now(',
-        '$load(',
+        '$import(',
         '$slice(',
         '$toJSON',
       )
@@ -714,7 +892,7 @@ function completer(query) {
       'attr(',
       'name',
       'text',
-      'load',
+      'import',
       'is',
       'is array',
       'is date',
