@@ -1,6 +1,6 @@
 {
   "name": "mediaxml",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A module for working with media manifests represented by XML like ADI, mRSS, and SCTE236.",
   "scripts": {
     "test": "tape tests",
