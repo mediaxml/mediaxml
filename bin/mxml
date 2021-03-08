@@ -38,6 +38,7 @@ if (argv.help) {
   process.stdout.write('  -h, --help      Show this message\n')
   process.stdout.write('  -i, --inspect   Show inspected output\n')
   process.stdout.write('  -D, --debug     Show debug output\n')
+  process.stdout.write('  -R, --repl      Launch program REPL\n')
   process.stdout.write('  -T, --timing    Show query timing debug output\n')
   process.stdout.write('  -V, --version   Show program version\n')
   process.stdout.write('  -W, --watch     Watch for changes (REPL context only)\n')
@@ -101,6 +102,7 @@ if ('-' === argv._[0] || !process.stdin.isTTY) {
 } else if (arg0) {
   const context = repl.createContext(arg0, {
     onerror: console.error,
+    preview: !('no-preview' in argv) && false !== argv.preview,
     timing: argv.timing,
     debug: argv.debug,
   })
@@ -138,6 +140,7 @@ if ('-' === argv._[0] || !process.stdin.isTTY) {
 } else {
   repl.start({
     onerror: console.error,
+    preview: !('no-preview' in argv) && false !== argv.preview,
     timing: argv.timing,
     debug: argv.debug,
   })

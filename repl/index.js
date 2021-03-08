@@ -400,6 +400,11 @@ class Context {
  * @return {Context}
  */
 function createContext(filename, opts) {
+  if (filename && 'object' === typeof filename && !filename.pipe) {
+    opts = filename
+    filename = null
+  }
+
   opts = { ...opts }
 
   if (filename && !opts.parser) {
