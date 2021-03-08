@@ -33,6 +33,7 @@
   "license": "MIT",
   "dependencies": {
     "@12core/chromafi": "^3.0.1",
+    "blake2b": "^2.1.3",
     "camelcase": "^6.2.0",
     "chalk": "^4.1.0",
     "chokidar": "^3.5.1",
@@ -44,7 +45,8 @@
     "get-uri": "^3.0.2",
     "glob": "^7.1.6",
     "highlight.js": "^10.5.0",
-    "htmlparser2": "^6.0.0",
+    "htmlparser2": "^6.0.1",
+    "inverted-promise": "^1.0.1",
     "jsonata": "^1.8.4",
     "map-extend": "^0.1.0",
     "mime": "^2.5.0",

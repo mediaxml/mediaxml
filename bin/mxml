@@ -12,17 +12,25 @@ const argv = require('minimist')(process.argv.slice(2), {
     h: ['help'],
     i: ['inspect'],
     D: ['debug'],
+    j: ['json'],
+    P: ['pretty'],
     R: ['repl'],
     T: ['timing'],
     V: ['version'],
     W: ['watch'],
   },
 
+  default: {
+    pretty: true
+  },
+
   boolean: [
     'debug',
     'inspect',
     'help',
+    'json',
     'no-preview',
+    'pretty',
     'preview',
     'repl',
     'timing',
@@ -38,6 +46,8 @@ if (argv.help) {
   process.stdout.write('  -h, --help      Show this message\n')
   process.stdout.write('  -i, --inspect   Show inspected output\n')
   process.stdout.write('  -D, --debug     Show debug output\n')
+  process.stdout.write('  -j, --json      Convert output to JSON\n')
+  process.stdout.write('  -P, --pretty    Show pretty output (default in most cases)\n')
   process.stdout.write('  -R, --repl      Launch program REPL\n')
   process.stdout.write('  -T, --timing    Show query timing debug output\n')
   process.stdout.write('  -V, --version   Show program version\n')
@@ -107,14 +117,10 @@ if ('-' === argv._[0] || !process.stdin.isTTY) {
     debug: argv.debug,
   })
 
-  if (argv.repl) {
-    context.start()
-    return
-  }
-
   context.parser.then(async () => {
     const { imports } = context
-    let result = await context.parser.query(`import ${arg0}`, context)
+    let result = await context.parser.query(`import '${arg0}'`, context)
+    let output = null
 
     if (!result && imports.size) {
       const values = await Promise.all([ ...imports.values() ])
@@ -127,12 +133,34 @@ if ('-' === argv._[0] || !process.stdin.isTTY) {
       }
     }
 
+    if (query) {
+      result = await context.parser.query(query, context)
+    }
+
     if (result) {
-      const output = pretty(result)
-      if (output) {
-        process.stdout.write(output)
-        process.stdout.write('\n')
+      if (argv.json) {
+        if (argv.pretty) {
+          process.stdout.write(JSON.stringify(result, null, '  '))
+          process.stdout.write('\n')
+        } else {
+          process.stdout.write(JSON.stringify(result))
+        }
+        return
+      } else {
+        if (false !== argv.pretty) {
+          output = pretty(result)
+          if (output) {
+            process.stdout.write(output)
+            process.stdout.write('\n')
+          }
+        } else {
+          console.log(result)
+        }
       }
+    }
+
+    if (argv.repl) {
+      context.start()
     }
   }).catch((err) => {
     context.log.error(err)

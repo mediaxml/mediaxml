@@ -1,5 +1,7 @@
 const { createReadStream } = require('./stream')
+const InvertedPromise = require('inverted-promise')
 const { Parser } = require('./parser')
+const { hash } = require('./hash')
 const defined = require('defined')
 const debug = require('debug')('mediaxml')
 const mutex = require('mutexify')
@@ -9,8 +11,12 @@ const fs = require('fs')
 function createLoader(context, opts) {
   opts = { ...opts }
 
-  const lock = mutex()
+  let pending = 0
+  let loaded = 0
+
   const backlog = []
+  const cache = new Map()
+  const lock = mutex()
 
   const state = {
     paths: [opts.cwd || process.cwd()],
@@ -20,16 +26,22 @@ function createLoader(context, opts) {
     }
   }
 
-  let loaded = 0
-  let pending = 0
-
   return async function load(uri) {
     const { parser, imports, assignments } = context
+    const cacheKey = hash([state.cwd, uri])
     const buffers = []
     const { cwd } = state
     let stream = null
 
+    if (cache.has(cacheKey)) {
+      return cache.get(cacheKey)
+    }
+
+    const tmp = {}
+    const cachedPromise = new InvertedPromise()
+
     const promise = new Promise((resolve, reject) => {
+      cache.set(cacheKey, cachedPromise)
       lock(async (release) => {
         pending++
 
@@ -116,6 +128,7 @@ function createLoader(context, opts) {
             opts.onload({ pending, loaded, result, state, uri })
           }
 
+          cachedPromise.resolve(result)
           resolve(result)
         }
       })

@@ -1,4 +1,5 @@
 const { WritableStream } = require('htmlparser2/lib/WritableStream')
+const InvertedPromise = require('inverted-promise')
 const { Readable } = require('streamx')
 const htmlparser2 = require('htmlparser2')
 const { inspect } = require('util')
@@ -1101,7 +1102,7 @@ class ParserNode {
    * @type {Number}
    */
   get length() {
-    return this.children.length
+    return this.children.length || 0
   }
 
   /**
@@ -1675,7 +1676,7 @@ class ParserState {
    * @type {Number}
    */
   get length() {
-    return this.stack.length
+    return this.stack.length || 0
   }
 
   /**
@@ -1845,8 +1846,11 @@ class ParserHandler {
    */
   onclosetag(name) {
     debug('ParserHandler::onclosetag %s', name)
+
     if (this.parser.state.length > 1) {
       this.parser.state.pop()
+    } else {
+      this.onend()
     }
   }
 
@@ -1928,13 +1932,6 @@ class ParserHandler {
    */
   oncdatastart() {
     debug('ParserHandler::oncdatastart')
-
-    const { currentNode } = this
-
-    if (currentNode) {
-      const cdata = new ParserNode('cdata', null, this.parser.state.depth, this.parser.options)
-      currentNode.appendChild(cdata)
-    }
   }
 
   /**
@@ -1947,11 +1944,6 @@ class ParserHandler {
    */
   oncdataend() {
     debug('ParserHandler::oncdataend')
-
-    const { currentNode } = this
-    if (currentNode && 'cdata' === currentNode.name && this.parser.state.length > 1) {
-      this.parser.state.pop()
-    }
   }
 
   /**
@@ -2203,16 +2195,23 @@ class Parser extends htmlparser2.Parser {
 
     if (input && input.then) {
       const parser = new this(...args)
+
       input
         .then((result) => {
           if (result && result.pipe) {
-            result.pipe(parser.createWriteStream())
+            parser.clear()
+            result
+              .pipe(parser.createWriteStream())
+              .on('error', err => parser.onerror(err))
           } else if ('string' === typeof result) {
             parser.clear()
             parser.write(result)
             parser.end()
           } else if (result && result.createReadStream) {
-            result.createReadStream().pipe(parser.createWriteStream())
+            parser.clear()
+            result.createReadStream()
+              .pipe(parser.createWriteStream())
+              .on('error', err => parser.onerror(err))
           } else if (result instanceof Parser) {
             const parser = new this({
               ...result.options,
@@ -2220,7 +2219,7 @@ class Parser extends htmlparser2.Parser {
               state: result.state,
             })
 
-            parser.promise = result.promise
+            parser.promise = result.promise.then(parser.promise)
             parser.ended = result.ended
             parser.error = result.error
           }
@@ -2228,6 +2227,7 @@ class Parser extends htmlparser2.Parser {
         .catch((err) => {
           parser.onerror(err)
         })
+
       return parser
     }
 
@@ -2257,7 +2257,7 @@ class Parser extends htmlparser2.Parser {
 
     super(handler, parserOptions)
 
-    this.promise = makePromise()
+    this.promise = new InvertedPromise()
 
     Object.defineProperty(this, 'options', {
       configurable: false,
@@ -2468,11 +2468,17 @@ class Parser extends htmlparser2.Parser {
    * Clear the parser state
    */
   clear() {
-    this.promise = makePromise()
+    const { promise } = this
+    this.promise = new InvertedPromise()
     this.ended = false
     this.error = null
     this.reset()
     this.state.clear()
+
+    if (promise) {
+      this.promise.then((result) => promise.resolve(result))
+      this.promise.catch((err) => promise.reject(err))
+    }
   }
 
   /**
@@ -2522,18 +2528,6 @@ class Parser extends htmlparser2.Parser {
   toString(...args) {
     return this.rootNode ? this.rootNode.toString(...args) : ''
   }
-}
-
-/**
- * Makes a promise for deferred resolution with `resolve` and `reject`
- * attached to the returned promise.
- * @private
- * @return {Promise}
- */
-function makePromise() {
-  const p = {}
-  const promise = new Promise((resolve, reject) => Object.assign(p, { resolve, reject }))
-  return Object.assign(promise, p)
 }
 
 /**
