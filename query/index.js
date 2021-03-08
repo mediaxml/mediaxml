@@ -40,6 +40,47 @@ const cache = new Map()
  * @memberof query
  */
 class Imports extends Map {
+
+  /**
+   * Creates a new `Imports` instance from a variety of input.
+   * @public
+   * @static
+   * @param {...(Map|Imports|Object} ...entries
+   * @return {Imports}
+   */
+  static from(...entries) {
+    const maps = []
+    let opts = null
+
+    for (const entry of entries) {
+      if (entry && 'object' === typeof entry) {
+        if ('function' === typeof entry.load) {
+          opts = entry
+        }
+      }
+
+      if (entry && entry instanceof Map) {
+        maps.push(entry)
+      } else if (entry && 'object' === typeof entry && !Array.isArray(entry)) {
+        const map = new Map()
+        for (const key in entry) {
+          map.set(key, entry[key])
+        }
+        maps.push(map)
+      }
+    }
+
+    const imports = new this(opts)
+    extendMap(imports, ...maps)
+    return imports
+  }
+
+  /**
+   * `Imports` class constructor.
+   * @protected
+   * @constructor
+   * @param {Object} opts
+   */
   constructor(opts) {
     opts = { ...opts }
     super()
@@ -53,6 +94,7 @@ class Imports extends Map {
    * Imports loader function implementation
    * @public
    * @abstract
+   * @param {String} target
    */
   async load(target) {
     debug('no-op load for: %s', target)
@@ -65,7 +107,35 @@ class Imports extends Map {
  * @abstract
  * @memberof query
  */
-class Assigments extends Map { }
+class Assigments extends Map {
+
+  /**
+   * Creates a new `Assignments` instance from a variety of input.
+   * @public
+   * @static
+   * @param {...(Map|Assignments|Object} ...entries
+   * @return {Assignments}
+   */
+  static from(...entries) {
+    const maps = []
+
+    for (const entry of entries) {
+      if (entry && entry instanceof Map) {
+        maps.push(entry)
+      } else if (entry && 'object' === typeof entry && !Array.isArray(entry)) {
+        const map = new Map()
+        for (const key in entry) {
+          map.set(key, entry[key])
+        }
+        maps.push(map)
+      }
+    }
+
+    const assigments = new this(opts)
+    extendMap(assigments, ...maps)
+    return assigments
+  }
+}
 
 /**
  * Query context object that is a container for imports, global variables,
@@ -101,6 +171,7 @@ class Context {
     this.node = opts.node
     this.target = opts.target
     this.imports = opts.imports instanceof Map ? opts.imports : new Imports()
+    this.bindings = opts.bindings instanceof Bindings ? opts.bindings : Bindings.from(this, opts.bindings)
     this.assignments = opts.assignments instanceof Map ? opts.assignments : new Assigments()
 
     for (const [ key, value ] of this.assignments) {
@@ -137,26 +208,26 @@ class Context {
       }
     }
 
-    // interpolate variable values in value statement
-    if ('string' === typeof value) {
-      for (const k in assignments) {
-        const regex = RegExp(`\\$${k}`, 'g')
-        value = value.replace(regex, assignments[k])
-      }
-    }
-
     // try to evaluate JSONata expression in key statement
     try {
-      key = defined(jsonata(key).evaluate(node || target, assignments), key)
+      key = Expression.from(this, key).evaluate() || key
     } catch (err) {
       debug(err.stack || err)
     }
 
     // try to evaluate JSONata expression in value statement
     try {
-      value = defined(jsonata(value).evaluate(node || target, assignments), value)
+      value = Expression.from(this, value).evaluate() || value
     } catch (err) {
       debug(err.stack || err)
+    }
+
+    // interpolate variable values in value statement
+    if ('string' === typeof value) {
+      for (const k in assignments) {
+        const regex = RegExp(`\\$${k}`, 'g')
+        value = value.replace(regex, assignments[k])
+      }
     }
 
     // normalize value before setting
@@ -176,23 +247,17 @@ class Context {
     const { target, node, imports } = this
 
     if ('string' === typeof name) {
-      for (const k in assignments) {
-        const regex = RegExp(`\\$${k}`, 'g')
-        name = name.replace(regex, assignments[k])
-      }
-
       try {
-        name = name.replace(/^'/, '"').replace(/'$/, '"')
-        name = JSON.parse(name)
+        name = JSON.parse(name.replace(/^'/, '"').replace(/'$/, '"'))
       } catch (err) {
         debug(err.stack || err)
       }
-    }
 
-    try {
-      name = defined(jsonata(name).evaluate(node || target, assignments), name)
-    } catch (err) {
-      debug(err.stack || err)
+      try {
+        name = Expression.from(this, name).evaluate() || name
+      } catch (err) {
+        debug(err.stack || err)
+      }
     }
 
     if (imports.has(name)) {
@@ -245,12 +310,11 @@ class Expression {
   }
 
   /**
-   * `Bindings` class constructor.
+   * `Expression` class constructor.
    * @protected
    * @constructor
    * @param {String} string
-   * @param {Object} opts
-   * @param {Object} opts.target
+   * @param {?Object} opts
    * @param {?Array|Object} opts.bindings
    * @param {?Array<Object|Function>} opts.transforms
    */
@@ -260,15 +324,21 @@ class Expression {
     }
 
     if (!opts || 'object' !== typeof opts) {
-      throw new TypeError('Expression constructor needs options argument.')
+      opts = {}
     }
 
     this.transforms = new Transforms(context, opts.transforms)
-    this.bindings = new Bindings(context, opts.bindings)
+    this.bindings = null
     this.context = context
     this.string = string
     this.result = opts.result || null
     this.value = cache.get(string) || null
+
+    if (context.bindings instanceof Bindings) {
+      this.bindings = context.bindings
+    } else {
+      this.bindings = Bindings.from(context, opts.bindings)
+    }
   }
 
   get node() {
@@ -379,8 +449,8 @@ class Transforms {
     this.context = context
     this.phases = []
 
-    this.push(0, require('./transform/comments'))
     this.push(0, require('./transform/prepare'))
+    this.push(0, require('./transform/comments'))
     this.push(0, require('./transform/symbols'))
     this.push(0, require('./transform/as'))
     this.push(0, require('./transform/is'))
@@ -389,7 +459,7 @@ class Transforms {
     this.push(0, require('./transform/contains'))
     this.push(0, require('./transform/print'))
     this.push(0, require('./transform/import'))
-    this.push(1, require('./transform/hex'))
+    this.push(0, require('./transform/hex'))
     this.push(0, require('./transform/cleanup'))
 
     this.push(1, require('./transform/children'))
@@ -413,6 +483,7 @@ class Transforms {
       }
     }
 
+    this.push(2, require('./transform/comments'))
     this.push(2, require('./transform/cleanup'))
   }
 
@@ -494,8 +565,15 @@ class Bindings {
    * @static
    * @return {Bindings}
    */
-  static from(...args) {
-    return new this(...args)
+  static from(input, ...args) {
+    if (input instanceof this) {
+      const bindings = new this(input.context, input.entries)
+      const tmp = new this(...args)
+      extendMap(bindings.entries, tmp.entries)
+      return bindings
+    }
+
+    return new this(input, ...args)
   }
 
   /**
@@ -624,16 +702,15 @@ function query(node, queryString, opts) {
   }
 
   const target = model[node.originalName] || model[node.name] || model
-  const context = Context.from({ target, node, ...opts })
-  const expression = Expression.from(context, queryString, {
-    ...opts,
-
+  const context = Context.from({
+    target, node, ...opts,
     bindings: [
       opts.bindings,
       node && node.options && node.options.bindings
     ].filter(Boolean)
   })
 
+  const expression = Expression.from(context, queryString, opts)
   const imports = expression.processImports()
 
   if (imports.size) {

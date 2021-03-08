@@ -1,8 +1,8 @@
 function transform(queryString) {
-  return queryString
+  const result = queryString
     .trim()
     // remove shebang
-    .replace(/^(#!.*)([\n|\r|$])/, '$2')
+    .replace(/^(#!.*)([\n|\r|$])/g, '$2')
     // replace trailing `:` with `.`
     .replace(/\:$/, '.')
     // add '*' by default because we are always searching the same node hierarchy
@@ -10,6 +10,8 @@ function transform(queryString) {
     // lowercase special key words
     .replace(/\s?(AND|OR|NULL)\s?/g, ($1) => $1.toLowerCase())
     .replace(/\s?(And|Or|Null)\s?/g, ($1) => $1.toLowerCase())
+
+  return result
 }
 
 module.exports = {

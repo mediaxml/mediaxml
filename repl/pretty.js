@@ -26,7 +26,8 @@ function pretty(result, opts) {
       }
     } else if ('function' === typeof result) {
       const name = (result.name || 'bound').replace(/^\$/, '')
-      const signature = '...'
+      const signature = result.signature || '..'
+      const description = result.description || ''
 
       if (false === opts.colors) {
         return `${name}(${signature})`

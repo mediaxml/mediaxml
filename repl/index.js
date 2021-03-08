@@ -202,11 +202,12 @@ class Context {
     }
 
     this.assignments.set('cwd', process.cwd())
-    this.assignments.set('argv0', this.filename)
-    this.assignments.set('argv1', this.options.argv[0] || null)
-    this.assignments.set('argv2', this.options.argv[1] || null)
-    this.assignments.set('argv3', this.options.argv[2] || null)
-    this.assignments.set('argv4', this.options.argv[3] || null)
+    this.assignments.set('argv0', this.options.argv[0] || null)
+    this.assignments.set('argv1', this.options.argv[1] || null)
+    this.assignments.set('argv2', this.options.argv[2] || null)
+    this.assignments.set('argv3', this.options.argv[3] || null)
+    this.assignments.set('argv4', this.options.argv[4] || null)
+    this.assignments.set('path', path)
 
     const context = this
 

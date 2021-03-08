@@ -1,9 +1,5 @@
-const strip = require('strip-comments')
-
 function transform(queryString, ctx) {
-  return strip(queryString, {
-    whitespace: false
-  })
+  return queryString.replace(/\/\*[\s\S]*?\*\/|([^:]|^)\/\/.*$/gm, '')
 }
 
 module.exports = {

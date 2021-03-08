@@ -27,7 +27,7 @@ function createLoader(context, opts) {
   }
 
   return async function load(uri) {
-    const { parser, imports, assignments } = context
+    const { parser, imports } = context
     const cacheKey = hash([state.cwd, uri])
     const buffers = []
     const { cwd } = state
@@ -90,9 +90,9 @@ function createLoader(context, opts) {
             // try to evaluate the string instead if its not XML
             try {
               const hasRootNode = !!parser.rootNode
-              result = await parser.query(string, { imports, assignments })
+              result = await parser.query(string, context)
               if (!hasRootNode && parser.rootNode) {
-                result = await parser.query(string, { imports, assignments })
+                result = await parser.query(string, context)
               } else if (result && !parser.rootNode) {
                 backlog.push(string)
               }
@@ -105,7 +105,7 @@ function createLoader(context, opts) {
           while (backlog.length && parser.rootNode) {
             const query = backlog.shift()
             try {
-              const value = await parser.query(query, { imports, assignments })
+              const value = await parser.query(query, context)
               if (value && parser.rootNode) {
                 result = value
                 break

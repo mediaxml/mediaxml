@@ -115,11 +115,12 @@ if ('-' === argv._[0] || !process.stdin.isTTY) {
     preview: !('no-preview' in argv) && false !== argv.preview,
     timing: argv.timing,
     debug: argv.debug,
+    argv: [argv._[0], ...argv['--']]
   })
 
   context.parser.then(async () => {
     const { imports } = context
-    let result = await context.parser.query(`import '${arg0}'`, context)
+    let result = await context.parser.query(`import "${arg0}"`, context)
     let output = null
 
     if (!result && imports.size) {

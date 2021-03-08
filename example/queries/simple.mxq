@@ -4,4 +4,6 @@ import '../mrss/feed.xml';
 //import "$coalesce($argv1, '../mrss/feed.xml')"
 import './imported.mxq'
 
-this.name
+.name
+//$foo
+//this.name
