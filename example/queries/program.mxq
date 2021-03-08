@@ -1,0 +1,6 @@
+#!/usr/bin/env mxml
+
+import './variables.mxq';
+import "$MRSS_FEED_URL";
+
+**[is text and length > 5]

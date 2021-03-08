@@ -1,4 +1,4 @@
-const strip = require('strip-json-comments')
+const strip = require('strip-comments')
 
 function transform(queryString, ctx) {
   return strip(queryString, {

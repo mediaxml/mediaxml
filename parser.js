@@ -2195,6 +2195,42 @@ class Parser extends htmlparser2.Parser {
       return parser
     }
 
+    if (input && 'function' === typeof input.pipe) {
+      const stream = this.createWriteStream(...args)
+      input.pipe(stream)
+      return stream.parser
+    }
+
+    if (input && input.then) {
+      const parser = new this(...args)
+      input
+        .then((result) => {
+          if (result && result.pipe) {
+            result.pipe(parser.createWriteStream())
+          } else if ('string' === typeof result) {
+            parser.clear()
+            parser.write(result)
+            parser.end()
+          } else if (result && result.createReadStream) {
+            result.createReadStream().pipe(parser.createWriteStream())
+          } else if (result instanceof Parser) {
+            const parser = new this({
+              ...result.options,
+              handler: result.handler,
+              state: result.state,
+            })
+
+            parser.promise = result.promise
+            parser.ended = result.ended
+            parser.error = result.error
+          }
+        })
+        .catch((err) => {
+          parser.onerror(err)
+        })
+      return parser
+    }
+
     return new this(input, ...args)
   }
 

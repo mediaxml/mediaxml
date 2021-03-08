@@ -2,7 +2,7 @@ const { normalizeKey, normalizeValue } = require('../../normalize')
 const jsonata = require('jsonata')
 const debug = require('debug')('mediaxml')
 
-const REGEX = /[^|\n]\s*let\s*([a-z|A-Z|0-9|_|\$|\-]+)\s*?:?=\s*?(.*)(;|\n|$)/g
+const REGEX = /\blet\s*([a-z|A-Z|0-9|_|\$|\-]+)\s*?:?=\s*?(.*)(;|\n|$)/g
 
 function transform(queryString, ctx) {
   return queryString.replace(REGEX, replace)
@@ -22,40 +22,6 @@ function transform(queryString, ctx) {
       })
     }
 
-    if ('string' === typeof value || value instanceof String) {
-      try {
-        value = value.replace(/^'/, '"').replace(/'$/, '"')
-        value = JSON.parse(value)
-      } catch (err) {
-        debug('let error:', err.stack || err)
-      }
-    }
-
-    try {
-      value = jsonata(value).evaluate({}, {
-        ...ctx.assignments,
-        ...ctx.bindings
-      }) || value
-    } catch (err) {
-      debug(err.stack || err)
-    }
-
-    if ('string' === typeof value) {
-      for (const bound in ctx.assignments) {
-        const regex = RegExp(`\\$${bound}`, 'g')
-        value = value.replace(regex, ctx.assignments[bound])
-      }
-    }
-
-    // support variable variables
-    if ('string' === typeof key) {
-      for (const bound in ctx.assignments) {
-        const regex = RegExp(`\\$${bound}`, 'g')
-        key = key.replace(regex, ctx.assignments[bound])
-      }
-    }
-
-    value = normalizeValue(value)
 
     ctx.assign(key, value)
     return '.($noop())'

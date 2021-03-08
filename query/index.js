@@ -1,9 +1,25 @@
+const { normalizeValue } = require('../normalize')
 const { ParserNode } = require('../parser')
 const camelcase = require('camelcase')
+const extendMap = require('map-extend')
 const bindings = require('./bindings')
 const defined = require('defined')
 const jsonata = require('jsonata')
 const debug = require('debug')('mediaxml')
+
+/**
+ * Converts a map to an object.
+ * @private
+ * @param {Map} map
+ * @return {Object}
+ */
+function convertMapToObject(map, object) {
+  return [ ...map ].reduce(reduce, object || {})
+
+  function reduce(o, [k, v]) {
+    return Object.assign(o, { [k]: v })
+  }
+}
 
 /**
  * An internal cache used to cache compiled queries.
@@ -16,6 +32,549 @@ const debug = require('debug')('mediaxml')
  * cache.clear()
  */
 const cache = new Map()
+
+/**
+ * An extended Map of imports with an abstract `load()` method.
+ * @public
+ * @abstract
+ * @memberof query
+ */
+class Imports extends Map {
+  constructor(opts) {
+    opts = { ...opts }
+    super()
+
+    if ('function' === typeof opts.load) {
+      this.load = opts.load
+    }
+  }
+
+  /**
+   * Imports loader function implementation
+   * @public
+   * @abstract
+   */
+  async load(target) {
+    debug('no-op load for: %s', target)
+  }
+}
+
+/**
+ * An extended Map of key-value assignments for global variables.
+ * @public
+ * @abstract
+ * @memberof query
+ */
+class Assigments extends Map { }
+
+/**
+ * Query context object that is a container for imports, global variables,
+ * query target, and more.
+ * @public
+ * @memberof query
+ */
+class Context {
+
+  /**
+   * Creates a new `Context` instance from input.
+   * @static
+   * @return {Context}
+   */
+  static from(...args) {
+    return new this(...args)
+  }
+
+  /**
+   * `Context` class constructor.
+   * @protected
+   * @constructor
+   * @param {Object} opts
+   * @param {Map} opts.imports
+   * @param {Map} opts.assignments
+   * @param {?Function} opts.loader
+   */
+  constructor(opts) {
+    if (!opts || 'object' !== typeof opts) {
+      throw new TypeError('Context constructor needs options argument.')
+    }
+
+    this.node = opts.node
+    this.target = opts.target
+    this.imports = opts.imports instanceof Map ? opts.imports : new Imports()
+    this.assignments = opts.assignments instanceof Map ? opts.assignments : new Assigments()
+
+    for (const [ key, value ] of this.assignments) {
+      this.assign(key, value)
+    }
+  }
+
+  /**
+   * Assigns and normalizes a value for a given key in this context.
+   * @param {String} key
+   * @param {?Mixed} value
+   * @return {?Mixed}
+   */
+  assign(key, value) {
+    const assignments = convertMapToObject(this.assignments)
+    const { target, node } = this
+
+    // try to parse value if it is indeed valid JSON supporting a statement like:
+    // let json = '{"hello": "world"}'
+    if ('string' === typeof value || value instanceof String) {
+      try {
+        value = value.replace(/^'/, '"').replace(/'$/, '"')
+        value = JSON.parse(value)
+      } catch (err) {
+        debug(err.stack || err)
+      }
+    }
+
+    // interpolate variable values in key statement
+    if ('string' === typeof key) {
+      for (const k in assignments) {
+        const regex = RegExp(`\\$${k}`, 'g')
+        key = key.replace(regex, assignments[k])
+      }
+    }
+
+    // interpolate variable values in value statement
+    if ('string' === typeof value) {
+      for (const k in assignments) {
+        const regex = RegExp(`\\$${k}`, 'g')
+        value = value.replace(regex, assignments[k])
+      }
+    }
+
+    // try to evaluate JSONata expression in key statement
+    try {
+      key = defined(jsonata(key).evaluate(node || target, assignments), key)
+    } catch (err) {
+      debug(err.stack || err)
+    }
+
+    // try to evaluate JSONata expression in value statement
+    try {
+      value = defined(jsonata(value).evaluate(node || target, assignments), value)
+    } catch (err) {
+      debug(err.stack || err)
+    }
+
+    // normalize value before setting
+    value = normalizeValue(value)
+
+    this.assignments.set(key, value)
+  }
+
+  /**
+   * Imports target calling context loader.
+   * @public
+   * @param {String} name
+   * @return {Promise<Mixed>}
+   */
+  async import(name) {
+    const assignments = convertMapToObject(this.assignments)
+    const { target, node, imports } = this
+
+    if ('string' === typeof name) {
+      for (const k in assignments) {
+        const regex = RegExp(`\\$${k}`, 'g')
+        name = name.replace(regex, assignments[k])
+      }
+
+      try {
+        name = name.replace(/^'/, '"').replace(/'$/, '"')
+        name = JSON.parse(name)
+      } catch (err) {
+        debug(err.stack || err)
+      }
+    }
+
+    try {
+      name = defined(jsonata(name).evaluate(node || target, assignments), name)
+    } catch (err) {
+      debug(err.stack || err)
+    }
+
+    if (imports.has(name)) {
+      return imports.get(name)
+    }
+
+    const work = { rejected: false, name }
+    const promise = new Promise(resolver)
+
+    Object.assign(promise, work)
+    imports.set(name, promise)
+
+    return promise.catch((err) => {
+      debug(err.stack || err)
+      imports.delete(name)
+    })
+
+    function resolver(resolve, reject) {
+      Object.assign(work, {
+        resolve: (...args) => resolve(...args),
+        reject(err) {
+          Object.assign(work, promise, { rejected: true });
+          return reject(err)
+        }
+      })
+
+      if (!work.rejected && 'function' === typeof imports.load) {
+        imports.load(name).then(work.resolve, work.reject)
+      } else {
+        resolve()
+      }
+    }
+  }
+}
+
+/**
+ * Query expression container. Query transforms and bindings are applied here.
+ * @public
+ * @memberof query
+ */
+class Expression {
+
+  /**
+   * Creates a new `Expression` instance from input.
+   * @static
+   * @return {Expression}
+   */
+  static from(...args) {
+    return new this(...args)
+  }
+
+  /**
+   * `Bindings` class constructor.
+   * @protected
+   * @constructor
+   * @param {String} string
+   * @param {Object} opts
+   * @param {Object} opts.target
+   * @param {?Array|Object} opts.bindings
+   * @param {?Array<Object|Function>} opts.transforms
+   */
+  constructor(context, string, opts) {
+    if ('string' !== typeof string) {
+      throw new TypeError('Expression constructor needs options argument.')
+    }
+
+    if (!opts || 'object' !== typeof opts) {
+      throw new TypeError('Expression constructor needs options argument.')
+    }
+
+    this.transforms = new Transforms(context, opts.transforms)
+    this.bindings = new Bindings(context, opts.bindings)
+    this.context = context
+    this.string = string
+    this.result = opts.result || null
+    this.value = cache.get(string) || null
+  }
+
+  get node() {
+    return this.context.node
+  }
+
+  get target() {
+    return this.context.target
+  }
+
+  /**
+   * A map of all import paths to their promise for resolution known for or
+   * requested by this expression query or injected externally.
+   * @public
+   * @accessor
+   * @type {?Map}
+   */
+  get imports() {
+    return this.context.imports || null
+  }
+
+  /**
+   * A map of all global key-value assignments known for or set by this
+   * expression query or injected externally.
+   * @public
+   * @accessor
+   * @type {?Map}
+   */
+  get assignments() {
+    return this.context.assignments || null
+  }
+
+  /**
+   * Resets processed expression value.
+   * @public
+   */
+  reset() {
+    this.value = null
+    this.result = null
+  }
+
+  processImports() {
+    this.transforms.process(0, this.string)
+    return this.imports
+  }
+
+  process() {
+    const { bindings, string } = this
+    const transformed = this.transforms.transform(string)
+
+    if (transformed) {
+      this.value = jsonata(transformed)
+
+      for (const key of bindings.keys()) {
+        const { fn, signature } = bindings.get(key)
+        this.value.registerFunction(key, fn, signature)
+      }
+
+      cache.set(string, this.value)
+      return this.value
+    }
+
+    return null
+  }
+
+  evaluate() {
+    if (!this.value) {
+      this.process()
+    }
+
+    if (this.value) {
+      const assignments = convertMapToObject(this.assignments)
+      this.result = this.value.evaluate(this.target, assignments)
+    }
+
+    if (this.result && 'object' === typeof this.result && 'sequence' in this.result) {
+      delete this.result.sequence
+    }
+
+    return this.result
+  }
+}
+
+/**
+ * Query transform container to apply many transforms to an input.
+ * @public
+ * @memberof query
+ */
+class Transforms {
+
+  /**
+   * Creates a new `Transforms` instance from input.
+   * @static
+   * @return {Transforms}
+   */
+  static from(...args) {
+    return new this(...args)
+  }
+
+  /**
+   * `Transforms` class constructor.
+   * @protected
+   * @constructor
+   * @param {Context} context
+   * @param {...(Function|Array<Function>|Object)} ...transforms
+   */
+  constructor(context, ...transforms) {
+    this.context = context
+    this.phases = []
+
+    this.push(0, require('./transform/comments'))
+    this.push(0, require('./transform/prepare'))
+    this.push(0, require('./transform/symbols'))
+    this.push(0, require('./transform/as'))
+    this.push(0, require('./transform/is'))
+    this.push(0, require('./transform/let'))
+    this.push(0, require('./transform/typeof'))
+    this.push(0, require('./transform/contains'))
+    this.push(0, require('./transform/print'))
+    this.push(0, require('./transform/import'))
+    this.push(1, require('./transform/hex'))
+    this.push(0, require('./transform/cleanup'))
+
+    this.push(1, require('./transform/children'))
+    this.push(1, require('./transform/attributes'))
+    this.push(1, require('./transform/ordinals'))
+    this.push(1, require('./transform/cleanup'))
+
+    for (const transform of transforms) {
+      if ('function' === typeof transform) {
+        this.push(2, transform)
+      } else if (transform && 'function' === typeof transform.transform) {
+        this.push(2, transform.transform)
+      } else if (Array.isArray(transform)) {
+        for (const t of transform) {
+          if ('function' === typeof t) {
+            this.push(2, transform)
+          } else if (t && 'function' === typeof t.transform) {
+            this.push(2, t.transform)
+          }
+        }
+      }
+    }
+
+    this.push(2, require('./transform/cleanup'))
+  }
+
+  /**
+   * Push a transform into an priority phase.
+   * @param {?Number} [priority = 2]
+   * @param {Function}
+   */
+  push(priority, entry) {
+    if ('number' !== typeof priority) {
+      entry = priority
+      priority = 2
+    }
+
+    const phase = this.phases[priority] || []
+
+    if (!this.phases[priority]) {
+      this.phases[priority] = phase
+    }
+
+    if (entry) {
+      if ('function' === typeof entry) {
+        return phase.push(entry)
+      } else if ('function' === typeof entry.transform) {
+        return phase.push(entry.transform)
+      }
+    }
+
+    return 0
+  }
+
+  /**
+   * Process input at specified transform phase.
+   * @param {Number} priority
+   * @param {String} input
+   * @return {String}
+   */
+  process(priority, input) {
+    const { context } = this
+    const transforms = this
+    const phase = this.phases[priority] || []
+
+    debug('before transform (phase=%d)', priority, input)
+    const output = phase.reduce(reduce, input)
+    debug('after transform (phase=%d)', priority, output)
+
+    return output
+
+    function reduce(output, transform) {
+      return transform(output, context, transforms, phase)
+    }
+  }
+
+  transform(input, phases) {
+    phases = Array.isArray(phases) ? phases : [0, 1, 2]
+
+    if ('string' !== typeof input) {
+      return ''
+    }
+
+    for (const phase of phases) {
+      input = this.process(phase, input)
+    }
+
+    return input.trim()
+  }
+}
+
+/**
+ * Query bindings container
+ * @public
+ * @memberof query
+ */
+class Bindings {
+
+  /**
+   * Creates a new `Bindings` instance from input.
+   * @public
+   * @static
+   * @return {Bindings}
+   */
+  static from(...args) {
+    return new this(...args)
+  }
+
+  /**
+   * The default built in bindings.
+   * @public
+   * @static
+   * @accessor
+   * @type {Object}
+   */
+  static get builtins() {
+    return bindings
+  }
+
+  /**
+   * `Bindings` class constructor.
+   * @protected
+   * @constructor
+   * @param {Context} context
+   * @param {...(Object|Map|Array<Object|Map>)} ...entries
+   */
+  constructor(context, ...entries) {
+    this.context = context
+    this.entries = new Map()
+
+    entries.push(Bindings.builtins)
+
+    for (const entry of entries) {
+      if (entry instanceof Map) {
+        extendMap(this.entries, entry)
+      } else if (Array.isArray(entry)) {
+        for (const value of entry) {
+          if (value instanceof Map) {
+            extendMap(this.entries, value)
+          } else if (value && 'object' === typeof value) {
+            for (const key in value) {
+              this.entries.set(key, value)
+            }
+          }
+        }
+      } else if (entry && 'object' === typeof entry) {
+        for (const key in entry) {
+          this.entries.set(key, entry[key])
+        }
+      }
+    }
+  }
+
+  /**
+   * Returns binding keys.
+   * @public
+   * @return {Array<String>}
+   */
+  keys() {
+    return this.entries.keys()
+  }
+
+  /**
+   * Queries for binding by name. If binding is a function, a bound
+   * wrapped function is returned that calls the function.
+   * @public
+   * @param {String} name
+   * @return {?Function}
+   */
+  get(name) {
+    const { entries } = this
+    const value = entries.get(name) || null
+
+    if ('function' === typeof value) {
+      const { description = null, signature = '<x-:x>' } = value
+      const fn = Object.assign(new Function('fn', `
+        return function ${value.name || 'binding'}(...args) { return fn(...args) }
+      `)(value), { signature, description })
+
+      return { fn, signature, description }
+    }
+
+    return value
+  }
+}
 
 /**
  * @public
@@ -60,105 +619,43 @@ function query(node, queryString, opts) {
   const { Node = node.constructor, children = node.children } = opts
   const { model = {} } = opts
 
-  const queryBindings = {
-    ...bindings,
-    ...(node && node.options ? node.options.bindings : {}),
-    ...opts.bindings,
-  }
-
-  const transforms = [
-    require('./transform/comments'),
-    require('./transform/prepare'),
-    require('./transform/symbols'),
-    require('./transform/children'),
-    require('./transform/attributes'),
-    require('./transform/ordinals'),
-    require('./transform/hex'),
-    require('./transform/as'),
-    require('./transform/is'),
-    require('./transform/has'),
-    require('./transform/let'),
-    require('./transform/print'),
-    require('./transform/typeof'),
-    require('./transform/import'),
-    require('./transform/contains'),
-
-    ...(opts.transform && !Array.isArray(opts.transform)
-      ? [{ transform: opts.transform }]
-      : opts.transform || []),
-
-    ...((node && node.options && node.options.transform) || []),
-
-    require('./transform/cleanup'),
-  ]
-
-  let expression = cache.get(queryString)
-  const assignments = opts.assignments || {}
-  const imports = opts.imports || new Map()
-  const context = {
-    bindings: queryBindings,
-    assignments,
-    imports,
-    assign(key, value) {
-      assignments[key] = value
-    },
-
-    import(target) {
-      if (!imports.has(target)) {
-        const tmp = {}
-        const promise = new Promise((resolve, reject) => {
-          Object.assign(tmp, { resolve, reject })
-          if ('function' === typeof opts.load) {
-            opts.load(target).then(resolve).catch(reject)
-          } else {
-            return reject(new Error('Missing import loader.'))
-          }
-        })
-
-        imports.set(target, Object.assign(promise, tmp))
-        return promise
-      } else {
-        return imports.get(target)
-      }
-    }
-  }
-
-  if (!expression) {
-    debug('query: before transform', queryString)
-
-    const reduceQueryString = (qs, t) => {
-      return t && 'function' === typeof t.transform ? t.transform(qs, context) : qs
-    }
-
-    queryString = transforms.reduce(reduceQueryString, queryString)
-
-    debug('query: after transform', queryString)
-
-    expression = jsonata(queryString)
-    cache.set(queryString, expression)
-
-    for (const key in queryBindings) {
-      const value = queryBindings[key]
-
-      if ('function' === typeof value) {
-        const { signature = '<x-:x>' } = value
-        const fn = new Function('fn', `return function ${value.name || 'binding'}(...args) { return fn(...args) }`)(value)
-        debug('query: registering function `%s(%s)`', key, signature)
-        expression.registerFunction(key, value, signature)
-      }
-    }
-  }
-
   if (!opts.model) {
     visit(model, node)
   }
 
   const target = model[node.originalName] || model[node.name] || model
-  const result = expression.evaluate(target, assignments)
+  const context = Context.from({ target, node, ...opts })
+  const expression = Expression.from(context, queryString, {
+    ...opts,
 
-  if (result) {
-    delete result.sequence
+    bindings: [
+      opts.bindings,
+      node && node.options && node.options.bindings
+    ].filter(Boolean)
+  })
+
+  const imports = expression.processImports()
+
+  if (imports.size) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await Promise.all(expression.imports.values())
+        const result = expression.evaluate()
+
+        if (Array.isArray(result)) {
+          return resolve(Node.createFragment(null, {
+            children: result
+          }))
+        }
+
+        return resolve(result || null)
+      } catch (err) {
+        reject(err)
+      }
+    })
   }
+
+  const result = expression.evaluate()
 
   if (Array.isArray(result)) {
     return Node.createFragment(null, {
@@ -319,6 +816,12 @@ function makeParserNodeProxy(object, state) {
  * @module query
  */
 module.exports = {
+  Assigments,
+  Bindings,
   cache,
+  Context,
+  Expression,
+  Imports,
+  Transforms,
   query
 }

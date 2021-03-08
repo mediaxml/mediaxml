@@ -1,6 +1,8 @@
 function transform(queryString) {
   return queryString
     .trim()
+    // remove shebang
+    .replace(/^(#!.*)([\n|\r|$])/, '$2')
     // replace trailing `:` with `.`
     .replace(/\:$/, '.')
     // add '*' by default because we are always searching the same node hierarchy

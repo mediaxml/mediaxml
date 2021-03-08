@@ -1,6 +1,6 @@
 const camelcase = require('camelcase')
 
-const REGEX = /((?![\(|\[|\{|\*]+$)(?!\s$)?.*)?\s*?(\:)?is(\s*not\s*)?\s*?\(?\s*?(["|']?[\$|_|\-|\.|a-z|A-Z|0-9]+["|']?)((?!\s$)?.*)?\)?/g
+const REGEX = /((?![\(|\[|\{|\*]+$)(?!\s$)?.*)?\s*?(\:|\b)is\b(\s*not\s*)?\s*?\(?\s*?(["|']?[\$|_|\-|\.|a-z|A-Z|0-9]+["|']?)((?!\s$)?.*)?\)?/g
 
 function transform(queryString, ctx) {
   return queryString.replace(REGEX, replace)

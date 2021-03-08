@@ -294,7 +294,7 @@ print $d /** 5 */
 ##### `typeof <target>`
 ##### `import <URI>`
 
-Import an XML file or query string from a given `URI`. A valid `URI` can
+Import a XML file or query string from a given `URI`. A valid `URI` can
 be a HTTP(S) resource or a file path (optionally specified with
 `file://`). The `import` operator requires a runtime loader. A runtime
 loader is given for the `mxml(1)` command.
