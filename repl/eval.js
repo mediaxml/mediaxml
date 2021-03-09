@@ -34,8 +34,8 @@ async function eval(query, context, file, callback) {
       result = await parser.query(query, { imports, assignments })
 
       // we just imported something, check for a value
-      if (!result && imports.size) {
-        const values = await Promise.all([ ...imports.values() ])
+      if (!result && imports.pending.size) {
+        await imports.wait()
         while (values.length) {
           const value = values.pop()
           if (value) {
@@ -48,7 +48,7 @@ async function eval(query, context, file, callback) {
       }
 
     } catch (err) {
-      if (err && '(end)' !== err.token && !imports.size) {
+      if (err && '(end)' !== err.token && !imports.pending.size) {
         throw err
       }
 

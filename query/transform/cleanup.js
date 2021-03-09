@@ -3,7 +3,7 @@ function transform(queryString) {
     .trim()
     .replace(/\n+/g, ' ')
     // prepend `$` for root if missing
-    .replace(/^[.|\,]+/, '$.')
+    .replace(/^\./, '$.')
     .replace(/;[$|\n|\s]/, '')
     .replace(/\.\s*?$/, '')
 

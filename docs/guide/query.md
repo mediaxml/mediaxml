@@ -291,7 +291,33 @@ print $d /** 5 */
 ```
 
 ##### `[target] has <subject>`
+
+Check if `<subject>` is a property of `target`. Optionally, this
+operator can be used in a query with the `target` omitted as it is
+implicitly inferred.
+
+```js
+({ "foo": "bar" }) has "foo" // true
+```
+
+```js
+**[attributes has url] // returns all nodes that have a "url" attribute
+```
+
+```js
+**:attributes[has url] // returns all attributes that have a "url" field
+```
+
 ##### `typeof <target>`
+
+Computes the type of `target` as a string.
+
+```js
+typeof "foo" // 'string'
+typeof ({}) // 'object'
+typeof 123 // 'number'
+```
+
 ##### `import <URI>`
 
 Import a XML file or query string from a given `URI`. A valid `URI` can
@@ -305,9 +331,108 @@ import 'https://raw.githubusercontent.com/little-core-labs/mediaxml/master/examp
 **[is text and is not empty]
 ```
 
-##### `contains`
+##### `[target] contains <data>`
+
+Checks if `data` is contained by `target`.
 
 #### Casting
+
+Types can be casted to and from a variety of types.
+
+##### Primitives
+
+```js
+'123' as int // 123
+```
+
+```js
+'123.456' as int // 123
+```
+
+```js
+0 as boolean // false
+```
+
+```js
+1 as boolean // true
+```
+
+```js
+123 as string // '123'
+```
+
+```js
+123 as int<16> // 291
+```
+
+```js
+'abc' as array // ['a', 'b', 'c']
+```
+
+##### Specials
+
+```js
+$now() as Date // 2021-03-08T19:54:26.205Z
+```
+
+```js
+'{"hello": "world"}' as json // { hello: 'world' }
+```
+
+```js
+this as json // { name: '#empty', text: '', attributes: {}, children: [] }
+
+```js
+let $xml = '<rss><channel><title>hello</title></channel></rss>'
+$xml as Node
+/**
+ * <rss>
+ *   <channel>
+ *     <title>hello</title>
+ *   </channel>
+ * </rss>
+ */
+```
+
+##### String Casing
+
+```js
+'hello world' as CamelCase // helloWorld
+```
+
+```js
+'hello world' as SnakeCase // hello_world
+```
+
+```js
+'hello world' as PascalCase // HelloWorld
+```
+
+##### Transforms
+
+```js
+'fbdeca' as sorted // 'abcdef'
+```
+
+```js
+([3,2,1]) as sorted // [3, 2, 1]
+```
+
+```js
+({"d": 1, "c": 2, "b": 3, "a": 4}) as json as sorted
+/**
+ * {
+ *   a: 4,
+ *   b: 3,
+ *   c: 2,
+ *   d: 1
+ * }
+ */
+```
+
+```js
+this as text // `<#empty />`
+```
 
 ### JSONata Function Bindings
 

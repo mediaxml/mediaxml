@@ -67,6 +67,7 @@
   "devDependencies": {
     "clean-documentation-theme": "^0.5.2",
     "documentation": "^13.1.0",
+    "eslint": "^7.21.0",
     "nyc": "^15.1.0",
     "tape": "^5.1.1"
   },

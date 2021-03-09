@@ -4,7 +4,7 @@ function transform(queryString) {
     // remove shebang
     .replace(/^(#!.*)([\n|\r|$])/g, '$2')
     // replace trailing `:` with `.`
-    .replace(/\:$/, '.')
+    .replace(/:$/, '.')
     // add '*' by default because we are always searching the same node hierarchy
     .replace(/^\s*\[/, '*[')
     // lowercase special key words

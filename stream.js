@@ -1,39 +1,31 @@
-const path = require('path')
+const { resolve} = require('./resolve')
 const get = require('get-uri')
 const fs = require('fs')
 
-async function createReadStream(filename, opts) {
+async function createReadStream(uri, opts) {
   opts = { ...opts }
 
-  if (!filename) {
+  if (!uri) {
     return
   }
 
   // quack
-  if (filename && 'function' === typeof filename.pipe) {
-    return filename
+  if (uri && 'function' === typeof uri.pipe) {
+    return uri
   }
 
-  if (/^file:\/\//.test(filename)) {
-    filename = filename.replace('file://', '')
-  }
+  uri = resolve(uri, opts)
 
   try {
-    if (opts.cwd) {
-      const tmp = path.resolve(opts.cwd, filename)
-      fs.accessSync(tmp, fs.constants.R_OK | fs.constants.F_OK)
-      filename = tmp
-    } else {
-      fs.accessSync(filename, fs.constants.R_OK | fs.constants.F_OK)
-    }
-    return fs.createReadStream(filename)
+    fs.accessSync(uri, fs.constants.R_OK | fs.constants.F_OK)
+    return fs.createReadStream(uri)
   } catch (err) {
     void err
   }
 
   return new Promise((resolve, reject) => {
-    return get(filename, (err, stream) => {
-      return err ? reject(err) : resolve(stream)
+    return get(uri, (err, stream) => {
+      return err ? reject(err) : resolve(Object.assign(stream, { uri }))
     })
   })
 }

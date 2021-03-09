@@ -1,5 +1,7 @@
 const { normalizeValue } = require('../normalize')
+const InvertedPromise = require('inverted-promise')
 const { ParserNode } = require('../parser')
+const { resolve } = require('../resolve')
 const camelcase = require('camelcase')
 const extendMap = require('map-extend')
 const bindings = require('./bindings')
@@ -61,7 +63,7 @@ class Imports extends Map {
 
       if (entry && entry instanceof Map) {
         maps.push(entry)
-      } else if (entry && 'object' === typeof entry && !Array.isArray(entry)) {
+      } else if (entry && 'object' === typeof entry && !Array.isArray(entry) && !entry.load) {
         const map = new Map()
         for (const key in entry) {
           map.set(key, entry[key])
@@ -85,9 +87,17 @@ class Imports extends Map {
     opts = { ...opts }
     super()
 
+    this.cwd = opts.cwd || null
+    this.backlog = []
+    this.pending = new Map()
+
     if ('function' === typeof opts.load) {
       this.load = opts.load
     }
+  }
+
+  get waiting() {
+    return this.pending.size + this.backlog.length
   }
 
   /**
@@ -98,6 +108,50 @@ class Imports extends Map {
    */
   async load(target) {
     debug('no-op load for: %s', target)
+    return this.get(target)
+  }
+
+  /**
+   * Returns a promise that waits for all pending imports to resolve.
+   * @return {Promise}
+   */
+  async wait() {
+    const values = []
+
+    while (this.pending.size) {
+      const pending = [ ...this.pending.values() ]
+      this.pending.clear()
+
+      values.push(...(await Promise.all(pending)))
+    }
+
+    while (this.backlog.length) {
+      const backlog = this.backlog
+        .splice(0, this.backlog.length)
+        .map((f) => 'function' === typeof f ? f() : f)
+
+      values.push(...(await Promise.all(backlog)))
+    }
+
+    return values
+  }
+
+  clear() {
+    this.pending.clear()
+    this.backlog.splice(0, this.backlog.length)
+  }
+
+  finalize(name) {
+    if (this.pending.has(name)) {
+      const promise = this.pending.get(name)
+      promise.then((result) => {
+        this.pending.delete(name)
+        this.set(name, result)
+      })
+      return promise
+    }
+
+    return Promise.resolve(null)
   }
 }
 
@@ -107,7 +161,7 @@ class Imports extends Map {
  * @abstract
  * @memberof query
  */
-class Assigments extends Map {
+class Assignments extends Map {
 
   /**
    * Creates a new `Assignments` instance from a variety of input.
@@ -131,9 +185,9 @@ class Assigments extends Map {
       }
     }
 
-    const assigments = new this(opts)
-    extendMap(assigments, ...maps)
-    return assigments
+    const assignments = new this()
+    extendMap(assignments, ...maps)
+    return assignments
   }
 }
 
@@ -172,7 +226,7 @@ class Context {
     this.target = opts.target
     this.imports = opts.imports instanceof Map ? opts.imports : new Imports()
     this.bindings = opts.bindings instanceof Bindings ? opts.bindings : Bindings.from(this, opts.bindings)
-    this.assignments = opts.assignments instanceof Map ? opts.assignments : new Assigments()
+    this.assignments = opts.assignments instanceof Map ? opts.assignments : new Assignments()
 
     for (const [ key, value ] of this.assignments) {
       this.assign(key, value)
@@ -187,7 +241,6 @@ class Context {
    */
   assign(key, value) {
     const assignments = convertMapToObject(this.assignments)
-    const { target, node } = this
 
     // try to parse value if it is indeed valid JSON supporting a statement like:
     // let json = '{"hello": "world"}'
@@ -243,8 +296,7 @@ class Context {
    * @return {Promise<Mixed>}
    */
   async import(name) {
-    const assignments = convertMapToObject(this.assignments)
-    const { target, node, imports } = this
+    const { imports } = this
 
     if ('string' === typeof name) {
       try {
@@ -260,36 +312,29 @@ class Context {
       }
     }
 
+    name = resolve(name, imports)
+
+    if (!name) {
+      return
+    }
+
     if (imports.has(name)) {
       return imports.get(name)
     }
 
-    const work = { rejected: false, name }
-    const promise = new Promise(resolver)
-
-    Object.assign(promise, work)
-    imports.set(name, promise)
-
-    return promise.catch((err) => {
-      debug(err.stack || err)
-      imports.delete(name)
-    })
-
-    function resolver(resolve, reject) {
-      Object.assign(work, {
-        resolve: (...args) => resolve(...args),
-        reject(err) {
-          Object.assign(work, promise, { rejected: true });
-          return reject(err)
-        }
-      })
-
-      if (!work.rejected && 'function' === typeof imports.load) {
-        imports.load(name).then(work.resolve, work.reject)
-      } else {
-        resolve()
-      }
+    if (imports.pending.has(name)) {
+      return imports.pending.get(name)
     }
+
+
+    if ('function' === typeof imports.load) {
+      const promise = Object.assign(new InvertedPromise(), { name })
+      imports.pending.set(name, promise)
+      imports.load(name).then(promise.resolve, promise.reject)
+      return promise
+    }
+
+    return Promise.resolve(null)
   }
 }
 
@@ -385,6 +430,10 @@ class Expression {
     return this.imports
   }
 
+  transform() {
+    return this.transforms.transform(this.string)
+  }
+
   process() {
     const { bindings, string } = this
     const transformed = this.transforms.transform(string)
@@ -405,9 +454,7 @@ class Expression {
   }
 
   evaluate() {
-    if (!this.value) {
-      this.process()
-    }
+    this.process()
 
     if (this.value) {
       const assignments = convertMapToObject(this.assignments)
@@ -453,6 +500,7 @@ class Transforms {
     this.push(0, require('./transform/comments'))
     this.push(0, require('./transform/symbols'))
     this.push(0, require('./transform/as'))
+    this.push(0, require('./transform/has'))
     this.push(0, require('./transform/is'))
     this.push(0, require('./transform/let'))
     this.push(0, require('./transform/typeof'))
@@ -661,7 +709,7 @@ class Bindings {
  * @param {?Object} opts - Query options
  * @param {?Object} [opts.model = {}] - An optional model to query, instead of one derived from the input `node`
  * @param {?Object} [opts.bindings = node.options.bindings] - Bindings to use instead of the ones derived from the input `node`
- * @param {?Object} [opts.assignmentss] - A key-value object of variable assignments. This function will modify this object.
+ * @param {?Object} [opts.assignments] - A key-value object of variable assignments. This function will modify this object.
  * @param {?Map} [opts.imports] - A map of existing imports. This function will modify this map.
  * @param {?Function} [opts.load] - An import loader function. This function must be given if queries use the `import <path|URL>` statement.
  * @return {?(ParserNode|ParserNodeFragment|String|*)}
@@ -694,7 +742,7 @@ function query(node, queryString, opts) {
   queryString = queryString || '$' // reference to root node
   opts = { ...opts }
 
-  const { Node = node.constructor, children = node.children } = opts
+  const { Node = node.constructor } = opts
   const { model = {} } = opts
 
   if (!opts.model) {
@@ -702,7 +750,7 @@ function query(node, queryString, opts) {
   }
 
   const target = model[node.originalName] || model[node.name] || model
-  const context = Context.from({
+  const context = opts.context || Context.from({
     target, node, ...opts,
     bindings: [
       opts.bindings,
@@ -713,23 +761,8 @@ function query(node, queryString, opts) {
   const expression = Expression.from(context, queryString, opts)
   const imports = expression.processImports()
 
-  if (imports.size) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        await Promise.all(expression.imports.values())
-        const result = expression.evaluate()
-
-        if (Array.isArray(result)) {
-          return resolve(Node.createFragment(null, {
-            children: result
-          }))
-        }
-
-        return resolve(result || null)
-      } catch (err) {
-        reject(err)
-      }
-    })
+  if (imports.waiting) {
+    return new Promise(handleImports)
   }
 
   const result = expression.evaluate()
@@ -741,6 +774,31 @@ function query(node, queryString, opts) {
   }
 
   return result || null
+
+  async function handleImports(resolve, reject) {
+    try {
+      let result = null
+
+      while (imports.waiting) {
+        const values = await imports.wait()
+        const value = await expression.evaluate()
+
+        if (null !== value || values.length) {
+          result = value || values.pop()
+        }
+      }
+
+      if (Array.isArray(result)) {
+        return resolve(Node.createFragment(null, {
+          children: result
+        }))
+      }
+
+      return resolve(result || null)
+    } catch (err) {
+      reject(err)
+    }
+  }
 
   function visit(target, node) {
     const children = node.children.map((child) => child && child.children ? visit({}, child) : child)
@@ -825,7 +883,7 @@ function makeParserNodeProxy(object, state) {
       object[key] = value
     },
 
-    get(_, key, reciever) {
+    get(_, key) {
       if (Array.isArray(object) || object.isFragment) {
         // for JSONata
         if ('sequence' === key) {
@@ -893,7 +951,7 @@ function makeParserNodeProxy(object, state) {
  * @module query
  */
 module.exports = {
-  Assigments,
+  Assignments,
   Bindings,
   cache,
   Context,

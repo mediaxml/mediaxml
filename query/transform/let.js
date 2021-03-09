@@ -1,8 +1,4 @@
-const { normalizeKey, normalizeValue } = require('../../normalize')
-const jsonata = require('jsonata')
-const debug = require('debug')('mediaxml')
-
-const REGEX = /\blet\s*([a-z|A-Z|0-9|_|\$|\-]+)\s*?:?=\s*?(.*)(;|\n|$)/g
+const REGEX = /\blet\s*([a-z|A-Z|0-9|_|$|-]+)\s*?:?=\s*?(.*)(;|\n|$)/g
 
 function transform(queryString, ctx) {
   return queryString.replace(REGEX, replace)
@@ -22,9 +18,8 @@ function transform(queryString, ctx) {
       })
     }
 
-
     ctx.assign(key, value)
-    return '.($noop())'
+    return ''
   }
 }
 

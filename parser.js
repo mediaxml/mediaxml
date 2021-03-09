@@ -448,7 +448,7 @@ class ParserNodeFragment extends Array {
       opts = {}
     }
 
-    const children = Array.isArray(opts.children) ? opts.children.filter(Boolean) : []
+    const children = Array.isArray(opts.children) ? [ ...opts.children ].filter(Boolean) : []
     super(children.length)
 
     for (let i = 0; i < children.length; ++i) {
@@ -916,14 +916,14 @@ class ParserNode {
     if (null === value || '' === value) {
       this.name = ''
       this.remove(...this.children)
-      return value
+      return
     }
 
     if (value instanceof this.constructor) {
       this.name = value.originalName || value.name
       this.remove(...this.children)
       this.append(...value.child)
-      return value
+      return
     }
 
     if ('string' !== typeof value) {
@@ -2199,7 +2199,7 @@ class Parser extends htmlparser2.Parser {
       input
         .then((result) => {
           if (result && result.pipe) {
-            parser.clear()
+            result.clear()
             result
               .pipe(parser.createWriteStream())
               .on('error', err => parser.onerror(err))

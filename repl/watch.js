@@ -24,7 +24,7 @@ async function watch() {
         try {
           result = await parser.query(query, { imports, assignments })
         } catch (err) {
-          if (err && '(end)' !== err.token && !imports.size) {
+          if (err && '(end)' !== err.token && !imports.pending.size) {
             throw err
           }
         }

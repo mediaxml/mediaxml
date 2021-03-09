@@ -145,7 +145,6 @@ const { Document } = require('mediaxml/document')
 const document = Document.from(createReadStream('file.xml'))
 document.ready(() => {
   const textNodes = document.query('**[is text and is not empty]')
-  const textNodes = document.query('')
 })
 ```
 

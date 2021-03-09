@@ -5,6 +5,7 @@ const debug = require('debug')('mediaxml')
 const path = require('path')
 const repl = require('../repl')
 const pkg = require('../package.json')
+const fs = require('fs')
 
 const argv = require('minimist')(process.argv.slice(2), {
   '--': true,
@@ -21,6 +22,8 @@ const argv = require('minimist')(process.argv.slice(2), {
   },
 
   default: {
+    'no-preview': false,
+    preview: true,
     pretty: true
   },
 
@@ -78,12 +81,6 @@ if (argv.debug) {
   debug('Debug output enabled')
 }
 
-if (0 && !argv._[0] && process.stdin.isTTY) {
-  console.error('error: Please specify a file path or URL')
-  console.error('usage: mxml [-hiDV] [options] <uri> [query]')
-  process.exit(1)
-}
-
 let [ arg0, query = arg0 ] = argv._
 
 process.on('uncaughtException', debug)
@@ -112,27 +109,15 @@ if ('-' === argv._[0] || !process.stdin.isTTY) {
 } else if (arg0) {
   const context = repl.createContext(arg0, {
     onerror: console.error,
-    preview: !('no-preview' in argv) && false !== argv.preview,
+    preview: true !== argv['no-preview'] && false !== argv.preview,
     timing: argv.timing,
     debug: argv.debug,
     argv: [argv._[0], ...argv['--']]
   })
 
   context.parser.then(async () => {
-    const { imports } = context
     let result = await context.parser.query(`import "${arg0}"`, context)
     let output = null
-
-    if (!result && imports.size) {
-      const values = await Promise.all([ ...imports.values() ])
-      while (values.length) {
-        const value = values.pop()
-        if (value) {
-          result = value
-          break
-        }
-      }
-    }
 
     if (query) {
       result = await context.parser.query(query, context)
@@ -147,16 +132,14 @@ if ('-' === argv._[0] || !process.stdin.isTTY) {
           process.stdout.write(JSON.stringify(result))
         }
         return
-      } else {
-        if (false !== argv.pretty) {
-          output = pretty(result)
-          if (output) {
-            process.stdout.write(output)
-            process.stdout.write('\n')
-          }
-        } else {
-          console.log(result)
+      } else if (false !== argv.pretty) {
+        output = pretty(result)
+        if (output) {
+          process.stdout.write(output)
+          process.stdout.write('\n')
         }
+      } else {
+        console.log(result)
       }
     }
 
@@ -169,8 +152,9 @@ if ('-' === argv._[0] || !process.stdin.isTTY) {
 } else {
   repl.start({
     onerror: console.error,
-    preview: !('no-preview' in argv) && false !== argv.preview,
+    preview: true !== argv['no-preview'] && false !== argv.preview,
     timing: argv.timing,
     debug: argv.debug,
+    argv: [argv._[0], ...argv['--']]
   })
 }

@@ -1,6 +1,6 @@
 const { clearScreenDown, cursorTo, moveCursor } = require('readline')
 const { getCursorPreviewPosition } = require('./utils')
-const { Imports, Assigments } = require('../query')
+const { Imports, Assignments } = require('../query')
 const { createReadStream } = require('../stream')
 const { createCompleter } = require('./completer')
 const { createLoader } = require('../loader')
@@ -17,7 +17,6 @@ const chalk = require('chalk')
 const path = require('path')
 const repl = require('repl')
 const pkg = require('../package.json')
-const fs = require('fs')
 
 function createPrompt(name, context, opts) {
   if (!context && !opts || (context && 'object' === typeof context)) {
@@ -169,10 +168,11 @@ class Context {
     this.server = opts.server || null
     this.parser = opts.parser || null
     this.history = new History(this)
-    this.assignments = new Assigments()
+    this.assignments = new Assignments()
 
     this.imports = new Imports({
-      load: opts.load || createLoader(this, { onload })
+      load: opts.load || createLoader(this, { onload }),
+      cwd: opts.cwd || process.cwd()
     })
 
     this.onexit = this.onexit.bind(this)
@@ -197,7 +197,10 @@ class Context {
     }
 
     if (!this.parser) {
-      this.parser = Parser.from('')
+      this.parser = Parser.from('<xml></xml>')
+    } else if (!this.parser.rootNode) {
+      this.parser.clear()
+      this.parser.write('<xml></xml>')
       this.parser.end()
     }
 
@@ -209,8 +212,6 @@ class Context {
     this.assignments.set('argv4', this.options.argv[4] || null)
     this.assignments.set('path', path)
 
-    const context = this
-
     function onload(info) {
       debug('onload', info)
     }
@@ -221,12 +222,10 @@ class Context {
   }
 
   set rootNode(rootNode) {
-    this.parser.clear()
-    this.parser.write(rootNode.outerXML)
-    this.parser.end()
-
-    if (this.server) {
-      this.server.context = rootNode
+    if (this.parser.rootNode) {
+      this.parser.rootNode.outerXML = rootNode.outerXML
+    } else {
+      this.parser.nodes[0] = rootNode
     }
   }
 

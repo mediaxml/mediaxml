@@ -380,6 +380,8 @@ module.exports = {
     function $date(input) {
       if (Array.isArray(input)) {
         return input.map(parse)
+      } else if (input && 'number' === typeof input) {
+        return new Date(input)
       } else {
         return parse(input)
       }
@@ -456,6 +458,9 @@ module.exports = {
         return input.sort(sort)
       } else if ('string' === typeof input || input instanceof String) {
         return $sorted(input.split('')).join('')
+      } else if (input && 'object' === typeof input) {
+        const keys = Object.keys(input).sort()
+        return [keys.reduce((o, k) => Object.assign(o, {[k]: input[k]}), {})]
       } else if (undefined !== input) {
         return [input]
       } else {
