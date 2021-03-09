@@ -1,13 +1,10 @@
-const jsonata = require('jsonata')
-const debug = require('debug')('mediaxml')
-
-const REGEX = /\s*?import\s*(.*)(;|\n|$)/g
+const REGEX = /\s*?import\b\s*(.*)(;|\n|$)/g
 
 function transform(queryString, ctx) {
   return queryString.replace(REGEX, replace)
 
-  function replace(_, target) {
-    return compile({ target }, ctx)
+  function replace(statement, target) {
+    return compile({ statement, target }, ctx)
   }
 }
 
@@ -30,7 +27,7 @@ function compile({ target }, ctx) {
     ctx.import(target)
   }
 
-  return ''
+  return '\n'
 }
 
 module.exports = {

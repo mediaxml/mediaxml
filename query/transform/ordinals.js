@@ -8,17 +8,16 @@ function transform(queryString) {
   }
 
   for (let i = 0; i < ordinals.length; ++i) {
-    queryString = queryString.replace(RegExp(`\:${ordinals[i]}`, 'g'), (ordinal, offset, source) => {
+    queryString = queryString.replace(RegExp(`:${ordinals[i]}`, 'g'), () => {
       return `[${i}]`
     })
   }
 
-  queryString = queryString
   return queryString
     // `[-1]` will look at the tail
-    .replace(RegExp(`\:last`, 'g'), `[-1]`)
+    .replace(/:last/g, `[-1]`)
     // `:{first,second,...,last} - return the nth node denoted by an ordinal
-    .replace(RegExp(`^\((\:)(${ordinals.join('|')})\)`, 'i'), '$1$2')
+    .replace(RegExp(`^((:)(${ordinals.join('|')}))`, 'i'), '$1$2')
 }
 
 module.exports = {

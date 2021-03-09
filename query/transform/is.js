@@ -1,9 +1,10 @@
 const camelcase = require('camelcase')
 
-const REGEX = /((?![\(|\[|\{|\*]+$)(?!\s$)?.*)?\s*?(\:|\b)is\b(\s*not\s*)?\s*?\(?\s*?(["|']?[\$|_|\-|\.|a-z|A-Z|0-9]+["|']?)((?!\s$)?.*)?\)?/g
+const REGEX = /((?![(|[|{|*]+$)(?!\s$)?.*)?\s*?(:|\b)is\b(\s*not\s*)?\s*?\(?\s*?(["|']?[$|_|\-|.|a-z|A-Z|0-9]+["|']?)((?!\s$)?.*)?\)?/g
 
-function transform(queryString, ctx) {
-  return queryString.replace(REGEX, replace)
+function transform(queryString) {
+  const result = queryString.replace(REGEX, replace)
+  return result
 
   function replace(_, prefix, selector, not, type, postfix) {
     if (prefix) {
@@ -19,12 +20,15 @@ function compile({ prefix, postfix, selector, not, type }) {
   prefix = (prefix || '').trim()
   not = (not || '').trim()
 
-  const primitives = ['string', 'array' ,'number', 'boolean', 'object', 'function']
+  const primitives = ['string', 'array', 'number', 'boolean', 'object', 'function']
   const instances = { date: 'Date', document: 'Document' }
   const constants = ['null', 'true', 'false', 'nan', 'infinity', '$', '$i', '%']
   const specials = { text: 'isText', node: 'isParserNode', fragment: 'isFragment' }
   const negate = 'not' === not.trim()
-  const expr = [not, type].join(' ').trim().toLowerCase()
+  const expr = [not, type]
+    .join(' ')
+    .trim()
+    .toLowerCase()
 
   const isConstantCheck = (
     constants.includes(type.toLowerCase()) ||
@@ -39,8 +43,7 @@ function compile({ prefix, postfix, selector, not, type }) {
   const isStringCheck = (/^"/.test(type) && /"$/.test(type)) || (/^'/.test(type) && /'$/.test(type))
   const isNumberCheck = /^[0-9]+$/.test(type)
 
-  const [ leadingCharacter ] = (prefix.match(/^([\(|\[|\{])/) || [])
-  const normalizedPrefix = prefix.replace(/^([\(|\[|\{|\s]+)/g, '')
+  const normalizedPrefix = prefix.replace(/^([(|[|{|\s]+)/g, '')
   const output = []
 
   let isInputStreamed = false
@@ -53,7 +56,7 @@ function compile({ prefix, postfix, selector, not, type }) {
   ) {
     if (selector && '.' !== normalizedPrefix.slice(-1)) {
       output.push('.')
-    } else if (/[\)|\]|\}|\$|\.|`]/.test(normalizedPrefix.slice(-1))) {
+    } else if (/[)|\]|}|$|.|`]/.test(normalizedPrefix.slice(-1))) {
       output.push('.')
     } else if (/(true|false|null|nan)$/i.test(normalizedPrefix) && !isNumberCheck) {
       isInputStreamed = true
@@ -65,7 +68,7 @@ function compile({ prefix, postfix, selector, not, type }) {
       } else if (/[0-9]+$/.test(normalizedPrefix) && !isNumberCheck) {
         isInputStreamed = true
         output.push('~>')
-      } else if (!/[\(|\[|\{|\$|\.|`]/.test(normalizedPrefix.slice(-1))) {
+      } else if (!/[(|[|{|$|.|`]/.test(normalizedPrefix.slice(-1))) {
         if (!isNumberCheck) {
           output.push('.')
         }
@@ -89,12 +92,10 @@ function compile({ prefix, postfix, selector, not, type }) {
   } else if (isConstantCheck || isNumberCheck || isStringCheck) {
     if ('nan' === type.toLowerCase()) {
       output.push(` $isNaN(${inputContext}) ${negate ? '!' : ''}= true`)
+    } else if (hasLeadingKeyword) {
+      output.push(`$ ${negate ? '!' : ''}= ${type}`)
     } else {
-      if (hasLeadingKeyword) {
-        output.push(`$ ${negate ? '!' : ''}= ${type}`)
-      } else {
-        output.push(` ${negate ? '!' : ''}= ${type}`)
-      }
+      output.push(` ${negate ? '!' : ''}= ${type}`)
     }
   } else if (isSpecialCheck) {
     output.push(` ${specials[type.toLowerCase()]} ${negate ? '!' : ''}= true`)

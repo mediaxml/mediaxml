@@ -3,7 +3,7 @@ function transform(queryString) {
     // `:children()` - selector to return child nodes
     .replace(/(:|a^)?children\(([\s]+)?\)/g, (_, $1, $2, offset, source) => {
       const prefix = ':' !== $1 || /\(|\[|\./.test(source.slice(Math.max(0, offset - 1))[0]) ? '' : '.'
-      return '.children'
+      return `${prefix}children`
     })
     // `:children(start[, count]) - slice children into a fragment array
     .replace(/(:|a^)?(children\()([0-9]+)?\s?(,?)\s?([0-9]+)?(.*)(\))/, (_, $1, $2, $3, $4, $5, offset, source) => {

@@ -1,6 +1,6 @@
 const { normalizeKey } = require('../../normalize')
 
-const REGEX = /(:)?attr\s*?\(\s*?['|"|`]?([a-z|A-Z|0-9|_|\-|\$|\:]+)['|"|`]?\s*\)/gi
+const REGEX = /(:)?attr\s*?\(\s*?['|"|`]?([a-z|A-Z|0-9|_|\-|$|:]+)['|"|`]?\s*\)/gi
 
 function transform(queryString) {
   return queryString

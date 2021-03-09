@@ -1,15 +1,26 @@
-const REGEX = /([^\$]|^|\s|\()print\s*(["|']?[a-z|A-Z|0-9|\.|_|-|\$|\(|\)|\[|\]|\s|\*]+["|']?)/g
 
-function transform(queryString) {
-  return queryString.replace(REGEX, replace)
+const REGEX = /([$]?print\s*(.*)(;|\n|\r|$))/g
 
-  function replace(_, prefix, input) {
-    return compile({ prefix, input })
+function transform(queryString, ctx) {
+  const result = queryString.replace(REGEX, replace)
+  return result
+
+  function replace(_, statement, input) {
+    return compile(ctx, { statement, input })
   }
 }
 
-function compile({ prefix, input }) {
-  return `${prefix}$print(${input})`
+function compile(ctx, { statement, input }) {
+  statement = (statement || '').trim()
+
+  // bail on `$print()` calls
+  if ('$' === statement[0]) {
+    return statement
+  }
+
+  ctx.output.push(input)
+
+  return ''
 }
 
 module.exports = {

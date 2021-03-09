@@ -66,13 +66,18 @@ function normalizeValue(value) {
   }
 
   try {
-    let [_, year, month, date, hour, minute, second, tz] = value.match(ISO_8601_2004_2019_REGEX)
+    const [, year, month, date, hour, minute, second, tz] = value.match(ISO_8601_2004_2019_REGEX)
+    let timezone = null
+
     if (tz) {
-      tz = tz.replace(/^([-|+])?([0-9]?[0-9])([0-9][0-9])?$/g, (_, $1, $2, $3) => `${$1 || '+'}${$2.padStart(2, 0)}:${($3 || '').padStart(2, 0)}`)
+      timezone = tz.replace(/^([-|+])?([0-9]?[0-9])([0-9][0-9])?$/g, (_, $1, $2, $3) => {
+        return `${$1 || '+'}${$2.padStart(2, 0)}:${($3 || '').padStart(2, 0)}`
+      })
     }
 
-    const dateString = `${year}-${month}-${date}T${hour}:${minute}:${second}.000${tz || ''}`
+    const dateString = `${year}-${month}-${date}T${hour}:${minute}:${second}.000${timezone || ''}`
     const dateValue = new Date(dateString)
+
     if (!Number.isNaN(dateValue.valueOf())) {
       return dateValue
     }

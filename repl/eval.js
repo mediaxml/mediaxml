@@ -1,13 +1,13 @@
-const { clearScreenDown, cursorTo, moveCursor } = require('readline')
+const { clearScreenDown,  moveCursor } = require('readline')
 const { getCursorPreviewPosition } = require('./utils')
 const { pretty } = require('./pretty')
 const { Timer } = require('./timer')
-const prettyMs = require('pretty-ms')
 const chalk = require('chalk')
 const repl = require('repl')
 
 let documentNotLoadedWarningShown = false
 
+// eslint-disable-next-line
 async function eval(query, context, file, callback) {
   const { assignments, parser, options, imports, server, log } = this.mxml
   const timer = Timer.now('query')
@@ -28,32 +28,11 @@ async function eval(query, context, file, callback) {
   }
 
   try {
-    let endOfInput = false
-
     try {
       result = await parser.query(query, { imports, assignments })
-
-      // we just imported something, check for a value
-      if (!result && imports.pending.size) {
-        await imports.wait()
-        while (values.length) {
-          const value = values.pop()
-          if (value) {
-            result = value
-            break
-          }
-        }
-
-        imports.clear()
-      }
-
     } catch (err) {
       if (err && '(end)' !== err.token && !imports.pending.size) {
         throw err
-      }
-
-      if (err && '(end)' === err.token) {
-        endOfInput = true
       }
     }
 

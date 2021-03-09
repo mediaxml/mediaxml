@@ -306,7 +306,11 @@ class Context {
         result = await parser.query(query, { imports, assignments })
       } catch (err) {
         if (err && !('token' in err)) {
-          this.onerror(err)
+          if (
+            'S0101' !== err.code // string literal erro
+          ) {
+            this.onerror(err)
+          }
         }
       }
     }

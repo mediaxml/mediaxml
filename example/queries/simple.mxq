@@ -1,9 +1,8 @@
 #!/usr/bin/env mxml
 
-import '../mrss/feed.xml';
-//import "$coalesce($argv1, '../mrss/feed.xml')"
-import './imported.mxq'
+import '../mrss/feed.xml'
 
-.name
-//$foo
-//this.name
+/**
+ * Finds all nodes that have an `url` attribute that is not null
+ */
+**[is node and attr(url) is not null]

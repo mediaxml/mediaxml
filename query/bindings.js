@@ -453,7 +453,7 @@ module.exports = {
   // $sorted(input: (array | *)?): array | string
   sorted: binding(
     '<j-:(as)> # Returns input array with elements sorted.',
-    function $sorted(input, arg) {
+    function $sorted(input) {
       if (Array.isArray(input)) {
         return input.sort(sort)
       } else if ('string' === typeof input || input instanceof String) {
@@ -570,7 +570,7 @@ module.exports = {
 
   // $contains(input: any, search: string): boolean
   contains: binding(
-    '<j-s-:b> # Returns true if search key is in input target.',
+    '<j-j-:b> # Returns true if search key is in input target.',
     function $contains(target, search) {
       if ('boolean' === typeof target) {
         return false
@@ -590,7 +590,11 @@ module.exports = {
       }
 
       if (Array.isArray(target) || 'function' === typeof target.includes) {
-        return target.includes(normalizeValue(search)) || search in target
+        if (target.includes(normalizeValue(search))) {
+          return true
+        }
+
+        return String(search || '') in target
       }
 
       if ('object' === typeof target) {
@@ -605,28 +609,44 @@ module.exports = {
   text: binding(
     '<j-:j> # Returns input as a text node.',
     function $text(input) {
-      return Text.from(String(input || ''))
+      if (Array.isArray(input)) {
+        return input.map((i) => Text.from(String(i || '')))
+      } else {
+        return Text.from(String(input || ''))
+      }
     }),
 
   // $document(input: (string | any): Document
   document: binding(
     '<j-:j> # Returns input as a document.',
     function $document(input) {
-      return Document.from(input)
+      if (Array.isArray(input)) {
+        return input.map((i) => Document.from(i))
+      } else {
+        return Document.from(input)
+      }
     }),
 
   // $node(input: (string | any): Document
   node: binding(
     '<j-:j> # Returns input as a document node.',
     function $node(input) {
-      return Node.from(input)
+      if (Array.isArray(input)) {
+        return input.map((i) => Node.from(i))
+      } else {
+        return Node.from(input)
+      }
     }),
 
   // $fragment(input: (string | any): Document
   fragment: binding(
     '<j-:j> # Returns input as a document fragment.',
     function $node(input) {
-      return Fragment.from(input)
+      if (Array.isArray(input)) {
+        return input.map((i) => Fragment.from(i))
+      } else {
+        return Fragment.from(input)
+      }
     }),
 
   // $noop()

@@ -1,13 +1,14 @@
 const { normalizeValue } = require('../normalize')
 const InvertedPromise = require('inverted-promise')
-const { ParserNode } = require('../parser')
+const { randomBytes } = require('crypto')
 const { resolve } = require('../resolve')
-const camelcase = require('camelcase')
 const extendMap = require('map-extend')
 const bindings = require('./bindings')
-const defined = require('defined')
 const jsonata = require('jsonata')
 const debug = require('debug')('mediaxml')
+const path = require('path')
+
+const QUERY_FILE_EXTNAME = '.mxq' // MediaXML Query
 
 /**
  * Converts a map to an object.
@@ -88,7 +89,6 @@ class Imports extends Map {
     super()
 
     this.cwd = opts.cwd || null
-    this.backlog = []
     this.pending = new Map()
 
     if ('function' === typeof opts.load) {
@@ -97,7 +97,7 @@ class Imports extends Map {
   }
 
   get waiting() {
-    return this.pending.size + this.backlog.length
+    return this.pending.size
   }
 
   /**
@@ -122,36 +122,44 @@ class Imports extends Map {
       const pending = [ ...this.pending.values() ]
       this.pending.clear()
 
-      values.push(...(await Promise.all(pending)))
-    }
-
-    while (this.backlog.length) {
-      const backlog = this.backlog
-        .splice(0, this.backlog.length)
-        .map((f) => 'function' === typeof f ? f() : f)
-
-      values.push(...(await Promise.all(backlog)))
+      await visit(pending)
     }
 
     return values
+
+    async function visit(entries) {
+      for (const promise of entries) {
+        const value = await promise
+        if (value) {
+          values.push(value)
+        }
+      }
+    }
   }
 
   clear() {
     this.pending.clear()
-    this.backlog.splice(0, this.backlog.length)
   }
 
-  finalize(name) {
+  finalize(name, value) {
     if (this.pending.has(name)) {
       const promise = this.pending.get(name)
+
+      if (value) {
+        this.set(name, value)
+      }
+
       promise.then((result) => {
         this.pending.delete(name)
         this.set(name, result)
       })
+
       return promise
+    } else if (name) {
+      this.set(name, value)
     }
 
-    return Promise.resolve(null)
+    return Promise.resolve(value || null)
   }
 }
 
@@ -222,8 +230,11 @@ class Context {
       throw new TypeError('Context constructor needs options argument.')
     }
 
+    this.id = randomBytes(16).toString('hex')
+    this.cwd = opts.cwd || null
     this.node = opts.node
     this.target = opts.target
+    this.output = []
     this.imports = opts.imports instanceof Map ? opts.imports : new Imports()
     this.bindings = opts.bindings instanceof Bindings ? opts.bindings : Bindings.from(this, opts.bindings)
     this.assignments = opts.assignments instanceof Map ? opts.assignments : new Assignments()
@@ -293,9 +304,9 @@ class Context {
    * Imports target calling context loader.
    * @public
    * @param {String} name
-   * @return {Promise<Mixed>}
+   * @return {Promise<Mixed>|null}
    */
-  async import(name) {
+  import(name) {
     const { imports } = this
 
     if ('string' === typeof name) {
@@ -312,10 +323,18 @@ class Context {
       }
     }
 
-    name = resolve(name, imports)
+    const extname = path.extname(name)
+    let cwd = this.cwd || imports.cwd
+    let resolved = resolve(name, imports)
+
+    if (!resolved && !extname) {
+      resolved = resolve(name + QUERY_FILE_EXTNAME, { cwd })
+    }
+
+    name = resolved
 
     if (!name) {
-      return
+      return null
     }
 
     if (imports.has(name)) {
@@ -326,11 +345,29 @@ class Context {
       return imports.pending.get(name)
     }
 
-
     if ('function' === typeof imports.load) {
       const promise = Object.assign(new InvertedPromise(), { name })
       imports.pending.set(name, promise)
-      imports.load(name).then(promise.resolve, promise.reject)
+
+      try {
+        void new URL(name)
+      } catch (err) {
+        cwd = path.dirname(name)
+        this.cwd = cwd
+        imports.cwd = cwd
+      }
+
+        imports
+          .load(name, { cwd })
+          .then((result) => {
+            imports.finalize(name, result)
+            return promise.resolve(result)
+          })
+          .catch((err) => {
+            imports.pending.delete(name)
+            return promise.reject(err)
+          })
+
       return promise
     }
 
@@ -365,13 +402,14 @@ class Expression {
    */
   constructor(context, string, opts) {
     if ('string' !== typeof string) {
-      throw new TypeError('Expression constructor needs options argument.')
+      string = ''
     }
 
     if (!opts || 'object' !== typeof opts) {
       opts = {}
     }
 
+    this.transformed = null
     this.transforms = new Transforms(context, opts.transforms)
     this.bindings = null
     this.context = context
@@ -425,21 +463,65 @@ class Expression {
     this.result = null
   }
 
-  processImports() {
-    this.transforms.process(0, this.string)
-    return this.imports
+  /**
+   * TODO
+   */
+  preprocess() {
+    let { bindings, string } = this
+    const assignments = convertMapToObject(this.assignments)
+    let preprocessed = this.transforms.process(0, string)
+
+    if (preprocessed) {
+      try {
+        const value = jsonata(preprocessed)
+
+        for (const key of bindings.keys()) {
+          const { fn, signature } = bindings.get(key)
+          value.registerFunction(key, fn, signature)
+        }
+
+        const result = value.evaluate(this.target, assignments)
+
+        if ('string' === typeof result) {
+          return result
+        }
+      } catch (err) {
+        debug(err)
+      }
+
+      for (const key in assignments) {
+        const regex = RegExp(`\\$${key}`, 'g')
+        const value = assignments[key]
+        if ('string' === typeof value) {
+          preprocessed = preprocessed.replace(regex, `"${value}"`)
+        } else {
+          preprocessed = preprocessed.replace(regex, value)
+        }
+      }
+
+      return preprocessed
+    }
+
+    return null
   }
 
+  /**
+   * TODO
+   */
   transform() {
     return this.transforms.transform(this.string)
   }
 
+  /**
+   * TODO
+   */
   process() {
     const { bindings, string } = this
-    const transformed = this.transforms.transform(string)
 
-    if (transformed) {
-      this.value = jsonata(transformed)
+    this.transformed = this.transforms.transform(string)
+
+    if (this.transformed) {
+      this.value = jsonata(this.transformed)
 
       for (const key of bindings.keys()) {
         const { fn, signature } = bindings.get(key)
@@ -453,8 +535,13 @@ class Expression {
     return null
   }
 
+  /**
+   * TODO
+   */
   evaluate() {
-    this.process()
+    if (!this.value) {
+      this.process()
+    }
 
     if (this.value) {
       const assignments = convertMapToObject(this.assignments)
@@ -508,12 +595,10 @@ class Transforms {
     this.push(0, require('./transform/print'))
     this.push(0, require('./transform/import'))
     this.push(0, require('./transform/hex'))
-    this.push(0, require('./transform/cleanup'))
 
     this.push(1, require('./transform/children'))
     this.push(1, require('./transform/attributes'))
     this.push(1, require('./transform/ordinals'))
-    this.push(1, require('./transform/cleanup'))
 
     for (const transform of transforms) {
       if ('function' === typeof transform) {
@@ -581,10 +666,14 @@ class Transforms {
     return output
 
     function reduce(output, transform) {
-      return transform(output, context, transforms, phase)
+      const transformed = transform(output, context, transforms, phase)
+      return transformed
     }
   }
 
+  /**
+   * TODO
+   */
   transform(input, phases) {
     phases = Array.isArray(phases) ? phases : [0, 1, 2]
 
@@ -758,8 +847,9 @@ function query(node, queryString, opts) {
     ].filter(Boolean)
   })
 
-  const expression = Expression.from(context, queryString, opts)
-  const imports = expression.processImports()
+  let expression = Expression.from(context, queryString, opts)
+  let preprocessed = expression.preprocess()
+  const { imports } = expression
 
   if (imports.waiting) {
     return new Promise(handleImports)
@@ -780,11 +870,77 @@ function query(node, queryString, opts) {
       let result = null
 
       while (imports.waiting) {
-        const values = await imports.wait()
+        const values = await imports.wait(context, opts)
+        const nextPreprocessed = expression.preprocess()
+
+        if (preprocessed && nextPreprocessed && nextPreprocessed !== preprocessed) {
+          preprocessed = nextPreprocessed
+          expression = Expression.from(context, nextPreprocessed, opts)
+        }
+
         const value = await expression.evaluate()
 
-        if (null !== value || values.length) {
-          result = value || values.pop()
+        if (null !== value && undefined !== value) {
+          result = value
+        } else if (values.length) {
+          while (values.length) {
+            const v = values.pop()
+            if (v) { result = v }
+          }
+        }
+      }
+
+      if (!result) {
+        try {
+          result = await expression.evaluate()
+        } catch (err) {
+          debug(err)
+        }
+      }
+
+        /*
+      expression = Expression.from(context, preprocessed, opts)
+
+      while (imports.waiting) {
+        const values = await imports.wait(context, opts)
+
+        const nextPreprocessed = expression.preprocess()
+        if (preprocessed && nextPreprocessed && nextPreprocessed !== preprocessed) {
+          preprocessed = nextPreprocessed
+          expression = Expression.from(context, nextPreprocessed, opts)
+        }
+
+        try {
+          const value = await expression.evaluate()
+
+          if (null !== value) {
+            result = value
+          } else if (values.length) {
+            while (values.length) {
+              const v = values.pop()
+              if (v) { result = v }
+            }
+          }
+        } catch (err) {
+          debug(err)
+        }
+      }
+
+      if (!result) {
+        try {
+          result = await expression.evaluate()
+        } catch (err) {
+          debug(err)
+        }
+      }
+      */
+
+      const outputs = context.output.splice(0, context.output.length)
+      for (const output of outputs) {
+        try {
+          await Expression.from(context, `$print(${output})`, opts).evaluate()
+        } catch (err) {
+          return reject(err)
         }
       }
 

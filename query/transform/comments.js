@@ -1,4 +1,4 @@
-function transform(queryString, ctx) {
+function transform(queryString) {
   return queryString.replace(/\/\*[\s\S]*?\*\/|([^:]|^)\/\/.*$/gm, '')
 }
 

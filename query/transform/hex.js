@@ -1,6 +1,6 @@
 const REGEX = /\b0x([0-9a-f]+)\b/g
 
-function transform(queryString, ctx) {
+function transform(queryString) {
   return queryString.replace(REGEX, replace)
 
   function replace(_, hex) {

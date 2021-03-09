@@ -1,1 +1,1 @@
-let foo = **[is text]
+let AWS_DOMAIN = "amazonaws.com"

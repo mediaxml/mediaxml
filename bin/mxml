@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
+process.title = 'mxml'
+
 const { pretty } = require('../repl/pretty')
 const debug = require('debug')('mediaxml')
-const path = require('path')
 const repl = require('../repl')
 const pkg = require('../package.json')
 const fs = require('fs')

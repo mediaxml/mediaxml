@@ -1,1 +1,3 @@
+import './imported'
+
 let MRSS_FEED_URL = 'https://raw.githubusercontent.com/little-core-labs/mediaxml/master/example/mrss/feed.xml'

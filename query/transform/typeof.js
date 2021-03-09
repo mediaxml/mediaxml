@@ -1,4 +1,4 @@
-const REGEX = /([^\$]|^|\s|\()typeof\s*(["|']?[a-z|A-Z|0-9|\.|_|-|\$|\(|\)|\[|\]|\s]+["|']?)/g
+const REGEX = /([^$]|^|\s|\()typeof\s*(["|']?[a-z|A-Z|0-9|.|_|-|$|(|)|[|\]|\s]+["|']?)/g
 
 function transform(queryString) {
   return queryString.replace(REGEX, replace)

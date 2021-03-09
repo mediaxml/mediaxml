@@ -4,13 +4,13 @@ function transform(queryString) {
   const result = queryString.replace(REGEX, replace)
   return result
 
-  function replace(_, prefix,type) {
+  function replace(_, prefix, type) {
     prefix = (prefix || '').replace(REGEX, replace)
 
     const normalizedPrefix = prefix.trim()
     const output = [prefix]
 
-    if (/[\[]$/.test(normalizedPrefix)) {
+    if (/[[]$/.test(normalizedPrefix)) {
       output.push('$ ~>')
     } else {
       output.push('~>')

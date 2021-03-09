@@ -1,4 +1,3 @@
-const { Assignments, Imports } = require('./query')
 const { createReadStream } = require('./stream')
 const { Parser } = require('./parser')
 const { hash } = require('./hash')
@@ -23,17 +22,19 @@ function createLoader(context, opts) {
       throw new Error('Missing URI for load function.')
     }
 
+    let cwd = state.cwd
     const { parser, imports } = context
-    const cacheKey = hash([state.cwd, uri])
+    const cacheKey = hash([cwd, uri])
     const buffers = []
-    const { cwd } = state
     let stream = null
 
     if (cache.has(cacheKey)) {
       return cache.get(cacheKey)
     }
 
-    return new Promise(resolver)
+    const promise = new Promise(resolver)
+    cache.set(cacheKey, promise)
+    return promise
 
     async function resolver(resolve, reject) {
       try {
@@ -56,7 +57,8 @@ function createLoader(context, opts) {
         }
       }
 
-      context.imports.cwd = state.cwd
+      cwd = state.cwd
+      context.imports.cwd = cwd
 
       stream.once('error', onerror)
       stream.on('data', ondata)
@@ -87,21 +89,18 @@ function createLoader(context, opts) {
           }
         }
 
-        cache.set(cacheKey, result)
-        imports.set(uri, result)
-        context.imports.cwd = state.cwd
-        state.paths.pop()
-
         if (!result) {
-          const value = parser.query(string, context)
-          if (value instanceof Promise) {
-            imports.backlog.push(value)
-          } else if (value) {
-            result = value
+          try {
+            result = await parser.query(string, context)
+          } catch (err) {
+            return reject(err)
           }
         }
 
+        state.paths.pop()
+        context.imports.cwd = state.cwd
         resolve(result)
+        imports.finalize(uri, result)
       }
     }
   }

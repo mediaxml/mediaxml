@@ -1,6 +1,13 @@
 #!/usr/bin/env mxml
 
-import './variables.mxq'
+/**
+ * A simple query
+ * @param {?String} argv1 - The first argument to the query program
+ */
+
+import './variables'
 import $coalesce($argv1, $MRSS_FEED_URL)
 
-**[is text and length > 5]
+let nodes_contains_aws_domain = **[is node and text contains $AWS_DOMAIN]
+
+$nodes_contains_aws_domain
