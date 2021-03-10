@@ -281,17 +281,9 @@ class Context {
 
     // try to evaluate JSONata expression in value statement
     try {
-      value = Expression.from(this, value).evaluate() || value
+      value = Expression.from(this, value).preprocess() || value
     } catch (err) {
       debug(err.stack || err)
-    }
-
-    // interpolate variable values in value statement
-    if ('string' === typeof value) {
-      for (const k in assignments) {
-        const regex = RegExp(`\\$${k}`, 'g')
-        value = value.replace(regex, assignments[k])
-      }
     }
 
     // normalize value before setting
@@ -466,36 +458,21 @@ class Expression {
   /**
    * TODO
    */
-  preprocess() {
-    let { bindings, string } = this
+  preprocess(interpolate) {
+    const { string } = this
     const assignments = convertMapToObject(this.assignments)
     let preprocessed = this.transforms.process(0, string)
 
     if (preprocessed) {
-      try {
-        const value = jsonata(preprocessed)
-
-        for (const key of bindings.keys()) {
-          const { fn, signature } = bindings.get(key)
-          value.registerFunction(key, fn, signature)
-        }
-
-        const result = value.evaluate(this.target, assignments)
-
-        if ('string' === typeof result) {
-          return result
-        }
-      } catch (err) {
-        debug(err)
-      }
-
-      for (const key in assignments) {
-        const regex = RegExp(`\\$${key}`, 'g')
-        const value = assignments[key]
-        if ('string' === typeof value) {
-          preprocessed = preprocessed.replace(regex, `"${value}"`)
-        } else {
-          preprocessed = preprocessed.replace(regex, value)
+      if (interpolate) {
+        for (const key in assignments) {
+          const regex = RegExp(`\\$${key}`, 'g')
+          const value = assignments[key]
+          if ('string' === typeof value) {
+            preprocessed = preprocessed.replace(regex, `"${value}"`)
+          } else {
+            preprocessed = preprocessed.replace(regex, value)
+          }
         }
       }
 
@@ -515,12 +492,26 @@ class Expression {
   /**
    * TODO
    */
-  process() {
+  process(interpolate) {
     const { bindings, string } = this
+    const assignments = convertMapToObject(this.assignments)
 
     this.transformed = this.transforms.transform(string)
 
     if (this.transformed) {
+
+      if (interpolate) {
+        for (const key in assignments) {
+          const regex = RegExp(`\\$${key}`, 'g')
+          const value = assignments[key]
+          if ('string' === typeof value) {
+            this.transformed = this.transformed.replace(regex, `"${value}"`)
+          } else {
+            this.transformed = this.transformed.replace(regex, value)
+          }
+        }
+      }
+
       this.value = jsonata(this.transformed)
 
       for (const key of bindings.keys()) {
@@ -538,9 +529,9 @@ class Expression {
   /**
    * TODO
    */
-  evaluate() {
+  evaluate(interpolate) {
     if (!this.value) {
-      this.process()
+      this.process(interpolate)
     }
 
     if (this.value) {
@@ -848,14 +839,30 @@ function query(node, queryString, opts) {
   })
 
   let expression = Expression.from(context, queryString, opts)
-  let preprocessed = expression.preprocess()
   const { imports } = expression
 
-  if (imports.waiting) {
-    return new Promise(handleImports)
+  // compute imports and outputs
+  expression.preprocess()
+
+  if (imports.waiting || context.output.length) {
+    return new Promise(handleImportsAndOutputs)
   }
 
-  const result = expression.evaluate()
+  let result = expression.evaluate()
+  let lastResult = null
+  while ('string' === typeof result && result.length && lastResult !== result) {
+    try {
+      lastResult = result
+      result = Expression.from(context, result, opts).evaluate(true)
+    } catch (err) {
+      debug(err)
+      break
+    }
+  }
+
+  if (lastResult && !result) {
+    result = lastResult
+  }
 
   if (Array.isArray(result)) {
     return Node.createFragment(null, {
@@ -865,77 +872,33 @@ function query(node, queryString, opts) {
 
   return result || null
 
-  async function handleImports(resolve, reject) {
+  async function handleImportsAndOutputs(resolve, reject) {
     try {
+      let outputs = context.output.splice(0, context.output.length)
       let result = null
 
       while (imports.waiting) {
         const values = await imports.wait(context, opts)
-        const nextPreprocessed = expression.preprocess()
+        result = await expression.evaluate()
 
-        if (preprocessed && nextPreprocessed && nextPreprocessed !== preprocessed) {
-          preprocessed = nextPreprocessed
-          expression = Expression.from(context, nextPreprocessed, opts)
+        // eval until we get an error or nothing falling back to string result value
+        let lastResult = null
+        while ('string' === typeof result && result.length && lastResult !== result) {
+          try {
+            lastResult = result
+            result = await Expression.from(context, result, opts).evaluate(true)
+          } catch (err) {
+            break
+          }
         }
 
-        const value = await expression.evaluate()
-
-        if (null !== value && undefined !== value) {
-          result = value
-        } else if (values.length) {
-          while (values.length) {
-            const v = values.pop()
-            if (v) { result = v }
+        if (!result) {
+          while (!result && values.length) {
+            result = values.pop()
           }
         }
       }
 
-      if (!result) {
-        try {
-          result = await expression.evaluate()
-        } catch (err) {
-          debug(err)
-        }
-      }
-
-        /*
-      expression = Expression.from(context, preprocessed, opts)
-
-      while (imports.waiting) {
-        const values = await imports.wait(context, opts)
-
-        const nextPreprocessed = expression.preprocess()
-        if (preprocessed && nextPreprocessed && nextPreprocessed !== preprocessed) {
-          preprocessed = nextPreprocessed
-          expression = Expression.from(context, nextPreprocessed, opts)
-        }
-
-        try {
-          const value = await expression.evaluate()
-
-          if (null !== value) {
-            result = value
-          } else if (values.length) {
-            while (values.length) {
-              const v = values.pop()
-              if (v) { result = v }
-            }
-          }
-        } catch (err) {
-          debug(err)
-        }
-      }
-
-      if (!result) {
-        try {
-          result = await expression.evaluate()
-        } catch (err) {
-          debug(err)
-        }
-      }
-      */
-
-      const outputs = context.output.splice(0, context.output.length)
       for (const output of outputs) {
         try {
           await Expression.from(context, `$print(${output})`, opts).evaluate()

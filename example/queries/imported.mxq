@@ -1,1 +1,3 @@
 let AWS_DOMAIN = "amazonaws.com"
+
+print $AWS_DOMAIN

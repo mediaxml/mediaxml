@@ -8,6 +8,6 @@
 import './variables'
 import $coalesce($argv1, $MRSS_FEED_URL)
 
-let nodes_contains_aws_domain = **[is node and text contains $AWS_DOMAIN]
+let nodes_that_contain_aws_domain = **[is node and text contains $AWS_DOMAIN]
 
-$nodes_contains_aws_domain
+$coalesce($argv2, $nodes_that_contain_aws_domain)

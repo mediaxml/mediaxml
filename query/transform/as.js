@@ -25,15 +25,18 @@ const instances = {
 }
 
 const specials = {
+  any: '$eval',
   camelcase: '$camelcase',
+  eval: '$eval',
   json: '$json',
   keys: '$keys',
   pascalcase: '$pascalcase',
+  query: '$eval',
   reversed: '$reversed',
   snakecase: '$snakecase',
   sorted: '$sorted',
   tuple: '$tuple',
-  unique: '$unique'
+  unique: '$unique',
 }
 
 const REGEX = /(let\s*.*\s*=|;|\s)?(.*)\s*\bas\b\s*([a-z|A-Z|0-9|_|<|>]+)(.*)/g

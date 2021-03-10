@@ -210,7 +210,12 @@ class Context {
     this.assignments.set('argv2', this.options.argv[2] || null)
     this.assignments.set('argv3', this.options.argv[3] || null)
     this.assignments.set('argv4', this.options.argv[4] || null)
-    this.assignments.set('path', path)
+    this.assignments.set('path', {
+      resolve: path.resolve,
+      dirname: path.dirname,
+      join: path.join,
+      sep: path.sep
+    })
 
     function onload(info) {
       debug('onload', info)
@@ -305,13 +310,7 @@ class Context {
       try {
         result = await parser.query(query, { imports, assignments })
       } catch (err) {
-        if (err && !('token' in err)) {
-          if (
-            'S0101' !== err.code // string literal erro
-          ) {
-            this.onerror(err)
-          }
-        }
+        debug(err)
       }
     }
 
