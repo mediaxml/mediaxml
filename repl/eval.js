@@ -28,13 +28,7 @@ async function eval(query, context, file, callback) {
   }
 
   try {
-    try {
-      result = await parser.query(query, { imports, assignments })
-    } catch (err) {
-      if (err && '(end)' !== err.token && !imports.pending.size) {
-        throw err
-      }
-    }
+    result = await parser.query(query, { imports, assignments })
 
     const output = pretty(result)
 
@@ -66,7 +60,9 @@ async function eval(query, context, file, callback) {
     moveCursor(server.output, cols, rows + 1)
     clearScreenDown(server.output)
 
-    if (err && '(end)' === err.token) {
+    if (err && ['S0101', 'S0105'].includes(err.code)) {
+      return process.nextTick(callback, new repl.Recoverable(err))
+    } else if (err && '(end)' === err.token) {
       return process.nextTick(callback, new repl.Recoverable(err))
     }
 

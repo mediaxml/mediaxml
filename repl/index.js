@@ -7,6 +7,7 @@ const { createLoader } = require('../loader')
 const { Parser } = require('../parser')
 const { pretty } = require('./pretty')
 const truncate = require('cli-truncate')
+// eslint-disable-next-line
 const { eval } = require('./eval')
 const { Log } = require('./log')
 const { UI } = require('./ui')
@@ -147,7 +148,8 @@ class Context {
       terminal: true,
       preview: false !== opts.preview,
       colors: false !== opts.colors,
-      argv: Array.isArray(opts.argv) ? opts.argv : [],
+      // we'll normalize these values later, so lets make a copy
+      argv: [ ...Array.isArray(opts.argv) ? opts.argv : [] ],
       ui: 'object' === typeof opts.ui ? opts.ui : {},
 
       completer: createCompleter(this),
@@ -166,12 +168,12 @@ class Context {
     this.log = new Log(this)
     this.input = new Input(this)
     this.server = opts.server || null
-    this.parser = opts.parser || null
+    this.parser = null
     this.history = new History(this)
     this.assignments = new Assignments()
 
     this.imports = new Imports({
-      load: opts.load || createLoader(this, { onload }),
+      load: opts.load || createLoader(this, { onbeforeload, onload }),
       cwd: opts.cwd || process.cwd()
     })
 
@@ -196,6 +198,24 @@ class Context {
       this.handlers.onkeypress = opts.onkeypress
     }
 
+    if (opts.parser) {
+      const { parser } = opts
+      if (parser.rootNode) {
+        this.parser.nodes[0] = parser.rootNode
+        this.parser.end()
+      } else {
+        parser.promise
+          .then(() => {
+            this.parser.clear()
+            this.parser.nodes[0] = parser.rootNode
+            this.parser.end()
+          })
+          .catch((err) => {
+            this.log.debug(err.stack || err)
+          })
+      }
+    }
+
     if (!this.parser) {
       this.parser = Parser.from('<xml></xml>')
     } else if (!this.parser.rootNode) {
@@ -217,8 +237,16 @@ class Context {
       sep: path.sep
     })
 
+    const { ui } = this
+
+    function onbeforeload(info) {
+      debug('onbeforeload', info)
+      ui.spinners.loading.start()
+    }
+
     function onload(info) {
       debug('onload', info)
+      ui.spinners.loading.stop()
     }
   }
 

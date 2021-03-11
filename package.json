@@ -42,6 +42,7 @@
     "debug": "^4.3.1",
     "defined": "^1.0.0",
     "env-paths": "^2.2.0",
+    "fast-xml-parser": "^3.18.0",
     "get-uri": "^3.0.2",
     "glob": "^7.1.6",
     "highlight.js": "^10.5.0",

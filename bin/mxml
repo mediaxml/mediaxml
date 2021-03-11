@@ -30,6 +30,9 @@ const argv = require('minimist')(process.argv.slice(2), {
 
   boolean: [
     'debug',
+    'dump-assignments',
+    'dump-imports',
+    'dump-lets',
     'inspect',
     'help',
     'json',
@@ -47,15 +50,17 @@ if (argv.help) {
   process.stdout.write('usage: mxml [-hiDRTV] [options] <filename> [query]\n')
   process.stdout.write('\n')
   process.stdout.write('options:\n')
-  process.stdout.write('  -h, --help      Show this message\n')
-  process.stdout.write('  -i, --inspect   Show inspected output\n')
-  process.stdout.write('  -D, --debug     Show debug output\n')
-  process.stdout.write('  -j, --json      Convert output to JSON\n')
-  process.stdout.write('  -P, --pretty    Show pretty output (default in most cases)\n')
-  process.stdout.write('  -R, --repl      Launch program REPL\n')
-  process.stdout.write('  -T, --timing    Show query timing debug output\n')
-  process.stdout.write('  -V, --version   Show program version\n')
-  process.stdout.write('  -W, --watch     Watch for changes (REPL context only)\n')
+  process.stdout.write('  -h, --help         Show this message\n')
+  process.stdout.write('  -i, --inspect      Show inspected output\n')
+  process.stdout.write('  -D, --debug        Show debug output\n')
+  process.stdout.write('  -j, --json         Convert output to JSON\n')
+  process.stdout.write('  -P, --pretty       Show pretty output (default in most cases)\n')
+  process.stdout.write('  -R, --repl         Launch program REPL\n')
+  process.stdout.write('  -T, --timing       Show query timing debug output\n')
+  process.stdout.write('  -V, --version      Show program version\n')
+  process.stdout.write('  -W, --watch        Watch for changes (REPL context only)\n')
+  process.stdout.write('      --dump-lets    Dumps all "let" assignments (let <key> = <value>;)\n')
+  process.stdout.write('      --dump-imports Dumps all imports\n')
   process.stdout.write('\n')
   process.stdout.write('arguments:\n')
   process.stdout.write('  <filename>      Path to XML file (required)\n')
@@ -120,7 +125,11 @@ if ('-' === argv._[0] || !process.stdin.isTTY) {
     let result = await context.parser.query(`import "${arg0}"`, context)
     let output = null
 
-    if (query) {
+    if (argv['dump-lets'] || argv['dump-assignments']) {
+      result = context.assignments.toJSON()
+    } else if (argv['dump-imports']) {
+      result = context.imports.toJSON()
+    } else if (query) {
       result = await context.parser.query(query, context)
     }
 
@@ -148,7 +157,8 @@ if ('-' === argv._[0] || !process.stdin.isTTY) {
       context.start()
     }
   }).catch((err) => {
-    context.log.error(err)
+    context.log.debug(err.stack || err)
+    context.log.error(err.message)
   })
 } else {
   repl.start({

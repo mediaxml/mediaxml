@@ -1,18 +1,17 @@
 const { WritableStream } = require('htmlparser2/lib/WritableStream')
 const InvertedPromise = require('inverted-promise')
 const { Readable } = require('streamx')
+const { validate } = require('./validate')
 const htmlparser2 = require('htmlparser2')
 const { inspect } = require('util')
 const camelcase = require('camelcase')
 const defined = require('defined')
-const assert = require('nanoassert')
 const debug = require('debug')('mediaxml')
 
 const {
   normalizeAttributeValue,
   normalizeAttributeKey,
   normalizeAttributes,
-  normalizeValue
 } = require('./normalize')
 
 /**
@@ -556,7 +555,7 @@ class ParserNodeFragment extends Array {
    * @public
    * @return {Array}
    */
-  toJSON(...args) {
+  toJSON() {
     return this.children
   }
 }
@@ -677,7 +676,7 @@ class ParserNode {
 
     if (nameOrNode && 'object' === typeof nameOrNode) {
       const { originalName, originalAttributes } = nameOrNode
-      const { name, attributes, depth } = nameOrNode
+      const { name, attributes } = nameOrNode
       let { options, children, ...rest } = nameOrNode
 
       if (Array.isArray(children)) {
@@ -802,7 +801,7 @@ class ParserNode {
     function normalizeName(name) {
       if ('string' === typeof name) {
         //return name.split(/[_|-]/).map((n) => n.)
-        return name.replace(/([a-z|A-Z|0-9])([_|-|\:])/i, (str, $1, $2) => {
+        return name.replace(/([a-z|A-Z|0-9])([_|-|:])/i, (str, $1, $2) => {
           return camelcase($1) + $2
         })
       }
@@ -855,13 +854,13 @@ class ParserNode {
   set innerXML(value) {
     if (null === value || '' === value) {
       this.remove(...this.children)
-      return value
+      return
     }
 
     if (value instanceof this.constructor) {
       this.remove(...this.children)
       this.appendChild(value)
-      return value
+      return
     }
 
     if (Array.isArray(value)) {
@@ -873,7 +872,7 @@ class ParserNode {
         }
       }
 
-      return value
+      return
     }
 
     if ('string' !== typeof value) {
@@ -882,12 +881,14 @@ class ParserNode {
 
     const pre = `<node>\n`
     const post = `\n</node>`
-    const parser = Parser.from(pre + value + post)
+    const source = pre + value + post
+    const parser = Parser.from(validate(source))
 
     this.remove(...this.children)
-    this.append(...parser.rootNode.children)
 
-    return value
+    if (parser.rootNode) {
+      this.append(...parser.rootNode.children)
+    }
   }
 
   /**
@@ -930,13 +931,17 @@ class ParserNode {
       throw new TypeError('Invalid value when setting \'outerXML\'')
     }
 
-    const parser = Parser.from(value)
+    const parser = Parser.from(validate(value))
 
-    this.name = parser.rootNode.originalName
-    this.attributes.clear()
-    this.attributes.set(parser.rootNode.attributes)
-    this.remove(...this.children)
-    this.append(...parser.rootNode.children)
+    if (parser.rootNode) {
+      this.name = parser.rootNode.originalName
+
+      this.attributes.clear()
+      this.attributes.set(parser.rootNode.attributes)
+
+      this.remove(...this.children)
+      this.append(...parser.rootNode.children)
+    }
   }
 
   /**
@@ -2166,6 +2171,7 @@ class Parser extends htmlparser2.Parser {
    * @return {Parser}
    */
   static from(input, ...args) {
+    // handle Parser as input for copy
     if (input instanceof Parser) {
       const parser = new this({
         ...input.options,
@@ -2180,39 +2186,86 @@ class Parser extends htmlparser2.Parser {
       return parser
     }
 
-    if ('string' === typeof input) {
+    // handle XML string as input
+    if ('string' === typeof input || input instanceof String) {
       const parser = new this(...args)
-      parser.write(input)
+      parser.write(validate(String(input)))
       parser.end()
       return parser
     }
 
+    // handle ReadableStream as input
     if (input && 'function' === typeof input.pipe) {
-      const stream = this.createWriteStream(...args)
-      input.pipe(stream)
-      return stream.parser
+      const parser = new this(...args)
+      const bytes = []
+
+      input.on('data', (data) => bytes.push(data))
+      input.once('end', () => {
+        const string = Buffer.concat(bytes).toString()
+
+        try {
+          parser.clear()
+          parser.write(validate(string))
+          parser.en()
+        } catch (err) {
+          input.emit('error', err)
+        }
+      })
+
+      return parser
     }
 
+    // handle Promise as input
     if (input && input.then) {
       const parser = new this(...args)
 
       input
         .then((result) => {
+          // handle ReadableStream from Promise
           if (result && result.pipe) {
-            result.clear()
-            result
-              .pipe(parser.createWriteStream())
-              .on('error', err => parser.onerror(err))
-          } else if ('string' === typeof result) {
+            const bytes = []
+            result.on('data', (data) => bytes.push(data))
+            result.once('end', () => {
+              const string = Buffer.concat(bytes).toString()
+
+              try {
+                parser.clear()
+                parser.write(validate(string))
+                parser.end()
+              } catch (err) {
+                parser.onerror(err)
+              }
+            })
+          }
+
+          // handle XML string as input from Promise
+          if ('string' === typeof result || result instanceof String) {
             parser.clear()
-            parser.write(result)
+            parser.write(validate(String(result)))
             parser.end()
-          } else if (result && result.createReadStream) {
-            parser.clear()
-            result.createReadStream()
-              .pipe(parser.createWriteStream())
-              .on('error', err => parser.onerror(err))
-          } else if (result instanceof Parser) {
+          }
+
+          // handle result with `createReadStream()` interface
+          if (result && result.createReadStream) {
+            const bytes = []
+            const stream = result.createReadStream()
+
+            stream.on('data', (data) => bytes.push(data))
+            stream.once('end', () => {
+              const string = Buffer.concat(bytes).toString()
+
+              try {
+                parser.clear()
+                parser.write(validate(string))
+                parser.end()
+              } catch (err) {
+                parser.onerror(err)
+              }
+            })
+          }
+
+          // handle Parser copy from Promise
+          if (result instanceof Parser) {
             const parser = new this({
               ...result.options,
               handler: result.handler,
@@ -2231,6 +2284,7 @@ class Parser extends htmlparser2.Parser {
       return parser
     }
 
+    // generic input constructor
     return new this(input, ...args)
   }
 
@@ -2403,13 +2457,12 @@ class Parser extends htmlparser2.Parser {
   /**
    * Creates a `ReadableStream` for the `Parser` instance.
    * @public
-   * @param {?Object} opts
    * @return {ReadableStream}
    * @see {@link https://github.com/streamxorg/streamx#readable-stream}
    * @example
    * parser.createReadStream().pipe(process.stdout)
    */
-  createReadStream(opts) {
+  createReadStream() {
     const { rootNode } = this
     const stream = new Readable({ read })
     const BYTES = 4096

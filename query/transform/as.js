@@ -79,14 +79,22 @@ function compile({ prefix, subject, type, postfix }) {
   if (target) {
     const [, innerType ] = (originalType.match(RegExp(`${type}<(.*)>`)) || [])
     if (/int|float|string|array/.test(type.toLowerCase())) {
+      subject = subject
+        .replace(/[(]+/g, '(')
+        .replace(/[)]+/g, ')')
       output.push(`${target[type.toLowerCase()]}(${subject}, "${innerType || ''}")`)
     } else {
       output.push(`${target[type.toLowerCase()]}(${subject})`)
+      if (postfix) {
+        output.push(postfix)
+      }
     }
   }
 
-  if (postfix) {
-    output.push(postfix)
+  if (!target) {
+    throw Object.assign(new SyntaxError(`Cannot cast to unknown type: ${type}`), {
+      token: type
+    })
   }
 
   return output.join(' ')

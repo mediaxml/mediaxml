@@ -1,5 +1,4 @@
 import './imported'
-let MRSS_FEED_URL = 'https://raw.githubusercontent.com/little-core-labs/mediaxml/master/example/mrss/feed.xml'
 
-
-print $MRSS_FEED_URL
+let MRSS_FEED_URL = 'https://raw.githubusercontent.com/little-core-labs/mediaxml/master/example/mrss/feed.xml';
+//let MRSS_FEED_URL = '../mrss/feed.xml';

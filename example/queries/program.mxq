@@ -5,9 +5,11 @@
  * @param {?String} argv1 - The first argument to the query program
  */
 
-import './variables'
+import './variables' // $AWS_DOMAIN, $MRSS_FEED_URL
 import $coalesce($argv1, $MRSS_FEED_URL)
 
-let nodes_that_contain_aws_domain = **[is node and text contains $AWS_DOMAIN]
+let nodes_that_contain_aws_domain = **[is node and text contains $AWS_DOMAIN];
+
+print $AWS_DOMAIN
 
 $coalesce($argv2, $nodes_that_contain_aws_domain)

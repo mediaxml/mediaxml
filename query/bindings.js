@@ -621,8 +621,12 @@ module.exports = {
     '<j-:j> # Returns input as a document.',
     function $document(input) {
       if (Array.isArray(input)) {
-        return input.map((i) => Document.from(i))
+        return input.map((i) => $document(i))
       } else {
+        if ('string' === typeof input || input instanceof String) {
+          input = String(input).trim()
+        }
+
         return Document.from(input)
       }
     }),
@@ -632,8 +636,12 @@ module.exports = {
     '<j-:j> # Returns input as a document node.',
     function $node(input) {
       if (Array.isArray(input)) {
-        return input.map((i) => Node.from(i))
+        return input.map((i) => $node(i))
       } else {
+        if ('string' === typeof input || input instanceof String) {
+          input = String(input).trim()
+        }
+
         return Node.from(input)
       }
     }),
@@ -641,10 +649,14 @@ module.exports = {
   // $fragment(input: (string | any): Document
   fragment: binding(
     '<j-:j> # Returns input as a document fragment.',
-    function $node(input) {
+    function $fragment(input) {
       if (Array.isArray(input)) {
-        return input.map((i) => Fragment.from(i))
+        return input.map((i) => $fragment(i))
       } else {
+        if ('string' === typeof input || input instanceof String) {
+          input = String(input).trim()
+        }
+
         return Fragment.from(input)
       }
     }),

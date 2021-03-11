@@ -1,6 +1,6 @@
 function transform(queryString) {
   const result = queryString
-    .trim()
+    .replace(/`([^`]*)`/mg, '\'$1\'')
     // remove shebang
     .replace(/^(#!.*)([\n|\r|$])/g, '$2')
     // replace trailing `:` with `.`

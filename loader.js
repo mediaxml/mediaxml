@@ -1,4 +1,5 @@
 const { createReadStream } = require('./stream')
+const { ValidationError } = require('./validate')
 const { Parser } = require('./parser')
 const { hash } = require('./hash')
 const debug = require('debug')('mediaxml')
@@ -22,11 +23,12 @@ function createLoader(context, opts) {
       throw new Error('Missing URI for load function.')
     }
 
+    let stream = null
     let cwd = state.cwd
-    const { parser, imports } = context
+
+    const {  imports } = context
     const cacheKey = hash([cwd, uri])
     const buffers = []
-    let stream = null
 
     if (cache.has(cacheKey)) {
       return cache.get(cacheKey)
@@ -60,47 +62,58 @@ function createLoader(context, opts) {
       cwd = state.cwd
       context.imports.cwd = cwd
 
+      if ('function' === typeof opts.onbeforeload) {
+        opts.onbeforeload({ uri, cwd, imports })
+      }
+
       stream.once('error', onerror)
       stream.on('data', ondata)
       stream.on('end', onend)
 
       function onerror(err) {
+        if ('function' === typeof opts.onerror) {
+          opts.onerror(err, { uri, cwd, imports })
+        }
+
         reject(err)
       }
 
       function ondata(buffer) {
+        if ('function' === typeof opts.ondata) {
+          opts.ondata(buffer, { uri, cwd, imports })
+        }
+
         buffers.push(buffer)
       }
 
       async function onend() {
         const buffer = Buffer.concat(buffers)
         const string = String(buffer)
-        const tmp = Parser.from(string)
-        let result = null
+        let result = string
 
-        // valid XML was just parsed
-        if (tmp.rootNode) {
-          try {
+        // attempt to load a parsed XML source from buffer string
+        try {
+          const tmp = Parser.from(string)
+          // valid XML was just parsed
+          if (tmp.rootNode) {
             context.rootNode = tmp.rootNode
             result = tmp.rootNode
-          } catch (err) {
-            debug(err.stack || err)
+          }
+        } catch (err) {
+          debug(err.stack || err)
+          if (!(err instanceof ValidationError)) {
             return reject(err)
           }
+        } finally {
+          state.paths.pop()
+          context.imports.cwd = state.cwd
         }
 
-        if (!result) {
-          try {
-            result = await parser.query(string, context)
-          } catch (err) {
-            return reject(err)
-          }
+        if ('function' === typeof opts.onload) {
+          opts.onload(result, { uri, cwd, imports })
         }
 
-        state.paths.pop()
-        context.imports.cwd = state.cwd
         resolve(result)
-        imports.finalize(uri, result)
       }
     }
   }

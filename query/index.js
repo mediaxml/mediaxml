@@ -5,6 +5,7 @@ const { resolve } = require('../resolve')
 const extendMap = require('map-extend')
 const bindings = require('./bindings')
 const jsonata = require('jsonata')
+const mutex = require('mutexify')
 const debug = require('debug')('mediaxml')
 const path = require('path')
 
@@ -89,6 +90,7 @@ class Imports extends Map {
     super()
 
     this.cwd = opts.cwd || null
+    this.queued = 0
     this.pending = new Map()
 
     if ('function' === typeof opts.load) {
@@ -97,7 +99,7 @@ class Imports extends Map {
   }
 
   get waiting() {
-    return this.pending.size
+    return this.pending.size + Math.max(0, this.queued)
   }
 
   /**
@@ -161,6 +163,10 @@ class Imports extends Map {
 
     return Promise.resolve(value || null)
   }
+
+  toJSON() {
+    return convertMapToObject(this)
+  }
 }
 
 /**
@@ -197,6 +203,10 @@ class Assignments extends Map {
     extendMap(assignments, ...maps)
     return assignments
   }
+
+  toJSON() {
+    return convertMapToObject(this)
+  }
 }
 
 /**
@@ -232,16 +242,61 @@ class Context {
 
     this.id = randomBytes(16).toString('hex')
     this.cwd = opts.cwd || null
+    this.lock = mutex()
     this.node = opts.node
     this.target = opts.target
     this.output = []
+    this.errors = []
     this.imports = opts.imports instanceof Map ? opts.imports : new Imports()
     this.bindings = opts.bindings instanceof Bindings ? opts.bindings : Bindings.from(this, opts.bindings)
     this.assignments = opts.assignments instanceof Map ? opts.assignments : new Assignments()
+  }
 
-    for (const [ key, value ] of this.assignments) {
-      this.assign(key, value)
+  getValue(key) {
+    const assignments = convertMapToObject(this.assignments)
+    // interpolate variable values in key statement
+    if ('string' === typeof key) {
+      for (const k in assignments) {
+        const regex = RegExp(`\\$${k}`, 'g')
+        key = key.replace(regex, assignments[k])
+      }
     }
+
+    // try to evaluate JSONata expression in key statement
+    try {
+      key = Expression.from(this, key).preprocess() || key
+    } catch (err) {
+      debug(err.stack || err)
+    }
+
+    return this.assignments.get(key)
+  }
+
+  normalizeValue(value) {
+    // try to parse value if it is indeed valid JSON supporting a statement like:
+    // let json = '{"hello": "world"}'
+    if ('string' === typeof value || value instanceof String) {
+      try {
+        value = value
+          .replace(/^'/, '"')
+          .replace(/'$/, '"')
+          .replace(/^`/, '"')
+          .replace(/`$/, '"')
+        value = JSON.parse(value)
+      } catch (err) {
+        debug(err.stack || err)
+      }
+    }
+
+    // try to evaluate JSONata expression in value statement
+    try {
+      value = Expression.from(this, value).evaluate(true) || value
+    } catch (err) {
+      debug(err.stack || err)
+    }
+
+    // normalize value before setting
+    return normalizeValue(value)
   }
 
   /**
@@ -252,12 +307,17 @@ class Context {
    */
   assign(key, value) {
     const assignments = convertMapToObject(this.assignments)
+    const { node } = this
 
     // try to parse value if it is indeed valid JSON supporting a statement like:
     // let json = '{"hello": "world"}'
     if ('string' === typeof value || value instanceof String) {
       try {
-        value = value.replace(/^'/, '"').replace(/'$/, '"')
+        value = value
+          .replace(/^'/, '"')
+          .replace(/'$/, '"')
+          .replace(/^`/, '"')
+          .replace(/`$/, '"')
         value = JSON.parse(value)
       } catch (err) {
         debug(err.stack || err)
@@ -274,14 +334,14 @@ class Context {
 
     // try to evaluate JSONata expression in key statement
     try {
-      key = Expression.from(this, key).evaluate() || key
+      key = Expression.from(this, key).preprocess() || key
     } catch (err) {
       debug(err.stack || err)
     }
 
     // try to evaluate JSONata expression in value statement
     try {
-      value = Expression.from(this, value).preprocess() || value
+      value = Expression.from(this, value).evaluate(true) || value
     } catch (err) {
       debug(err.stack || err)
     }
@@ -289,7 +349,17 @@ class Context {
     // normalize value before setting
     value = normalizeValue(value)
 
-    this.assignments.set(key, value)
+    if (['$', 'self', 'this'].includes(key)) {
+      if ('string' === typeof value || value instanceof String) {
+        node.outerXML = String(value)
+      } else if (value && value.outerXML) {
+        node.outerXML = value.outerXML
+      } else if (value && value.toString) {
+        node.outerXML = String(value)
+      }
+    } else {
+      this.assignments.set(key, value)
+    }
   }
 
   /**
@@ -299,46 +369,67 @@ class Context {
    * @return {Promise<Mixed>|null}
    */
   import(name) {
-    const { imports } = this
-
-    if ('string' === typeof name) {
-      try {
-        name = JSON.parse(name.replace(/^'/, '"').replace(/'$/, '"'))
-      } catch (err) {
-        debug(err.stack || err)
-      }
-
-      try {
-        name = Expression.from(this, name).evaluate() || name
-      } catch (err) {
-        debug(err.stack || err)
-      }
-    }
-
-    const extname = path.extname(name)
+    const { imports, lock } = this
+    const promise = new InvertedPromise()
     let cwd = this.cwd || imports.cwd
-    let resolved = resolve(name, imports)
 
-    if (!resolved && !extname) {
-      resolved = resolve(name + QUERY_FILE_EXTNAME, { cwd })
-    }
+    debug('import queued (unresolved):', name)
+    imports.queued++
 
-    name = resolved
+    promise.catch((err) => {
+      this.errors.push(err)
+    })
 
-    if (!name) {
-      return null
-    }
+    lock((release) => {
+      debug('import lock acquired (unresolved):', name)
 
-    if (imports.has(name)) {
-      return imports.get(name)
-    }
+      --imports.queued
 
-    if (imports.pending.has(name)) {
-      return imports.pending.get(name)
-    }
+      if ('string' === typeof name) {
+        try {
+          name = JSON.parse(name.replace(/^'/, '"').replace(/'$/, '"'))
+        } catch (err) {
+          debug(err.stack || err)
+        }
 
-    if ('function' === typeof imports.load) {
-      const promise = Object.assign(new InvertedPromise(), { name })
+        try {
+          name = Expression.from(this, name).evaluate() || name
+        } catch (err) {
+          debug(err.stack || err)
+        }
+      }
+
+      const extname = path.extname(name)
+      let resolved = resolve(name, { cwd })
+
+      if (!resolved && !extname) {
+        resolved = resolve(name + QUERY_FILE_EXTNAME, { cwd })
+      }
+
+      if (!resolved) {
+        debug('import lock released: name could not be resolved', name)
+        promise.reject(new Error(`Could not resolve import: "${name}"`))
+        return release()
+      }
+
+      name = resolved
+
+      if (imports.has(name)) {
+        debug('import lock released (resolved): name already imported', name)
+        return release()
+      }
+
+      if ('function' !== typeof imports.load) {
+        debug('import lock released: import load function missing', name)
+        return release()
+      }
+
+      if (imports.pending.has(name)) {
+        debug('import lock released (resolved): name already pending import', name)
+        return release()
+      }
+
+      Object.assign(promise, { name })
       imports.pending.set(name, promise)
 
       try {
@@ -349,21 +440,23 @@ class Context {
         imports.cwd = cwd
       }
 
-        imports
-          .load(name, { cwd })
-          .then((result) => {
-            imports.finalize(name, result)
-            return promise.resolve(result)
-          })
-          .catch((err) => {
-            imports.pending.delete(name)
-            return promise.reject(err)
-          })
+      imports
+        .load(name, { cwd })
+        .then((result) => {
+          imports.finalize(name, result)
+          promise.resolve(result)
+          debug('import lock released (resolved): name imported', name, result)
+          release()
+        })
+        .catch((err) => {
+          imports.pending.delete(name)
+          promise.reject(err)
+          debug('import lock released (resolved): name import failed', name, err)
+          release()
+        })
+    })
 
-      return promise
-    }
-
-    return Promise.resolve(null)
+    return promise
   }
 }
 
@@ -401,6 +494,7 @@ class Expression {
       opts = {}
     }
 
+    this.preprocessed = null
     this.transformed = null
     this.transforms = new Transforms(context, opts.transforms)
     this.bindings = null
@@ -453,33 +547,37 @@ class Expression {
   reset() {
     this.value = null
     this.result = null
+    this.transformed = null
+    this.preprocessed = null
   }
 
   /**
    * TODO
    */
   preprocess(interpolate) {
+    if (null !== this.preprocessed) {
+      //return this.preprocessed
+    }
+
     const { string } = this
     const assignments = convertMapToObject(this.assignments)
-    let preprocessed = this.transforms.process(0, string)
+    this.preprocessed = this.transforms.process(0, string)
 
-    if (preprocessed) {
+    if (this.preprocessed) {
       if (interpolate) {
         for (const key in assignments) {
           const regex = RegExp(`\\$${key}`, 'g')
           const value = assignments[key]
           if ('string' === typeof value) {
-            preprocessed = preprocessed.replace(regex, `"${value}"`)
+            this.preprocessed = this.preprocessed.replace(regex, `"${value}"`)
           } else {
-            preprocessed = preprocessed.replace(regex, value)
+            this.preprocessed = this.preprocessed.replace(regex, value)
           }
         }
       }
-
-      return preprocessed
     }
 
-    return null
+    return this.preprocessed
   }
 
   /**
@@ -493,13 +591,16 @@ class Expression {
    * TODO
    */
   process(interpolate) {
+    if (this.value) {
+      return this.value
+    }
+
     const { bindings, string } = this
     const assignments = convertMapToObject(this.assignments)
 
     this.transformed = this.transforms.transform(string)
 
     if (this.transformed) {
-
       if (interpolate) {
         for (const key in assignments) {
           const regex = RegExp(`\\$${key}`, 'g')
@@ -580,16 +681,16 @@ class Transforms {
     this.push(0, require('./transform/as'))
     this.push(0, require('./transform/has'))
     this.push(0, require('./transform/is'))
-    this.push(0, require('./transform/let'))
     this.push(0, require('./transform/typeof'))
     this.push(0, require('./transform/contains'))
-    this.push(0, require('./transform/print'))
-    this.push(0, require('./transform/import'))
     this.push(0, require('./transform/hex'))
+    this.push(0, require('./transform/let'))
+    this.push(0, require('./transform/import'))
+    this.push(0, require('./transform/print'))
 
-    this.push(1, require('./transform/children'))
-    this.push(1, require('./transform/attributes'))
-    this.push(1, require('./transform/ordinals'))
+    this.push(2, require('./transform/children'))
+    this.push(2, require('./transform/attributes'))
+    this.push(2, require('./transform/ordinals'))
 
     for (const transform of transforms) {
       if ('function' === typeof transform) {
@@ -650,9 +751,9 @@ class Transforms {
     const transforms = this
     const phase = this.phases[priority] || []
 
-    debug('before transform (phase=%d)', priority, input)
+    debug('before transform processing (phase=%d)', priority, input)
     const output = phase.reduce(reduce, input)
-    debug('after transform (phase=%d)', priority, output)
+    debug('after transform processing (phase=%d)', priority, output)
 
     return output
 
@@ -672,9 +773,13 @@ class Transforms {
       return ''
     }
 
+    debug('before transform processing', input)
+
     for (const phase of phases) {
       input = this.process(phase, input)
     }
+
+    debug('after transform processing', input)
 
     return input.trim()
   }
@@ -842,27 +947,15 @@ function query(node, queryString, opts) {
   const { imports } = expression
 
   // compute imports and outputs
-  expression.preprocess()
+  expression = Expression.from(context, expression.preprocess(), opts)
 
   if (imports.waiting || context.output.length) {
-    return new Promise(handleImportsAndOutputs)
+    return new Promise((...args) => {
+      process.nextTick(handleImportsAndOutputs, ...args)
+    })
   }
 
   let result = expression.evaluate()
-  let lastResult = null
-  while ('string' === typeof result && result.length && lastResult !== result) {
-    try {
-      lastResult = result
-      result = Expression.from(context, result, opts).evaluate(true)
-    } catch (err) {
-      debug(err)
-      break
-    }
-  }
-
-  if (lastResult && !result) {
-    result = lastResult
-  }
 
   if (Array.isArray(result)) {
     return Node.createFragment(null, {
@@ -874,29 +967,13 @@ function query(node, queryString, opts) {
 
   async function handleImportsAndOutputs(resolve, reject) {
     try {
+      const backlog = []
+      const queue = []
       let outputs = context.output.splice(0, context.output.length)
       let result = null
 
-      while (imports.waiting) {
-        const values = await imports.wait(context, opts)
-        result = await expression.evaluate()
-
-        // eval until we get an error or nothing falling back to string result value
-        let lastResult = null
-        while ('string' === typeof result && result.length && lastResult !== result) {
-          try {
-            lastResult = result
-            result = await Expression.from(context, result, opts).evaluate(true)
-          } catch (err) {
-            break
-          }
-        }
-
-        if (!result) {
-          while (!result && values.length) {
-            result = values.pop()
-          }
-        }
+      if (context.errors.length) {
+        return reject(context.errors[0])
       }
 
       for (const output of outputs) {
@@ -907,13 +984,59 @@ function query(node, queryString, opts) {
         }
       }
 
-      if (Array.isArray(result)) {
-        return resolve(Node.createFragment(null, {
-          children: result
+      // eslint-disable-next-line
+      function wait(imports, done) {
+        if (!imports.waiting) {
+          return done()
+        }
+
+        queue.push(imports.wait().then((values) => {
+          visit(values, () => {
+            process.nextTick(wait, imports, done)
+          })
         }))
+
+        function visit(values, cb) {
+          const value = values.shift()
+
+          if (!value) {
+            return cb()
+          }
+
+          if ('string' === typeof value) {
+            backlog.push(Expression.from(context, value, opts).preprocess())
+            wait(imports, () => visit(values, cb))
+          } else {
+            cb()
+          }
+        }
       }
 
-      return resolve(result || null)
+      wait(imports, async () => {
+        await Promise.all(queue)
+
+        while (backlog.length) {
+          const item = backlog.shift()
+          if ('string' === typeof item) {
+            result = await Expression.from(context, item, opts).evaluate() || item
+            if ('string' === typeof result && item !== result) {
+              backlog.push(result)
+            }
+          }
+        }
+
+        if (context.errors.length) {
+          return reject(context.errors[0])
+        }
+
+        if (Array.isArray(result)) {
+          return resolve(Node.createFragment(null, {
+            children: result
+          }))
+        }
+
+        return resolve(result || null)
+      })
     } catch (err) {
       reject(err)
     }
