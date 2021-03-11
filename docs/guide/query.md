@@ -381,6 +381,7 @@ $now() as Date // 2021-03-08T19:54:26.205Z
 
 ```js
 this as json // { name: '#empty', text: '', attributes: {}, children: [] }
+```
 
 ```js
 let $xml = '<rss><channel><title>hello</title></channel></rss>'
