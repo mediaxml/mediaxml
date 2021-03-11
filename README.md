@@ -1,7 +1,8 @@
 mediaxml
 ========
 
-> A module for working with media manifests represented by XML like ADI, mRSS, and SCTE-236.
+> A general purpose module for working with XML that includes first
+> class support for media manifests like ADI, mRSS, and SCTE-236.
 
 ## Status
 
@@ -154,7 +155,7 @@ Query mRSS document objects:
 const { createReadStream } = require('fs')
 const { Document } = require('mediaxml/mrss')
 
-const document = Document.from(createReadStream('file.rss'))
+cont document = Document.from(createReadStream('file.rss'))
 document.ready(() => {
   const items = document.query('channel.items')
   const titles = items.query('title') // items is a `Fragment` with a `query()` function
@@ -162,7 +163,51 @@ document.ready(() => {
 })
 ```
 
-See the [Documentation](https://little-core-labs.github.io/mediaxml) for
+### REPL
+
+A [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) is
+provided for interactive querying of data in a XML tree.
+
+The REPL can be started by simply running the `mxml`:
+
+```sh
+$ mxml
+Welcome to the MediaXML 0.2.0 CLI
+Please report bugs to https://github.com/little-core-labs/mediaxml/issues
+mxml(-)>
+```
+
+Importing a file can be done with the `import` keyword. This will import
+an XML file into the REPL context.
+
+```js
+mxml(-)> import "./example/mrss/feed.xml"
+mxml(-)> this
+<rss>
+  <channel>
+    <title>Calm Meditation</title>
+    <link>http://sample-firetv-web-app.s3-website-us-west-2.amazonaws.com</link>
+    <language>en-us</language>
+    ...
+```
+
+In the REPL, you can use the query syntax (JSONata with sugar) to query
+data.
+
+```js
+mxml(-)> **[is node and text contains "amazonaws.com"] // searches all nodes with '**' wildcard operator
+<link>http://sample-firetv-web-app.s3-website-us-west-2.amazonaws.com</link>
+<link>http://sample-firetv-web-app.s3-website-us-west-2.amazonaws.com</link>
+<url>http://sample-firetv-web-app.s3-website-us-west-2.amazonaws.com/images/calmmeditationlogo_small.png</url>
+<link>http://sample-firetv-web-app.s3-website-us-west-2.amazonaws.com/shade/</link>
+<guid isPermaLink="false">http://sample-firetv-web-app.s3-website-us-west-2.amazonaws.com/shade/</guid>
+<link>http://sample-firetv-web-app.s3-website-us-west-2.amazonaws.com/spectators/</link>
+<guid isPermaLink="false">http://sample-firetv-web-app.s3-website-us-west-2.amazonaws.com/spectators/</guid>
+```
+
+### Documentation
+
+See the [Official Documentation](https://little-core-labs.github.io/mediaxml) for
 more information.
 
 ## See Also
