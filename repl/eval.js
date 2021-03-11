@@ -11,6 +11,7 @@ let documentNotLoadedWarningShown = false
 async function eval(query, context, file, callback) {
   const { assignments, parser, options, imports, server, log } = this.mxml
   const timer = Timer.now('query')
+  const cwd = process.cwd()
   let result = null
 
   query = query.trim()
@@ -28,7 +29,7 @@ async function eval(query, context, file, callback) {
   }
 
   try {
-    result = await parser.query(query, { imports, assignments })
+    result = await parser.query(query, { cwd, imports, assignments })
 
     const output = pretty(result)
 

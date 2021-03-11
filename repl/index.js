@@ -4,6 +4,7 @@ const { Imports, Assignments } = require('../query')
 const { createReadStream } = require('../stream')
 const { createCompleter } = require('./completer')
 const { createLoader } = require('../loader')
+const { validate } = require('../validate')
 const { Parser } = require('../parser')
 const { pretty } = require('./pretty')
 const truncate = require('cli-truncate')
@@ -201,8 +202,7 @@ class Context {
     if (opts.parser) {
       const { parser } = opts
       if (parser.rootNode) {
-        this.parser.nodes[0] = parser.rootNode
-        this.parser.end()
+        this.parser = parser
       } else {
         parser.promise
           .then(() => {
@@ -324,7 +324,7 @@ class Context {
     const query = input.toString()
     let result = null
 
-    if (query) {
+    if (query && query.trim().length > 3) {
       // double wildcards can be expensive
       if ('**' === query.trim()) {
         return
@@ -332,6 +332,11 @@ class Context {
 
       // don't just preview a print all willy nilly
       if (/^\s*?print\s*/.test(query.trim())) {
+        return
+      }
+
+      // don't try to preview imports and lets
+      if (/^\s*?(import|let)\s*?.*$/.test(query.trim())) {
         return
       }
 
@@ -396,7 +401,10 @@ class Context {
     this.server.on('exit', this.onexit)
     this.server.on('error', this.onerror)
 
-    process.stdin.setRawMode(true)
+    if ('function' === typeof process.stdin.setRawMode) {
+      process.stdin.setRawMode(true)
+    }
+
     process.stdin.on('error', this.onerror)
     process.stdin.on('keypress', this.onkeypress)
 
@@ -431,6 +439,10 @@ class Context {
  * @return {Context}
  */
 function createContext(filename, opts) {
+  if (Buffer.isBuffer(filename)) {
+    filename = String(filename)
+  }
+
   if (filename && 'object' === typeof filename && !filename.pipe) {
     opts = filename
     filename = null
@@ -439,8 +451,20 @@ function createContext(filename, opts) {
   opts = { ...opts }
 
   if (filename && !opts.parser) {
-    if ('string' === typeof filename || filename.pipe) {
-      opts.parser = Parser.from(createReadStream(filename))
+    if ('string' === typeof filename) {
+      try {
+        const tmp = String(filename)
+        validate(tmp)
+        opts.parser = Parser.from(tmp)
+      } catch (err) {
+        debug(err)
+      }
+    }
+
+    if (!opts.parser) {
+      if ('string' === typeof filename || filename.pipe) {
+        opts.parser = Parser.from(createReadStream(filename))
+      }
     }
   }
 

@@ -27,7 +27,7 @@ class Log {
     }
   }
 
-  info() {
+  info(...args) {
     if (false !== this.context.options.colors) {
       console.info(' %s:', chalk.blue('info'), format(...args))
     } else {
