@@ -131,6 +131,8 @@ if ('-' === argv._[0] || !process.stdin.isTTY) {
       result = context.imports.toJSON()
     } else if (query) {
       result = await context.parser.query(query, context)
+    } else if (!result && !query) {
+      result = context.parser.rootNode
     }
 
     if (result) {
