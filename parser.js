@@ -2186,6 +2186,11 @@ class Parser extends htmlparser2.Parser {
       return parser
     }
 
+    // handle Buffer as input
+    if (Buffer.isBuffer(input)) {
+      input = String(input)
+    }
+
     // handle XML string as input
     if ('string' === typeof input || input instanceof String) {
       const parser = new this(...args)
@@ -2236,6 +2241,11 @@ class Parser extends htmlparser2.Parser {
                 parser.onerror(err)
               }
             })
+          }
+
+          // handle Buffer as result
+          if (Buffer.isBuffer(result)) {
+            result = String(result)
           }
 
           // handle XML string as input from Promise
