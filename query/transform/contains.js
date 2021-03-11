@@ -13,7 +13,7 @@ function compile({ prefix, type }) {
   const normalizedPrefix = prefix.trim()
   const output = [prefix]
 
-  if (/[[]$/.test(normalizedPrefix)) {
+  if (/([[]|or|and)$/.test(normalizedPrefix)) {
     output.push('$ ~>')
   } else {
     output.push('~>')

@@ -383,8 +383,6 @@ class Context {
     lock((release) => {
       debug('import lock acquired (unresolved):', name)
 
-      --imports.queued
-
       if ('string' === typeof name) {
         try {
           name = JSON.parse(name.replace(/^'/, '"').replace(/'$/, '"'))
@@ -407,7 +405,7 @@ class Context {
       }
 
       if (!resolved) {
-        debug('import lock released: name could not be resolved', name)
+        debug('import lock released: name could not be resolved %s in %s', name, cwd)
         promise.reject(new Error(`Could not resolve import: "${name}"`))
         return release()
       }
@@ -454,6 +452,11 @@ class Context {
           debug('import lock released (resolved): name import failed', name, err)
           release()
         })
+    })
+
+    lock((release) => {
+      --imports.queued
+      release()
     })
 
     return promise
