@@ -3,20 +3,11 @@ const { ValidationError } = require('./validate')
 const { Parser } = require('./parser')
 const { hash } = require('./hash')
 const debug = require('debug')('mediaxml')
-const path = require('path')
-const fs = require('fs')
 
 function createLoader(context, opts) {
   opts = { ...opts }
 
   const { cache = new Map() } = opts
-  const state = {
-    paths: [],
-    get cwd() {
-      const i = Math.max(0, this.paths.length - 1)
-      return this.paths[i] || process.cwd()
-    }
-  }
 
   return async function load(uri) {
     if (!uri) {
@@ -24,10 +15,9 @@ function createLoader(context, opts) {
     }
 
     let stream = null
-    let cwd = state.cwd
 
     const {  imports } = context
-    const cacheKey = hash([cwd, uri])
+    const cacheKey = hash(uri)
     const buffers = []
 
     if (cache.has(cacheKey)) {
@@ -36,34 +26,20 @@ function createLoader(context, opts) {
 
     const promise = new Promise(resolver)
     cache.set(cacheKey, promise)
+
     return promise
 
     async function resolver(resolve, reject) {
       try {
-        stream = await createReadStream(uri, { cwd })
+        stream = await createReadStream(uri)
       } catch (err) {
         debug(err)
         imports.pending.delete(uri)
         return resolve(null)
       }
 
-      try {
-        void new URL(uri) // this should fail for regular file paths
-      } catch (err) {
-        try {
-          fs.accessSync(uri, fs.constants.R_OK | fs.constants.F_OK)
-          state.paths.push(path.resolve(path.dirname(uri)))
-        } catch (err) {
-          debug(err)
-          return reject(err)
-        }
-      }
-
-      cwd = state.cwd
-      context.imports.cwd = cwd
-
       if ('function' === typeof opts.onbeforeload) {
-        opts.onbeforeload({ uri, cwd, imports })
+        opts.onbeforeload({ uri, imports })
       }
 
       stream.once('error', onerror)
@@ -72,7 +48,7 @@ function createLoader(context, opts) {
 
       function onerror(err) {
         if ('function' === typeof opts.onerror) {
-          opts.onerror(err, { uri, cwd, imports })
+          opts.onerror(err, { uri, imports })
         }
 
         reject(err)
@@ -80,7 +56,7 @@ function createLoader(context, opts) {
 
       function ondata(buffer) {
         if ('function' === typeof opts.ondata) {
-          opts.ondata(buffer, { uri, cwd, imports })
+          opts.ondata(buffer, { uri, imports })
         }
 
         buffers.push(buffer)
@@ -104,13 +80,10 @@ function createLoader(context, opts) {
           if (!(err instanceof ValidationError)) {
             return reject(err)
           }
-        } finally {
-          state.paths.pop()
-          context.imports.cwd = state.cwd
         }
 
         if ('function' === typeof opts.onload) {
-          opts.onload(result, { uri, cwd, imports })
+          opts.onload(result, { uri, imports })
         }
 
         resolve(result)
