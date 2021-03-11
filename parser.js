@@ -625,7 +625,7 @@ class ParserNode {
    * @return {ParserNodeFragment}
    */
   static createFragment(attributes, opts) {
-    return new ParserNodeFragment(attributes, opts)
+    return this.Fragment.from(attributes, opts)
   }
 
   /**
@@ -637,7 +637,7 @@ class ParserNode {
    * @return {ParserNodeText}
    */
   static createText(text) {
-    return ParserNodeText.from(text)
+    return this.Text.from(text)
   }
 
   /**
