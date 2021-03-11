@@ -4,6 +4,7 @@ process.title = 'mxml'
 
 const { pretty } = require('../repl/pretty')
 const debug = require('debug')('mediaxml')
+const chalk = require('chalk')
 const repl = require('../repl')
 const pkg = require('../package.json')
 const fs = require('fs')
@@ -92,77 +93,29 @@ let [ arg0, query = arg0 ] = argv._
 process.on('uncaughtException', debug)
 process.on('unhandledRejection', debug)
 
-if (arg0 && query && arg0 === query) {
-  query = null
-}
-
-// try to load query as file
-if (query) {
-  try {
-    fs.accessSync(query)
-    query = fs.readFileSync(query, 'utf8')
-  } catch (err) {
-    void err
-  }
-}
-
 if ('-' === argv._[0] || !process.stdin.isTTY) {
-  if (!query) {
-    console.error('error: stdin is not a TTY and no query was given')
-    console.error('usage: mxml [-hiDV] [options] <uri> [query]')
-    process.exit(1)
+  const ondata = (data) => bytes.push(data)
+  const bytes = []
+  process.stdin.on('data', ondata)
+  process.stdin.once('end', () => process.stdin.removeListener('data', ondata))
+
+  if (query) {
+    process.stdin.once('end', () => {
+      evaluate(Buffer.concat(bytes), query || arg0)
+    })
+  } else if (!process.stdin.isTTY) {
+    console.error(' %s:', chalk.bold(chalk.yellow('warn')), 'stdin is not a TTY and no query was given')
+    process.stdin.once('end', () => {
+      evaluate(Buffer.concat(bytes))
+    })
   }
 } else if (arg0) {
-  const context = repl.createContext(arg0, {
-    onerror: console.error,
-    preview: true !== argv['no-preview'] && false !== argv.preview,
-    timing: argv.timing,
-    debug: argv.debug,
-    argv: [argv._[0], ...argv['--']]
-  })
-
-  context.parser.then(async () => {
-    let result = await context.parser.query(`import "${arg0}"`, context)
-    let output = null
-
-    if (argv['dump-lets'] || argv['dump-assignments']) {
-      result = context.assignments.toJSON()
-    } else if (argv['dump-imports']) {
-      result = context.imports.toJSON()
-    } else if (query) {
-      result = await context.parser.query(query, context)
-    } else if (!result && !query) {
-      result = context.parser.rootNode
-    }
-
-    if (result) {
-      if (argv.json) {
-        if (argv.pretty) {
-          process.stdout.write(JSON.stringify(result, null, '  '))
-          process.stdout.write('\n')
-        } else {
-          process.stdout.write(JSON.stringify(result))
-        }
-        return
-      } else if (false !== argv.pretty) {
-        output = pretty(result)
-        if (output) {
-          process.stdout.write(output)
-          process.stdout.write('\n')
-        }
-      } else {
-        console.log(result)
-      }
-    }
-
-    if (argv.repl) {
-      context.start()
-    }
-  }).catch((err) => {
-    context.log.debug(err.stack || err)
-    context.log.error(err.message)
-  })
+  loadFile(arg0)
 } else {
+  startRepl()
+}
+
+function startRepl() {
   repl.start({
     onerror: console.error,
     preview: true !== argv['no-preview'] && false !== argv.preview,
@@ -170,4 +123,110 @@ if ('-' === argv._[0] || !process.stdin.isTTY) {
     debug: argv.debug,
     argv: [argv._[0], ...argv['--']]
   })
+}
+
+function loadFile(filename) {
+  const context = repl.createContext({
+    onerror: console.error,
+    preview: true !== argv['no-preview'] && false !== argv.preview,
+    timing: argv.timing,
+    debug: argv.debug,
+    argv: [argv._[0], ...argv['--']]
+  })
+
+  context.parser
+    .then(() => context.parser.query(`import "${filename}"`, context))
+    .then((result) => {
+      if (query && query !== filename) {
+        return context.parser.query(query, context)
+      } else {
+        return result || context.parser.rootNode
+      }
+    })
+    .then((result) => onresult(context, result))
+    .then((result) => {
+      let output = null
+      if (result) {
+        if (argv.json) {
+          if (argv.pretty) {
+            process.stdout.write(JSON.stringify(result, null, '  '))
+            process.stdout.write('\n')
+          } else {
+            process.stdout.write(JSON.stringify(result))
+          }
+          return
+        } else if (false !== argv.pretty) {
+          output = pretty(result)
+          if (output) {
+            process.stdout.write(output)
+            process.stdout.write('\n')
+          }
+        } else {
+          console.log(result)
+        }
+      }
+
+      if (argv.repl) {
+        context.start()
+      }
+    })
+    .catch((err) => {
+      context.log.debug(err.stack || err)
+      context.log.error(err.message)
+    })
+}
+
+function evaluate(source, query) {
+  const context = repl.createContext(source, {
+    onerror: console.error,
+    preview: true !== argv['no-preview'] && false !== argv.preview,
+    timing: argv.timing,
+    debug: argv.debug,
+    argv: [argv._[0], ...argv['--']]
+  })
+
+  context.parser
+    .then(() => context.parser.query(source, context))
+    .then((result) => query ? context.parser.query(query, context) : result)
+    .then((result) => onresult(context, result))
+    .then((result) => {
+      let output = null
+      if (result) {
+        if (argv.json) {
+          if (argv.pretty) {
+            process.stdout.write(JSON.stringify(result, null, '  '))
+            process.stdout.write('\n')
+          } else {
+            process.stdout.write(JSON.stringify(result))
+          }
+          return
+        } else if (false !== argv.pretty) {
+          output = pretty(result)
+          if (output) {
+            process.stdout.write(output)
+            process.stdout.write('\n')
+          }
+        } else {
+          console.log(result)
+        }
+      }
+
+      if (argv.repl) {
+        context.start()
+      }
+    })
+    .catch((err) => {
+      context.log.debug(err.stack || err)
+      context.log.error(err.message)
+    })
+}
+
+async function onresult(context, result) {
+  if (argv['dump-lets'] || argv['dump-assignments']) {
+    result = context.assignments.toJSON()
+  } else if (argv['dump-imports']) {
+    result = context.imports.toJSON()
+  }
+
+  return result
 }
