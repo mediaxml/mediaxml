@@ -60,6 +60,16 @@ class Entity {
   }
 
   /**
+   * A reference to the children for this entity' node.
+   * @public
+   * @accessor
+   * @type {Array}
+   */
+  get children() {
+    return this.node.children
+  }
+
+  /**
    * A reference to the attributes for this entity' node.
    * @public
    * @accessor
@@ -102,7 +112,7 @@ class Entity {
     return Array.from(new Set(keys))
 
     function filter(key, descriptors) {
-      if (['constructor', 'document', 'attributes', 'text', 'node'].includes(key)) {
+      if (['constructor', 'document', 'children', 'attributes', 'text', 'node'].includes(key)) {
         return false
       }
 
