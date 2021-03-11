@@ -99,14 +99,14 @@ if ('-' === argv._[0] || !process.stdin.isTTY) {
   process.stdin.on('data', ondata)
   process.stdin.once('end', () => process.stdin.removeListener('data', ondata))
 
-  if (query) {
+  if (query && '-' !== query) {
     process.stdin.once('end', () => {
-      evaluate(Buffer.concat(bytes), query || arg0)
+      evaluate(Buffer.concat(bytes), query)
     })
   } else if (!process.stdin.isTTY) {
     console.error(' %s:', chalk.bold(chalk.yellow('warn')), 'stdin is not a TTY and no query was given')
     process.stdin.once('end', () => {
-      evaluate(Buffer.concat(bytes))
+      evaluate(Buffer.concat(bytes), '$')
     })
   }
 } else if (arg0) {
