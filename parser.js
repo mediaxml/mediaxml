@@ -684,7 +684,7 @@ class ParserNode {
           if (child instanceof ParserNode) {
             return child
           } else if ('string' === typeof child && !/^</.test(child.trim()) && !/>$/.test(child.trim())) {
-            return ParserNodeText.from(child)
+            return this.Text.from(child)
           } else {
             return this.from(child)
           }
