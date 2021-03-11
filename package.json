@@ -1,7 +1,7 @@
 {
   "name": "mediaxml",
   "version": "0.2.0",
-  "description": "A module for working with media manifests represented by XML like ADI, mRSS, and SCTE236.",
+  "description": "A general purpose module for working with XML that includes first class support for media manifests like ADI, mRSS, and SCTE-236.",
   "scripts": {
     "test": "tape tests",
     "docs:build": "npm run docs:build:html && npm run docs:build:md",
