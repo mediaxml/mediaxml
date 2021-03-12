@@ -7,7 +7,7 @@ const debug = require('debug')('mediaxml')
 const chalk = require('chalk')
 const repl = require('../repl')
 const pkg = require('../package.json')
-const fs = require('fs')
+const uri = require('../uri')
 
 const argv = require('minimist')(process.argv.slice(2), {
   '--': true,
@@ -134,10 +134,11 @@ function loadFile(filename) {
     argv: [argv._[0], ...argv['--']]
   })
 
+  filename = uri.resolve(filename, { cwd: process.cwd() })
   context.parser
     .then(() => context.parser.query(`import "${filename}"`, context))
     .then((result) => {
-      if (query && query !== filename) {
+      if (query && query !== arg0) {
         return context.parser.query(query, context)
       } else {
         return result || context.parser.rootNode
