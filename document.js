@@ -1,4 +1,5 @@
 const { ParserNode, Parser } = require('./parser')
+const { Entity } = require('./entity')
 
 /**
  * An abstract document node.
@@ -147,6 +148,23 @@ class AbstractDocument extends Node {
   createChild(...args) {
     const child = this.constructor.Node.from(...args)
     return this.appendChild(child)
+  }
+
+  /**
+   * Computed keys for this instance.
+   * @return {Array<String>}
+   */
+  keys() {
+    return Entity.prototype.keys.call(this, { Super: Node })
+  }
+
+  /**
+   * Returns a plain JSON object of this instance.
+   * @public
+   * @return {Object}
+   */
+  toJSON() {
+    return this.keys().reduce((json, key) => ({ ...json, [key]: this[key] }), {})
   }
 }
 
