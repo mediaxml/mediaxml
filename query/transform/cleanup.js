@@ -5,6 +5,7 @@ function transform(queryString) {
     .replace(/^\./, '$.')
     .replace(/;[$|\n|\s]/, '')
     .replace(/\.\s*?$/, '')
+    .replace(/([(|[|{]\s*?)([.])/mg, '$1$.')
 
   return result
 }
