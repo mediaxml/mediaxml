@@ -10,6 +10,7 @@ import $coalesce($argv1, $MRSS_FEED_URL)
 
 let nodes_that_contain_aws_domain = **[is node and text contains $AWS_DOMAIN];
 
-print $AWS_DOMAIN
+// '&' is the concat character in JSONata syntax
+print "Searching for nodes that contain the domain: '" & ($AWS_DOMAIN) & "'"
 
 $coalesce($argv2, $nodes_that_contain_aws_domain)

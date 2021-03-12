@@ -1,5 +1,4 @@
-
-const REGEX = /([$]?print\s*(.*)(;|\n|\r|$))/g
+const REGEX = /([^|^$|\b]print\s*(.*)(;|\n|\r|$))/g
 
 function transform(queryString, ctx) {
   const result = queryString.replace(REGEX, replace)
@@ -10,16 +9,8 @@ function transform(queryString, ctx) {
   }
 }
 
-function compile(ctx, { statement, input }) {
-  statement = (statement || '').trim()
-
-  // bail on `$print()` calls
-  if ('$' === statement[0]) {
-    return statement
-  }
-
+function compile(ctx, { input }) {
   ctx.output.push(input)
-
   return ''
 }
 

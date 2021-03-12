@@ -1,13 +1,14 @@
 const { normalizeValue } = require('../normalize')
 const InvertedPromise = require('inverted-promise')
 const { randomBytes } = require('crypto')
-const { resolve } = require('../resolve')
 const extendMap = require('map-extend')
 const bindings = require('./bindings')
+const defined = require('defined')
 const jsonata = require('jsonata')
 const mutex = require('mutexify')
 const debug = require('debug')('mediaxml')
 const path = require('path')
+const uri = require('../uri')
 
 const QUERY_FILE_EXTNAME = '.mxq' // MediaXML Query
 
@@ -252,6 +253,14 @@ class Context {
     this.assignments = opts.assignments instanceof Map ? opts.assignments : new Assignments()
   }
 
+  evaluate(value) {
+    // try to evaluate JSONata expression in value statement
+    value = defined(Expression.from(this, value).evaluate(true), value)
+
+    // normalize value before setting
+    return normalizeValue(value)
+  }
+
   getValue(key) {
     const assignments = convertMapToObject(this.assignments)
     // interpolate variable values in key statement
@@ -398,10 +407,10 @@ class Context {
       }
 
       const extname = path.extname(name)
-      let resolved = resolve(name, { cwd })
+      let resolved = uri.resolve(name, { cwd })
 
       if (!resolved && !extname) {
-        resolved = resolve(name + QUERY_FILE_EXTNAME, { cwd })
+        resolved = uri.resolve(name + QUERY_FILE_EXTNAME, { cwd })
       }
 
       if (!resolved) {
@@ -688,6 +697,7 @@ class Transforms {
     this.push(0, require('./transform/contains'))
     this.push(0, require('./transform/hex'))
     this.push(0, require('./transform/let'))
+    this.push(0, require('./transform/if'))
     this.push(0, require('./transform/import'))
     this.push(0, require('./transform/print'))
 
@@ -866,6 +876,10 @@ class Bindings {
     return this.entries.keys()
   }
 
+  values() {
+    return this.entries.values()
+  }
+
   /**
    * Queries for binding by name. If binding is a function, a bound
    * wrapped function is returned that calls the function.
@@ -948,9 +962,12 @@ function query(node, queryString, opts) {
 
   let expression = Expression.from(context, queryString, opts)
   const { imports } = expression
+  const preprocessed = expression.preprocess()
 
-  // compute imports and outputs
-  expression = Expression.from(context, expression.preprocess(), opts)
+  if (preprocessed !== queryString) {
+    // compute imports and outputs
+    expression = Expression.from(context, preprocessed, opts)
+  }
 
   if (imports.waiting || context.output.length) {
     return new Promise((...args) => {
@@ -972,19 +989,10 @@ function query(node, queryString, opts) {
     try {
       const backlog = []
       const queue = []
-      let outputs = context.output.splice(0, context.output.length)
       let result = null
 
       if (context.errors.length) {
         return reject(context.errors[0])
-      }
-
-      for (const output of outputs) {
-        try {
-          await Expression.from(context, `$print(${output})`, opts).evaluate()
-        } catch (err) {
-          return reject(err)
-        }
       }
 
       // eslint-disable-next-line
@@ -1032,13 +1040,24 @@ function query(node, queryString, opts) {
           return reject(context.errors[0])
         }
 
-        if (Array.isArray(result)) {
-          return resolve(Node.createFragment(null, {
-            children: result
-          }))
+
+        const outputs = context.output.splice(0, context.output.length)
+
+        for (const output of outputs) {
+          try {
+            await Expression.from(context, `$print(${output})`, opts).evaluate()
+          } catch (err) {
+            return reject(err)
+          }
         }
 
-        return resolve(result || null)
+        if (Array.isArray(result)) {
+          resolve(Node.createFragment(null, {
+            children: result
+          }))
+        } else {
+          resolve(result || null)
+        }
       })
     } catch (err) {
       reject(err)

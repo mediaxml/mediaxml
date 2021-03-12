@@ -1,3 +1,4 @@
+const { Bindings } = require('../query/index')
 const debug = require('debug')('mediaxml')
 const glob = require('glob')
 const path = require('path')
@@ -11,11 +12,14 @@ function createCompleter(context) {
 
       const completions = []
       completions.push(...[ ...context.assignments.keys() ].map((key) => `$${key}`))
+      for (const key in Bindings.builtins) {
+        completions.push(`$${key}(`)
+      }
 
       if (query) {
         const pathToLoad = query.match(/\bimport\s*(['|"])?(.*)['|"]?\s*?/)
         if (pathToLoad) {
-          let [, quote, pathspec ] = pathToLoad
+          let [, , pathspec ] = pathToLoad
 
           if (pathspec) {
             let hits = glob.sync(pathspec + '*')
@@ -36,36 +40,8 @@ function createCompleter(context) {
         }
       }
 
-      if (query && !/^\$\.$/.test(query)) {
-        if (/^\$[a-z|A-Z|0-9|_]+$/g.test(end)) {
-          completions.push(
-            '$camelcase(',
-            '$concat(',
-            '$unique(',
-            '$float(',
-            '$int(',
-            '$now(',
-            '$import(',
-            '$slice(',
-            '$toJSON',
-          )
-        } else if (/\.\$?([a-z|A-Z|0-9|_]+)?$/g.test(end)) {
-          const i = query.lastIndexOf('.')
-          const prefix = query.slice(0, i)
-          completions.push(
-            `${prefix}.$camelcase(`,
-            `${prefix}.$concat(`,
-            `${prefix}.$unique(`,
-            `${prefix}.$float(`,
-            `${prefix}.$int(`,
-            `${prefix}.$now(`,
-            `${prefix}.$slice(`,
-            `${prefix}.$string(`,
-          )
-        }
-      }
       if (/children:?[a-z|A-Z|-]*$/.test(query)) {
-        const colon = /children\:([a-z|A-Z|-]+)?$/.test(query)
+        const colon = /children:([a-z|A-Z|-]+)?$/.test(query)
 
         if (!colon) {
           completions.push(
@@ -96,7 +72,7 @@ function createCompleter(context) {
         )
       }
 
-      if (!query || ':' === query || /\:?r?o?o?t?/.test(query)) {
+      if (!query || ':' === query || /:?r?o?o?t?/.test(query)) {
         if (!/\.$/.test(end)) {
           completions.unshift(':root')
         }
@@ -121,26 +97,69 @@ function createCompleter(context) {
           'is string',
         )
       }
+      completions.push(
+        'name',
+        'text',
+        'children',
+        'attributes',
+        'length'
+      )
 
-      if (/\.$/.test(end)) {
-        completions.push(
-          'name',
-          'text',
-          'children',
-          'attributes',
-          'length'
-        )
-      } else {
-        completions.push(
-          ':is',
-          ':is(array)',
-          ':is(date)',
-          ':is(fragment)',
-          ':is(node)',
-          ':is(number)',
-          ':is(object)',
-          ':is(text)',
-          ':is(string)',
+      if (/\s$/.test(query) || /(as|is)(\s.*?)$/.test(query)) {
+        completions.push(...[
+          'as',
+          'as array',
+          'as boolean',
+          'as float',
+          'as int',
+          'as json',
+          'as number',
+          'as object',
+          'as string',
+
+          'as false',
+          'as true',
+          'as NaN',
+          'as nan',
+          'as null',
+
+          'as Date',
+          'as date',
+          'as Document',
+          'as document',
+          'as Fragment',
+          'as fragment',
+          'as Node',
+          'as node',
+          'as Text',
+          'as text',
+
+          'as any',
+          'as camelcase',
+          'as eval',
+          'as json',
+          'as keys',
+          'as pascalcase',
+          'as query',
+          'as reversed',
+          'as snakecase',
+          'as sorted',
+          'as tuple',
+          'as unique',
+
+          'is',
+          'is array',
+          'is date',
+          'is fragment',
+          'is node',
+          'is number',
+          'is object',
+          'is text',
+          'is string',
+        ].map((s) => query.replace(/\b(as|is)\b.*$/, '') + s))
+      }
+
+      completions.push(
           ':json',
           ':keys',
           ':text',
@@ -151,10 +170,9 @@ function createCompleter(context) {
           ':children',
           ':nth-child',
         )
-      }
 
       const hits = completions.filter((c) => {
-        return parts.length && end ? c.startsWith(`:${end}`) : c.startsWith(query)
+        return c.startsWith(`:${end}`) || c.startsWith(end)
       })
 
       return  [
@@ -170,7 +188,7 @@ function createCompleter(context) {
     }
   }
 }
-
 module.exports = {
+
   createCompleter
 }

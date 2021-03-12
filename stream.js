@@ -1,4 +1,4 @@
-const { resolve} = require('./resolve')
+const { resolve } = require('./uri')
 const get = require('get-uri')
 const fs = require('fs')
 

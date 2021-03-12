@@ -331,12 +331,12 @@ class Context {
       }
 
       // don't just preview a print all willy nilly
-      if (/^\s*?print\s*/.test(query.trim())) {
+      if (/\s*?print\s*/.test(query.trim())) {
         return
       }
 
       // don't try to preview imports and lets
-      if (/^\s*?(import|let)\s*?.*$/.test(query.trim())) {
+      if (/^\s*?(import|let|if|else)\s*?.*$/.test(query.trim())) {
         return
       }
 
