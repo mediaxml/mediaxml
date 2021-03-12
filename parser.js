@@ -5,6 +5,7 @@ const { validate } = require('./validate')
 const htmlparser2 = require('htmlparser2')
 const { inspect } = require('util')
 const camelcase = require('camelcase')
+const entities = require('entities')
 const defined = require('defined')
 const debug = require('debug')('mediaxml')
 
@@ -267,7 +268,7 @@ class ParserNodeText extends String {
    * @private
    * @param {String} text
    */
-  constructor(text, opts) {
+  constructor(text, opts, depth) {
     text = text || ''
     text = text.trim()
 
@@ -293,12 +294,13 @@ class ParserNodeText extends String {
       set: (value) => { parent = value }
     })
 
-    const descriptors = Object.getOwnPropertyDescriptors(String.prototype)
+    const prototype = Object.getPrototypeOf(this.constructor.prototype)
+    const descriptors = Object.getOwnPropertyDescriptors(prototype)
     for (const key in descriptors) {
       const descriptor = descriptors[key]
       const { value } = descriptor
       if (['toString', 'valueOf'].includes(key)) {
-        Object.defineProperty(this, key, descriptor)
+        continue
       } else if ('function' === typeof value) {
         descriptor.value = (...args) => {
           const result = this.text[key](...args)
@@ -350,7 +352,7 @@ class ParserNodeText extends String {
    * @type {?ParserNode}
    */
   set parent(value) { void value }
-  get parent() { }
+  get parent() { return null }
 
   /**
    * Returns an iterable generator for this text node.
@@ -408,6 +410,34 @@ class ParserNodeText extends String {
     for (let i = 0; i < this.text.length; ++i) {
       yield this.text[i]
     }
+  }
+}
+
+/**
+ * A container for CDATA text data.
+ * @public
+ * @memberof parser
+ */
+class ParserNodeCDATA extends ParserNodeText {
+
+  /**
+   * Always `true` to indicate that this is CDATA.
+   * @public
+   * @accessor
+   * @type {Boolean}
+   */
+  get isCDATA() {
+    return true
+  }
+
+  /**
+   * Converts this CDATA text container to mark up.
+   * @public
+   * @return {String}
+   */
+  toString() {
+    const { text } = this
+    return `<![CDATA[${text}]]>`
   }
 }
 
@@ -1222,7 +1252,7 @@ class ParserNode {
         'The node to be appened is not an instance of \'ParserNode\'.')
     }
 
-    if (this === node.parent || this.children.includes(node)) {
+    if (this === node.parent && this.children.includes(node)) {
       return node
     }
 
@@ -1270,6 +1300,48 @@ class ParserNode {
         node.ondisconnect(this, node)
       }
     }
+  }
+
+  /**
+   * Replaces `child` with `replacement` in node children tree. Returns `true`
+   * if `child` was replaced, otherwise false.
+   * @param {ParserNode} child
+   * @param {ParserNode} replacement
+   * @return {Boolean}
+   */
+  replaceChild(child, replacement) {
+    if (child && replacement) {
+      for (let i = 0; i < this.children.length; ++i) {
+        const subject = this.children[i]
+        if (subject === child) {
+          this.children.splice(i, 1, replacement)
+
+          subject.parent = null
+          replacement.parent = this
+
+          if ('function' === typeof replacement.onconnect) {
+            replacement.onconnect(this, replacement)
+          }
+
+          if ('function' === typeof subject.onconnect) {
+            subject.ondisconnect(this, subject)
+          }
+
+          return true
+        }
+      }
+    }
+
+    return false
+  }
+
+  /**
+   * Returns `true` if node contains `child`.
+   * @param {ParserNode|ParserNodeText|ParserNodeCDATA} child
+   * @return {Boolean}
+   */
+  contains(child) {
+    return this.children.includes(child)
   }
 
   /**
@@ -1383,7 +1455,11 @@ class ParserNode {
         if (!child) { continue }
         if (child.isText) {
           if (child.length) {
-            output += child.toString()
+            if (child.isCDATA) {
+              output += child.toString()
+            } else {
+              output += entities.encodeXML(child.toString())
+            }
           }
         } else {
           output += '\n'
@@ -1890,7 +1966,14 @@ class ParserHandler {
     const { currentNode } = this
 
     if (currentNode && text && text.length) {
-      currentNode.appendChild(ParserNodeText.from(text))
+      text = entities.decodeXML(text)
+      if (currentNode.isCDATA) {
+        if (currentNode.parent) {
+          currentNode.parent.replaceChild(currentNode, ParserNodeCDATA.from(text))
+        }
+      } else {
+        currentNode.appendChild(ParserNodeText.from(text))
+      }
     }
   }
 
@@ -1937,6 +2020,11 @@ class ParserHandler {
    */
   oncdatastart() {
     debug('ParserHandler::oncdatastart')
+
+    const { currentNode } = this
+    const cdata = ParserNodeCDATA.from('', { parent: currentNode }, this.parser.state.depth)
+    currentNode.appendChild(cdata)
+    this.parser.state.push(cdata)
   }
 
   /**
@@ -1949,6 +2037,7 @@ class ParserHandler {
    */
   oncdataend() {
     debug('ParserHandler::oncdataend')
+    this.parser.state.pop()
   }
 
   /**
@@ -2018,7 +2107,7 @@ class ParserOptions {
       state: defined(opts.state, new ParserState()),
       xmlMode: defined(opts.xmlMode, true),
       lowerCaseTags: defined(opts.lowerCaseTags, false),
-      decodeEntities: defined(opts.decodeEntities, true),
+      decodeEntities: defined(opts.decodeEntities, false),
       recognizeCDATA: defined(opts.recognizeCDATA, true),
       recognizeSelfClosing: defined(opts.recognizeSelfClosing, true),
       lowerCaseAttributeNames: defined(opts.lowerCaseAttributeNames, false),
@@ -2323,6 +2412,8 @@ class Parser extends htmlparser2.Parser {
 
     this.promise = new InvertedPromise()
 
+    this.tokenizer.decodeEntities = parserOptions.decodeEntities
+
     Object.defineProperty(this, 'options', {
       configurable: false,
       enumerable: false,
@@ -2616,6 +2707,7 @@ module.exports = {
 
   ParserNodeAttributes,
   ParserNodeFragment,
+  ParserNodeCDATA,
   ParserNodeText,
   ParserHandler,
   ParserOptions,
