@@ -21,7 +21,7 @@ function compile({ prefix, postfix, selector, not, type }) {
   not = (not || '').trim()
 
   const primitives = ['string', 'array', 'number', 'boolean', 'object', 'function']
-  const instances = { date: 'Date', document: 'Document' }
+  const instances = { date: 'Date', document: 'Document', buffer: 'Buffer' }
   const constants = ['null', 'true', 'false', 'nan', 'infinity', '$', '$i', '%']
   const specials = { text: 'isText', node: 'isParserNode', fragment: 'isFragment' }
   const negate = 'not' === not.trim()
@@ -100,7 +100,11 @@ function compile({ prefix, postfix, selector, not, type }) {
   } else if (isSpecialCheck) {
     output.push(` ${specials[type.toLowerCase()]} ${negate ? '!' : ''}= true`)
   } else if (isInstanceCheck) {
-    output.push(` $classConstructorName(${inputContext}) = "${instances[type.toLowerCase()]}"`)
+    if ('date' === type.toLowerCase()) {
+      output.push(` $isNaN($number($date(${inputContext}))) ${negate ? '!' : ''}= false`)
+    } else {
+      output.push(` $classConstructorName(${inputContext}) ${negate ? '!' : ''}= "${instances[type.toLowerCase()]}"`)
+    }
   } else {
     switch (expr) {
       case 'empty': output.push(` $length(${inputContext}) = 0`); break

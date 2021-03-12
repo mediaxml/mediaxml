@@ -2,6 +2,7 @@ const { Timecode: NPTTimecode } = require('npt-timecode')
 const SMPTETimecode = require('smpte-timecode')
 const camelcase = require('camelcase')
 const duration = require('tinyduration')
+const chrono = require('chrono-node')
 
 /**
  * Regex used to match a SMPTE time code.
@@ -65,6 +66,11 @@ function normalizeValue(value) {
     return value
   }
 
+  const date = chrono.parseDate(value)
+  if (date) {
+    return date
+  }
+
   try {
     const [, year, month, date, hour, minute, second, tz] = value.match(ISO_8601_2004_2019_REGEX)
     let timezone = null
@@ -75,11 +81,13 @@ function normalizeValue(value) {
       })
     }
 
-    const dateString = `${year}-${month}-${date}T${hour}:${minute}:${second}.000${timezone || ''}`
-    const dateValue = new Date(dateString)
+    if (year && month && date && hour && minute && second && tz) {
+      const dateString = `${year}-${month}-${date}T${hour}:${minute}:${second}.000${timezone || ''}`
+      const dateValue = new Date(dateString)
 
-    if (!Number.isNaN(dateValue.valueOf())) {
-      return dateValue
+      if (!Number.isNaN(dateValue.valueOf())) {
+        return dateValue
+      }
     }
   } catch (err) {
     void err
@@ -95,8 +103,6 @@ function normalizeValue(value) {
     return null
   } else if (value && isFinite(+value)) {
     return parseFloat(value)
-  } else if (!Number.isNaN(Date.parse(value))) {
-    return new Date(value)
   }
 
   try {

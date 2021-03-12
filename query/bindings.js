@@ -376,10 +376,10 @@ module.exports = {
 
   // $date(input: any): Date
   date: binding(
-    '<j-:o> # Converts input into a date.',
+    '<x-:o> # Converts input into a date.',
     function $date(input) {
       if (Array.isArray(input)) {
-        return input.map(parse)
+        return input.map($date)
       } else if (input && 'number' === typeof input) {
         return new Date(input)
       } else {
