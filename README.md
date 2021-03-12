@@ -1,5 +1,4 @@
-mediaxml
-========
+![MediaXML](https://raw.githubusercontent.com/little-core-labs/mediaxml/master/assets/logo-whitebackgroud.png)
 
 > A general purpose module for working with XML that includes first
 > class support for media manifests like ADI, mRSS, and SCTE-236.
