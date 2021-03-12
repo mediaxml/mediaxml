@@ -86,7 +86,6 @@ function compile({ prefix, postfix, selector, not, type }) {
     }
   }
 
-
   if (isPrimitiveCheck) {
     output.push(` $typeof(${inputContext}) ${negate ? '!' : ''}= "${type}"`)
   } else if (isConstantCheck || isNumberCheck || isStringCheck) {

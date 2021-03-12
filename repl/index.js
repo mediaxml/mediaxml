@@ -171,6 +171,7 @@ class Context {
     this.server = opts.server || null
     this.parser = null
     this.history = new History(this)
+    this.filename = null
     this.assignments = new Assignments()
 
     this.imports = new Imports({
@@ -238,14 +239,24 @@ class Context {
     })
 
     const { ui } = this
+    const self = this
 
     function onbeforeload(info) {
       debug('onbeforeload', info)
       ui.spinners.loading.start()
     }
 
-    function onload(info) {
+    function onload(result, info) {
       debug('onload', info)
+
+      if (info.uri) {
+        if (self.server) {
+          self.server.setPrompt(createPrompt('mxml', path.basename(info.uri)))
+        }
+      }
+
+      self.filename = info.uri
+
       ui.spinners.loading.stop()
     }
   }
