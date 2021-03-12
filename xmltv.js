@@ -246,11 +246,14 @@ class Document extends AbstractDocument {
    */
   get programmes() {
     const results = this.query(':children[name ~> /^programme$/i]')
+
     if (results) {
       return [].concat(results).map((item) => {
         return this.constructor.Programme.from(this, item)
       })
     }
+
+    return []
   }
 }
 
@@ -802,7 +805,7 @@ class Channel extends Entity {
    * @type {Array<String>}
    */
   get urls() {
-    const { document, node } = this
+    const { node } = this
     const result = node.query(':children[name ~> /^url/i]:text')
 
     if (result) {
