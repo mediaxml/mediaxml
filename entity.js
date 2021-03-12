@@ -98,11 +98,12 @@ class Entity {
    *  console.log(key, entity[key])
    * }
    */
-  keys() {
+  keys(opts) {
+    opts = { ...opts }
     let prototype = this.constructor.prototype
     const keys = Object.keys(this)
 
-    while (prototype && Object.prototype !== prototype) {
+    while (prototype && (opts.Super || Object).prototype !== prototype) {
       const descriptors = Object.getOwnPropertyDescriptors(prototype)
       const protoKeys = Object.keys(descriptors)
       prototype = Object.getPrototypeOf(prototype)
