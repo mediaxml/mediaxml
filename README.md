@@ -219,6 +219,10 @@ more information.
   * [XMLTV DTD](https://github.com/XMLTV/xmltv/blob/master/xmltv.dtd)
   * [XMLTV Format](http://wiki.xmltv.org/index.php/XMLTVFormat)
 
+## Contributing
+
+For more information, please refer to our [CONTRIBUTING](.github/CONTRIBUTING.md) guide.
+
 ## License
 
 MIT
