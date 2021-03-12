@@ -109,7 +109,7 @@ function compile({ prefix, postfix, selector, not, type }) {
     switch (expr) {
       case 'empty': output.push(` $length(${inputContext}) = 0`); break
       case 'not empty': output.push(` $length(${inputContext}) > 0`); break
-      default: output.push(`is${camelcase(type)}`)
+      default: output.push(` is${camelcase(type)}`)
     }
   }
 
