@@ -1,3 +1,5 @@
+![](https://raw.githubusercontent.com/little-core-labs/mediaxml/master/assets/logo-whitebackgroud.png)
+
 Install `mediaxml` with [`npm`](https://www.npmjs.com):
 
 ```sh
