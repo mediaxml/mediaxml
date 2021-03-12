@@ -11,7 +11,7 @@ Or add to `package.json`:
 ```json
 {
   "dependencies": {
-    "mediaxml": "^0.1.0"
+    "mediaxml": "^0.4.0"
   }
 }
 ```
