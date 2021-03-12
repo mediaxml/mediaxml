@@ -49,11 +49,17 @@ class ValidationError extends SyntaxError {
  * @return {Boolea}
  * @throws ValidationError
  */
-function validate(xml) {
-  const result = fxp.validate(xml)
+function validate(xml, opts) {
+  const result = fxp.validate(xml, {
+    ...opts,
+    allowBooleanAttributes: true
+  })
 
   if (result && result.err) {
-    throw ValidationError.from(result.err)
+    // allow broken entities...
+    if ('InvalidChar' === result.err.code && /char '&' is not expected/i.test(result.err.message)) {
+      throw ValidationError.from(result.err)
+    }
   }
 
   return xml
