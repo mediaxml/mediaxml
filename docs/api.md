@@ -97,53 +97,54 @@
         -   [Examples][93]
         -   [ParserNodeAttributes][94]
         -   [ParserNodeText][95]
-        -   [ParserNodeFragment][96]
-        -   [ParserNode][97]
-        -   [ParserState][98]
-        -   [ParserHandler][99]
-        -   [ParserOptions][100]
-        -   [Parser][101]
-    -   [document][102]
-        -   [Examples][103]
-        -   [Node][104]
-        -   [AbstractDocument][105]
-        -   [Document][106]
-        -   [createDocument][107]
-        -   [createNode][108]
-    -   [entity][109]
-        -   [Examples][110]
-        -   [Entity][111]
-    -   [query][112]
-        -   [cache][113]
-        -   [Imports][114]
-        -   [Assignments][115]
-        -   [Context][116]
-        -   [Expression][117]
-        -   [Transforms][118]
-        -   [Bindings][119]
-        -   [query][120]
-    -   [JSONata functions][121]
-    -   [normalize][122]
-        -   [Examples][123]
-        -   [normalizeValue][124]
-        -   [normalizeAttributes][125]
-        -   [normalizeKey][126]
-        -   [normalizeAttributeKey][127]
-        -   [normalizeAttributeValue][128]
--   [fragment][129]
-    -   [Examples][130]
-    -   [Fragment][131]
--   [validate][132]
-    -   [Parameters][133]
-    -   [ValidationError][134]
-        -   [Parameters][135]
--   [validate][136]
-    -   [Examples][137]
-    -   [ValidationError][138]
-        -   [Parameters][139]
--   [text][140]
-    -   [Examples][141]
-    -   [Text][142]
+        -   [ParserNodeCDATA][96]
+        -   [ParserNodeFragment][97]
+        -   [ParserNode][98]
+        -   [ParserState][99]
+        -   [ParserHandler][100]
+        -   [ParserOptions][101]
+        -   [Parser][102]
+    -   [document][103]
+        -   [Examples][104]
+        -   [Node][105]
+        -   [AbstractDocument][106]
+        -   [Document][107]
+        -   [createDocument][108]
+        -   [createNode][109]
+    -   [entity][110]
+        -   [Examples][111]
+        -   [Entity][112]
+    -   [query][113]
+        -   [cache][114]
+        -   [Imports][115]
+        -   [Assignments][116]
+        -   [Context][117]
+        -   [Expression][118]
+        -   [Transforms][119]
+        -   [Bindings][120]
+        -   [query][121]
+    -   [JSONata functions][122]
+    -   [normalize][123]
+        -   [Examples][124]
+        -   [normalizeValue][125]
+        -   [normalizeAttributes][126]
+        -   [normalizeKey][127]
+        -   [normalizeAttributeKey][128]
+        -   [normalizeAttributeValue][129]
+-   [fragment][130]
+    -   [Examples][131]
+    -   [Fragment][132]
+-   [validate][133]
+    -   [Parameters][134]
+    -   [ValidationError][135]
+        -   [Parameters][136]
+-   [validate][137]
+    -   [Examples][138]
+    -   [ValidationError][139]
+        -   [Parameters][140]
+-   [text][141]
+    -   [Examples][142]
+    -   [Text][143]
 
 ## API
 
@@ -152,9 +153,9 @@ MediaXML modules that provide atomic classes and views for various XML documents
 
 ### adi
 
-[adi.js:419-427][143]
+[adi.js:419-427][144]
 
--   **See: [https://community.cablelabs.com/wiki/plugins/servlet/cablelabs/alfresco/download?id=8f900e8b-d1eb-4834-bd26-f04bd623c3d2][144]
+-   **See: [https://community.cablelabs.com/wiki/plugins/servlet/cablelabs/alfresco/download?id=8f900e8b-d1eb-4834-bd26-f04bd623c3d2][145]
     **
 
 #### Examples
@@ -176,7 +177,7 @@ document.ready(() => {
 
 #### Document
 
-[adi.js:23-112][145]
+[adi.js:23-112][146]
 
 **Extends AbstractDocument**
 
@@ -185,8 +186,8 @@ entity access.
 
 ##### Parameters
 
--   `input` **(adi.Document | Parser | [String][146] | ReadableStream)** 
--   `opts` **[Object][147]?** 
+-   `input` **(adi.Document | Parser | [String][147] | ReadableStream)** 
+-   `opts` **[Object][148]?** 
 
 ##### Examples
 
@@ -203,7 +204,7 @@ document.ready(() => {
 
 ##### metadata
 
-[adi.js:97-100][148]
+[adi.js:97-100][149]
 
 The metadata associated with this ADI document.
 
@@ -211,7 +212,7 @@ Type: Metadata
 
 ##### asset
 
-[adi.js:108-111][149]
+[adi.js:108-111][150]
 
 The main asset associated with this ADI document.
 
@@ -219,7 +220,7 @@ Type: Asset
 
 ##### Metadata
 
-[adi.js:32-34][150]
+[adi.js:32-34][151]
 
 A reference to the `Metadata` entity used by a `Document` instance.
 
@@ -227,7 +228,7 @@ Type: Metadata
 
 ##### AMS
 
-[adi.js:43-45][151]
+[adi.js:43-45][152]
 
 A reference to the `AMS` entity used by a `Document` instance.
 
@@ -235,7 +236,7 @@ Type: AMS
 
 ##### AppData
 
-[adi.js:54-56][152]
+[adi.js:54-56][153]
 
 A reference to the `AppData` entity used by a `Document` instance.
 
@@ -243,7 +244,7 @@ Type: AppData
 
 ##### Content
 
-[adi.js:65-67][153]
+[adi.js:65-67][154]
 
 A reference to the `Content` entity used by a `Document` instance.
 
@@ -251,7 +252,7 @@ Type: Content
 
 ##### Asset
 
-[adi.js:76-78][154]
+[adi.js:76-78][155]
 
 A reference to the `Asset` entity used by a `Document` instance.
 
@@ -259,15 +260,15 @@ Type: Asset
 
 ##### nodeName
 
-[adi.js:87-89][155]
+[adi.js:87-89][156]
 
 The document node name.
 
-Type: [String][146]
+Type: [String][147]
 
 #### Metadata
 
-[adi.js:121-152][156]
+[adi.js:121-152][157]
 
 **Extends Entity**
 
@@ -275,12 +276,12 @@ A metadata entity found in ADI documents.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### ams
 
-[adi.js:129-133][158]
+[adi.js:129-133][159]
 
 Computed AMS (Asset Management Service) for this ADI metadata.
 
@@ -288,16 +289,16 @@ Type: AMS?
 
 ##### appData
 
-[adi.js:142-151][159]
+[adi.js:142-151][160]
 
 Computed "App Data" for this ADI metadata. If none could be found,
 then an empty array is given.
 
-Type: [Array][160]&lt;AppData>
+Type: [Array][161]&lt;AppData>
 
 #### AMS
 
-[adi.js:161-261][161]
+[adi.js:161-261][162]
 
 **Extends Entity**
 
@@ -305,100 +306,100 @@ An AMS (Asset Management Service) entity found in ADI documents.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### assetName
 
-[adi.js:168-170][162]
+[adi.js:168-170][163]
 
 The name of the asset for this AMS metadata.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### assetClass
 
-[adi.js:177-179][163]
+[adi.js:177-179][164]
 
 The class of the asset for this AMS metadata.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### assetId
 
-[adi.js:186-188][164]
+[adi.js:186-188][165]
 
 The ID of the asset for this AMS metadata.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### creationDate
 
-[adi.js:195-197][165]
+[adi.js:195-197][166]
 
 The creation date of the asset for this AMS metadata.
 
-Type: [Date][166]?
+Type: [Date][167]?
 
 ##### description
 
-[adi.js:204-206][167]
+[adi.js:204-206][168]
 
 The description of the asset for this AMS metadata.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### product
 
-[adi.js:213-215][168]
+[adi.js:213-215][169]
 
 The product name of the asset for this AMS metadata.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### provider
 
-[adi.js:222-224][169]
+[adi.js:222-224][170]
 
 The provider name of the asset for this AMS metadata.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### providerId
 
-[adi.js:231-233][170]
+[adi.js:231-233][171]
 
 The provider ID of the asset for this AMS metadata.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### versionMajor
 
-[adi.js:240-242][171]
+[adi.js:240-242][172]
 
 The version major of the asset for this AMS metadata.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### versionMinor
 
-[adi.js:249-251][172]
+[adi.js:249-251][173]
 
 The version minor of the asset for this AMS metadata.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### verb
 
-[adi.js:258-260][173]
+[adi.js:258-260][174]
 
 The verb for the asset for this AMS metadata.
 
-Type: [String][146]?
+Type: [String][147]?
 
 #### AppData
 
-[adi.js:270-316][174]
+[adi.js:270-316][175]
 
 **Extends Entity**
 
@@ -406,36 +407,36 @@ An AppData entity found in ADI documents.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### app
 
-[adi.js:277-279][175]
+[adi.js:277-279][176]
 
 The app this app data is for.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### name
 
-[adi.js:286-288][176]
+[adi.js:286-288][177]
 
 The name of this app data.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### value
 
-[adi.js:295-297][177]
+[adi.js:295-297][178]
 
 The value of this app data.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### in
 
-[adi.js:304-306][178]
+[adi.js:304-306][179]
 
 The start/in SMPTE timecode this app data is associated with.
 
@@ -443,7 +444,7 @@ Type: SMPTETimecode?
 
 ##### out
 
-[adi.js:313-315][179]
+[adi.js:313-315][180]
 
 The stop/out SMPTE timecode this app data is associated with.
 
@@ -451,7 +452,7 @@ Type: SMPTETimecode?
 
 #### Content
 
-[adi.js:325-336][180]
+[adi.js:325-336][181]
 
 **Extends Entity**
 
@@ -459,20 +460,20 @@ A content entity found in ADI documents.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### value
 
-[adi.js:333-335][181]
+[adi.js:333-335][182]
 
 The content value for this asset content.
 
-Type: [String][146]?
+Type: [String][147]?
 
 #### Asset
 
-[adi.js:345-387][182]
+[adi.js:345-387][183]
 
 **Extends Entity**
 
@@ -480,12 +481,12 @@ An asset entity found in ADI documents.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### metadata
 
-[adi.js:353-357][183]
+[adi.js:353-357][184]
 
 The metadata associated with this ADI asset.
 
@@ -493,15 +494,15 @@ Type: Metadata
 
 ##### assets
 
-[adi.js:365-375][184]
+[adi.js:365-375][185]
 
 The child assets associated with this ADI asset.
 
-Type: [Array][160]&lt;Asset>
+Type: [Array][161]&lt;Asset>
 
 ##### content
 
-[adi.js:382-386][185]
+[adi.js:382-386][186]
 
 The content associated with this ADI asset.
 
@@ -509,7 +510,7 @@ Type: Content
 
 #### createDocument
 
-[adi.js:396-398][186]
+[adi.js:396-398][187]
 
 -   **See: {Document}
     **
@@ -520,13 +521,13 @@ Factory for creating `Document` instances.
 
 -   `args` **...any** 
 
-Returns **[Document][157]** 
+Returns **[Document][158]** 
 
 ### adi3
 
-[adi3.js:1168-1185][187]
+[adi3.js:1168-1185][188]
 
--   **See: [https://scte-cms-resource-storage.s3.amazonaws.com/ANSI_SCTE-35-2019a-1582645390859.pdf][188]
+-   **See: [https://scte-cms-resource-storage.s3.amazonaws.com/ANSI_SCTE-35-2019a-1582645390859.pdf][189]
     **
 
 A module to provide atomic classes for working with ADI3 documents.
@@ -548,7 +549,7 @@ document.ready(() => {
 
 #### Document
 
-[adi3.js:22-195][189]
+[adi3.js:22-195][190]
 
 **Extends adi.Document**
 
@@ -557,8 +558,8 @@ entity access.
 
 ##### Parameters
 
--   `input` **([Document][157] | Parser | [String][146] | ReadableStream)** 
--   `opts` **[Object][147]?** 
+-   `input` **([Document][158] | Parser | [String][147] | ReadableStream)** 
+-   `opts` **[Object][148]?** 
 
 ##### Examples
 
@@ -575,15 +576,15 @@ document.ready(() => {
 
 ##### assets
 
-[adi3.js:184-194][190]
+[adi3.js:184-194][191]
 
 The child assets associated with this ADI3 asset.
 
-Type: [Array][160]&lt;Asset>
+Type: [Array][161]&lt;Asset>
 
 ##### Asset
 
-[adi3.js:31-33][191]
+[adi3.js:31-33][192]
 
 A reference to the `Asset` entity used by a `Document` instance.
 
@@ -591,7 +592,7 @@ Type: Asset
 
 ##### EncryptionInfo
 
-[adi3.js:42-44][192]
+[adi3.js:42-44][193]
 
 A reference to the `EncryptionInfo` entity used by a `Document` instance.
 
@@ -599,7 +600,7 @@ Type: EncryptionInfo
 
 ##### CopyControlInfo
 
-[adi3.js:53-55][193]
+[adi3.js:53-55][194]
 
 A reference to the `CopyControlInfo` entity used by a `Document` instance.
 
@@ -607,7 +608,7 @@ Type: CopyControlInfo
 
 ##### Rating
 
-[adi3.js:64-66][194]
+[adi3.js:64-66][195]
 
 A reference to the `Rating` entity used by a `Document` instance.
 
@@ -615,7 +616,7 @@ Type: Rating
 
 ##### DistributorRoyaltyInfo
 
-[adi3.js:75-77][195]
+[adi3.js:75-77][196]
 
 A reference to the `DistributorRoyaltyInfo` entity used by a `Document` instance.
 
@@ -623,7 +624,7 @@ Type: DistributorRoyaltyInfo
 
 ##### StudioRoyaltyInfo
 
-[adi3.js:86-88][196]
+[adi3.js:86-88][197]
 
 A reference to the `StudioRoyaltyInfo` entity used by a `Document` instance.
 
@@ -631,7 +632,7 @@ Type: StudioRoyaltyInfo
 
 ##### LocalizableTitle
 
-[adi3.js:97-99][197]
+[adi3.js:97-99][198]
 
 A reference to the `LocalizableTitle` entity used by a `Document` instance.
 
@@ -639,7 +640,7 @@ Type: LocalizableTitle
 
 ##### Actor
 
-[adi3.js:108-110][198]
+[adi3.js:108-110][199]
 
 A reference to the `Actor` entity used by a `Document` instance.
 
@@ -647,7 +648,7 @@ Type: Actor
 
 ##### Director
 
-[adi3.js:119-121][199]
+[adi3.js:119-121][200]
 
 A reference to the `Director` entity used by a `Document` instance.
 
@@ -655,7 +656,7 @@ Type: Director
 
 ##### Chapter
 
-[adi3.js:130-132][200]
+[adi3.js:130-132][201]
 
 A reference to the `Chapter` entity used by a `Document` instance.
 
@@ -663,7 +664,7 @@ Type: Chapter
 
 ##### Presentation
 
-[adi3.js:141-143][201]
+[adi3.js:141-143][202]
 
 A reference to the `Presentation` entity used by a `Document` instance.
 
@@ -671,7 +672,7 @@ Type: Presentation
 
 ##### Extension
 
-[adi3.js:152-154][202]
+[adi3.js:152-154][203]
 
 A reference to the `Extension` entity used by a `Document` instance.
 
@@ -679,7 +680,7 @@ Type: Extension
 
 ##### AlternateId
 
-[adi3.js:163-165][203]
+[adi3.js:163-165][204]
 
 A reference to the `AlternateId` entity used by a `Document` instance.
 
@@ -687,7 +688,7 @@ Type: AlternateId
 
 ##### SubscriberViewLimit
 
-[adi3.js:174-176][204]
+[adi3.js:174-176][205]
 
 A reference to the `SubscriberViewLimit` entity used by a `Document` instance.
 
@@ -695,7 +696,7 @@ Type: SubscriberViewLimit
 
 #### Asset
 
-[adi3.js:204-716][205]
+[adi3.js:204-716][206]
 
 **Extends adi.Asset**
 
@@ -703,293 +704,293 @@ An asset entity found in ADI3 documents.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### type
 
-[adi3.js:212-214][206]
+[adi3.js:212-214][207]
 
 The asset type as determined by the `xsi:type` attribute.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### uriId
 
-[adi3.js:221-223][207]
+[adi3.js:221-223][208]
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### providerVersionNum
 
-[adi3.js:230-232][208]
+[adi3.js:230-232][209]
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### internalVersionNum
 
-[adi3.js:239-241][209]
+[adi3.js:239-241][210]
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### creationDateTime
 
-[adi3.js:248-250][210]
+[adi3.js:248-250][211]
 
-Type: [Date][166]?
+Type: [Date][167]?
 
 ##### startDateTime
 
-[adi3.js:257-259][211]
+[adi3.js:257-259][212]
 
-Type: [Date][166]?
+Type: [Date][167]?
 
 ##### endDateTime
 
-[adi3.js:266-268][212]
+[adi3.js:266-268][213]
 
-Type: [Date][166]?
+Type: [Date][167]?
 
 ##### alternateIds
 
-[adi3.js:275-286][213]
+[adi3.js:275-286][214]
 
-Type: [Array][160]&lt;AlternateId>
+Type: [Array][161]&lt;AlternateId>
 
 ##### assetName
 
-[adi3.js:293-295][214]
+[adi3.js:293-295][215]
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### product
 
-[adi3.js:302-304][215]
+[adi3.js:302-304][216]
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### provider
 
-[adi3.js:311-313][216]
+[adi3.js:311-313][217]
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### providerQAContact
 
-[adi3.js:320-322][217]
+[adi3.js:320-322][218]
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### description
 
-[adi3.js:329-331][218]
+[adi3.js:329-331][219]
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### extensions
 
-[adi3.js:338-349][219]
+[adi3.js:338-349][220]
 
-Type: [Array][160]&lt;Extensions>
+Type: [Array][161]&lt;Extensions>
 
 ##### presentation
 
-[adi3.js:356-365][220]
+[adi3.js:356-365][221]
 
 Type: Presentation?
 
 ##### promotionalContentGroupRefs
 
-[adi3.js:372-376][221]
+[adi3.js:372-376][222]
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### billingId
 
-[adi3.js:387-389][222]
+[adi3.js:387-389][223]
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### termsRefs
 
-[adi3.js:396-400][223]
+[adi3.js:396-400][224]
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### titleRefs
 
-[adi3.js:407-411][224]
+[adi3.js:407-411][225]
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### movieRefs
 
-[adi3.js:418-422][225]
+[adi3.js:418-422][226]
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### previewRefs
 
-[adi3.js:429-433][226]
+[adi3.js:429-433][227]
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### boxCoverRefs
 
-[adi3.js:440-444][227]
+[adi3.js:440-444][228]
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### contentGroupRefs
 
-[adi3.js:451-455][228]
+[adi3.js:451-455][229]
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### masterSourceRefs
 
-[adi3.js:462-466][229]
+[adi3.js:462-466][230]
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### rating
 
-[adi3.js:473-482][230]
+[adi3.js:473-482][231]
 
 Type: Rating?
 
 ##### advisories
 
-[adi3.js:489-497][231]
+[adi3.js:489-497][232]
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### duration
 
-[adi3.js:655-657][232]
+[adi3.js:655-657][233]
 
-Type: [Object][147]?
+Type: [Object][148]?
 
 ##### language
 
-[adi3.js:664-666][233]
+[adi3.js:664-666][234]
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### subtitleLanguages
 
-[adi3.js:673-681][234]
+[adi3.js:673-681][235]
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### dubbedLanguages
 
-[adi3.js:688-696][235]
+[adi3.js:688-696][236]
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 #### SubscriberViewLimit
 
-[adi3.js:724-736][236]
+[adi3.js:724-736][237]
 
 **Extends Entity**
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 #### AlternateId
 
-[adi3.js:744-752][237]
+[adi3.js:744-752][238]
 
 **Extends Entity**
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 #### Extension
 
-[adi3.js:760-761][238]
+[adi3.js:760-761][239]
 
 **Extends adi.Metadata**
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 #### EncryptionInfo
 
-[adi3.js:769-773][239]
+[adi3.js:769-773][240]
 
 **Extends Entity**
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 #### CopyControlInfo
 
-[adi3.js:781-785][240]
+[adi3.js:781-785][241]
 
 **Extends Entity**
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 #### Rating
 
-[adi3.js:793-801][241]
+[adi3.js:793-801][242]
 
 **Extends Entity**
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 #### DistributorRoyaltyInfo
 
-[adi3.js:809-825][242]
+[adi3.js:809-825][243]
 
 **Extends Entity**
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 #### StudioRoyaltyInfo
 
-[adi3.js:833-853][243]
+[adi3.js:833-853][244]
 
 **Extends Entity**
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 #### LocalizableTitle
 
-[adi3.js:861-968][244]
+[adi3.js:861-968][245]
 
 **Extends Entity**
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 #### Actor
 
-[adi3.js:977-1018][245]
+[adi3.js:977-1018][246]
 
 **Extends Entity**
 
@@ -997,44 +998,44 @@ A container for actor data.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### fullName
 
-[adi3.js:985-987][246]
+[adi3.js:985-987][247]
 
 The actors full name.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### firstName
 
-[adi3.js:995-997][247]
+[adi3.js:995-997][248]
 
 The actors first name.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### lastName
 
-[adi3.js:1005-1007][248]
+[adi3.js:1005-1007][249]
 
 The actors last name.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### sortableName
 
-[adi3.js:1015-1017][249]
+[adi3.js:1015-1017][250]
 
 The actors sortable name.
 
-Type: [String][146]?
+Type: [String][147]?
 
 #### Director
 
-[adi3.js:1027-1068][250]
+[adi3.js:1027-1068][251]
 
 **Extends Entity**
 
@@ -1042,44 +1043,44 @@ A container for director data.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### fullName
 
-[adi3.js:1035-1037][251]
+[adi3.js:1035-1037][252]
 
 The directors full name.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### firstName
 
-[adi3.js:1045-1047][252]
+[adi3.js:1045-1047][253]
 
 The directors first name.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### lastName
 
-[adi3.js:1055-1057][253]
+[adi3.js:1055-1057][254]
 
 The directors last name.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### sortableName
 
-[adi3.js:1065-1067][254]
+[adi3.js:1065-1067][255]
 
 The directors sortable name.
 
-Type: [String][146]?
+Type: [String][147]?
 
 #### Chapter
 
-[adi3.js:1077-1098][255]
+[adi3.js:1077-1098][256]
 
 **Extends Entity**
 
@@ -1087,20 +1088,20 @@ A container for chapter heading and time code data.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### heading
 
-[adi3.js:1085-1087][256]
+[adi3.js:1085-1087][257]
 
 The chapter heading.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### timeCode
 
-[adi3.js:1095-1097][257]
+[adi3.js:1095-1097][258]
 
 The SMPTE timecode for this chaper.
 
@@ -1108,7 +1109,7 @@ Type: SMPTETimecode?
 
 #### Presentation
 
-[adi3.js:1107-1138][258]
+[adi3.js:1107-1138][259]
 
 **Extends Entity**
 
@@ -1116,36 +1117,36 @@ A container for an offer's presentation data.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### categoryRef
 
-[adi3.js:1115-1117][259]
+[adi3.js:1115-1117][260]
 
 The category ref object for a presentation.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### displayAsNew
 
-[adi3.js:1125-1127][260]
+[adi3.js:1125-1127][261]
 
 The `displayAsNew` text value for a presentation.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### displayAsLastChance
 
-[adi3.js:1135-1137][261]
+[adi3.js:1135-1137][262]
 
 The `displayAsLastChance` text value for a presentation.
 
-Type: [String][146]?
+Type: [String][147]?
 
 #### createDocument
 
-[adi3.js:1147-1149][262]
+[adi3.js:1147-1149][263]
 
 -   **See: {Document}
     **
@@ -1156,13 +1157,13 @@ Factory for creating `Document` instances.
 
 -   `args` **...any** 
 
-Returns **[Document][157]** 
+Returns **[Document][158]** 
 
 ### rss
 
-[rss.js:805-815][263]
+[rss.js:805-815][264]
 
--   **See: [https://validator.w3.org/feed/docs/rss2.html][264]
+-   **See: [https://validator.w3.org/feed/docs/rss2.html][265]
     **
 
 A module to provide atomic classes for working with RSS documents.
@@ -1187,7 +1188,7 @@ document.ready(() => {
 
 #### Document
 
-[rss.js:22-139][265]
+[rss.js:22-139][266]
 
 **Extends AbstractDocument**
 
@@ -1196,8 +1197,8 @@ entity access.
 
 ##### Parameters
 
--   `input` **([Document][157] | Parser | [String][146] | ReadableStream)** 
--   `opts` **[Object][147]?** 
+-   `input` **([Document][158] | Parser | [String][147] | ReadableStream)** 
+-   `opts` **[Object][148]?** 
 
 ##### Examples
 
@@ -1213,16 +1214,16 @@ document.ready(() => {
 
 ##### channels
 
-[rss.js:119-128][266]
+[rss.js:119-128][267]
 
 An array of all channels found in the RSS document. There should only
 ever be one, but..
 
-Type: [Array][160]&lt;Channel>
+Type: [Array][161]&lt;Channel>
 
 ##### channel
 
-[rss.js:136-138][267]
+[rss.js:136-138][268]
 
 The channel found in the RSS document.
 
@@ -1230,7 +1231,7 @@ Type: Channel
 
 ##### Enclosure
 
-[rss.js:31-33][268]
+[rss.js:31-33][269]
 
 A reference to the `Enclosure` entity used by a `Document` instance.
 
@@ -1238,7 +1239,7 @@ Type: Enclosure
 
 ##### TextInput
 
-[rss.js:42-44][269]
+[rss.js:42-44][270]
 
 A reference to the `TextInput` entity used by a `Document` instance.
 
@@ -1246,7 +1247,7 @@ Type: TextInput
 
 ##### Category
 
-[rss.js:53-55][270]
+[rss.js:53-55][271]
 
 A reference to the `Category` entity used by a `Document` instance.
 
@@ -1254,7 +1255,7 @@ Type: Category
 
 ##### Channel
 
-[rss.js:64-66][271]
+[rss.js:64-66][272]
 
 A reference to the `Channel` entity used by a `Document` instance.
 
@@ -1262,7 +1263,7 @@ Type: Channel
 
 ##### Source
 
-[rss.js:75-77][272]
+[rss.js:75-77][273]
 
 A reference to the `Source` entity used by a `Document` instance.
 
@@ -1270,15 +1271,15 @@ Type: Source
 
 ##### Image
 
-[rss.js:86-88][273]
+[rss.js:86-88][274]
 
 A reference to the `Image` entity used by a `Document` instance.
 
-Type: [Image][274]
+Type: [Image][275]
 
 ##### Item
 
-[rss.js:97-99][275]
+[rss.js:97-99][276]
 
 A reference to the `Item` entity used by a `Document` instance.
 
@@ -1286,15 +1287,15 @@ Type: Item
 
 ##### nodeName
 
-[rss.js:108-110][276]
+[rss.js:108-110][277]
 
 The document node name.
 
-Type: [String][146]
+Type: [String][147]
 
 #### Channel
 
-[rss.js:148-416][277]
+[rss.js:148-416][278]
 
 **Extends Entity**
 
@@ -1302,217 +1303,217 @@ A channel entity found in RSS documents.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### title
 
-[rss.js:157-159][278]
+[rss.js:157-159][279]
 
 Computed title for this channel. Queries the first `<title />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### link
 
-[rss.js:168-170][279]
+[rss.js:168-170][280]
 
 Computed link for this channel. Queries the first `<link />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### description
 
-[rss.js:179-181][280]
+[rss.js:179-181][281]
 
 Computed description for this channel. Queries the first `<description />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### language
 
-[rss.js:190-192][281]
+[rss.js:190-192][282]
 
 Computed language for this channel. Queries the first `<language />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### languages
 
-[rss.js:201-204][282]
+[rss.js:201-204][283]
 
 Computed languages for this channel. Queries the all `<language />`
 nodes for text values.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### copyright
 
-[rss.js:213-215][283]
+[rss.js:213-215][284]
 
 Computed copyright for this channel. Queries the first `<copyright />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### managingEditor
 
-[rss.js:224-226][284]
+[rss.js:224-226][285]
 
 Computed managingEditor for this channel. Queries the first `<managingEditor />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### webMaster
 
-[rss.js:235-237][285]
+[rss.js:235-237][286]
 
 Computed webMaster for this channel. Queries the first `<webMaster />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### pubDate
 
-[rss.js:246-248][286]
+[rss.js:246-248][287]
 
 Computed pubDate for this channel. Queries the first `<pubDate />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### lastBuildDate
 
-[rss.js:257-259][287]
+[rss.js:257-259][288]
 
 Computed lastBuildDate for this channel. Queries the first `<lastBuildDate />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### category
 
-[rss.js:268-270][288]
+[rss.js:268-270][289]
 
 Computed category for this channel. Queries the first `<category />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### categories
 
-[rss.js:279-284][289]
+[rss.js:279-284][290]
 
 Computed categories for this channel. Queries the all `<category />`
 nodes for text values.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### generator
 
-[rss.js:293-295][290]
+[rss.js:293-295][291]
 
 Computed generator for this channel. Queries the first `<generator />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### docs
 
-[rss.js:304-306][291]
+[rss.js:304-306][292]
 
 Computed docs for this channel. Queries the first `<docs />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### cloud
 
-[rss.js:315-317][292]
+[rss.js:315-317][293]
 
 Computed cloud for this channel. Queries the first `<cloud />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### ttl
 
-[rss.js:326-328][293]
+[rss.js:326-328][294]
 
 Computed ttl for this channel. Queries the first `<ttl />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### image
 
-[rss.js:336-339][294]
+[rss.js:336-339][295]
 
 Computed image for this channel.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### images
 
-[rss.js:348-353][295]
+[rss.js:348-353][296]
 
 Computed images for this channel. Queries all `<image />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### textInput
 
-[rss.js:362-365][296]
+[rss.js:362-365][297]
 
 Computed textInput for this channel. Queries the first `<textInput />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### skipHours
 
-[rss.js:374-379][297]
+[rss.js:374-379][298]
 
 Computed skipHours for this channel. Queries the first `<skipHours />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### skipDays
 
-[rss.js:388-391][298]
+[rss.js:388-391][299]
 
 Computed skipDays for this channel. Queries the first `<skipDays />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### atomLink
 
-[rss.js:400-402][299]
+[rss.js:400-402][300]
 
 Computed atom:link for this channel. Queries the first `<atom:link />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### items
 
-[rss.js:410-415][300]
+[rss.js:410-415][301]
 
 Computed items for this channel.
 
-Type: [Array][160]&lt;Item>
+Type: [Array][161]&lt;Item>
 
 #### TextInput
 
-[rss.js:425-470][301]
+[rss.js:425-470][302]
 
 **Extends Entity**
 
@@ -1520,48 +1521,48 @@ A textInput entity found in RSS documents.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### title
 
-[rss.js:434-436][302]
+[rss.js:434-436][303]
 
 Computed title for this text input. Queries the first `<title />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### description
 
-[rss.js:445-447][303]
+[rss.js:445-447][304]
 
 Computed description for this text input. Queries the first `<description />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### name
 
-[rss.js:456-458][304]
+[rss.js:456-458][305]
 
 Computed name for this text input. Queries the first `<name />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### link
 
-[rss.js:467-469][305]
+[rss.js:467-469][306]
 
 Computed link for this text input. Queries the first `<link />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 #### Image
 
-[rss.js:479-546][306]
+[rss.js:479-546][307]
 
 **Extends Entity**
 
@@ -1569,66 +1570,66 @@ An image entity found in RSS documents.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### url
 
-[rss.js:488-490][307]
+[rss.js:488-490][308]
 
 Computed url for this image. Queries the first `<url />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### title
 
-[rss.js:499-501][308]
+[rss.js:499-501][309]
 
 Computed title for this image. Queries the first `<title />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### link
 
-[rss.js:510-512][309]
+[rss.js:510-512][310]
 
 Computed link for this image. Queries the first `<link />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### description
 
-[rss.js:521-523][310]
+[rss.js:521-523][311]
 
 Computed description for this image. Queries the first `<description />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### width
 
-[rss.js:532-534][311]
+[rss.js:532-534][312]
 
 Computed width for this image. Queries the first `<width />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### height
 
-[rss.js:543-545][312]
+[rss.js:543-545][313]
 
 Computed height for this image. Queries the first `<height />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 #### Category
 
-[rss.js:555-586][313]
+[rss.js:555-586][314]
 
 **Extends Entity**
 
@@ -1636,37 +1637,37 @@ A category entity found in RSS documents.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### name
 
-[rss.js:564-566][314]
+[rss.js:564-566][315]
 
 Computed name for this category. Queries the first `<title />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### domain
 
-[rss.js:574-576][315]
+[rss.js:574-576][316]
 
 Computed domain for this category.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### toString
 
-[rss.js:583-585][316]
+[rss.js:583-585][317]
 
 Converts this `Category` to a string.
 
-Returns **[String][146]** 
+Returns **[String][147]** 
 
 #### Item
 
-[rss.js:595-712][317]
+[rss.js:595-712][318]
 
 **Extends Entity**
 
@@ -1674,57 +1675,57 @@ An item entity found in RSS documents.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### guid
 
-[rss.js:604-606][318]
+[rss.js:604-606][319]
 
 Computed guid for this item. Queries the first `<guid />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### title
 
-[rss.js:615-617][319]
+[rss.js:615-617][320]
 
 Computed title for this item. Queries the first `<title />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### link
 
-[rss.js:626-628][320]
+[rss.js:626-628][321]
 
 Computed link for this item. Queries the first `<link />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### description
 
-[rss.js:637-639][321]
+[rss.js:637-639][322]
 
 Computed description for this item. Queries the first `<description />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### author
 
-[rss.js:648-650][322]
+[rss.js:648-650][323]
 
 Computed author for this item. Queries the first `<author />`
 node for text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### category
 
-[rss.js:658-660][323]
+[rss.js:658-660][324]
 
 Computed category for this item.
 
@@ -1732,38 +1733,38 @@ Type: Category?
 
 ##### categories
 
-[rss.js:669-674][324]
+[rss.js:669-674][325]
 
 Computed categories for this channel. Queries the all `<category />`
 nodes for text values.
 
 ##### comments
 
-[rss.js:682-685][325]
+[rss.js:682-685][326]
 
 Computed comments for this channel.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### sources
 
-[rss.js:693-698][326]
+[rss.js:693-698][327]
 
 Computed sources for this channel.
 
-Type: [Array][160]&lt;Source>
+Type: [Array][161]&lt;Source>
 
 ##### enclosures
 
-[rss.js:706-711][327]
+[rss.js:706-711][328]
 
 Computed enclosures for this channel.
 
-Type: [Array][160]&lt;Enclosure>
+Type: [Array][161]&lt;Enclosure>
 
 #### Source
 
-[rss.js:721-732][328]
+[rss.js:721-732][329]
 
 **Extends Entity**
 
@@ -1771,20 +1772,20 @@ A source entity found in RSS documents.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### url
 
-[rss.js:729-731][329]
+[rss.js:729-731][330]
 
 Computed url for this source.
 
-Type: [String][146]?
+Type: [String][147]?
 
 #### Enclosure
 
-[rss.js:741-772][330]
+[rss.js:741-772][331]
 
 **Extends Entity**
 
@@ -1792,36 +1793,36 @@ An enclosure entity found in RSS documents.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### url
 
-[rss.js:749-751][331]
+[rss.js:749-751][332]
 
 Computed url for this enclosure.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### length
 
-[rss.js:759-761][332]
+[rss.js:759-761][333]
 
 Computed length for this enclosure.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### type
 
-[rss.js:769-771][333]
+[rss.js:769-771][334]
 
 Computed type for this enclosure.
 
-Type: [String][146]?
+Type: [String][147]?
 
 #### createDocument
 
-[rss.js:781-783][334]
+[rss.js:781-783][335]
 
 -   **See: {Document}
     **
@@ -1832,13 +1833,13 @@ Factory for creating `Document` instances.
 
 -   `args` **...any** 
 
-Returns **[Document][157]** 
+Returns **[Document][158]** 
 
 ### mrss
 
-[mrss.js:2653-2691][335]
+[mrss.js:2653-2691][336]
 
--   **See: [https://www.rssboard.org/media-rss][336]
+-   **See: [https://www.rssboard.org/media-rss][337]
     **
 
 A module to provide atomic classes for working with mRSS documents.
@@ -1863,7 +1864,7 @@ document.ready(() => {
 
 #### Document
 
-[mrss.js:280-578][337]
+[mrss.js:280-578][338]
 
 **Extends rss.Document**
 
@@ -1872,20 +1873,20 @@ entity access.
 
 ##### Parameters
 
--   `input` **([Document][157] | Parser | [String][146] | ReadableStream)** 
--   `opts` **[Object][147]?** 
+-   `input` **([Document][158] | Parser | [String][147] | ReadableStream)** 
+-   `opts` **[Object][148]?** 
 
 ##### channels
 
-[mrss.js:574-577][338]
+[mrss.js:574-577][339]
 
 An array of all channels found in the document
 
-Type: [Array][160]&lt;Channel>
+Type: [Array][161]&lt;Channel>
 
 ##### Channel
 
-[mrss.js:289-291][339]
+[mrss.js:289-291][340]
 
 A reference to the `Channel` entity used by a `Document` instance.
 
@@ -1893,7 +1894,7 @@ Type: Channel
 
 ##### Item
 
-[mrss.js:300-302][340]
+[mrss.js:300-302][341]
 
 A reference to the `Item` entity used by a `Document` instance.
 
@@ -1901,7 +1902,7 @@ Type: Item
 
 ##### MediaContent
 
-[mrss.js:311-313][341]
+[mrss.js:311-313][342]
 
 A reference to the `MediaContent` entity used by a `Document` instance.
 
@@ -1909,7 +1910,7 @@ Type: MediaContent
 
 ##### MediaPlayer
 
-[mrss.js:322-324][342]
+[mrss.js:322-324][343]
 
 A reference to the `MediaPlayer` entity used by a `Document` instance.
 
@@ -1917,7 +1918,7 @@ Type: MediaPlayer
 
 ##### MediaGroup
 
-[mrss.js:333-335][343]
+[mrss.js:333-335][344]
 
 A reference to the `MediaGroup` entity used by a `Document` instance.
 
@@ -1925,7 +1926,7 @@ Type: MediaGroup
 
 ##### MediaRating
 
-[mrss.js:344-346][344]
+[mrss.js:344-346][345]
 
 A reference to the `MediaRating` entity used by a `Document` instance.
 
@@ -1933,7 +1934,7 @@ Type: MediaRating
 
 ##### MediaTitle
 
-[mrss.js:355-357][345]
+[mrss.js:355-357][346]
 
 A reference to the `MediaTitle` entity used by a `Document` instance.
 
@@ -1941,7 +1942,7 @@ Type: MediaTitle
 
 ##### MediaDescription
 
-[mrss.js:366-368][346]
+[mrss.js:366-368][347]
 
 A reference to the `MediaDescription` entity used by a `Document` instance.
 
@@ -1949,7 +1950,7 @@ Type: MediaDescription
 
 ##### MediaThumbnail
 
-[mrss.js:377-379][347]
+[mrss.js:377-379][348]
 
 A reference to the `MediaThumbnail` entity used by a `Document` instance.
 
@@ -1957,7 +1958,7 @@ Type: MediaThumbnail
 
 ##### MediaCategory
 
-[mrss.js:388-390][348]
+[mrss.js:388-390][349]
 
 A reference to the `MediaCategory` entity used by a `Document` instance.
 
@@ -1965,7 +1966,7 @@ Type: MediaCategory
 
 ##### MediaHash
 
-[mrss.js:399-401][349]
+[mrss.js:399-401][350]
 
 A reference to the `MediaHash` entity used by a `Document` instance.
 
@@ -1973,7 +1974,7 @@ Type: MediaHash
 
 ##### MediaCredit
 
-[mrss.js:410-412][350]
+[mrss.js:410-412][351]
 
 A reference to the `MediaCredit` entity used by a `Document` instance.
 
@@ -1981,7 +1982,7 @@ Type: MediaCredit
 
 ##### MediaCopyright
 
-[mrss.js:421-423][351]
+[mrss.js:421-423][352]
 
 A reference to the `MediaCopyright` entity used by a `Document` instance.
 
@@ -1989,7 +1990,7 @@ Type: MediaCopyright
 
 ##### MediaText
 
-[mrss.js:432-434][352]
+[mrss.js:432-434][353]
 
 A reference to the `MediaText` entity used by a `Document` instance.
 
@@ -1997,7 +1998,7 @@ Type: MediaText
 
 ##### MediaRestriction
 
-[mrss.js:443-445][353]
+[mrss.js:443-445][354]
 
 A reference to the `MediaRestriction` entity used by a `Document` instance.
 
@@ -2005,7 +2006,7 @@ Type: MediaRestriction
 
 ##### MediaCommunity
 
-[mrss.js:454-456][354]
+[mrss.js:454-456][355]
 
 A reference to the `MediaCommunity` entity used by a `Document` instance.
 
@@ -2013,7 +2014,7 @@ Type: MediaCommunity
 
 ##### MediaEmbed
 
-[mrss.js:465-467][355]
+[mrss.js:465-467][356]
 
 A reference to the `MediaEmbed` entity used by a `Document` instance.
 
@@ -2021,7 +2022,7 @@ Type: MediaEmbed
 
 ##### MediaEmbedParameters
 
-[mrss.js:476-478][356]
+[mrss.js:476-478][357]
 
 A reference to the `MediaEmbedParameters` entity used by a `Document` instance.
 
@@ -2029,7 +2030,7 @@ Type: MediaEmbedParameters
 
 ##### MediaStatus
 
-[mrss.js:487-489][357]
+[mrss.js:487-489][358]
 
 A reference to the `MediaStatus` entity used by a `Document` instance.
 
@@ -2037,7 +2038,7 @@ Type: MediaStatus
 
 ##### MediaPrice
 
-[mrss.js:498-500][358]
+[mrss.js:498-500][359]
 
 A reference to the `MediaPrice` entity used by a `Document` instance.
 
@@ -2045,7 +2046,7 @@ Type: MediaPrice
 
 ##### MediaLicense
 
-[mrss.js:509-511][359]
+[mrss.js:509-511][360]
 
 A reference to the `MediaLicense` entity used by a `Document` instance.
 
@@ -2053,7 +2054,7 @@ Type: MediaLicense
 
 ##### MediaSubTitle
 
-[mrss.js:520-522][360]
+[mrss.js:520-522][361]
 
 A reference to the `MediaSubTitle` entity used by a `Document` instance.
 
@@ -2061,7 +2062,7 @@ Type: MediaSubTitle
 
 ##### MediaPeerLink
 
-[mrss.js:531-533][361]
+[mrss.js:531-533][362]
 
 A reference to the `MediaPeerLink` entity used by a `Document` instance.
 
@@ -2069,7 +2070,7 @@ Type: MediaPeerLink
 
 ##### MediaRights
 
-[mrss.js:542-544][362]
+[mrss.js:542-544][363]
 
 A reference to the `MediaRights` entity used by a `Document` instance.
 
@@ -2077,7 +2078,7 @@ Type: MediaRights
 
 ##### MediaLocation
 
-[mrss.js:553-555][363]
+[mrss.js:553-555][364]
 
 A reference to the `MediaLocation` entity used by a `Document` instance.
 
@@ -2085,7 +2086,7 @@ Type: MediaLocation
 
 ##### MediaScene
 
-[mrss.js:564-566][364]
+[mrss.js:564-566][365]
 
 A reference to the `MediaScene` entity used by a `Document` instance.
 
@@ -2093,7 +2094,7 @@ Type: MediaScene
 
 #### Channel
 
-[mrss.js:587-822][365]
+[mrss.js:587-822][366]
 
 **Extends rss.Channel**
 
@@ -2101,32 +2102,32 @@ A channel entity found in MRSS documents.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### title
 
-[mrss.js:597-603][366]
+[mrss.js:597-603][367]
 
 Computed title for this channel. Queries the first `<media:title />`
 node for text value falling back to the first `<title />`
 node text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### description
 
-[mrss.js:613-619][367]
+[mrss.js:613-619][368]
 
 Computed description for this channel. Queries the first `<description />`
 node for text value falling back to the first `<media:description />`
 node text value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### mediaTitle
 
-[mrss.js:627-629][368]
+[mrss.js:627-629][369]
 
 Computed media title for this channel.
 
@@ -2134,7 +2135,7 @@ Type: MediaTitle?
 
 ##### mediaDescription
 
-[mrss.js:637-639][369]
+[mrss.js:637-639][370]
 
 Computed media description for this channel.
 
@@ -2142,95 +2143,95 @@ Type: MediaDescription?
 
 ##### mediaKeywords
 
-[mrss.js:647-649][370]
+[mrss.js:647-649][371]
 
 Computed keyword for this channel.
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### mediaRatings
 
-[mrss.js:657-659][371]
+[mrss.js:657-659][372]
 
 Computed rating for this channel.
 
-Type: [Array][160]&lt;MediaRating>
+Type: [Array][161]&lt;MediaRating>
 
 ##### mediaCategories
 
-[mrss.js:667-669][372]
+[mrss.js:667-669][373]
 
 Computed rating for this channel.
 
-Type: [Array][160]&lt;MediaCategory>
+Type: [Array][161]&lt;MediaCategory>
 
 ##### mediaThumbnails
 
-[mrss.js:677-679][373]
+[mrss.js:677-679][374]
 
 Computed thumbnails for this channel.
 
-Type: [Array][160]&lt;MediaThumbnail>
+Type: [Array][161]&lt;MediaThumbnail>
 
 ##### mediaCredits
 
-[mrss.js:687-689][374]
+[mrss.js:687-689][375]
 
 Computed credits for this channel.
 
-Type: [Array][160]&lt;MediaCredit>
+Type: [Array][161]&lt;MediaCredit>
 
 ##### mediaHashes
 
-[mrss.js:697-699][375]
+[mrss.js:697-699][376]
 
 Computed hashes for this channel.
 
-Type: [Array][160]&lt;MediaHash>
+Type: [Array][161]&lt;MediaHash>
 
 ##### mediaComments
 
-[mrss.js:707-709][376]
+[mrss.js:707-709][377]
 
 Computed comments for this channel.
 
-Type: [Array][160]&lt;MediaHash>
+Type: [Array][161]&lt;MediaHash>
 
 ##### mediaResponses
 
-[mrss.js:717-719][377]
+[mrss.js:717-719][378]
 
 Computed responses for this channel.
 
-Type: [Array][160]&lt;MediaHash>
+Type: [Array][161]&lt;MediaHash>
 
 ##### mediaScenes
 
-[mrss.js:727-729][378]
+[mrss.js:727-729][379]
 
 Computed scenes for this channel.
 
-Type: [Array][160]&lt;MediaScene>
+Type: [Array][161]&lt;MediaScene>
 
 ##### mediaEmbeds
 
-[mrss.js:737-739][379]
+[mrss.js:737-739][380]
 
 Computed embeds for this channel.
 
-Type: [Array][160]&lt;MediaEmbed>
+Type: [Array][161]&lt;MediaEmbed>
 
 ##### mediaBacklinks
 
-[mrss.js:747-749][380]
+[mrss.js:747-749][381]
 
 Computed back links for this channel.
 
-Type: [Array][160]&lt;Media>
+Type: [Array][161]&lt;Media>
 
 ##### mediaStatus
 
-[mrss.js:757-761][381]
+[mrss.js:757-761][382]
 
 Computed status for this channel.
 
@@ -2238,7 +2239,7 @@ Type: MediaStatus?
 
 ##### mediaRights
 
-[mrss.js:769-773][382]
+[mrss.js:769-773][383]
 
 Computed rights for this channel.
 
@@ -2246,7 +2247,7 @@ Type: MediaRights?
 
 ##### mediaPrice
 
-[mrss.js:781-785][383]
+[mrss.js:781-785][384]
 
 Computed price for this channel.
 
@@ -2254,7 +2255,7 @@ Type: MediaPrice?
 
 ##### mediaLicense
 
-[mrss.js:793-797][384]
+[mrss.js:793-797][385]
 
 Computed license for this channel.
 
@@ -2262,7 +2263,7 @@ Type: MediaLicense?
 
 ##### mediaSubTitle
 
-[mrss.js:805-809][385]
+[mrss.js:805-809][386]
 
 Computed subtitle for this channel.
 
@@ -2270,7 +2271,7 @@ Type: MediaSubTitle?
 
 ##### mediaPeerLink
 
-[mrss.js:817-821][386]
+[mrss.js:817-821][387]
 
 Computed peer link for this channel.
 
@@ -2278,7 +2279,7 @@ Type: MediaPeerLink?
 
 #### Item
 
-[mrss.js:831-1064][387]
+[mrss.js:831-1064][388]
 
 **Extends rss.Item**
 
@@ -2286,30 +2287,30 @@ An item entity found in MRSS documents.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### categories
 
-[mrss.js:840-842][388]
+[mrss.js:840-842][389]
 
 Media content category names. Will resolve computed categories
 found in both `<category />`  and `<media:category />` elements
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### author
 
-[mrss.js:851-855][389]
+[mrss.js:851-855][390]
 
 Computed author for this item. Queries the first `<author />`
 node for text value falling back to `<media:credit role="author" />`
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### mediaContent
 
-[mrss.js:863-873][390]
+[mrss.js:863-873][391]
 
 Media content found directly in a channel item.
 
@@ -2317,7 +2318,7 @@ Type: MediaContent
 
 ##### mediaTitle
 
-[mrss.js:881-883][391]
+[mrss.js:881-883][392]
 
 Computed media title for this channel.
 
@@ -2325,7 +2326,7 @@ Type: MediaTitle?
 
 ##### mediaDescription
 
-[mrss.js:891-893][392]
+[mrss.js:891-893][393]
 
 Computed media description for this channel.
 
@@ -2333,95 +2334,95 @@ Type: MediaDescription?
 
 ##### mediaKeywords
 
-[mrss.js:901-903][393]
+[mrss.js:901-903][394]
 
 Computed keyword for this item.
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### mediaRatings
 
-[mrss.js:911-913][394]
+[mrss.js:911-913][395]
 
 Computed rating for this item.
 
-Type: [Array][160]&lt;MediaRating>
+Type: [Array][161]&lt;MediaRating>
 
 ##### mediaCategories
 
-[mrss.js:921-923][395]
+[mrss.js:921-923][396]
 
 Computed rating for this item.
 
-Type: [Array][160]&lt;MediaCategory>
+Type: [Array][161]&lt;MediaCategory>
 
 ##### mediaThumbnails
 
-[mrss.js:931-933][396]
+[mrss.js:931-933][397]
 
 Computed thumbnails for this item.
 
-Type: [Array][160]&lt;MediaThumbnail>
+Type: [Array][161]&lt;MediaThumbnail>
 
 ##### mediaCredits
 
-[mrss.js:941-943][397]
+[mrss.js:941-943][398]
 
 Computed credits for this item.
 
-Type: [Array][160]&lt;MediaCredit>
+Type: [Array][161]&lt;MediaCredit>
 
 ##### mediaHashes
 
-[mrss.js:951-953][398]
+[mrss.js:951-953][399]
 
 Computed hashes for this item.
 
-Type: [Array][160]&lt;MediaHash>
+Type: [Array][161]&lt;MediaHash>
 
 ##### mediaComments
 
-[mrss.js:961-963][399]
+[mrss.js:961-963][400]
 
 Computed comments for this item.
 
-Type: [Array][160]&lt;MediaHash>
+Type: [Array][161]&lt;MediaHash>
 
 ##### mediaResponses
 
-[mrss.js:971-973][400]
+[mrss.js:971-973][401]
 
 Computed responses for this item.
 
-Type: [Array][160]&lt;MediaHash>
+Type: [Array][161]&lt;MediaHash>
 
 ##### mediaScenes
 
-[mrss.js:981-983][401]
+[mrss.js:981-983][402]
 
 Computed responses for this item.
 
-Type: [Array][160]&lt;MediaScene>
+Type: [Array][161]&lt;MediaScene>
 
 ##### mediaEmbeds
 
-[mrss.js:991-993][402]
+[mrss.js:991-993][403]
 
 Computed embeds for this item.
 
-Type: [Array][160]&lt;MediaEmbed>
+Type: [Array][161]&lt;MediaEmbed>
 
 ##### mediaBacklinks
 
-[mrss.js:1001-1003][403]
+[mrss.js:1001-1003][404]
 
 Computed back links for this item.
 
-Type: [Array][160]&lt;Media>
+Type: [Array][161]&lt;Media>
 
 ##### mediaStatus
 
-[mrss.js:1011-1015][404]
+[mrss.js:1011-1015][405]
 
 Computed status for this item.
 
@@ -2429,7 +2430,7 @@ Type: MediaStatus?
 
 ##### mediaRights
 
-[mrss.js:1023-1027][405]
+[mrss.js:1023-1027][406]
 
 Computed rights for this item.
 
@@ -2437,7 +2438,7 @@ Type: MediaRights?
 
 ##### mediaPrice
 
-[mrss.js:1035-1039][406]
+[mrss.js:1035-1039][407]
 
 Computed price for this item.
 
@@ -2445,7 +2446,7 @@ Type: MediaPrice?
 
 ##### mediaLicense
 
-[mrss.js:1047-1051][407]
+[mrss.js:1047-1051][408]
 
 Computed license for this item.
 
@@ -2453,7 +2454,7 @@ Type: MediaLicense?
 
 ##### mediaSubTitle
 
-[mrss.js:1059-1063][408]
+[mrss.js:1059-1063][409]
 
 Computed subtitle for this item.
 
@@ -2461,7 +2462,7 @@ Type: MediaSubTitle?
 
 #### MediaGroup
 
-[mrss.js:1073-1283][409]
+[mrss.js:1073-1283][410]
 
 **Extends Entity**
 
@@ -2469,20 +2470,20 @@ A media group represents a grouping of media content found in an item
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### mediaContent
 
-[mrss.js:1081-1092][410]
+[mrss.js:1081-1092][411]
 
 Media content items found directly in this media group.
 
-Type: [Array][160]&lt;MediaContent>
+Type: [Array][161]&lt;MediaContent>
 
 ##### mediaTitle
 
-[mrss.js:1100-1102][411]
+[mrss.js:1100-1102][412]
 
 Computed media title for this media group.
 
@@ -2490,7 +2491,7 @@ Type: MediaTitle?
 
 ##### mediaDescription
 
-[mrss.js:1110-1112][412]
+[mrss.js:1110-1112][413]
 
 Computed media description for this channel.
 
@@ -2498,95 +2499,95 @@ Type: MediaDescription?
 
 ##### mediaKeywords
 
-[mrss.js:1120-1122][413]
+[mrss.js:1120-1122][414]
 
 Computed keyword for this media group.
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### mediaRatings
 
-[mrss.js:1130-1132][414]
+[mrss.js:1130-1132][415]
 
 Computed rating for this media group.
 
-Type: [Array][160]&lt;MediaRating>
+Type: [Array][161]&lt;MediaRating>
 
 ##### mediaCategories
 
-[mrss.js:1140-1142][415]
+[mrss.js:1140-1142][416]
 
 Computed rating for this media group.
 
-Type: [Array][160]&lt;MediaCategory>
+Type: [Array][161]&lt;MediaCategory>
 
 ##### mediaThumbnails
 
-[mrss.js:1150-1152][416]
+[mrss.js:1150-1152][417]
 
 Computed thumbnails for this media group.
 
-Type: [Array][160]&lt;MediaThumbnail>
+Type: [Array][161]&lt;MediaThumbnail>
 
 ##### mediaCredits
 
-[mrss.js:1160-1162][417]
+[mrss.js:1160-1162][418]
 
 Computed credits for this media group.
 
-Type: [Array][160]&lt;MediaCredit>
+Type: [Array][161]&lt;MediaCredit>
 
 ##### mediaHashes
 
-[mrss.js:1170-1172][418]
+[mrss.js:1170-1172][419]
 
 Computed hashes for this media group.
 
-Type: [Array][160]&lt;MediaHash>
+Type: [Array][161]&lt;MediaHash>
 
 ##### mediaComments
 
-[mrss.js:1180-1182][419]
+[mrss.js:1180-1182][420]
 
 Computed comments for this media group.
 
-Type: [Array][160]&lt;MediaHash>
+Type: [Array][161]&lt;MediaHash>
 
 ##### mediaResponses
 
-[mrss.js:1190-1192][420]
+[mrss.js:1190-1192][421]
 
 Computed responses for this media group.
 
-Type: [Array][160]&lt;MediaHash>
+Type: [Array][161]&lt;MediaHash>
 
 ##### mediaScenes
 
-[mrss.js:1200-1202][421]
+[mrss.js:1200-1202][422]
 
 Computed responses for this media group.
 
-Type: [Array][160]&lt;MediaScene>
+Type: [Array][161]&lt;MediaScene>
 
 ##### mediaEmbeds
 
-[mrss.js:1210-1212][422]
+[mrss.js:1210-1212][423]
 
 Computed embeds for this media group.
 
-Type: [Array][160]&lt;MediaEmbed>
+Type: [Array][161]&lt;MediaEmbed>
 
 ##### mediaBacklinks
 
-[mrss.js:1220-1222][423]
+[mrss.js:1220-1222][424]
 
 Computed back links for this media group.
 
-Type: [Array][160]&lt;Media>
+Type: [Array][161]&lt;Media>
 
 ##### mediaStatus
 
-[mrss.js:1230-1234][424]
+[mrss.js:1230-1234][425]
 
 Computed status for this media group.
 
@@ -2594,7 +2595,7 @@ Type: MediaStatus?
 
 ##### mediaRights
 
-[mrss.js:1242-1246][425]
+[mrss.js:1242-1246][426]
 
 Computed rights for this media group.
 
@@ -2602,7 +2603,7 @@ Type: MediaRights?
 
 ##### mediaPrice
 
-[mrss.js:1254-1258][426]
+[mrss.js:1254-1258][427]
 
 Computed price for this media group.
 
@@ -2610,7 +2611,7 @@ Type: MediaPrice?
 
 ##### mediaLicense
 
-[mrss.js:1266-1270][427]
+[mrss.js:1266-1270][428]
 
 Computed license for this media group.
 
@@ -2618,7 +2619,7 @@ Type: MediaLicense?
 
 ##### mediaSubTitle
 
-[mrss.js:1278-1282][428]
+[mrss.js:1278-1282][429]
 
 Computed subtitle for this media group.
 
@@ -2626,7 +2627,7 @@ Type: MediaSubTitle?
 
 #### MediaContent
 
-[mrss.js:1292-1706][429]
+[mrss.js:1292-1706][430]
 
 **Extends Entity**
 
@@ -2634,143 +2635,143 @@ A media content container for describing content found in an item or media group
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### url
 
-[mrss.js:1300-1313][430]
+[mrss.js:1300-1313][431]
 
 The URL of the content or a child `mediaPlayer` may contain point to a URL as well
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### fileSize
 
-[mrss.js:1321-1323][431]
+[mrss.js:1321-1323][432]
 
 The number of bytes of the content.
 
-Type: [Number][432]?
+Type: [Number][433]?
 
 ##### type
 
-[mrss.js:1333-1338][433]
+[mrss.js:1333-1338][434]
 
 The MIME type of this media content. If one was not specified, then it
 is derived from the extension of the resolved URL for this media content
 object.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### medium
 
-[mrss.js:1347-1349][434]
+[mrss.js:1347-1349][435]
 
 A string representing the kind of file the media content
 represents like an image, audio, video, document, or executable.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### isDefault
 
-[mrss.js:1357-1359][435]
+[mrss.js:1357-1359][436]
 
 `true` if this is the default media content appearing in a media group.
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 ##### bitRate
 
-[mrss.js:1376-1378][437]
+[mrss.js:1376-1378][438]
 
 The media content bit rate.
 
-Type: [Number][432]?
+Type: [Number][433]?
 
 ##### bitrate
 
-[mrss.js:1386-1388][438]
+[mrss.js:1386-1388][439]
 
 The media content bit rate.
 
-Type: [Number][432]?
+Type: [Number][433]?
 
 ##### frameRate
 
-[mrss.js:1396-1398][439]
+[mrss.js:1396-1398][440]
 
 The media content frame rate.
 
-Type: [Number][432]?
+Type: [Number][433]?
 
 ##### framerate
 
-[mrss.js:1406-1408][440]
+[mrss.js:1406-1408][441]
 
 The media content frame rate.
 
-Type: [Number][432]?
+Type: [Number][433]?
 
 ##### samplingRate
 
-[mrss.js:1416-1418][441]
+[mrss.js:1416-1418][442]
 
 The media content sample rate.
 
-Type: [Number][432]?
+Type: [Number][433]?
 
 ##### samplingrate
 
-[mrss.js:1426-1428][442]
+[mrss.js:1426-1428][443]
 
 The media content sample rate.
 
-Type: [Number][432]?
+Type: [Number][433]?
 
 ##### channels
 
-[mrss.js:1436-1438][443]
+[mrss.js:1436-1438][444]
 
 The number of media content channels.
 
-Type: [Number][432]?
+Type: [Number][433]?
 
 ##### duration
 
-[mrss.js:1446-1448][444]
+[mrss.js:1446-1448][445]
 
 The media content duration in seconds.
 
-Type: [Number][432]?
+Type: [Number][433]?
 
 ##### height
 
-[mrss.js:1456-1458][445]
+[mrss.js:1456-1458][446]
 
 The media content height.
 
-Type: [Number][432]?
+Type: [Number][433]?
 
 ##### width
 
-[mrss.js:1466-1468][446]
+[mrss.js:1466-1468][447]
 
 The media content width.
 
-Type: [Number][432]?
+Type: [Number][433]?
 
 ##### lang
 
-[mrss.js:1476-1478][447]
+[mrss.js:1476-1478][448]
 
 The media content language
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### mediaPlayer
 
-[mrss.js:1486-1489][448]
+[mrss.js:1486-1489][449]
 
 The media content media player instance.
 
@@ -2778,31 +2779,31 @@ Type: MediaPlayer
 
 ##### mediaKeywords
 
-[mrss.js:1497-1499][449]
+[mrss.js:1497-1499][450]
 
 Computed keywords for this media content.
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### mediaRatings
 
-[mrss.js:1507-1509][450]
+[mrss.js:1507-1509][451]
 
 Computed rating for this media content.
 
-Type: [Array][160]&lt;MediaRating>
+Type: [Array][161]&lt;MediaRating>
 
 ##### mediaCategories
 
-[mrss.js:1517-1519][451]
+[mrss.js:1517-1519][452]
 
 Computed rating for this media content.
 
-Type: [Array][160]&lt;MediaCategory>
+Type: [Array][161]&lt;MediaCategory>
 
 ##### mediaTitle
 
-[mrss.js:1527-1529][452]
+[mrss.js:1527-1529][453]
 
 Computed media title for this media content.
 
@@ -2810,7 +2811,7 @@ Type: MediaTitle?
 
 ##### mediaDescription
 
-[mrss.js:1537-1539][453]
+[mrss.js:1537-1539][454]
 
 Computed media description for this media content.
 
@@ -2818,71 +2819,71 @@ Type: MediaDescription?
 
 ##### mediaThumbnails
 
-[mrss.js:1547-1549][454]
+[mrss.js:1547-1549][455]
 
 Computed thumbnails for this media content.
 
-Type: [Array][160]&lt;MediaThumbnail>
+Type: [Array][161]&lt;MediaThumbnail>
 
 ##### mediaCredits
 
-[mrss.js:1557-1559][455]
+[mrss.js:1557-1559][456]
 
 Computed credits for this media content.
 
-Type: [Array][160]&lt;MediaCredit>
+Type: [Array][161]&lt;MediaCredit>
 
 ##### mediaHashes
 
-[mrss.js:1567-1569][456]
+[mrss.js:1567-1569][457]
 
 Computed hashes for this media content.
 
-Type: [Array][160]&lt;MediaHash>
+Type: [Array][161]&lt;MediaHash>
 
 ##### mediaComments
 
-[mrss.js:1577-1579][457]
+[mrss.js:1577-1579][458]
 
 Computed comments for this media content.
 
-Type: [Array][160]&lt;MediaHash>
+Type: [Array][161]&lt;MediaHash>
 
 ##### mediaResponses
 
-[mrss.js:1587-1589][458]
+[mrss.js:1587-1589][459]
 
 Computed responses for this media content.
 
-Type: [Array][160]&lt;MediaHash>
+Type: [Array][161]&lt;MediaHash>
 
 ##### mediaScenes
 
-[mrss.js:1597-1599][459]
+[mrss.js:1597-1599][460]
 
 Computed responses for this media content.
 
-Type: [Array][160]&lt;MediaScene>
+Type: [Array][161]&lt;MediaScene>
 
 ##### mediaEmbeds
 
-[mrss.js:1607-1609][460]
+[mrss.js:1607-1609][461]
 
 Computed embeds for this media content.
 
-Type: [Array][160]&lt;MediaEmbed>
+Type: [Array][161]&lt;MediaEmbed>
 
 ##### mediaBacklinks
 
-[mrss.js:1617-1619][461]
+[mrss.js:1617-1619][462]
 
 Computed back links for this media content.
 
-Type: [Array][160]&lt;Media>
+Type: [Array][161]&lt;Media>
 
 ##### mediaStatus
 
-[mrss.js:1627-1631][462]
+[mrss.js:1627-1631][463]
 
 Computed status for this media content.
 
@@ -2890,7 +2891,7 @@ Type: MediaStatus?
 
 ##### mediaRights
 
-[mrss.js:1639-1643][463]
+[mrss.js:1639-1643][464]
 
 Computed rights for this media content.
 
@@ -2898,7 +2899,7 @@ Type: MediaRights?
 
 ##### mediaPrice
 
-[mrss.js:1651-1655][464]
+[mrss.js:1651-1655][465]
 
 Computed price for this media content.
 
@@ -2906,7 +2907,7 @@ Type: MediaPrice?
 
 ##### mediaLicense
 
-[mrss.js:1663-1667][465]
+[mrss.js:1663-1667][466]
 
 Computed license for this media content.
 
@@ -2914,7 +2915,7 @@ Type: MediaLicense?
 
 ##### mediaSubTitle
 
-[mrss.js:1675-1679][466]
+[mrss.js:1675-1679][467]
 
 Computed subtitle for this media content.
 
@@ -2922,15 +2923,15 @@ Type: MediaSubTitle?
 
 ##### toJSON
 
-[mrss.js:1686-1705][467]
+[mrss.js:1686-1705][468]
 
 Returns a plain JSON object of this instance.
 
-Returns **[Object][147]** 
+Returns **[Object][148]** 
 
 #### MediaPlayer
 
-[mrss.js:1716-1747][468]
+[mrss.js:1716-1747][469]
 
 **Extends Entity**
 
@@ -2939,36 +2940,36 @@ a media player to play or view a media content object.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### url
 
-[mrss.js:1724-1726][469]
+[mrss.js:1724-1726][470]
 
 The URL of the content or a child `mediaPlayer` may contain point to a URL as well
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### height
 
-[mrss.js:1734-1736][470]
+[mrss.js:1734-1736][471]
 
 The specified media player height.
 
-Type: [Number][432]?
+Type: [Number][433]?
 
 ##### width
 
-[mrss.js:1744-1746][471]
+[mrss.js:1744-1746][472]
 
 The specified media player width.
 
-Type: [Number][432]?
+Type: [Number][433]?
 
 #### MediaRating
 
-[mrss.js:1756-1793][472]
+[mrss.js:1756-1793][473]
 
 **Extends Entity**
 
@@ -2976,36 +2977,36 @@ A media rating container to store the scheme and rating value.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### scheme
 
-[mrss.js:1775-1782][473]
+[mrss.js:1775-1782][474]
 
 The media rating scheme that determines the rating value.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### value
 
-[mrss.js:1790-1792][474]
+[mrss.js:1790-1792][475]
 
 The media rating value as determined by the rating scheme.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### DEFAULT_SCHEME
 
-[mrss.js:1765-1767][475]
+[mrss.js:1765-1767][476]
 
 The default media rating scheme.
 
-Type: [String][146]
+Type: [String][147]
 
 #### MediaTitle
 
-[mrss.js:1802-1829][476]
+[mrss.js:1802-1829][477]
 
 **Extends Entity**
 
@@ -3013,28 +3014,28 @@ A media title container to store the type and text value.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### type
 
-[mrss.js:1821-1828][477]
+[mrss.js:1821-1828][478]
 
 The type of text the title represents. Can be 'plain' or 'html'.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### DEFAULT_TYPE
 
-[mrss.js:1811-1813][478]
+[mrss.js:1811-1813][479]
 
 The default media title text type.
 
-Type: [String][146]
+Type: [String][147]
 
 #### MediaDescription
 
-[mrss.js:1838-1865][479]
+[mrss.js:1838-1865][480]
 
 **Extends Entity**
 
@@ -3042,28 +3043,28 @@ A media description container to store the type and text value.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### type
 
-[mrss.js:1857-1864][480]
+[mrss.js:1857-1864][481]
 
 The type of text the description represents. Can be 'plain' or 'html'.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### DEFAULT_TYPE
 
-[mrss.js:1847-1849][481]
+[mrss.js:1847-1849][482]
 
 The default media description text type.
 
-Type: [String][146]
+Type: [String][147]
 
 #### MediaThumbnail
 
-[mrss.js:1876-1889][482]
+[mrss.js:1876-1889][483]
 
 **Extends rss.Image**
 
@@ -3073,24 +3074,24 @@ this thumbnail is associated with.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### time
 
-[mrss.js:1886-1888][483]
+[mrss.js:1886-1888][484]
 
--   **See: [https://github.com/little-core-labs/npt-timecode][484]
+-   **See: [https://github.com/little-core-labs/npt-timecode][485]
     **
 
 The NTP timecode this thumbnail may correspond to in relation to
 a media content object.
 
-Type: [Number][432]?
+Type: [Number][433]?
 
 #### MediaCategory
 
-[mrss.js:1898-1946][485]
+[mrss.js:1898-1946][486]
 
 **Extends rss.Category**
 
@@ -3098,45 +3099,45 @@ A media category container to store the category scheme and label
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### scheme
 
-[mrss.js:1917-1924][486]
+[mrss.js:1917-1924][487]
 
 The media category scheme that determines the category value.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### label
 
-[mrss.js:1933-1935][487]
+[mrss.js:1933-1935][488]
 
 The media category value as determined by the category scheme.
 This value is either the `label` attribute or the node body text.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### name
 
-[mrss.js:1943-1945][488]
+[mrss.js:1943-1945][489]
 
 Computed name for this category falling back to the category label.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### DEFAULT_SCHEME
 
-[mrss.js:1907-1909][489]
+[mrss.js:1907-1909][490]
 
 The default media category scheme.
 
-Type: [String][146]
+Type: [String][147]
 
 #### MediaHash
 
-[mrss.js:1955-1987][490]
+[mrss.js:1955-1987][491]
 
 **Extends Entity**
 
@@ -3144,36 +3145,36 @@ A media hash container to store the hash algorithm and value.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### algo
 
-[mrss.js:1974-1976][491]
+[mrss.js:1974-1976][492]
 
 The media hash algorithm that determines the hash value.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### value
 
-[mrss.js:1984-1986][492]
+[mrss.js:1984-1986][493]
 
 The media hash value as determined by the media hash algorithm.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### DEFAULT_ALGO
 
-[mrss.js:1964-1966][493]
+[mrss.js:1964-1966][494]
 
 The default media hash algorithm.
 
-Type: [String][146]
+Type: [String][147]
 
 #### MediaCredit
 
-[mrss.js:1996-2043][494]
+[mrss.js:1996-2043][495]
 
 **Extends Entity**
 
@@ -3181,44 +3182,44 @@ A media credit container to store the credit scheme, role, and value.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### scheme
 
-[mrss.js:2015-2022][495]
+[mrss.js:2015-2022][496]
 
 The media credit scheme that determines the credit value.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### role
 
-[mrss.js:2030-2032][496]
+[mrss.js:2030-2032][497]
 
 The media credit role
 
-Type: [String][146]
+Type: [String][147]
 
 ##### value
 
-[mrss.js:2040-2042][497]
+[mrss.js:2040-2042][498]
 
 The media credit value.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### DEFAULT_SCHEME
 
-[mrss.js:2005-2007][498]
+[mrss.js:2005-2007][499]
 
 The default media credit scheme.
 
-Type: [String][146]
+Type: [String][147]
 
 #### MediaCopyright
 
-[mrss.js:2052-2063][499]
+[mrss.js:2052-2063][500]
 
 **Extends Entity**
 
@@ -3226,20 +3227,20 @@ A container for media copyright information.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### url
 
-[mrss.js:2060-2062][500]
+[mrss.js:2060-2062][501]
 
 The url for the copyright terms
 
-Type: [String][146]?
+Type: [String][147]?
 
 #### MediaText
 
-[mrss.js:2072-2145][501]
+[mrss.js:2072-2145][502]
 
 **Extends Entity**
 
@@ -3247,32 +3248,32 @@ A container for transcript text.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### type
 
-[mrss.js:2091-2098][502]
+[mrss.js:2091-2098][503]
 
 The media text type.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### lang
 
-[mrss.js:2106-2108][503]
+[mrss.js:2106-2108][504]
 
 The media text language.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### start
 
-[mrss.js:2118-2120][504]
+[mrss.js:2118-2120][505]
 
--   **See: [https://github.com/little-core-labs/npt-timecode][484]
+-   **See: [https://github.com/little-core-labs/npt-timecode][485]
     **
--   **See: [https://www.ietf.org/rfc/rfc2326.txt][505]
+-   **See: [https://www.ietf.org/rfc/rfc2326.txt][506]
     **
 
 The NPT (normal play time) start timecode this text is associated with.
@@ -3281,11 +3282,11 @@ Type: npt.Timecode?
 
 ##### end
 
-[mrss.js:2130-2132][506]
+[mrss.js:2130-2132][507]
 
--   **See: [https://github.com/little-core-labs/npt-timecode][484]
+-   **See: [https://github.com/little-core-labs/npt-timecode][485]
     **
--   **See: [https://www.ietf.org/rfc/rfc2326.txt][505]
+-   **See: [https://www.ietf.org/rfc/rfc2326.txt][506]
     **
 
 The NPT (normal play time) stop/end timecode this text is associated with.
@@ -3294,28 +3295,28 @@ Type: npt.Timecode?
 
 ##### value
 
-[mrss.js:2142-2144][507]
+[mrss.js:2142-2144][508]
 
--   **See: [https://github.com/little-core-labs/npt-timecode][484]
+-   **See: [https://github.com/little-core-labs/npt-timecode][485]
     **
--   **See: [https://www.ietf.org/rfc/rfc2326.txt][505]
+-   **See: [https://www.ietf.org/rfc/rfc2326.txt][506]
     **
 
 The text contents value.
 
-Type: [Number][432]?
+Type: [Number][433]?
 
 ##### DEFAULT_TYPE
 
-[mrss.js:2081-2083][508]
+[mrss.js:2081-2083][509]
 
 The default media text type.
 
-Type: [String][146]
+Type: [String][147]
 
 #### MediaRestriction
 
-[mrss.js:2154-2186][509]
+[mrss.js:2154-2186][510]
 
 **Extends Entity**
 
@@ -3323,37 +3324,37 @@ A container for a media restriction.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### relationship
 
-[mrss.js:2163-2165][510]
+[mrss.js:2163-2165][511]
 
 The relationship of the restriction describes such as
 "allow" or "deny"
 
-Type: [String][146]
+Type: [String][147]
 
 ##### type
 
-[mrss.js:2173-2175][511]
+[mrss.js:2173-2175][512]
 
 The type of the restriction describes such "country" or "uri".
 
-Type: [String][146]
+Type: [String][147]
 
 ##### value
 
-[mrss.js:2183-2185][512]
+[mrss.js:2183-2185][513]
 
 The text contents value of the restriction.
 
-Type: [String][146]
+Type: [String][147]
 
 #### MediaCommunity
 
-[mrss.js:2196-2237][513]
+[mrss.js:2196-2237][514]
 
 **Extends Entity**
 
@@ -3362,36 +3363,36 @@ statistics, and tags.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### starRating
 
-[mrss.js:2204-2206][514]
+[mrss.js:2204-2206][515]
 
 An object describing the star rating attributes.
 
-Type: [Object][147]?
+Type: [Object][148]?
 
 ##### statistics
 
-[mrss.js:2214-2216][515]
+[mrss.js:2214-2216][516]
 
 An object describing various statistic attributes.
 
-Type: [Object][147]?
+Type: [Object][148]?
 
 ##### tags
 
-[mrss.js:2224-2236][516]
+[mrss.js:2224-2236][517]
 
 An array of possible tag values.
 
-Type: [Array][160]&lt;[String][146]>?
+Type: [Array][161]&lt;[String][147]>?
 
 #### MediaEmbed
 
-[mrss.js:2246-2289][517]
+[mrss.js:2246-2289][518]
 
 **Extends Entity**
 
@@ -3399,36 +3400,36 @@ A media container for embedded media.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### url
 
-[mrss.js:2254-2256][518]
+[mrss.js:2254-2256][519]
 
 The URL of the embedded media.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### height
 
-[mrss.js:2264-2266][519]
+[mrss.js:2264-2266][520]
 
 The media embed height.
 
-Type: [Number][432]?
+Type: [Number][433]?
 
 ##### width
 
-[mrss.js:2274-2276][520]
+[mrss.js:2274-2276][521]
 
 The media embed width.
 
-Type: [Number][432]?
+Type: [Number][433]?
 
 ##### params
 
-[mrss.js:2284-2288][521]
+[mrss.js:2284-2288][522]
 
 The media embed params
 
@@ -3436,7 +3437,7 @@ Type: MediaEmbedParameters?
 
 #### MediaEmbedParameters
 
-[mrss.js:2298-2310][522]
+[mrss.js:2298-2310][523]
 
 **Extends Entity**
 
@@ -3444,12 +3445,12 @@ A container for reading media embed parameters.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 #### MediaStatus
 
-[mrss.js:2319-2340][523]
+[mrss.js:2319-2340][524]
 
 **Extends Entity**
 
@@ -3457,28 +3458,28 @@ A container for describing media status.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### state
 
-[mrss.js:2327-2329][524]
+[mrss.js:2327-2329][525]
 
 Describes the media status state such as "blocked" or "deleted".
 
-Type: [String][146]
+Type: [String][147]
 
 ##### reason
 
-[mrss.js:2337-2339][525]
+[mrss.js:2337-2339][526]
 
 Describes the media status reason for the state. It can be plain text or a URL.
 
-Type: [String][146]
+Type: [String][147]
 
 #### MediaPrice
 
-[mrss.js:2349-2390][526]
+[mrss.js:2349-2390][527]
 
 **Extends Entity**
 
@@ -3486,44 +3487,44 @@ A container for describing the price of media content.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### type
 
-[mrss.js:2357-2359][527]
+[mrss.js:2357-2359][528]
 
 The price type such as: "rent", "purchase", "package" or "subscription".
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### info
 
-[mrss.js:2367-2369][528]
+[mrss.js:2367-2369][529]
 
 Describes if the price is for a "package" or "subscription".
 
-Type: [String][146]
+Type: [String][147]
 
 ##### price
 
-[mrss.js:2377-2379][529]
+[mrss.js:2377-2379][530]
 
 The actual price.
 
-Type: [Number][432]
+Type: [Number][433]
 
 ##### currency
 
-[mrss.js:2387-2389][530]
+[mrss.js:2387-2389][531]
 
 The currency of the price.
 
-Type: [String][146]
+Type: [String][147]
 
 #### MediaLicense
 
-[mrss.js:2399-2430][531]
+[mrss.js:2399-2430][532]
 
 **Extends Entity**
 
@@ -3531,36 +3532,36 @@ A container for a media license backed by a URL.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### type
 
-[mrss.js:2407-2409][532]
+[mrss.js:2407-2409][533]
 
 The content type where the license lives at the href.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### href
 
-[mrss.js:2417-2419][533]
+[mrss.js:2417-2419][534]
 
 The URL to the license.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### label
 
-[mrss.js:2427-2429][534]
+[mrss.js:2427-2429][535]
 
 The human readable license name.
 
-Type: [String][146]
+Type: [String][147]
 
 #### MediaSubTitle
 
-[mrss.js:2439-2470][535]
+[mrss.js:2439-2470][536]
 
 **Extends Entity**
 
@@ -3568,36 +3569,36 @@ A container for a subtitle file.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### type
 
-[mrss.js:2447-2449][536]
+[mrss.js:2447-2449][537]
 
 The content type of the subtitle fie.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### href
 
-[mrss.js:2457-2459][537]
+[mrss.js:2457-2459][538]
 
 The URL of the subtitle tile.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### lang
 
-[mrss.js:2467-2469][538]
+[mrss.js:2467-2469][539]
 
 The language the subtitles are in.
 
-Type: [String][146]
+Type: [String][147]
 
 #### MediaPeerLink
 
-[mrss.js:2479-2500][539]
+[mrss.js:2479-2500][540]
 
 **Extends Entity**
 
@@ -3605,28 +3606,28 @@ A container for a peerlink.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### type
 
-[mrss.js:2487-2489][540]
+[mrss.js:2487-2489][541]
 
 The peer link type, such as: "application/x-bittorrent".
 
-Type: [String][146]
+Type: [String][147]
 
 ##### href
 
-[mrss.js:2497-2499][541]
+[mrss.js:2497-2499][542]
 
 The URL of the peer link.
 
-Type: [String][146]
+Type: [String][147]
 
 #### MediaRights
 
-[mrss.js:2509-2520][542]
+[mrss.js:2509-2520][543]
 
 **Extends Entity**
 
@@ -3634,20 +3635,20 @@ A container for media rights.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### status
 
-[mrss.js:2517-2519][543]
+[mrss.js:2517-2519][544]
 
 The status value of the media rights, such as: "userCreated" or "official".
 
-Type: [String][146]
+Type: [String][147]
 
 #### MediaLocation
 
-[mrss.js:2529-2570][544]
+[mrss.js:2529-2570][545]
 
 **Extends Entity**
 
@@ -3655,20 +3656,20 @@ A container for media location data.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### description
 
-[mrss.js:2537-2539][545]
+[mrss.js:2537-2539][546]
 
 The description of the location.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### start
 
-[mrss.js:2547-2549][546]
+[mrss.js:2547-2549][547]
 
 The NPT (normal play time) start time code.
 
@@ -3676,7 +3677,7 @@ Type: npt.Timecode
 
 ##### end
 
-[mrss.js:2557-2559][547]
+[mrss.js:2557-2559][548]
 
 The NPT (normal play time) stop time code.
 
@@ -3684,7 +3685,7 @@ Type: npt.Timecode
 
 ##### georss
 
-[mrss.js:2567-2569][548]
+[mrss.js:2567-2569][549]
 
 A reference to the `<georss:where />` node.
 
@@ -3692,7 +3693,7 @@ Type: ParserNode?
 
 #### MediaScene
 
-[mrss.js:2579-2620][549]
+[mrss.js:2579-2620][550]
 
 **Extends Entity**
 
@@ -3700,28 +3701,28 @@ A container for a media scene.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### title
 
-[mrss.js:2587-2589][550]
+[mrss.js:2587-2589][551]
 
 The media scene title.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### description
 
-[mrss.js:2597-2599][551]
+[mrss.js:2597-2599][552]
 
 The media scene description.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### startTime
 
-[mrss.js:2607-2609][552]
+[mrss.js:2607-2609][553]
 
 The NPT (normal play time) start time code.
 
@@ -3729,15 +3730,15 @@ Type: npt.Timecode
 
 ##### endTime
 
-[mrss.js:2617-2619][553]
+[mrss.js:2617-2619][554]
 
 The NPT (normal play time) end time code.
 
-Type: [String][146]
+Type: [String][147]
 
 #### createDocument
 
-[mrss.js:2629-2631][554]
+[mrss.js:2629-2631][555]
 
 -   **See: {Document}
     **
@@ -3748,15 +3749,15 @@ Factory for creating `Document` instances.
 
 -   `args` **...any** 
 
-Returns **[Document][157]** 
+Returns **[Document][158]** 
 
 ### xmltv
 
-[xmltv.js:1261-1281][555]
+[xmltv.js:1264-1284][556]
 
--   **See: [http://wiki.xmltv.org/index.php/XMLTVFormat][556]
+-   **See: [http://wiki.xmltv.org/index.php/XMLTVFormat][557]
     **
--   **See: [https://github.com/XMLTV/xmltv/blob/master/xmltv.dtd][557]
+-   **See: [https://github.com/XMLTV/xmltv/blob/master/xmltv.dtd][558]
     **
 
 A module to provide atomic classes for working with XMLTV documents.
@@ -3780,7 +3781,7 @@ document.ready(() => {
 
 #### Document
 
-[xmltv.js:26-255][558]
+[xmltv.js:26-258][559]
 
 **Extends AbstractDocument**
 
@@ -3789,8 +3790,8 @@ entity access.
 
 ##### Parameters
 
--   `input` **([Document][157] | Parser | [String][146] | ReadableStream)** 
--   `opts` **[Object][147]?** 
+-   `input` **([Document][158] | Parser | [String][147] | ReadableStream)** 
+-   `opts` **[Object][148]?** 
 
 ##### Examples
 
@@ -3807,39 +3808,39 @@ document.ready(() => {
 
 ##### sourceInfoURL
 
-[xmltv.js:221-223][559]
+[xmltv.js:221-223][560]
 
 The `source-info-url` attribute value.
 
-Type: [string][146]?
+Type: [string][147]?
 
 ##### channels
 
-[xmltv.js:231-239][560]
+[xmltv.js:231-239][561]
 
 An array of all channels found in the XMLTV document.
 
-Type: [Array][160]&lt;Channel>
+Type: [Array][161]&lt;Channel>
 
 ##### programmes
 
-[xmltv.js:247-254][561]
+[xmltv.js:247-257][562]
 
 An array of all programmes found in the XMLTV document.
 
-Type: [Array][160]&lt;Programme>
+Type: [Array][161]&lt;Programme>
 
 ##### nodeName
 
-[xmltv.js:35-37][562]
+[xmltv.js:35-37][563]
 
 The document node name.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### Channel
 
-[xmltv.js:46-48][563]
+[xmltv.js:46-48][564]
 
 A reference to the `Channel` entity used by a `Document` instance.
 
@@ -3847,7 +3848,7 @@ Type: Channel
 
 ##### DisplayName
 
-[xmltv.js:57-59][564]
+[xmltv.js:57-59][565]
 
 A reference to the `DisplayName` entity used by a `Document` instance.
 
@@ -3855,7 +3856,7 @@ Type: DisplayName
 
 ##### Title
 
-[xmltv.js:68-70][565]
+[xmltv.js:68-70][566]
 
 A reference to the `Title` entity used by a `Document` instance.
 
@@ -3863,7 +3864,7 @@ Type: Title
 
 ##### SubTitle
 
-[xmltv.js:79-81][566]
+[xmltv.js:79-81][567]
 
 A reference to the `SubTitle` entity used by a `Document` instance.
 
@@ -3871,7 +3872,7 @@ Type: SubTitle
 
 ##### Description
 
-[xmltv.js:90-92][567]
+[xmltv.js:90-92][568]
 
 A reference to the `Description` entity used by a `Document` instance.
 
@@ -3879,7 +3880,7 @@ Type: Description
 
 ##### Category
 
-[xmltv.js:101-103][568]
+[xmltv.js:101-103][569]
 
 A reference to the `Category` entity used by a `Document` instance.
 
@@ -3887,7 +3888,7 @@ Type: Category
 
 ##### Language
 
-[xmltv.js:112-114][569]
+[xmltv.js:112-114][570]
 
 A reference to the `Language` entity used by a `Document` instance.
 
@@ -3895,7 +3896,7 @@ Type: Language
 
 ##### OriginalLanguage
 
-[xmltv.js:123-125][570]
+[xmltv.js:123-125][571]
 
 A reference to the `OriginalLanguage` entity used by a `Document` instance.
 
@@ -3903,7 +3904,7 @@ Type: OriginalLanguage
 
 ##### Icon
 
-[xmltv.js:134-136][571]
+[xmltv.js:134-136][572]
 
 A reference to the `Icon` entity used by a `Document` instance.
 
@@ -3911,7 +3912,7 @@ Type: Icon
 
 ##### AudioDescription
 
-[xmltv.js:145-147][572]
+[xmltv.js:145-147][573]
 
 A reference to the `AudioDescription` entity used by a `Document` instance.
 
@@ -3919,7 +3920,7 @@ Type: AudioDescription
 
 ##### VideoDescription
 
-[xmltv.js:156-158][573]
+[xmltv.js:156-158][574]
 
 A reference to the `VideoDescription` entity used by a `Document` instance.
 
@@ -3927,7 +3928,7 @@ Type: VideoDescription
 
 ##### StarRating
 
-[xmltv.js:167-169][574]
+[xmltv.js:167-169][575]
 
 A reference to the `StarRating` entity used by a `Document` instance.
 
@@ -3935,7 +3936,7 @@ Type: StarRating
 
 ##### Rating
 
-[xmltv.js:178-180][575]
+[xmltv.js:178-180][576]
 
 A reference to the `Rating` entity used by a `Document` instance.
 
@@ -3943,7 +3944,7 @@ Type: Rating
 
 ##### Credits
 
-[xmltv.js:189-191][576]
+[xmltv.js:189-191][577]
 
 A reference to the `Credits` entity used by a `Document` instance.
 
@@ -3951,7 +3952,7 @@ Type: Credits
 
 ##### EpisodeNumber
 
-[xmltv.js:200-202][577]
+[xmltv.js:200-202][578]
 
 A reference to the `EpisodeNumber` entity used by a `Document` instance.
 
@@ -3959,7 +3960,7 @@ Type: EpisodeNumber
 
 ##### Programme
 
-[xmltv.js:211-213][578]
+[xmltv.js:211-213][579]
 
 A reference to the `Programme` entity used by a `Document` instance.
 
@@ -3967,7 +3968,7 @@ Type: Programme
 
 #### LocalizedTextEntity
 
-[xmltv.js:264-285][579]
+[xmltv.js:267-288][580]
 
 **Extends Entity**
 
@@ -3975,28 +3976,28 @@ Base class for a localizable (lang="en) entity.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### lang
 
-[xmltv.js:272-274][580]
+[xmltv.js:275-277][581]
 
 The language for the text entity.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### value
 
-[xmltv.js:282-284][581]
+[xmltv.js:285-287][582]
 
 The text value of this localized entity.
 
-Type: [String][146]?
+Type: [String][147]?
 
 #### DisplayName
 
-[xmltv.js:294-294][582]
+[xmltv.js:297-297][583]
 
 **Extends LocalizedTextEntity**
 
@@ -4004,12 +4005,12 @@ A container for a display name.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 #### Title
 
-[xmltv.js:303-303][583]
+[xmltv.js:306-306][584]
 
 **Extends LocalizedTextEntity**
 
@@ -4017,12 +4018,12 @@ A container for a title.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 #### SubTitle
 
-[xmltv.js:312-312][584]
+[xmltv.js:315-315][585]
 
 **Extends LocalizedTextEntity**
 
@@ -4030,12 +4031,12 @@ A container for a subtitle.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 #### Description
 
-[xmltv.js:321-321][585]
+[xmltv.js:324-324][586]
 
 **Extends LocalizedTextEntity**
 
@@ -4043,12 +4044,12 @@ A container for a description.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 #### Category
 
-[xmltv.js:330-330][586]
+[xmltv.js:333-333][587]
 
 **Extends LocalizedTextEntity**
 
@@ -4056,12 +4057,12 @@ A container for a category.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 #### Language
 
-[xmltv.js:339-339][587]
+[xmltv.js:342-342][588]
 
 **Extends LocalizedTextEntity**
 
@@ -4069,12 +4070,12 @@ A container for a language.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 #### OriginalLanguage
 
-[xmltv.js:348-348][588]
+[xmltv.js:351-351][589]
 
 **Extends LocalizedTextEntity**
 
@@ -4082,12 +4083,12 @@ A container for an original language.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 #### Icon
 
-[xmltv.js:357-388][589]
+[xmltv.js:360-391][590]
 
 **Extends Entity**
 
@@ -4095,36 +4096,36 @@ A container for an icon.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### src
 
-[xmltv.js:365-367][590]
+[xmltv.js:368-370][591]
 
 The source URL of the icon image.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### width
 
-[xmltv.js:375-377][591]
+[xmltv.js:378-380][592]
 
 The width in pixels of the icon image.
 
-Type: [Number][432]?
+Type: [Number][433]?
 
 ##### height
 
-[xmltv.js:385-387][592]
+[xmltv.js:388-390][593]
 
 The height in pixels of the icon image.
 
-Type: [Number][432]?
+Type: [Number][433]?
 
 #### AudioDescription
 
-[xmltv.js:397-420][593]
+[xmltv.js:400-423][594]
 
 **Extends Entity**
 
@@ -4132,28 +4133,28 @@ A container for an audio description for a programme.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### stereo
 
-[xmltv.js:405-408][594]
+[xmltv.js:408-411][595]
 
 `true` if the audio description is "stereo"
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 ##### stereo
 
-[xmltv.js:416-419][595]
+[xmltv.js:419-422][596]
 
 `true` if the audio description is "stereo"
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 #### VideoDescription
 
-[xmltv.js:429-450][596]
+[xmltv.js:432-453][597]
 
 **Extends Entity**
 
@@ -4161,28 +4162,28 @@ A container for a video description for a programme.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### aspect
 
-[xmltv.js:437-439][597]
+[xmltv.js:440-442][598]
 
 A string describing the aspect ratio of the programme video
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### quality
 
-[xmltv.js:447-449][598]
+[xmltv.js:450-452][599]
 
 A string describing the quality of the programme video
 
-Type: [String][146]?
+Type: [String][147]?
 
 #### StarRating
 
-[xmltv.js:459-470][599]
+[xmltv.js:462-473][600]
 
 **Extends Entity**
 
@@ -4190,20 +4191,20 @@ A container for a star rating for a programme.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### value
 
-[xmltv.js:467-469][600]
+[xmltv.js:470-472][601]
 
 The star rating value.
 
-Type: [String][146]
+Type: [String][147]
 
 #### Rating
 
-[xmltv.js:479-529][601]
+[xmltv.js:482-532][602]
 
 **Extends Entity**
 
@@ -4211,28 +4212,28 @@ A container for a programme rating.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### system
 
-[xmltv.js:487-489][602]
+[xmltv.js:490-492][603]
 
 The rating system used to determine the rating value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### value
 
-[xmltv.js:497-499][603]
+[xmltv.js:500-502][604]
 
 The rating value as determined by the rating system.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### icon
 
-[xmltv.js:507-509][604]
+[xmltv.js:510-512][605]
 
 Default (first) icon for this rating system.
 
@@ -4240,15 +4241,15 @@ Type: Icon?
 
 ##### icons
 
-[xmltv.js:517-528][605]
+[xmltv.js:520-531][606]
 
 An array of icons for this rating system.
 
-Type: [Array][160]&lt;Icon>
+Type: [Array][161]&lt;Icon>
 
 #### Credits
 
-[xmltv.js:539-697][606]
+[xmltv.js:542-700][607]
 
 **Extends Entity**
 
@@ -4257,92 +4258,92 @@ actor, and more.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### directors
 
-[xmltv.js:547-555][607]
+[xmltv.js:550-558][608]
 
 An array of "directors" for this credits container.
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### actors
 
-[xmltv.js:563-571][608]
+[xmltv.js:566-574][609]
 
 An array of "actor" for this credits container.
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### presenters
 
-[xmltv.js:579-587][609]
+[xmltv.js:582-590][610]
 
 An array of "presenters" for this credits container.
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### producers
 
-[xmltv.js:595-603][610]
+[xmltv.js:598-606][611]
 
 An array of "producers" for this credits container.
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### writers
 
-[xmltv.js:611-619][611]
+[xmltv.js:614-622][612]
 
 An array of "writers" for this credits container.
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### adapters
 
-[xmltv.js:627-635][612]
+[xmltv.js:630-638][613]
 
 An array of "adapters" for this credits container.
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### composers
 
-[xmltv.js:643-651][613]
+[xmltv.js:646-654][614]
 
 An array of "composers" for this credits container.
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### editors
 
-[xmltv.js:659-666][614]
+[xmltv.js:662-669][615]
 
 An array of "editors" for this credits container.
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### commentators
 
-[xmltv.js:674-681][615]
+[xmltv.js:677-684][616]
 
 An array of "commentators" for this credits container.
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### guests
 
-[xmltv.js:689-696][616]
+[xmltv.js:692-699][617]
 
 An array of "guests" for this credits container.
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 #### EpisodeNumber
 
-[xmltv.js:707-729][617]
+[xmltv.js:710-732][618]
 
 **Extends Entity**
 
@@ -4351,29 +4352,29 @@ to determine it.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### system
 
-[xmltv.js:716-718][618]
+[xmltv.js:719-721][619]
 
 The episode number system used to determine
 the episode number value.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### value
 
-[xmltv.js:726-728][619]
+[xmltv.js:729-731][620]
 
 The episode number value
 
-Type: [String][146]?
+Type: [String][147]?
 
 #### Channel
 
-[xmltv.js:738-863][620]
+[xmltv.js:741-866][621]
 
 **Extends Entity**
 
@@ -4381,12 +4382,12 @@ A channel entity found in XMLTV documents.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### displayName
 
-[xmltv.js:746-748][621]
+[xmltv.js:749-751][622]
 
 First computed display name for this channel.
 
@@ -4394,15 +4395,15 @@ Type: DisplayName?
 
 ##### displayNames
 
-[xmltv.js:756-767][622]
+[xmltv.js:759-770][623]
 
 Computed display names for this channel.
 
-Type: [Array][160]&lt;DisplayName>
+Type: [Array][161]&lt;DisplayName>
 
 ##### icon
 
-[xmltv.js:775-777][623]
+[xmltv.js:778-780][624]
 
 Default (first) icon for this channel.
 
@@ -4410,47 +4411,47 @@ Type: Icon?
 
 ##### icons
 
-[xmltv.js:785-796][624]
+[xmltv.js:788-799][625]
 
 An array of icons for this channel.
 
-Type: [Array][160]&lt;Icon>
+Type: [Array][161]&lt;Icon>
 
 ##### urls
 
-[xmltv.js:804-813][625]
+[xmltv.js:807-816][626]
 
 The URLs for this channel.
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### url
 
-[xmltv.js:821-823][626]
+[xmltv.js:824-826][627]
 
 The default (first) URL for this channel.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### id
 
-[xmltv.js:831-833][627]
+[xmltv.js:834-836][628]
 
 The ID of this channel.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### descriptions
 
-[xmltv.js:841-852][628]
+[xmltv.js:844-855][629]
 
 The descriptions for this programme.
 
-Type: [Array][160]&lt;Description>
+Type: [Array][161]&lt;Description>
 
 ##### description
 
-[xmltv.js:860-862][629]
+[xmltv.js:863-865][630]
 
 The default (first) description for this programme.
 
@@ -4458,7 +4459,7 @@ Type: Description
 
 #### Programme
 
-[xmltv.js:872-1228][630]
+[xmltv.js:875-1231][631]
 
 **Extends Entity**
 
@@ -4466,36 +4467,36 @@ A container for an electronic programme guide (EPG) _programme_.
 
 ##### Parameters
 
--   `document` **[Document][157]** 
+-   `document` **[Document][158]** 
 -   `node` **ParserNode** 
 
 ##### date
 
-[xmltv.js:880-888][631]
+[xmltv.js:883-891][632]
 
 The possible release date and time of the programme.
 
-Type: [Date][166]?
+Type: [Date][167]?
 
 ##### start
 
-[xmltv.js:896-910][632]
+[xmltv.js:899-913][633]
 
 The start date and time of the programme.
 
-Type: [Date][166]?
+Type: [Date][167]?
 
 ##### stop
 
-[xmltv.js:918-932][633]
+[xmltv.js:921-935][634]
 
 The stop date and time of the programme.
 
-Type: [Date][166]?
+Type: [Date][167]?
 
 ##### channel
 
-[xmltv.js:940-942][634]
+[xmltv.js:943-945][635]
 
 The channel id for this programme.
 
@@ -4503,15 +4504,15 @@ Type: Title
 
 ##### titles
 
-[xmltv.js:950-961][635]
+[xmltv.js:953-964][636]
 
 The titles for this programme.
 
-Type: [Array][160]&lt;Title>
+Type: [Array][161]&lt;Title>
 
 ##### title
 
-[xmltv.js:969-971][636]
+[xmltv.js:972-974][637]
 
 The default (first) title for this programme.
 
@@ -4519,15 +4520,15 @@ Type: Title
 
 ##### subtitles
 
-[xmltv.js:979-990][637]
+[xmltv.js:982-993][638]
 
 The subtitles for this programme.
 
-Type: [Array][160]&lt;SubTitle>
+Type: [Array][161]&lt;SubTitle>
 
 ##### subtitle
 
-[xmltv.js:998-1000][638]
+[xmltv.js:1001-1003][639]
 
 The default (first) subtitle for this programme.
 
@@ -4535,15 +4536,15 @@ Type: SubTitle
 
 ##### descriptions
 
-[xmltv.js:1008-1019][639]
+[xmltv.js:1011-1022][640]
 
 The descriptions for this programme.
 
-Type: [Array][160]&lt;Description>
+Type: [Array][161]&lt;Description>
 
 ##### description
 
-[xmltv.js:1027-1029][640]
+[xmltv.js:1030-1032][641]
 
 The default (first) description for this programme.
 
@@ -4551,63 +4552,63 @@ Type: Description
 
 ##### credits
 
-[xmltv.js:1037-1046][641]
+[xmltv.js:1040-1049][642]
 
 The credits for this programme.
 
-Type: [Array][160]&lt;Credits>
+Type: [Array][161]&lt;Credits>
 
 ##### video
 
-[xmltv.js:1054-1063][642]
+[xmltv.js:1057-1066][643]
 
 The video description for this programme.
 
-Type: [Array][160]&lt;VideoDescription>
+Type: [Array][161]&lt;VideoDescription>
 
 ##### rating
 
-[xmltv.js:1071-1080][643]
+[xmltv.js:1074-1083][644]
 
 The rating for this programme.
 
-Type: [Array][160]&lt;Rating>
+Type: [Array][161]&lt;Rating>
 
 ##### countries
 
-[xmltv.js:1088-1097][644]
+[xmltv.js:1091-1100][645]
 
 An array of countries for this programme.
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### keywords
 
-[xmltv.js:1105-1114][645]
+[xmltv.js:1108-1117][646]
 
 An array of keywords for this programme.
 
-Type: [Array][160]&lt;[String][146]>
+Type: [Array][161]&lt;[String][147]>
 
 ##### originalLanguage
 
-[xmltv.js:1122-1131][646]
+[xmltv.js:1125-1134][647]
 
 An array of original languages for this programme.
 
-Type: [Array][160]&lt;OriginalLanguage>
+Type: [Array][161]&lt;OriginalLanguage>
 
 ##### languages
 
-[xmltv.js:1139-1150][647]
+[xmltv.js:1142-1153][648]
 
 An array of languages for this programme.
 
-Type: [Array][160]&lt;Language>
+Type: [Array][161]&lt;Language>
 
 ##### language
 
-[xmltv.js:1158-1160][648]
+[xmltv.js:1161-1163][649]
 
 Default (first) language for this programme.
 
@@ -4615,7 +4616,7 @@ Type: Language?
 
 ##### icon
 
-[xmltv.js:1168-1170][649]
+[xmltv.js:1171-1173][650]
 
 Default (first) icon for this programme.
 
@@ -4623,31 +4624,31 @@ Type: Icon?
 
 ##### icons
 
-[xmltv.js:1178-1189][650]
+[xmltv.js:1181-1192][651]
 
 An array of icons for this programme.
 
-Type: [Array][160]&lt;Icon>
+Type: [Array][161]&lt;Icon>
 
 ##### categories
 
-[xmltv.js:1197-1208][651]
+[xmltv.js:1200-1211][652]
 
 An array of categories for this programme.
 
-Type: [Array][160]&lt;Category>
+Type: [Array][161]&lt;Category>
 
 ##### episodeNumbers
 
-[xmltv.js:1216-1227][652]
+[xmltv.js:1219-1230][653]
 
 An array of episode numbers for this programme.
 
-Type: [Array][160]&lt;EpisodeNumber>
+Type: [Array][161]&lt;EpisodeNumber>
 
 #### createDocument
 
-[xmltv.js:1237-1239][653]
+[xmltv.js:1240-1242][654]
 
 -   **See: {Document}
     **
@@ -4658,7 +4659,7 @@ Factory for creating `Document` instances.
 
 -   `args` **...any** 
 
-Returns **[Document][157]** 
+Returns **[Document][158]** 
 
 ## Core
 
@@ -4667,11 +4668,11 @@ Core modules for implementing the MediaXML API.
 
 ### parser
 
-[parser.js:2613-2625][654]
+[parser.js:2704-2717][655]
 
 The core parsing API for the MediaXML module that creates a document
 object model for a parsed XML file with a robust query API built on top
-of [JSONata][655].
+of [JSONata][656].
 
 #### Examples
 
@@ -4689,42 +4690,42 @@ parser.then(() => {
 
 #### ParserNodeAttributes
 
-[parser.js:42-244][656]
+[parser.js:43-245][657]
 
 A simple container for a `ParserNode` instance attributes.
 
 ##### Parameters
 
--   `attributes` **[Object][147]?** 
--   `opts` **[Object][147]?** 
+-   `attributes` **[Object][148]?** 
+-   `opts` **[Object][148]?** 
 
 ##### has
 
-[parser.js:121-124][657]
+[parser.js:122-125][658]
 
 `true` if instance has a value for a given key.
 
 ###### Parameters
 
--   `name` **[String][146]** 
+-   `name` **[String][147]** 
 
-Returns **[Boolean][436]** 
+Returns **[Boolean][437]** 
 
 ##### get
 
-[parser.js:132-134][658]
+[parser.js:133-135][659]
 
 Get an attribute value by name.
 
 ###### Parameters
 
--   `name` **[String][146]** 
+-   `name` **[String][147]** 
 
 Returns **Mixed?** 
 
 ##### set
 
-[parser.js:142-171][659]
+[parser.js:143-172][660]
 
 Set an attribute value by name.
 
@@ -4732,27 +4733,27 @@ Set an attribute value by name.
 
 -   `key`  
 -   `value` **Mixed?** 
--   `name` **[String][146]** 
+-   `name` **[String][147]** 
 
 ##### keys
 
-[parser.js:178-180][660]
+[parser.js:179-181][661]
 
 Computed keys for this attributes object.
 
-Returns **[Array][160]&lt;[String][146]>** 
+Returns **[Array][161]&lt;[String][147]>** 
 
 ##### values
 
-[parser.js:187-189][661]
+[parser.js:188-190][662]
 
 Computed values for this attributes object.
 
-Returns **[Array][160]&lt;[String][146]>** 
+Returns **[Array][161]&lt;[String][147]>** 
 
 ##### iterator
 
-[parser.js:196-198][662]
+[parser.js:197-199][663]
 
 Returns an iterable generator for this attributes object.
 
@@ -4760,23 +4761,23 @@ Returns **Generator**
 
 ##### toJSON
 
-[parser.js:241-243][663]
+[parser.js:242-244][664]
 
 Converts attributes to a JSON object.
 
-Type: [Function][664]
+Type: [Function][665]
 
 ###### Parameters
 
--   `opts` **([Object][147]? | [Boolean][436])** JSON output configuration. Set to `true` to just normalize.
-    -   `opts.normalize` **[Object][147]?** Normalize JSON output (optional, default `false`)
-    -   `opts.normalizeValues` **[Object][147]?** Normalize JSON output values (optional, default `false`)
+-   `opts` **([Object][148]? | [Boolean][437])** JSON output configuration. Set to `true` to just normalize.
+    -   `opts.normalize` **[Object][148]?** Normalize JSON output (optional, default `false`)
+    -   `opts.normalizeValues` **[Object][148]?** Normalize JSON output values (optional, default `false`)
 
-Returns **[Object][147]** 
+Returns **[Object][148]** 
 
 #### ParserNodeText
 
-[parser.js:251-412][665]
+[parser.js:252-414][666]
 
 **Extends String**
 
@@ -4784,16 +4785,17 @@ A container for a text.
 
 ##### Parameters
 
--   `text` **[String][146]** 
+-   `text` **[String][147]** 
 -   `opts`  
+-   `depth`  
 
 ##### name
 
-[parser.js:325-325][666]
+[parser.js:327-327][667]
 
 The name of this text node.
 
-Type: [String][146]
+Type: [String][147]
 
 ###### Parameters
 
@@ -4801,11 +4803,11 @@ Type: [String][146]
 
 ##### text
 
-[parser.js:333-333][667]
+[parser.js:335-335][668]
 
 The text content of this text node.
 
-Type: [String][146]
+Type: [String][147]
 
 ###### Parameters
 
@@ -4813,15 +4815,15 @@ Type: [String][146]
 
 ##### isText
 
-[parser.js:342-344][668]
+[parser.js:344-346][669]
 
 `true` to indicate this node is a text node.
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 ##### parent
 
-[parser.js:352-352][669]
+[parser.js:354-354][670]
 
 A reference to the parent node of this text node.
 
@@ -4833,7 +4835,7 @@ Type: ParserNode?
 
 ##### iterator
 
-[parser.js:360-362][670]
+[parser.js:362-364][671]
 
 Returns an iterable generator for this text node.
 
@@ -4841,7 +4843,7 @@ Returns **Generator**
 
 ##### iterator
 
-[parser.js:407-411][671]
+[parser.js:409-413][672]
 
 Implements `Symbol.iterator` symbol for converting this text node
 to an iterable string.
@@ -4850,16 +4852,16 @@ Returns **Iterator**
 
 ##### toJSON
 
-[parser.js:388-390][672]
+[parser.js:390-392][673]
 
 Converts this text node to a string for JSON
 output
 
-Returns **[String][146]** 
+Returns **[String][147]** 
 
 ##### from
 
-[parser.js:261-263][673]
+[parser.js:262-264][674]
 
 Create a new `ParserNodeText` from input. Input is coalesced to a
 string type.
@@ -4871,9 +4873,33 @@ string type.
 
 Returns **ParserNodeText** 
 
+#### ParserNodeCDATA
+
+[parser.js:421-442][675]
+
+**Extends ParserNodeText**
+
+A container for CDATA text data.
+
+##### isCDATA
+
+[parser.js:429-431][676]
+
+Always `true` to indicate that this is CDATA.
+
+Type: [Boolean][437]
+
+##### toString
+
+[parser.js:438-441][677]
+
+Converts this CDATA text container to mark up.
+
+Returns **[String][147]** 
+
 #### ParserNodeFragment
 
-[parser.js:420-561][674]
+[parser.js:450-591][678]
 
 **Extends Array**
 
@@ -4882,12 +4908,12 @@ A container for a collection of `ParserNode` instances not represented by a root
 
 ##### Parameters
 
--   `attributes` **[Object][147]?** 
--   `opts` **[Object][147]?** 
+-   `attributes` **[Object][148]?** 
+-   `opts` **[Object][148]?** 
 
 ##### node
 
-[parser.js:476-476][675]
+[parser.js:506-506][679]
 
 The `ParserNode` instance this fragment wraps.
 
@@ -4899,40 +4925,40 @@ Type: ParserNode
 
 ##### isConnected
 
-[parser.js:485-487][676]
+[parser.js:515-517][680]
 
 `true` if this node is connected to a parent node.
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 ##### isOrphaned
 
-[parser.js:495-497][677]
+[parser.js:525-527][681]
 
 `true` if this node is not connected to a parent node and is not a root node.
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 ##### isFragment
 
-[parser.js:505-507][678]
+[parser.js:535-537][682]
 
 Will always be `true` because it is a fragment.
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 ##### children
 
-[parser.js:516-518][679]
+[parser.js:546-548][683]
 
 A reference to the children in the underlying `ParserNode` for
 this fragment.
 
-Type: [Array][160]
+Type: [Array][161]
 
 ##### parent
 
-[parser.js:526-528][680]
+[parser.js:556-558][684]
 
 Always `null` as a fragment cannot have a parent.
 
@@ -4940,20 +4966,20 @@ Type: ParserNode?
 
 ##### query
 
-[parser.js:537-542][681]
+[parser.js:567-572][685]
 
 Query the nodes this fragment represents.
 
 ###### Parameters
 
--   `queryString` **[String][146]** 
--   `opts` **[Object][147]?** 
+-   `queryString` **[String][147]** 
+-   `opts` **[Object][148]?** 
 
 Returns **(ParserNode | ParserNodeFragment | ParserNodeText)** 
 
 ##### toString
 
-[parser.js:549-551][682]
+[parser.js:579-581][686]
 
 Converts this fragment to a string.
 
@@ -4961,19 +4987,19 @@ Converts this fragment to a string.
 
 -   `args` **...any** 
 
-Returns **[String][146]** 
+Returns **[String][147]** 
 
 ##### toJSON
 
-[parser.js:558-560][683]
+[parser.js:588-590][687]
 
 Converts this fragment to a JSON object.
 
-Returns **[Array][160]** 
+Returns **[Array][161]** 
 
 ##### from
 
-[parser.js:429-437][684]
+[parser.js:459-467][688]
 
 Create a `ParserNodeFragment` from input.
 
@@ -4986,17 +5012,17 @@ Returns **ParserNodeFragment**
 
 #### ParserNode
 
-[parser.js:578-1638][685]
+[parser.js:608-1714][689]
 
 A container for a parsed XML node with references to
 its parent node and children.
 
 ##### Parameters
 
--   `name` **[String][146]** 
--   `attributes` **[Object][147]?** 
--   `depth` **[Number][432]?** 
--   `opts` **[Object][147]?** 
+-   `name` **[String][147]** 
+-   `attributes` **[Object][148]?** 
+-   `depth` **[Number][433]?** 
+-   `opts` **[Object][148]?** 
 
 ##### Examples
 
@@ -5013,7 +5039,7 @@ console.log(metadata)
 
 ##### innerXML
 
-[parser.js:853-853][686]
+[parser.js:883-883][690]
 
 The inner XML representation of this node.
 Setting the inner XML of this node will update body and children
@@ -5022,7 +5048,7 @@ it is parsed and the body and children of this node will
 be updated. If a `ParserNode` instance is given, or an array of
 them, the children will be updated to include those nodes.
 
-Type: [String][146]
+Type: [String][147]
 
 ###### Examples
 
@@ -5061,7 +5087,7 @@ console.log(node)
 
 ##### outerXML
 
-[parser.js:915-915][687]
+[parser.js:945-945][691]
 
 The outer XML representation of this node.
 Setting the outer XML of this node will update the attributes,
@@ -5069,7 +5095,7 @@ name, and children of this node instance. If a string is given,
 it is parsed and will represent the new node If a `ParserNode`
 instance is given it will be used to derive the node's new state.
 
-Type: [String][146]
+Type: [String][147]
 
 ###### Examples
 
@@ -5088,11 +5114,11 @@ node.outerXML = `
 
 ##### originalName
 
-[parser.js:953-953][688]
+[parser.js:983-983][692]
 
 The original name of this node.
 
-Type: [String][146]
+Type: [String][147]
 
 ###### Parameters
 
@@ -5100,11 +5126,11 @@ Type: [String][146]
 
 ##### name
 
-[parser.js:962-962][689]
+[parser.js:992-992][693]
 
 The normalized name of this node in camelcase.
 
-Type: [String][146]
+Type: [String][147]
 
 ###### Parameters
 
@@ -5112,7 +5138,7 @@ Type: [String][146]
 
 ##### text
 
-[parser.js:971-971][690]
+[parser.js:1001-1001][694]
 
 An alias to `this.body`.
 
@@ -5124,11 +5150,11 @@ Type: ParserNodeText
 
 ##### depth
 
-[parser.js:982-982][691]
+[parser.js:1012-1012][695]
 
 The depth this node appears in the tree.
 
-Type: [Number][432]
+Type: [Number][433]
 
 ###### Parameters
 
@@ -5136,7 +5162,7 @@ Type: [Number][432]
 
 ##### parent
 
-[parser.js:991-991][692]
+[parser.js:1021-1021][696]
 
 A reference to the parent node of this node.
 
@@ -5148,11 +5174,11 @@ Type: ParserNode?
 
 ##### options
 
-[parser.js:1000-1000][693]
+[parser.js:1030-1030][697]
 
 A reference to the options used when this instance was created
 
-Type: [Object][147]?
+Type: [Object][148]?
 
 ###### Parameters
 
@@ -5160,11 +5186,11 @@ Type: [Object][147]?
 
 ##### children
 
-[parser.js:1009-1009][694]
+[parser.js:1039-1039][698]
 
 A reference to the child nodes in this node.
 
-Type: [Array][160]&lt;ParserNode>
+Type: [Array][161]&lt;ParserNode>
 
 ###### Parameters
 
@@ -5172,11 +5198,11 @@ Type: [Array][160]&lt;ParserNode>
 
 ##### comments
 
-[parser.js:1018-1018][695]
+[parser.js:1048-1048][699]
 
 A reference to the comment nodes in this node.
 
-Type: [Array][160]&lt;ParserNode>
+Type: [Array][161]&lt;ParserNode>
 
 ###### Parameters
 
@@ -5184,11 +5210,11 @@ Type: [Array][160]&lt;ParserNode>
 
 ##### attributes
 
-[parser.js:1027-1027][696]
+[parser.js:1057-1057][700]
 
 A key-value mapping of normalized attributes in this node.
 
-Type: [Object][147]
+Type: [Object][148]
 
 ###### Parameters
 
@@ -5196,11 +5222,11 @@ Type: [Object][147]
 
 ##### originalAttributes
 
-[parser.js:1036-1036][697]
+[parser.js:1066-1066][701]
 
 The original attributes, before normalization.
 
-Type: [Object][147]?
+Type: [Object][148]?
 
 ###### Parameters
 
@@ -5208,63 +5234,63 @@ Type: [Object][147]?
 
 ##### isConnected
 
-[parser.js:1045-1047][698]
+[parser.js:1075-1077][702]
 
 `true` if this node is connected to a parent node.
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 ##### isOrphaned
 
-[parser.js:1055-1057][699]
+[parser.js:1085-1087][703]
 
 `true` if this node is not connected to a parent node and is not a root node.
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 ##### isParserNode
 
-[parser.js:1065-1067][700]
+[parser.js:1095-1097][704]
 
 `true` to indicate that this is a node.
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 ##### isText
 
-[parser.js:1075-1077][701]
+[parser.js:1105-1107][705]
 
 `false` to indicate that this node is not text.
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 ##### isFragment
 
-[parser.js:1085-1087][702]
+[parser.js:1115-1117][706]
 
 `false` to indicate that this node is not a fragment.
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 ##### index
 
-[parser.js:1095-1101][703]
+[parser.js:1125-1131][707]
 
 Computed index this node exists in its parent tree.
 
-Type: [Number][432]
+Type: [Number][433]
 
 ##### length
 
-[parser.js:1109-1111][704]
+[parser.js:1139-1141][708]
 
 Computed number of child nodes in this node.
 
-Type: [Number][432]
+Type: [Number][433]
 
 ##### ondisconnect
 
-[parser.js:1128-1130][705]
+[parser.js:1158-1160][709]
 
 Called when disconnected from a parent node.
 
@@ -5275,23 +5301,23 @@ Called when disconnected from a parent node.
 
 ##### keys
 
-[parser.js:1137-1139][706]
+[parser.js:1167-1169][710]
 
 Computed keys for this parser node.
 
-Returns **[Array][160]&lt;[String][146]>** 
+Returns **[Array][161]&lt;[String][147]>** 
 
 ##### values
 
-[parser.js:1146-1149][707]
+[parser.js:1176-1179][711]
 
 Computed values for this parser node.
 
-Returns **[Array][160]&lt;[String][146]>** 
+Returns **[Array][161]&lt;[String][147]>** 
 
 ##### includes
 
-[parser.js:1157-1159][708]
+[parser.js:1187-1189][712]
 
 Checks if node is contained within this one.
 
@@ -5299,11 +5325,11 @@ Checks if node is contained within this one.
 
 -   `node` **ParserNode** 
 
-Returns **[Boolean][436]** 
+Returns **[Boolean][437]** 
 
 ##### append
 
-[parser.js:1177-1193][709]
+[parser.js:1207-1223][713]
 
 Append one or more nodes to this node.
 
@@ -5330,7 +5356,7 @@ Returns **ParserNode**
 
 ##### remove
 
-[parser.js:1203-1209][710]
+[parser.js:1233-1239][714]
 
 Remove one or more nodes to this node.
 
@@ -5346,7 +5372,7 @@ Returns **ParserNode**
 
 ##### appendChild
 
-[parser.js:1218-1241][711]
+[parser.js:1248-1271][715]
 
 Appends a child node to this node.
 
@@ -5361,7 +5387,7 @@ Returns **ParserNode**
 
 ##### removeChild
 
-[parser.js:1250-1273][712]
+[parser.js:1280-1303][716]
 
 Removes a child node to this node.
 
@@ -5375,20 +5401,20 @@ Removes a child node to this node.
 
 ##### clone
 
-[parser.js:1281-1290][713]
+[parser.js:1353-1362][717]
 
 Clone node, optionally cloning all children.
 
 ###### Parameters
 
--   `deep` **[Boolean][436]?** Clone children (optional, default `false`)
+-   `deep` **[Boolean][437]?** Clone children (optional, default `false`)
 -   `args` **...any** 
 
 Returns **ParserNode** 
 
 ##### cloneNode
 
-[parser.js:1297-1299][714]
+[parser.js:1369-1371][718]
 
 An alias to `clone()`.
 
@@ -5400,9 +5426,9 @@ Returns **ParserNode**
 
 ##### query
 
-[parser.js:1312-1316][715]
+[parser.js:1384-1388][719]
 
--   **See: [https://jsonata.org][655]
+-   **See: [https://jsonata.org][656]
     **
 
 Query the document object model represented by this node
@@ -5410,15 +5436,15 @@ using "JSONata" query syntax.
 
 ###### Parameters
 
--   `queryString` **[String][146]?** A "JSONata" query string (optional, default `'$'`)
--   `opts` **[Object][147]?** Query options
-    -   `opts.inspect` **[Boolean][436]?** If `true`, will set `util.inspect.custom` symbols (optional, default `false`)
+-   `queryString` **[String][147]?** A "JSONata" query string (optional, default `'$'`)
+-   `opts` **[Object][148]?** Query options
+    -   `opts.inspect` **[Boolean][437]?** If `true`, will set `util.inspect.custom` symbols (optional, default `false`)
 
-Returns **([Array][160] \| [Object][147] | null)** 
+Returns **([Array][161] \| [Object][148] | null)** 
 
 ##### iterator
 
-[parser.js:1323-1325][716]
+[parser.js:1395-1397][720]
 
 Returns an iterable generator for this node.
 
@@ -5426,7 +5452,7 @@ Returns **Generator**
 
 ##### iterator
 
-[parser.js:1486-1490][717]
+[parser.js:1562-1566][721]
 
 Implements `Symbol.iterator` symbol for converting this node
 to an iterable
@@ -5435,47 +5461,47 @@ Returns **Iterator**
 
 ##### toString
 
-[parser.js:1338-1418][718]
+[parser.js:1410-1494][722]
 
 Converts this node ands children to a XML string
 representing this node and its children.
 
 ###### Parameters
 
--   `opts` **[Object][147]?** 
-    -   `opts.attributes` **[Boolean][436]?** Include attributes in the result (optional, default `true`)
-    -   `opts.normalize` **[Boolean][436]?** Normalize tag and attributes names (optional, default `false`)
-    -   `opts.children` **[Boolean][436]?** Include children in the result (optional, default `true`)
-    -   `opts.depth` **[Number][432]?** The starting depth of this node (optional, default `0`)
+-   `opts` **[Object][148]?** 
+    -   `opts.attributes` **[Boolean][437]?** Include attributes in the result (optional, default `true`)
+    -   `opts.normalize` **[Boolean][437]?** Normalize tag and attributes names (optional, default `false`)
+    -   `opts.children` **[Boolean][437]?** Include children in the result (optional, default `true`)
+    -   `opts.depth` **[Number][433]?** The starting depth of this node (optional, default `0`)
 
-Returns **[String][146]** 
+Returns **[String][147]** 
 
 ##### toJSON
 
-[parser.js:1429-1469][719]
+[parser.js:1505-1545][723]
 
 Converts this node to a JSON structure suitable for serialization.
 
 ###### Parameters
 
--   `opts` **[Object][147]?** 
-    -   `opts.normalize` **[Boolean][436]?** Normalize tag and attributes names (optional, default `false`)
-    -   `opts.children` **[Boolean][436]?** Include children in the result (optional, default `true`)
-    -   `opts.attributes` **[Boolean][436]?** Include attributes in the result (optional, default `true`)
+-   `opts` **[Object][148]?** 
+    -   `opts.normalize` **[Boolean][437]?** Normalize tag and attributes names (optional, default `false`)
+    -   `opts.children` **[Boolean][437]?** Include children in the result (optional, default `true`)
+    -   `opts.attributes` **[Boolean][437]?** Include attributes in the result (optional, default `true`)
 
-Returns **[Object][147]** 
+Returns **[Object][148]** 
 
 ##### slice
 
-[parser.js:1501-1506][720]
+[parser.js:1577-1582][724]
 
 Implements a simple `slice` function to slice a selection of children
 
 ###### Parameters
 
 -   `args` **...any** 
--   `fn` **[Function][664]** 
--   `thisArg` **[Object][147]?** 
+-   `fn` **[Function][665]** 
+-   `thisArg` **[Object][148]?** 
 
 ###### Examples
 
@@ -5487,14 +5513,14 @@ Returns **ParserNodeFragment**
 
 ##### forEach
 
-[parser.js:1517-1524][721]
+[parser.js:1593-1600][725]
 
 Implements a simple `forEach` function over the children in this node
 
 ###### Parameters
 
--   `fn` **[Function][664]** 
--   `thisArg` **[Object][147]?** 
+-   `fn` **[Function][665]** 
+-   `thisArg` **[Object][148]?** 
 
 ###### Examples
 
@@ -5505,15 +5531,15 @@ nodes.forEach((node) => { ... })
 
 ##### map
 
-[parser.js:1537-1553][722]
+[parser.js:1613-1629][726]
 
 Implements a simple `map` function to map children to new `ParserNode`
 fragment instance.
 
 ###### Parameters
 
--   `fn` **[Function][664]** 
--   `thisArg` **[Object][147]?** 
+-   `fn` **[Function][665]** 
+-   `thisArg` **[Object][148]?** 
 
 ###### Examples
 
@@ -5526,15 +5552,15 @@ Returns **ParserNode**
 
 ##### flatMap
 
-[parser.js:1566-1586][723]
+[parser.js:1642-1662][727]
 
 Implements a simple `flatMap` function to map children to new `ParserNode`
 fragment instance.
 
 ###### Parameters
 
--   `fn` **[Function][664]** 
--   `thisArg` **[Object][147]?** 
+-   `fn` **[Function][665]** 
+-   `thisArg` **[Object][148]?** 
 
 ###### Examples
 
@@ -5547,15 +5573,15 @@ Returns **ParserNode**
 
 ##### filter
 
-[parser.js:1599-1610][724]
+[parser.js:1675-1686][728]
 
 Implements a simple `filter` function to filter children into a resulting
 `ParserNode` fragment instance.
 
 ###### Parameters
 
--   `fn` **[Function][664]** 
--   `thisArg` **[Object][147]?** 
+-   `fn` **[Function][665]** 
+-   `thisArg` **[Object][148]?** 
 
 ###### Examples
 
@@ -5568,7 +5594,7 @@ Returns **ParserNode**
 
 ##### traverse
 
-[parser.js:1620-1637][725]
+[parser.js:1696-1713][729]
 
 Implements a simple `traverse` function to visit every node in this tree.
 The first call will be to the root (this) node, and all subsequent calls will
@@ -5576,13 +5602,13 @@ be to each child node in the tree.
 
 ###### Parameters
 
--   `fn` **[Function][664]** 
--   `thisArg` **[Object][147]?** 
+-   `fn` **[Function][665]** 
+-   `thisArg` **[Object][148]?** 
 -   `skip`   (optional, default `false`)
 
 ##### Fragment
 
-[parser.js:587-589][726]
+[parser.js:617-619][730]
 
 A reference to the `Fragment` class for a `ParserNode` instance.
 
@@ -5590,7 +5616,7 @@ Type: ParserNodeFragment
 
 ##### Text
 
-[parser.js:598-600][727]
+[parser.js:628-630][731]
 
 A reference to the `Text` class for a `ParserNode` instance.
 
@@ -5598,7 +5624,7 @@ Type: ParserNodeText
 
 ##### isParserNode
 
-[parser.js:609-616][728]
+[parser.js:639-646][732]
 
 Predicate function to help determine if input is a valid `ParserNode` instance.
 
@@ -5606,11 +5632,11 @@ Predicate function to help determine if input is a valid `ParserNode` instance.
 
 -   `input` **Mixed** 
 
-Returns **[Boolean][436]** 
+Returns **[Boolean][437]** 
 
 ##### createFragment
 
-[parser.js:627-629][729]
+[parser.js:657-659][733]
 
 -   **See: {ParserNode#from}
     **
@@ -5619,14 +5645,14 @@ Creates a fragment parser node.
 
 ###### Parameters
 
--   `attributes` **[Object][147]?** 
--   `opts` **[Object][147]?** 
+-   `attributes` **[Object][148]?** 
+-   `opts` **[Object][148]?** 
 
 Returns **ParserNodeFragment** 
 
 ##### createText
 
-[parser.js:639-641][730]
+[parser.js:669-671][734]
 
 -   **See: {ParserNodeText#from}
     **
@@ -5635,21 +5661,21 @@ Creates a fragment parser node.
 
 ###### Parameters
 
--   `text` **[String][146]?** 
+-   `text` **[String][147]?** 
 
 Returns **ParserNodeText** 
 
 ##### from
 
-[parser.js:656-702][731]
+[parser.js:686-732][735]
 
 Creates a new `ParserNode` from input.
 
 ###### Parameters
 
--   `nameOrNode` **([String][146] | ParserNode | [Object][147])** 
--   `attributes` **[Object][147]?** 
--   `opts` **[Object][147]?** 
+-   `nameOrNode` **([String][147] | ParserNode | [Object][148])** 
+-   `attributes` **[Object][148]?** 
+-   `opts` **[Object][148]?** 
 
 ###### Examples
 
@@ -5663,7 +5689,7 @@ Returns **ParserNode**
 
 ##### empty
 
-[parser.js:710-712][732]
+[parser.js:740-742][736]
 
 Create an empty `ParserNode` instance.
 
@@ -5671,17 +5697,17 @@ Returns **ParserNode**
 
 #### ParserState
 
-[parser.js:1645-1723][733]
+[parser.js:1721-1799][737]
 
 A simple stack to store parser state.
 
 ##### Parameters
 
--   `stack` **[Array][160]?** 
+-   `stack` **[Array][161]?** 
 
 ##### head
 
-[parser.js:1662-1664][734]
+[parser.js:1738-1740][738]
 
 The first node in the parser state stack.
 
@@ -5689,7 +5715,7 @@ Type: ParserNode?
 
 ##### tail
 
-[parser.js:1672-1675][735]
+[parser.js:1748-1751][739]
 
 The last node in the parser state stack.
 
@@ -5697,23 +5723,23 @@ Type: ParserNode?
 
 ##### length
 
-[parser.js:1683-1685][736]
+[parser.js:1759-1761][740]
 
 The number of nodes in the parser state stack.
 
-Type: [Number][432]
+Type: [Number][433]
 
 ##### depth
 
-[parser.js:1693-1695][737]
+[parser.js:1769-1771][741]
 
 An alias to `state.length`
 
-Type: [Number][432]
+Type: [Number][433]
 
 ##### push
 
-[parser.js:1703-1706][738]
+[parser.js:1779-1782][742]
 
 Push one or more nodes on to the state stack.
 
@@ -5725,7 +5751,7 @@ Returns **ParserState**
 
 ##### pop
 
-[parser.js:1713-1715][739]
+[parser.js:1789-1791][743]
 
 Pop off the tail of the parser state stack and return it.
 
@@ -5733,18 +5759,18 @@ Returns **ParserNode?**
 
 #### ParserHandler
 
-[parser.js:1732-1965][740]
+[parser.js:1808-2054][744]
 
--   **See: [https://github.com/fb55/htmlparser2][741]
+-   **See: [https://github.com/fb55/htmlparser2][745]
     **
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L155][742]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L155][746]
     **
 
 Callback handlers for a `Parser` instance.
 
 ##### rootNode
 
-[parser.js:1740-1742][743]
+[parser.js:1816-1818][747]
 
 A reference to the parser state head.
 
@@ -5752,7 +5778,7 @@ Type: ParserNode?
 
 ##### currentNode
 
-[parser.js:1750-1752][744]
+[parser.js:1826-1828][748]
 
 A reference to the parser state tail.
 
@@ -5760,9 +5786,9 @@ Type: ParserNode?
 
 ##### onparserinit
 
-[parser.js:1763-1766][745]
+[parser.js:1839-1842][749]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L156][746]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L156][750]
     **
 
 Called when the parser handler is initialized.
@@ -5776,9 +5802,9 @@ the super method_.
 
 ##### onreset
 
-[parser.js:1776-1778][747]
+[parser.js:1852-1854][751]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L161][748]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L161][752]
     **
 
 Called when the parser handler is reset.
@@ -5788,9 +5814,9 @@ the super method._
 
 ##### onend
 
-[parser.js:1788-1791][749]
+[parser.js:1864-1867][753]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L166][750]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L166][754]
     **
 
 Called when the parser is finished parsing.
@@ -5800,9 +5826,9 @@ the super method._
 
 ##### onerror
 
-[parser.js:1802-1805][751]
+[parser.js:1878-1881][755]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L167][752]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L167][756]
     **
 
 Called when the parser encounters an error.
@@ -5812,13 +5838,13 @@ the super method_.
 
 ###### Parameters
 
--   `err` **[Error][753]** 
+-   `err` **[Error][757]** 
 
 ##### onopentag
 
-[parser.js:1817-1828][754]
+[parser.js:1893-1904][758]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L181][755]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L181][759]
     **
 
 Called when the parser encounters an open tag.
@@ -5828,14 +5854,14 @@ the super method_.
 
 ###### Parameters
 
--   `name` **[String][146]** 
--   `attributes` **[Object][147]?** 
+-   `name` **[String][147]** 
+-   `attributes` **[Object][148]?** 
 
 ##### onopentagname
 
-[parser.js:1839-1841][756]
+[parser.js:1915-1917][760]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L169][757]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L169][761]
     **
 
 Called when the parser encounters an open tag name.
@@ -5845,13 +5871,13 @@ the super method_.
 
 ###### Parameters
 
--   `name` **[String][146]** 
+-   `name` **[String][147]** 
 
 ##### onclosetag
 
-[parser.js:1852-1860][758]
+[parser.js:1928-1936][762]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L168][759]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L168][763]
     **
 
 Called when the parser encounters a close tag
@@ -5861,13 +5887,13 @@ the super method_.
 
 ###### Parameters
 
--   `name` **[String][146]** 
+-   `name` **[String][147]** 
 
 ##### onattribute
 
-[parser.js:1873-1875][760]
+[parser.js:1949-1951][764]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L176][761]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L176][765]
     **
 
 Called when the parser encounters an attribute key-value pair
@@ -5877,15 +5903,15 @@ the super method_.
 
 ###### Parameters
 
--   `name` **[String][146]** 
--   `value` **[String][146]** 
--   `quote` **[String][146]?**  (optional, default `null`)
+-   `name` **[String][147]** 
+-   `value` **[String][147]** 
+-   `quote` **[String][147]?**  (optional, default `null`)
 
 ##### ontext
 
-[parser.js:1886-1895][762]
+[parser.js:1962-1978][766]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L182][763]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L182][767]
     **
 
 Called when the parser encounters text.
@@ -5895,13 +5921,13 @@ the super method_.
 
 ###### Parameters
 
--   `text` **[String][146]** 
+-   `text` **[String][147]** 
 
 ##### oncomment
 
-[parser.js:1906-1916][764]
+[parser.js:1989-1999][768]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L183][765]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L183][769]
     **
 
 Called when the parser encounters a comment.
@@ -5911,13 +5937,13 @@ the super method_.
 
 ###### Parameters
 
--   `data` **[String][146]** 
+-   `data` **[String][147]** 
 
 ##### oncommentend
 
-[parser.js:1926-1928][766]
+[parser.js:2009-2011][770]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L186][767]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L186][771]
     **
 
 Called when the parser encounters the end of a comment.
@@ -5927,9 +5953,9 @@ the super method_.
 
 ##### oncdatastart
 
-[parser.js:1938-1940][768]
+[parser.js:2021-2028][772]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L184][769]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L184][773]
     **
 
 Called when the parser encounters CDATA.
@@ -5939,9 +5965,9 @@ the super method_.
 
 ##### oncdataend
 
-[parser.js:1950-1952][770]
+[parser.js:2038-2041][774]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L185][771]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L185][775]
     **
 
 Called when the parser encounters the end of CDATA.
@@ -5951,9 +5977,9 @@ the super method_.
 
 ##### onprocessinginstruction
 
-[parser.js:1962-1964][772]
+[parser.js:2051-2053][776]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L187][773]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L187][777]
     **
 
 Called when the parser encounters a processing instruction.
@@ -5968,52 +5994,52 @@ the super method_.
 
 #### ParserOptions
 
-[parser.js:1974-2156][774]
+[parser.js:2063-2245][778]
 
--   **See: [https://github.com/fb55/htmlparser2][741]
+-   **See: [https://github.com/fb55/htmlparser2][745]
     **
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L101][775]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L101][779]
     **
 
 Options with defaults for a `ParserHandler` instance
 
 ##### Parameters
 
--   `opts` **[Object][147]?** 
+-   `opts` **[Object][148]?** 
 
 ##### set
 
-[parser.js:2035-2047][776]
+[parser.js:2124-2136][780]
 
 Set an enumerable option value by key.
 
 ###### Parameters
 
--   `key` **[String][146]** 
+-   `key` **[String][147]** 
 -   `value` **Mixed?** 
 
 ##### get
 
-[parser.js:2055-2057][777]
+[parser.js:2144-2146][781]
 
 Get an enumerable option by key
 
 ###### Parameters
 
--   `key` **[String][146]** 
+-   `key` **[String][147]** 
 
 Returns **Mixed?** 
 
 ##### bindings
 
-[parser.js:2066-2066][778]
+[parser.js:2155-2155][782]
 
--   **See: [https://docs.jsonata.org/embedding-extending#expressionregisterfunctionname-implementation-signature][779]
+-   **See: [https://docs.jsonata.org/embedding-extending#expressionregisterfunctionname-implementation-signature][783]
     **
 
 JSONata query runtime bindings for the parsed node tree.
 
-Type: [Object][147]
+Type: [Object][148]
 
 ###### Parameters
 
@@ -6021,7 +6047,7 @@ Type: [Object][147]
 
 ##### handler
 
-[parser.js:2075-2075][780]
+[parser.js:2164-2164][784]
 
 Parser runtime handler functions for handling state building.
 
@@ -6033,7 +6059,7 @@ Type: ParserHandler
 
 ##### state
 
-[parser.js:2084-2084][781]
+[parser.js:2173-2173][785]
 
 Parser runtime state that can be seeded optionally through `ParserOptions`.
 
@@ -6045,14 +6071,14 @@ Type: ParserState
 
 ##### xmlMode
 
-[parser.js:2094-2094][782]
+[parser.js:2183-2183][786]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L110][783]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L110][787]
     **
 
 Enable/disable XML mode for internal parser.
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 ###### Parameters
 
@@ -6060,14 +6086,14 @@ Type: [Boolean][436]
 
 ##### lowerCaseTags
 
-[parser.js:2104-2104][784]
+[parser.js:2193-2193][788]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L124][785]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L124][789]
     **
 
 Lowercase parsed tag names.
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 ###### Parameters
 
@@ -6075,14 +6101,14 @@ Type: [Boolean][436]
 
 ##### decodeEntities
 
-[parser.js:2114-2114][786]
+[parser.js:2203-2203][790]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L117][787]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L117][791]
     **
 
 Decode entities in parsed nodes.
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 ###### Parameters
 
@@ -6090,14 +6116,14 @@ Type: [Boolean][436]
 
 ##### recognizeCDATA
 
-[parser.js:2124-2124][788]
+[parser.js:2213-2213][792]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L139][789]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L139][793]
     **
 
 Recognize CDATA in parsed nodes.
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 ###### Parameters
 
@@ -6105,14 +6131,14 @@ Type: [Boolean][436]
 
 ##### recognizeSelfClosing
 
-[parser.js:2134-2134][790]
+[parser.js:2223-2223][794]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L147][791]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L147][795]
     **
 
 Recognize self closing tags when parsing tags.
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 ###### Parameters
 
@@ -6120,14 +6146,14 @@ Type: [Boolean][436]
 
 ##### lowerCaseAttributeNames
 
-[parser.js:2144-2144][792]
+[parser.js:2233-2233][796]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L131][793]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L131][797]
     **
 
 Lowercase parsed attribute names.
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 ###### Parameters
 
@@ -6135,14 +6161,14 @@ Type: [Boolean][436]
 
 ##### preserveConsecutiveUppercase
 
-[parser.js:2154-2154][794]
+[parser.js:2243-2243][798]
 
--   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L131][793]
+-   **See: [https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L131][797]
     **
 
 Preserve consectutive uppercase when normalizing attributes and node names.
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 ###### Parameters
 
@@ -6150,20 +6176,20 @@ Type: [Boolean][436]
 
 ##### from
 
-[parser.js:2001-2003][795]
+[parser.js:2090-2092][799]
 
 Create a new `ParserOptions` instance.
 
 ###### Parameters
 
--   `opts` **([Object][147]? | ParserOptions)** 
-    -   `opts.bindings` **[Object][147]?** JSONata query function bindings (optional, default `null`)
+-   `opts` **([Object][148]? | ParserOptions)** 
+    -   `opts.bindings` **[Object][148]?** JSONata query function bindings (optional, default `null`)
     -   `opts.handler` **ParserHandler?** Parser runtime handler functions (optional, default `null`)
     -   `opts.state` **ParserState?** Initial parser state (optional, default `null`)
-    -   `opts.xmlMode` **[Boolean][436]** Enable/disable XML mode for internal parser (optional, default `true`)
-    -   `opts.lowerCaseTags` **[Boolean][436]** Lowercase parsed tag names (optional, default `false`)
-    -   `opts.decodeEntities` **[Boolean][436]** Decode entities in parsed nodes (optional, default `true`)
-    -   `opts.recognizeCDATA` **[Boolean][436]** recognize (optional, default `true`)
+    -   `opts.xmlMode` **[Boolean][437]** Enable/disable XML mode for internal parser (optional, default `true`)
+    -   `opts.lowerCaseTags` **[Boolean][437]** Lowercase parsed tag names (optional, default `false`)
+    -   `opts.decodeEntities` **[Boolean][437]** Decode entities in parsed nodes (optional, default `true`)
+    -   `opts.recognizeCDATA` **[Boolean][437]** recognize (optional, default `true`)
 
 ###### Examples
 
@@ -6184,11 +6210,11 @@ Returns **ParserOptions**
 
 #### Parser
 
-[parser.js:2164-2594][796]
+[parser.js:2253-2685][800]
 
 **Extends htmlparser2.Parser**
 
--   **See: [https://github.com/fb55/htmlparser2][741]
+-   **See: [https://github.com/fb55/htmlparser2][745]
     **
 
 An XML parser that creates a document object model.
@@ -6199,7 +6225,7 @@ An XML parser that creates a document object model.
 
 ##### options
 
-[parser.js:2363-2363][797]
+[parser.js:2454-2454][801]
 
 A reference to the parser options used to configure this parser instance.
 
@@ -6211,7 +6237,7 @@ Type: ParserOptions
 
 ##### state
 
-[parser.js:2372-2372][798]
+[parser.js:2463-2463][802]
 
 A reference to the parser state maintained by this parser instance.
 
@@ -6223,7 +6249,7 @@ Type: ParserState
 
 ##### handler
 
-[parser.js:2381-2381][799]
+[parser.js:2472-2472][803]
 
 A reference to the parser handlers that build the parser state for this instance.
 
@@ -6235,11 +6261,11 @@ Type: ParserHandler
 
 ##### ended
 
-[parser.js:2390-2390][800]
+[parser.js:2481-2481][804]
 
 A boolean to indicate if the parser has finished parsing its input.
 
-Type: [Boolean][436]
+Type: [Boolean][437]
 
 ###### Parameters
 
@@ -6247,11 +6273,11 @@ Type: [Boolean][436]
 
 ##### error
 
-[parser.js:2399-2399][801]
+[parser.js:2490-2490][805]
 
 An error, if one occurred during parsing.
 
-Type: [Error][753]?
+Type: [Error][757]?
 
 ###### Parameters
 
@@ -6259,15 +6285,15 @@ Type: [Error][753]?
 
 ##### nodes
 
-[parser.js:2408-2410][802]
+[parser.js:2499-2501][806]
 
 A pointer to the parsed state nodes
 
-Type: [Array][160]
+Type: [Array][161]
 
 ##### rootNode
 
-[parser.js:2418-2420][803]
+[parser.js:2509-2511][807]
 
 A pointer to the root node on the parsed state stack.
 
@@ -6275,23 +6301,23 @@ Type: ParserNode
 
 ##### rootType
 
-[parser.js:2428-2436][804]
+[parser.js:2519-2527][808]
 
 Returns the type of root node associated with this parser.
 
-Type: [String][146]?
+Type: [String][147]?
 
 ##### rootAttributes
 
-[parser.js:2444-2452][805]
+[parser.js:2535-2543][809]
 
 Returns the attributes of the root node associated with this parser.
 
-Type: [Object][147]?
+Type: [Object][148]?
 
 ##### createWriteStream
 
-[parser.js:2459-2465][806]
+[parser.js:2550-2556][810]
 
 Creates a `WritableStream` for the `Parser` instance.
 
@@ -6303,9 +6329,9 @@ Returns **WritableStream**
 
 ##### createReadStream
 
-[parser.js:2475-2506][807]
+[parser.js:2566-2597][811]
 
--   **See: [https://github.com/streamxorg/streamx#readable-stream][808]
+-   **See: [https://github.com/streamxorg/streamx#readable-stream][812]
     **
 
 Creates a `ReadableStream` for the `Parser` instance.
@@ -6320,18 +6346,18 @@ Returns **ReadableStream**
 
 ##### query
 
-[parser.js:2519-2528][809]
+[parser.js:2610-2619][813]
 
--   **See: [https://jsonata.org][655]
+-   **See: [https://jsonata.org][656]
     **
 
 Query the root document object model using "JSONata" query syntax.
 
 ###### Parameters
 
--   `queryString` **[String][146]?** A "JSONata" query string (optional, default `'$'`)
--   `opts` **[Object][147]?** Query options
-    -   `opts.inspect` **[Boolean][436]?** If `true`, will set `util.inspect.custom` symbols (optional, default `false`)
+-   `queryString` **[String][147]?** A "JSONata" query string (optional, default `'$'`)
+-   `opts` **[Object][148]?** Query options
+    -   `opts.inspect` **[Boolean][437]?** If `true`, will set `util.inspect.custom` symbols (optional, default `false`)
 
 ###### Examples
 
@@ -6343,7 +6369,7 @@ Returns **(ParserNode? | ParserNodeFragment | ParserNodeText)**
 
 ##### then
 
-[parser.js:2571-2573][810]
+[parser.js:2662-2664][814]
 
 Implements `then` for async/await and `Promise` compat.
 
@@ -6352,11 +6378,11 @@ Implements `then` for async/await and `Promise` compat.
 -   `resolve`  
 -   `reject`  
 
-Returns **[Promise][811]** 
+Returns **[Promise][815]** 
 
 ##### toString
 
-[parser.js:2591-2593][812]
+[parser.js:2682-2684][816]
 
 Converts this instance into a string. Returns the root nodes
 string value
@@ -6371,24 +6397,24 @@ string value
 const sourceString = parser.toString()
 ```
 
-Returns **[String][146]** 
+Returns **[String][147]** 
 
 ##### from
 
-[parser.js:2173-2299][813]
+[parser.js:2262-2388][817]
 
 Create a new `Parser` from input.
 
 ###### Parameters
 
--   `input` **([Object][147] \| [String][146] | Parser)** 
+-   `input` **([Object][148] \| [String][147] | Parser)** 
 -   `args` **...any** 
 
 Returns **Parser** 
 
 ##### createWriteStream
 
-[parser.js:2307-2310][814]
+[parser.js:2396-2399][818]
 
 Creates a `WritableStream` for a new `Parser` instance.
 
@@ -6400,9 +6426,9 @@ Returns **WritableStream**
 
 ### document
 
-[document.js:241-247][815]
+[document.js:259-265][819]
 
--   **See: [ParserNode][816]
+-   **See: [ParserNode][820]
     **
 
 A core module for working with and building XML documents. The
@@ -6453,25 +6479,25 @@ console.log(urls)
 
 #### Node
 
-[document.js:14-14][817]
+[document.js:15-15][821]
 
 **Extends ParserNode**
 
--   **See: [ParserNode][816]
+-   **See: [ParserNode][820]
     **
 
 An abstract document node.
 
 ##### Parameters
 
--   `name` **[String][146]** 
--   `attributes` **[Object][147]?** 
--   `depth` **[Number][432]?** 
--   `opts` **[Object][147]?** 
+-   `name` **[String][147]** 
+-   `attributes` **[Object][148]?** 
+-   `depth` **[Number][433]?** 
+-   `opts` **[Object][148]?** 
 
 #### AbstractDocument
 
-[document.js:22-151][818]
+[document.js:23-169][822]
 
 **Extends Node**
 
@@ -6480,23 +6506,23 @@ An abstract document object model.
 ##### Parameters
 
 -   `parser` **Parser** 
--   `opts` **[Object][147]?** 
+-   `opts` **[Object][148]?** 
 
 ##### ready
 
-[document.js:136-138][819]
+[document.js:137-139][823]
 
 Calls `callback()` when the document is "ready".
 
 ###### Parameters
 
--   `callback` **[Function][664]** 
+-   `callback` **[Function][665]** 
 
-Returns **[Promise][811]** 
+Returns **[Promise][815]** 
 
 ##### createChild
 
-[document.js:147-150][820]
+[document.js:148-151][824]
 
 Creates and appends a child node to this node.
 
@@ -6510,41 +6536,49 @@ Creates and appends a child node to this node.
 
 Returns **ParserNode** 
 
+##### toJSON
+
+[document.js:166-168][825]
+
+Returns a plain JSON object of this instance.
+
+Returns **[Object][148]** 
+
 ##### Node
 
-[document.js:32-34][821]
+[document.js:33-35][826]
 
 A reference to the `Node` class used by this
 document.
 
-Type: [Node][822]
+Type: [Node][827]
 
 ##### nodeName
 
-[document.js:46-48][823]
+[document.js:47-49][828]
 
 The node name of the document. This static class property is an abstract
 accessor used to define the name of the document node name. By default,
 this value is an empty string.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### from
 
-[document.js:58-89][824]
+[document.js:59-90][829]
 
 Create a new `Document` instance from input
 
 ###### Parameters
 
--   `input` **([Document][157] | Parser | [String][146] | ReadableStream)** 
--   `opts` **[Object][147]?** 
+-   `input` **([Document][158] | Parser | [String][147] | ReadableStream)** 
+-   `opts` **[Object][148]?** 
 
-Returns **[Document][157]** 
+Returns **[Document][158]** 
 
 #### Document
 
-[document.js:161-173][825]
+[document.js:179-191][830]
 
 **Extends AbstractDocument**
 
@@ -6553,19 +6587,19 @@ An abstract document object model for XML.
 ##### Parameters
 
 -   `parser` **Parser** 
--   `opts` **[Object][147]?** 
+-   `opts` **[Object][148]?** 
 
 ##### nodeName
 
-[document.js:170-172][826]
+[document.js:188-190][831]
 
 The default node name of a document.
 
-Type: [String][146]
+Type: [String][147]
 
 #### createDocument
 
-[document.js:181-183][827]
+[document.js:199-201][832]
 
 Factory for creating `Document` instances.
 
@@ -6573,11 +6607,11 @@ Factory for creating `Document` instances.
 
 -   `args` **...any** 
 
-Returns **[Document][157]** 
+Returns **[Document][158]** 
 
 #### createNode
 
-[document.js:191-193][828]
+[document.js:209-211][833]
 
 Factory for creating `Node` instances.
 
@@ -6585,11 +6619,11 @@ Factory for creating `Node` instances.
 
 -   `args` **...any** 
 
-Returns **[Node][822]** 
+Returns **[Node][827]** 
 
 ### entity
 
-[entity.js:203-205][829]
+[entity.js:204-206][834]
 
 A module for the base `Entity` used as a base class for
 various porcelain classes.
@@ -6620,13 +6654,13 @@ console.log(programme.channel, programme.start, programme.stop)
 
 #### Entity
 
-[entity.js:21-175][830]
+[entity.js:21-176][835]
 
 Base entity used as a base class for various porcelain classes.
 
 ##### Parameters
 
--   `document` **[Document][157]** The document this entity node is owned by
+-   `document` **[Document][158]** The document this entity node is owned by
 -   `node` **ParserNode** The node this entity represents a view over
 
 ##### Examples
@@ -6647,15 +6681,15 @@ console.log(programme.channel)
 
 ##### children
 
-[entity.js:68-70][831]
+[entity.js:68-70][836]
 
 A reference to the children for this entity' node.
 
-Type: [Array][160]
+Type: [Array][161]
 
 ##### attributes
 
-[entity.js:78-80][832]
+[entity.js:78-80][837]
 
 A reference to the attributes for this entity' node.
 
@@ -6663,17 +6697,21 @@ Type: ParserNodeAttributes
 
 ##### text
 
-[entity.js:88-90][833]
+[entity.js:88-90][838]
 
 The text body for this entity' node.
 
-Type: [String][146]
+Type: [String][147]
 
 ##### keys
 
-[entity.js:101-125][834]
+[entity.js:101-126][839]
 
 Computed keys for this instance
+
+###### Parameters
+
+-   `opts`  
 
 ###### Examples
 
@@ -6683,13 +6721,13 @@ for (const key of entity.keys()) {
 }
 ```
 
-Returns **[Array][160]&lt;[String][146]>** 
+Returns **[Array][161]&lt;[String][147]>** 
 
 ##### query
 
-[entity.js:139-144][835]
+[entity.js:140-145][840]
 
--   **See: [https://jsonata.org][655]
+-   **See: [https://jsonata.org][656]
     **
 
 Query the document object model represented by this entity
@@ -6697,8 +6735,8 @@ using "JSONata" query syntax.
 
 ###### Parameters
 
--   `queryString` **[String][146]?** A "JSONata" query string (optional, default `'$'`)
--   `opts` **[Object][147]?** Query options
+-   `queryString` **[String][147]?** A "JSONata" query string (optional, default `'$'`)
+-   `opts` **[Object][148]?** Query options
 
 ###### Examples
 
@@ -6707,34 +6745,34 @@ const now = Date()
 entity.query(`programmes[$int(attr(start)) > $int("${now}")`)
 ```
 
-Returns **([Array][160] \| [Object][147] | null)** 
+Returns **([Array][161] \| [Object][148] | null)** 
 
 ##### toJSON
 
-[entity.js:151-153][836]
+[entity.js:152-154][841]
 
 Returns a plain JSON object of this instance.
 
-Returns **[Object][147]** 
+Returns **[Object][148]** 
 
 ##### toString
 
-[entity.js:161-163][837]
+[entity.js:162-164][842]
 
 Converts this entity to a string. Will return the internal node
 body string by default.
 
-Returns **[String][146]** 
+Returns **[String][147]** 
 
 ##### from
 
-[entity.js:33-39][838]
+[entity.js:33-39][843]
 
 Create an `Entity` from input.
 
 ###### Parameters
 
--   `document` **[Document][157]** The document this entity node is owned by
+-   `document` **[Document][158]** The document this entity node is owned by
 -   `node` **ParserNode** The node this entity represents a view over
 
 ###### Examples
@@ -6747,17 +6785,17 @@ Returns **Entity**
 
 ### query
 
-[query/index.js:1217-1226][839]
+[query/index.js:1217-1226][844]
 
 Module exports.
 
 #### cache
 
-[query/index.js:39-39][840]
+[query/index.js:39-39][845]
 
 An internal cache used to cache compiled queries.
 
-Type: [Map][841]
+Type: [Map][846]
 
 ##### Examples
 
@@ -6769,7 +6807,7 @@ cache.clear()
 
 #### Imports
 
-[query/index.js:47-171][842]
+[query/index.js:47-171][847]
 
 **Extends Map**
 
@@ -6777,21 +6815,21 @@ An extended Map of imports with an abstract `load()` method.
 
 ##### Parameters
 
--   `opts` **[Object][147]** 
+-   `opts` **[Object][148]** 
 
 ##### load
 
-[query/index.js:112-115][843]
+[query/index.js:112-115][848]
 
 Imports loader function implementation
 
 ###### Parameters
 
--   `target` **[String][146]** 
+-   `target` **[String][147]** 
 
 ##### from
 
-[query/index.js:56-81][844]
+[query/index.js:56-81][849]
 
 Creates a new `Imports` instance from a variety of input.
 
@@ -6803,7 +6841,7 @@ Returns **Imports**
 
 #### Assignments
 
-[query/index.js:179-211][845]
+[query/index.js:179-211][850]
 
 **Extends Map**
 
@@ -6811,7 +6849,7 @@ An extended Map of key-value assignments for global variables.
 
 ##### from
 
-[query/index.js:188-206][846]
+[query/index.js:188-206][851]
 
 Creates a new `Assignments` instance from a variety of input.
 
@@ -6823,66 +6861,66 @@ Returns **Assignments**
 
 #### Context
 
-[query/index.js:219-473][847]
+[query/index.js:219-473][852]
 
 Query context object that is a container for imports, global variables,
 query target, and more.
 
 ##### Parameters
 
--   `opts` **[Object][147]** 
+-   `opts` **[Object][148]** 
 
 ##### import
 
-[query/index.js:380-472][848]
+[query/index.js:380-472][853]
 
 Imports target calling context loader.
 
 ###### Parameters
 
--   `name` **[String][146]** 
+-   `name` **[String][147]** 
 
-Returns **([Promise][811]&lt;Mixed> | null)** 
+Returns **([Promise][815]&lt;Mixed> | null)** 
 
 #### Expression
 
-[query/index.js:480-661][849]
+[query/index.js:480-661][854]
 
 Query expression container. Query transforms and bindings are applied here.
 
 ##### Parameters
 
 -   `context`  
--   `string` **[String][146]** 
--   `opts` **[Object][147]?** 
+-   `string` **[String][147]** 
+-   `opts` **[Object][148]?** 
 
 ##### imports
 
-[query/index.js:540-542][850]
+[query/index.js:540-542][855]
 
 A map of all import paths to their promise for resolution known for or
 requested by this expression query or injected externally.
 
-Type: [Map][841]?
+Type: [Map][846]?
 
 ##### assignments
 
-[query/index.js:551-553][851]
+[query/index.js:551-553][856]
 
 A map of all global key-value assignments known for or set by this
 expression query or injected externally.
 
-Type: [Map][841]?
+Type: [Map][846]?
 
 ##### reset
 
-[query/index.js:559-564][852]
+[query/index.js:559-564][857]
 
 Resets processed expression value.
 
 #### Transforms
 
-[query/index.js:668-799][853]
+[query/index.js:668-799][858]
 
 Query transform container to apply many transforms to an input.
 
@@ -6893,7 +6931,7 @@ Query transform container to apply many transforms to an input.
 
 #### Bindings
 
-[query/index.js:806-905][854]
+[query/index.js:806-905][859]
 
 Query bindings container
 
@@ -6904,28 +6942,28 @@ Query bindings container
 
 ##### keys
 
-[query/index.js:875-877][855]
+[query/index.js:875-877][860]
 
 Returns binding keys.
 
-Returns **[Array][160]&lt;[String][146]>** 
+Returns **[Array][161]&lt;[String][147]>** 
 
 ##### get
 
-[query/index.js:890-904][856]
+[query/index.js:890-904][861]
 
 Queries for binding by name. If binding is a function, a bound
 wrapped function is returned that calls the function.
 
 ###### Parameters
 
--   `name` **[String][146]** 
+-   `name` **[String][147]** 
 
-Returns **[Function][664]?** 
+Returns **[Function][665]?** 
 
 ##### from
 
-[query/index.js:814-823][857]
+[query/index.js:814-823][862]
 
 Creates a new `Bindings` instance from input.
 
@@ -6938,21 +6976,21 @@ Returns **Bindings**
 
 ##### builtins
 
-[query/index.js:832-834][858]
+[query/index.js:832-834][863]
 
 The default built in bindings.
 
-Type: [Object][147]
+Type: [Object][148]
 
 #### query
 
-[query/index.js:943-1128][859]
+[query/index.js:943-1128][864]
 
--   **See: [https://jsonata.org][655]
+-   **See: [https://jsonata.org][656]
     **
 
 Query the document object model represented by a node
-using ["JSONata"][655] query syntax with
+using ["JSONata"][656] query syntax with
 special selector syntax for working with {ParserNode} instances.
 
 ### JSONata functions
@@ -6960,13 +6998,13 @@ special selector syntax for working with {ParserNode} instances.
 ##### Parameters
 
 -   `node` **ParserNode?** The parser node to query
--   `queryString` **[String][146]?** A [JSONata][655] query string (optional, default `'$'`)
--   `opts` **[Object][147]?** Query options
-    -   `opts.model` **[Object][147]?** An optional model to query, instead of one derived from the input `node` (optional, default `{}`)
-    -   `opts.bindings` **[Object][147]?** Bindings to use instead of the ones derived from the input `node` (optional, default `node.options.bindings`)
-    -   `opts.assignments` **[Object][147]??** A key-value object of variable assignments. This function will modify this object.
-    -   `opts.imports` **[Map][841]??** A map of existing imports. This function will modify this map.
-    -   `opts.load` **[Function][664]??** An import loader function. This function must be given if queries use the `import <path|URL>` statement.
+-   `queryString` **[String][147]?** A [JSONata][656] query string (optional, default `'$'`)
+-   `opts` **[Object][148]?** Query options
+    -   `opts.model` **[Object][148]?** An optional model to query, instead of one derived from the input `node` (optional, default `{}`)
+    -   `opts.bindings` **[Object][148]?** Bindings to use instead of the ones derived from the input `node` (optional, default `node.options.bindings`)
+    -   `opts.assignments` **[Object][148]??** A key-value object of variable assignments. This function will modify this object.
+    -   `opts.imports` **[Map][846]??** A map of existing imports. This function will modify this map.
+    -   `opts.load` **[Function][665]??** An import loader function. This function must be given if queries use the `import <path|URL>` statement.
 
 ##### Examples
 
@@ -6987,11 +7025,11 @@ const atom = query(node, '[name="channel"]:first:children:first[name="atom:link"
 const billingId = query(node, '[name ~> /^offer:BillingId$/i]:first:text')
 ```
 
-Returns **(ParserNode | ParserNodeFragment | [String][146] | any)?** 
+Returns **(ParserNode | ParserNodeFragment | [String][147] | any)?** 
 
 ### normalize
 
-[normalize.js:255-261][860]
+[normalize.js:255-261][865]
 
 A module that provides various normalization functions.
 
@@ -7014,13 +7052,13 @@ console.log(normalizeAttributes({ Time_Code: '00:01.5-01:00' }).timeCode)
 
 #### normalizeValue
 
-[normalize.js:56-129][861]
+[normalize.js:56-129][866]
 
--   **See: [https://github.com/MelleB/tinyduration][862]
+-   **See: [https://github.com/MelleB/tinyduration][867]
     **
--   **See: [https://github.com/little-core-labs/npt-timecode][484]
+-   **See: [https://github.com/little-core-labs/npt-timecode][485]
     **
--   **See: [https://github.com/CrystalComputerCorp/smpte-timecode][863]
+-   **See: [https://github.com/CrystalComputerCorp/smpte-timecode][868]
     **
 
 Normalize a value from a string or mixed input.
@@ -7080,17 +7118,17 @@ Returns **any?**
 
 #### normalizeAttributes
 
-[normalize.js:148-172][864]
+[normalize.js:148-172][869]
 
 Normalize attribute key-value pairs.
 
 ##### Parameters
 
 -   `attributes`  
--   `opts` **[Object][147]?** 
-    -   `opts.preserveConsecutiveUppercase` **[Boolean][436]?** Preserve consecutive uppercase characters in keys (optional, default `true`)
-    -   `opts.normalizeValues` **[Boolean][436]?** Preserve consecutive uppercase characters in keys (optional, default `true`)
--   `attribute` **[Object][147]** 
+-   `opts` **[Object][148]?** 
+    -   `opts.preserveConsecutiveUppercase` **[Boolean][437]?** Preserve consecutive uppercase characters in keys (optional, default `true`)
+    -   `opts.normalizeValues` **[Boolean][437]?** Preserve consecutive uppercase characters in keys (optional, default `true`)
+-   `attribute` **[Object][148]** 
 
 ##### Examples
 
@@ -7103,22 +7141,22 @@ console.log(attrs.timeCode)
 // }
 ```
 
-Returns **[Object][147]** 
+Returns **[Object][148]** 
 
 #### normalizeKey
 
-[normalize.js:190-196][865]
+[normalize.js:190-196][870]
 
--   **See: [https://github.com/sindresorhus/camelcase][866]
+-   **See: [https://github.com/sindresorhus/camelcase][871]
     **
 
 Normalize key.
 
 ##### Parameters
 
--   `key` **[String][146]** Key to normalize
--   `opts` **[Object][147]?** Key normalization options
-    -   `opts.preserveConsecutiveUppercase` **[Boolean][436]?** Preserve consecutive uppercase characters (optional, default `false`)
+-   `key` **[String][147]** Key to normalize
+-   `opts` **[Object][148]?** Key normalization options
+    -   `opts.preserveConsecutiveUppercase` **[Boolean][437]?** Preserve consecutive uppercase characters (optional, default `false`)
 
 ##### Examples
 
@@ -7132,24 +7170,24 @@ console.log(normalizeKey('Asset_ID'), { preserveConsecutiveUppercase: true })
 // 'assetID'
 ```
 
-Returns **[String][146]** 
+Returns **[String][147]** 
 
 #### normalizeAttributeKey
 
-[normalize.js:215-220][867]
+[normalize.js:215-220][872]
 
 -   **See: normalizeKey
     **
--   **See: [https://github.com/sindresorhus/camelcase][866]
+-   **See: [https://github.com/sindresorhus/camelcase][871]
     **
 
 Normalize attribute key.
 
 ##### Parameters
 
--   `key` **[String][146]** Key to normalize
--   `opts` **[Object][147]?** Key normalization options
-    -   `opts.preserveConsecutiveUppercase` **[Boolean][436]?** Preserve consecutive uppercase characters (optional, default `true`)
+-   `key` **[String][147]** Key to normalize
+-   `opts` **[Object][148]?** Key normalization options
+    -   `opts.preserveConsecutiveUppercase` **[Boolean][437]?** Preserve consecutive uppercase characters (optional, default `true`)
 
 ##### Examples
 
@@ -7163,11 +7201,11 @@ console.log(normalizeAttributeKey('Provider_ID'), { preserveConsecutiveUppercase
 // 'providerId'
 ```
 
-Returns **[String][146]** 
+Returns **[String][147]** 
 
 #### normalizeAttributeValue
 
-[normalize.js:233-235][868]
+[normalize.js:233-235][873]
 
 -   **See: normalizeValue
     **
@@ -7176,7 +7214,7 @@ Normalize attribute value.
 
 ##### Parameters
 
--   `value` **[String][146]** Value to normalize
+-   `value` **[String][147]** Value to normalize
 
 ##### Examples
 
@@ -7185,11 +7223,11 @@ console.log(normalizeAttributeValue('2021-01-23T18:12:42.963Z'))
 // Date (2021-01-23T18:12:42.963Z)
 ```
 
-Returns **[String][146]** 
+Returns **[String][147]** 
 
 ## fragment
 
-[fragment.js:20-22][869]
+[fragment.js:20-22][874]
 
 A module that provides a container for fragment nodes.
 
@@ -7204,7 +7242,7 @@ const textNodes = node.query('**[ is text and is not empty ]')
 
 ### Fragment
 
-[fragment.js:8-8][870]
+[fragment.js:8-8][875]
 
 **Extends ParserNodeFragment**
 
@@ -7212,13 +7250,14 @@ A high level container for fragment content.
 
 ## validate
 
-[validate.js:52-60][871]
+[validate.js:52-66][876]
 
 Validates XML source input string.
 
 ### Parameters
 
--   `xml` **[String][146]** 
+-   `xml` **[String][147]** 
+-   `opts`  
 
 
 -   Throws **any** ValidationError
@@ -7227,7 +7266,7 @@ Returns **Boolea**
 
 ### ValidationError
 
-[validate.js:8-43][872]
+[validate.js:8-43][877]
 
 **Extends SyntaxError**
 
@@ -7235,15 +7274,15 @@ A container for a validation error derived from a `SyntaxError` class.
 
 #### Parameters
 
--   `code` **[String][146]** 
--   `message` **[String][146]** 
--   `opts` **[Object][147]?** 
+-   `code` **[String][147]** 
+-   `message` **[String][147]** 
+-   `opts` **[Object][148]?** 
 
 ## validate
 
-[validate.js:75-78][873]
+[validate.js:81-84][878]
 
--   **See: [https://github.com/NaturalIntelligence/fast-xml-parser][874]
+-   **See: [https://github.com/NaturalIntelligence/fast-xml-parser][879]
     **
 
 A module to provide XML validation.
@@ -7261,7 +7300,7 @@ try {
 
 ### ValidationError
 
-[validate.js:8-43][872]
+[validate.js:8-43][877]
 
 **Extends SyntaxError**
 
@@ -7269,13 +7308,13 @@ A container for a validation error derived from a `SyntaxError` class.
 
 #### Parameters
 
--   `code` **[String][146]** 
--   `message` **[String][146]** 
--   `opts` **[Object][147]?** 
+-   `code` **[String][147]** 
+-   `message` **[String][147]** 
+-   `opts` **[Object][148]?** 
 
 ## text
 
-[text.js:20-22][875]
+[text.js:20-22][880]
 
 A module that provides a container for text nodes.
 
@@ -7290,7 +7329,7 @@ const textNodes = node.query('**[ is text and is not empty ]')
 
 ### Text
 
-[text.js:8-8][876]
+[text.js:8-8][881]
 
 **Extends ParserNodeText**
 
@@ -7486,1564 +7525,1574 @@ A high level container for text content.
 
 [95]: #parsernodetext
 
-[96]: #parsernodefragment
+[96]: #parsernodecdata
 
-[97]: #parsernode
+[97]: #parsernodefragment
 
-[98]: #parserstate
+[98]: #parsernode
 
-[99]: #parserhandler
+[99]: #parserstate
 
-[100]: #parseroptions
+[100]: #parserhandler
 
-[101]: #parser-1
+[101]: #parseroptions
 
-[102]: #document-5
+[102]: #parser-1
 
-[103]: #examples-6
+[103]: #document-5
 
-[104]: #node
+[104]: #examples-6
 
-[105]: #abstractdocument
+[105]: #node
 
-[106]: #document-6
+[106]: #abstractdocument
 
-[107]: #createdocument-5
+[107]: #document-6
 
-[108]: #createnode
+[108]: #createdocument-5
 
-[109]: #entity
+[109]: #createnode
 
-[110]: #examples-7
+[110]: #entity
 
-[111]: #entity-1
+[111]: #examples-7
 
-[112]: #query
+[112]: #entity-1
 
-[113]: #cache
+[113]: #query
 
-[114]: #imports
+[114]: #cache
 
-[115]: #assignments
+[115]: #imports
 
-[116]: #context
+[116]: #assignments
 
-[117]: #expression
+[117]: #context
 
-[118]: #transforms
+[118]: #expression
 
-[119]: #bindings
+[119]: #transforms
 
-[120]: #query-1
+[120]: #bindings
 
-[121]: #jsonata-functions
+[121]: #query-1
 
-[122]: #normalize
+[122]: #jsonata-functions
 
-[123]: #examples-8
+[123]: #normalize
 
-[124]: #normalizevalue
+[124]: #examples-8
 
-[125]: #normalizeattributes
+[125]: #normalizevalue
 
-[126]: #normalizekey
+[126]: #normalizeattributes
 
-[127]: #normalizeattributekey
+[127]: #normalizekey
 
-[128]: #normalizeattributevalue
+[128]: #normalizeattributekey
 
-[129]: #fragment
+[129]: #normalizeattributevalue
 
-[130]: #examples-9
+[130]: #fragment
 
-[131]: #fragment-1
+[131]: #examples-9
 
-[132]: #validate
+[132]: #fragment-1
 
-[133]: #parameters
+[133]: #validate
 
-[134]: #validationerror
+[134]: #parameters
 
-[135]: #parameters-1
+[135]: #validationerror
 
-[136]: #validate-1
+[136]: #parameters-1
 
-[137]: #examples-10
+[137]: #validate-1
 
-[138]: #validationerror-1
+[138]: #examples-10
 
-[139]: #parameters-2
+[139]: #validationerror-1
 
-[140]: #text
+[140]: #parameters-2
 
-[141]: #examples-11
+[141]: #text
 
-[142]: #text-1
+[142]: #examples-11
 
-[143]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L419-L427 "Source code on GitHub"
+[143]: #text-1
 
-[144]: https://community.cablelabs.com/wiki/plugins/servlet/cablelabs/alfresco/download?id=8f900e8b-d1eb-4834-bd26-f04bd623c3d2
+[144]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L419-L427 "Source code on GitHub"
 
-[145]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L23-L112 "Source code on GitHub"
+[145]: https://community.cablelabs.com/wiki/plugins/servlet/cablelabs/alfresco/download?id=8f900e8b-d1eb-4834-bd26-f04bd623c3d2
 
-[146]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[146]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L23-L112 "Source code on GitHub"
 
-[147]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[147]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[148]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L97-L100 "Source code on GitHub"
+[148]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[149]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L108-L111 "Source code on GitHub"
+[149]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L97-L100 "Source code on GitHub"
 
-[150]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L32-L34 "Source code on GitHub"
+[150]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L108-L111 "Source code on GitHub"
 
-[151]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L43-L45 "Source code on GitHub"
+[151]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L32-L34 "Source code on GitHub"
 
-[152]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L54-L56 "Source code on GitHub"
+[152]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L43-L45 "Source code on GitHub"
 
-[153]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L65-L67 "Source code on GitHub"
+[153]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L54-L56 "Source code on GitHub"
 
-[154]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L76-L78 "Source code on GitHub"
+[154]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L65-L67 "Source code on GitHub"
 
-[155]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L87-L89 "Source code on GitHub"
+[155]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L76-L78 "Source code on GitHub"
 
-[156]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L121-L152 "Source code on GitHub"
+[156]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L87-L89 "Source code on GitHub"
 
-[157]: https://developer.mozilla.org/docs/Web/API/Document
+[157]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L121-L152 "Source code on GitHub"
 
-[158]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L129-L133 "Source code on GitHub"
+[158]: https://developer.mozilla.org/docs/Web/API/Document
 
-[159]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L142-L151 "Source code on GitHub"
+[159]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L129-L133 "Source code on GitHub"
 
-[160]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[160]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L142-L151 "Source code on GitHub"
 
-[161]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L161-L261 "Source code on GitHub"
+[161]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[162]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L168-L170 "Source code on GitHub"
+[162]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L161-L261 "Source code on GitHub"
 
-[163]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L177-L179 "Source code on GitHub"
+[163]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L168-L170 "Source code on GitHub"
 
-[164]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L186-L188 "Source code on GitHub"
+[164]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L177-L179 "Source code on GitHub"
 
-[165]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L195-L197 "Source code on GitHub"
+[165]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L186-L188 "Source code on GitHub"
 
-[166]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date
+[166]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L195-L197 "Source code on GitHub"
 
-[167]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L204-L206 "Source code on GitHub"
+[167]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Date
 
-[168]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L213-L215 "Source code on GitHub"
+[168]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L204-L206 "Source code on GitHub"
 
-[169]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L222-L224 "Source code on GitHub"
+[169]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L213-L215 "Source code on GitHub"
 
-[170]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L231-L233 "Source code on GitHub"
+[170]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L222-L224 "Source code on GitHub"
 
-[171]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L240-L242 "Source code on GitHub"
+[171]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L231-L233 "Source code on GitHub"
 
-[172]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L249-L251 "Source code on GitHub"
+[172]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L240-L242 "Source code on GitHub"
 
-[173]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L258-L260 "Source code on GitHub"
+[173]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L249-L251 "Source code on GitHub"
 
-[174]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L270-L316 "Source code on GitHub"
+[174]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L258-L260 "Source code on GitHub"
 
-[175]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L277-L279 "Source code on GitHub"
+[175]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L270-L316 "Source code on GitHub"
 
-[176]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L286-L288 "Source code on GitHub"
+[176]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L277-L279 "Source code on GitHub"
 
-[177]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L295-L297 "Source code on GitHub"
+[177]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L286-L288 "Source code on GitHub"
 
-[178]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L304-L306 "Source code on GitHub"
+[178]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L295-L297 "Source code on GitHub"
 
-[179]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L313-L315 "Source code on GitHub"
+[179]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L304-L306 "Source code on GitHub"
 
-[180]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L325-L336 "Source code on GitHub"
+[180]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L313-L315 "Source code on GitHub"
 
-[181]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L333-L335 "Source code on GitHub"
+[181]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L325-L336 "Source code on GitHub"
 
-[182]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L345-L387 "Source code on GitHub"
+[182]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L333-L335 "Source code on GitHub"
 
-[183]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L353-L357 "Source code on GitHub"
+[183]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L345-L387 "Source code on GitHub"
 
-[184]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L365-L375 "Source code on GitHub"
+[184]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L353-L357 "Source code on GitHub"
 
-[185]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L382-L386 "Source code on GitHub"
+[185]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L365-L375 "Source code on GitHub"
 
-[186]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi.js#L396-L398 "Source code on GitHub"
+[186]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L382-L386 "Source code on GitHub"
 
-[187]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L1168-L1185 "Source code on GitHub"
+[187]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi.js#L396-L398 "Source code on GitHub"
 
-[188]: https://scte-cms-resource-storage.s3.amazonaws.com/ANSI_SCTE-35-2019a-1582645390859.pdf
+[188]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L1168-L1185 "Source code on GitHub"
 
-[189]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L22-L195 "Source code on GitHub"
+[189]: https://scte-cms-resource-storage.s3.amazonaws.com/ANSI_SCTE-35-2019a-1582645390859.pdf
 
-[190]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L184-L194 "Source code on GitHub"
+[190]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L22-L195 "Source code on GitHub"
 
-[191]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L31-L33 "Source code on GitHub"
+[191]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L184-L194 "Source code on GitHub"
 
-[192]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L42-L44 "Source code on GitHub"
+[192]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L31-L33 "Source code on GitHub"
 
-[193]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L53-L55 "Source code on GitHub"
+[193]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L42-L44 "Source code on GitHub"
 
-[194]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L64-L66 "Source code on GitHub"
+[194]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L53-L55 "Source code on GitHub"
 
-[195]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L75-L77 "Source code on GitHub"
+[195]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L64-L66 "Source code on GitHub"
 
-[196]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L86-L88 "Source code on GitHub"
+[196]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L75-L77 "Source code on GitHub"
 
-[197]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L97-L99 "Source code on GitHub"
+[197]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L86-L88 "Source code on GitHub"
 
-[198]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L108-L110 "Source code on GitHub"
+[198]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L97-L99 "Source code on GitHub"
 
-[199]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L119-L121 "Source code on GitHub"
+[199]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L108-L110 "Source code on GitHub"
 
-[200]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L130-L132 "Source code on GitHub"
+[200]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L119-L121 "Source code on GitHub"
 
-[201]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L141-L143 "Source code on GitHub"
+[201]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L130-L132 "Source code on GitHub"
 
-[202]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L152-L154 "Source code on GitHub"
+[202]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L141-L143 "Source code on GitHub"
 
-[203]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L163-L165 "Source code on GitHub"
+[203]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L152-L154 "Source code on GitHub"
 
-[204]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L174-L176 "Source code on GitHub"
+[204]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L163-L165 "Source code on GitHub"
 
-[205]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L204-L716 "Source code on GitHub"
+[205]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L174-L176 "Source code on GitHub"
 
-[206]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L212-L214 "Source code on GitHub"
+[206]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L204-L716 "Source code on GitHub"
 
-[207]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L221-L223 "Source code on GitHub"
+[207]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L212-L214 "Source code on GitHub"
 
-[208]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L230-L232 "Source code on GitHub"
+[208]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L221-L223 "Source code on GitHub"
 
-[209]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L239-L241 "Source code on GitHub"
+[209]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L230-L232 "Source code on GitHub"
 
-[210]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L248-L250 "Source code on GitHub"
+[210]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L239-L241 "Source code on GitHub"
 
-[211]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L257-L259 "Source code on GitHub"
+[211]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L248-L250 "Source code on GitHub"
 
-[212]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L266-L268 "Source code on GitHub"
+[212]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L257-L259 "Source code on GitHub"
 
-[213]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L275-L286 "Source code on GitHub"
+[213]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L266-L268 "Source code on GitHub"
 
-[214]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L293-L295 "Source code on GitHub"
+[214]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L275-L286 "Source code on GitHub"
 
-[215]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L302-L304 "Source code on GitHub"
+[215]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L293-L295 "Source code on GitHub"
 
-[216]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L311-L313 "Source code on GitHub"
+[216]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L302-L304 "Source code on GitHub"
 
-[217]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L320-L322 "Source code on GitHub"
+[217]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L311-L313 "Source code on GitHub"
 
-[218]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L329-L331 "Source code on GitHub"
+[218]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L320-L322 "Source code on GitHub"
 
-[219]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L338-L349 "Source code on GitHub"
+[219]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L329-L331 "Source code on GitHub"
 
-[220]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L356-L365 "Source code on GitHub"
+[220]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L338-L349 "Source code on GitHub"
 
-[221]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L372-L376 "Source code on GitHub"
+[221]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L356-L365 "Source code on GitHub"
 
-[222]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L387-L389 "Source code on GitHub"
+[222]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L372-L376 "Source code on GitHub"
 
-[223]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L396-L400 "Source code on GitHub"
+[223]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L387-L389 "Source code on GitHub"
 
-[224]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L407-L411 "Source code on GitHub"
+[224]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L396-L400 "Source code on GitHub"
 
-[225]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L418-L422 "Source code on GitHub"
+[225]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L407-L411 "Source code on GitHub"
 
-[226]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L429-L433 "Source code on GitHub"
+[226]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L418-L422 "Source code on GitHub"
 
-[227]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L440-L444 "Source code on GitHub"
+[227]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L429-L433 "Source code on GitHub"
 
-[228]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L451-L455 "Source code on GitHub"
+[228]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L440-L444 "Source code on GitHub"
 
-[229]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L462-L466 "Source code on GitHub"
+[229]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L451-L455 "Source code on GitHub"
 
-[230]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L473-L482 "Source code on GitHub"
+[230]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L462-L466 "Source code on GitHub"
 
-[231]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L489-L497 "Source code on GitHub"
+[231]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L473-L482 "Source code on GitHub"
 
-[232]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L655-L657 "Source code on GitHub"
+[232]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L489-L497 "Source code on GitHub"
 
-[233]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L664-L666 "Source code on GitHub"
+[233]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L655-L657 "Source code on GitHub"
 
-[234]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L673-L681 "Source code on GitHub"
+[234]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L664-L666 "Source code on GitHub"
 
-[235]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L688-L696 "Source code on GitHub"
+[235]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L673-L681 "Source code on GitHub"
 
-[236]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L724-L736 "Source code on GitHub"
+[236]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L688-L696 "Source code on GitHub"
 
-[237]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L744-L752 "Source code on GitHub"
+[237]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L724-L736 "Source code on GitHub"
 
-[238]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L760-L761 "Source code on GitHub"
+[238]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L744-L752 "Source code on GitHub"
 
-[239]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L769-L773 "Source code on GitHub"
+[239]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L760-L761 "Source code on GitHub"
 
-[240]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L781-L785 "Source code on GitHub"
+[240]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L769-L773 "Source code on GitHub"
 
-[241]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L793-L801 "Source code on GitHub"
+[241]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L781-L785 "Source code on GitHub"
 
-[242]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L809-L825 "Source code on GitHub"
+[242]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L793-L801 "Source code on GitHub"
 
-[243]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L833-L853 "Source code on GitHub"
+[243]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L809-L825 "Source code on GitHub"
 
-[244]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L861-L968 "Source code on GitHub"
+[244]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L833-L853 "Source code on GitHub"
 
-[245]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L977-L1018 "Source code on GitHub"
+[245]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L861-L968 "Source code on GitHub"
 
-[246]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L985-L987 "Source code on GitHub"
+[246]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L977-L1018 "Source code on GitHub"
 
-[247]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L995-L997 "Source code on GitHub"
+[247]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L985-L987 "Source code on GitHub"
 
-[248]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L1005-L1007 "Source code on GitHub"
+[248]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L995-L997 "Source code on GitHub"
 
-[249]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L1015-L1017 "Source code on GitHub"
+[249]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L1005-L1007 "Source code on GitHub"
 
-[250]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L1027-L1068 "Source code on GitHub"
+[250]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L1015-L1017 "Source code on GitHub"
 
-[251]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L1035-L1037 "Source code on GitHub"
+[251]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L1027-L1068 "Source code on GitHub"
 
-[252]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L1045-L1047 "Source code on GitHub"
+[252]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L1035-L1037 "Source code on GitHub"
 
-[253]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L1055-L1057 "Source code on GitHub"
+[253]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L1045-L1047 "Source code on GitHub"
 
-[254]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L1065-L1067 "Source code on GitHub"
+[254]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L1055-L1057 "Source code on GitHub"
 
-[255]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L1077-L1098 "Source code on GitHub"
+[255]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L1065-L1067 "Source code on GitHub"
 
-[256]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L1085-L1087 "Source code on GitHub"
+[256]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L1077-L1098 "Source code on GitHub"
 
-[257]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L1095-L1097 "Source code on GitHub"
+[257]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L1085-L1087 "Source code on GitHub"
 
-[258]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L1107-L1138 "Source code on GitHub"
+[258]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L1095-L1097 "Source code on GitHub"
 
-[259]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L1115-L1117 "Source code on GitHub"
+[259]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L1107-L1138 "Source code on GitHub"
 
-[260]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L1125-L1127 "Source code on GitHub"
+[260]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L1115-L1117 "Source code on GitHub"
 
-[261]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L1135-L1137 "Source code on GitHub"
+[261]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L1125-L1127 "Source code on GitHub"
 
-[262]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/adi3.js#L1147-L1149 "Source code on GitHub"
+[262]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L1135-L1137 "Source code on GitHub"
 
-[263]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L805-L815 "Source code on GitHub"
+[263]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/adi3.js#L1147-L1149 "Source code on GitHub"
 
-[264]: https://validator.w3.org/feed/docs/rss2.html
+[264]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L805-L815 "Source code on GitHub"
 
-[265]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L22-L139 "Source code on GitHub"
+[265]: https://validator.w3.org/feed/docs/rss2.html
 
-[266]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L119-L128 "Source code on GitHub"
+[266]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L22-L139 "Source code on GitHub"
 
-[267]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L136-L138 "Source code on GitHub"
+[267]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L119-L128 "Source code on GitHub"
 
-[268]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L31-L33 "Source code on GitHub"
+[268]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L136-L138 "Source code on GitHub"
 
-[269]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L42-L44 "Source code on GitHub"
+[269]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L31-L33 "Source code on GitHub"
 
-[270]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L53-L55 "Source code on GitHub"
+[270]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L42-L44 "Source code on GitHub"
 
-[271]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L64-L66 "Source code on GitHub"
+[271]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L53-L55 "Source code on GitHub"
 
-[272]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L75-L77 "Source code on GitHub"
+[272]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L64-L66 "Source code on GitHub"
 
-[273]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L86-L88 "Source code on GitHub"
+[273]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L75-L77 "Source code on GitHub"
 
-[274]: https://developer.mozilla.org/docs/Web/API/HTMLImageElement/Image
+[274]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L86-L88 "Source code on GitHub"
 
-[275]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L97-L99 "Source code on GitHub"
+[275]: https://developer.mozilla.org/docs/Web/API/HTMLImageElement/Image
 
-[276]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L108-L110 "Source code on GitHub"
+[276]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L97-L99 "Source code on GitHub"
 
-[277]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L148-L416 "Source code on GitHub"
+[277]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L108-L110 "Source code on GitHub"
 
-[278]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L157-L159 "Source code on GitHub"
+[278]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L148-L416 "Source code on GitHub"
 
-[279]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L168-L170 "Source code on GitHub"
+[279]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L157-L159 "Source code on GitHub"
 
-[280]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L179-L181 "Source code on GitHub"
+[280]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L168-L170 "Source code on GitHub"
 
-[281]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L190-L192 "Source code on GitHub"
+[281]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L179-L181 "Source code on GitHub"
 
-[282]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L201-L204 "Source code on GitHub"
+[282]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L190-L192 "Source code on GitHub"
 
-[283]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L213-L215 "Source code on GitHub"
+[283]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L201-L204 "Source code on GitHub"
 
-[284]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L224-L226 "Source code on GitHub"
+[284]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L213-L215 "Source code on GitHub"
 
-[285]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L235-L237 "Source code on GitHub"
+[285]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L224-L226 "Source code on GitHub"
 
-[286]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L246-L248 "Source code on GitHub"
+[286]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L235-L237 "Source code on GitHub"
 
-[287]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L257-L259 "Source code on GitHub"
+[287]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L246-L248 "Source code on GitHub"
 
-[288]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L268-L270 "Source code on GitHub"
+[288]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L257-L259 "Source code on GitHub"
 
-[289]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L279-L284 "Source code on GitHub"
+[289]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L268-L270 "Source code on GitHub"
 
-[290]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L293-L295 "Source code on GitHub"
+[290]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L279-L284 "Source code on GitHub"
 
-[291]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L304-L306 "Source code on GitHub"
+[291]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L293-L295 "Source code on GitHub"
 
-[292]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L315-L317 "Source code on GitHub"
+[292]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L304-L306 "Source code on GitHub"
 
-[293]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L326-L328 "Source code on GitHub"
+[293]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L315-L317 "Source code on GitHub"
 
-[294]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L336-L339 "Source code on GitHub"
+[294]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L326-L328 "Source code on GitHub"
 
-[295]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L348-L353 "Source code on GitHub"
+[295]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L336-L339 "Source code on GitHub"
 
-[296]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L362-L365 "Source code on GitHub"
+[296]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L348-L353 "Source code on GitHub"
 
-[297]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L374-L379 "Source code on GitHub"
+[297]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L362-L365 "Source code on GitHub"
 
-[298]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L388-L391 "Source code on GitHub"
+[298]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L374-L379 "Source code on GitHub"
 
-[299]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L400-L402 "Source code on GitHub"
+[299]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L388-L391 "Source code on GitHub"
 
-[300]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L410-L415 "Source code on GitHub"
+[300]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L400-L402 "Source code on GitHub"
 
-[301]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L425-L470 "Source code on GitHub"
+[301]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L410-L415 "Source code on GitHub"
 
-[302]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L434-L436 "Source code on GitHub"
+[302]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L425-L470 "Source code on GitHub"
 
-[303]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L445-L447 "Source code on GitHub"
+[303]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L434-L436 "Source code on GitHub"
 
-[304]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L456-L458 "Source code on GitHub"
+[304]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L445-L447 "Source code on GitHub"
 
-[305]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L467-L469 "Source code on GitHub"
+[305]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L456-L458 "Source code on GitHub"
 
-[306]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L479-L546 "Source code on GitHub"
+[306]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L467-L469 "Source code on GitHub"
 
-[307]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L488-L490 "Source code on GitHub"
+[307]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L479-L546 "Source code on GitHub"
 
-[308]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L499-L501 "Source code on GitHub"
+[308]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L488-L490 "Source code on GitHub"
 
-[309]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L510-L512 "Source code on GitHub"
+[309]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L499-L501 "Source code on GitHub"
 
-[310]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L521-L523 "Source code on GitHub"
+[310]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L510-L512 "Source code on GitHub"
 
-[311]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L532-L534 "Source code on GitHub"
+[311]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L521-L523 "Source code on GitHub"
 
-[312]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L543-L545 "Source code on GitHub"
+[312]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L532-L534 "Source code on GitHub"
 
-[313]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L555-L586 "Source code on GitHub"
+[313]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L543-L545 "Source code on GitHub"
 
-[314]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L564-L566 "Source code on GitHub"
+[314]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L555-L586 "Source code on GitHub"
 
-[315]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L574-L576 "Source code on GitHub"
+[315]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L564-L566 "Source code on GitHub"
 
-[316]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L583-L585 "Source code on GitHub"
+[316]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L574-L576 "Source code on GitHub"
 
-[317]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L595-L712 "Source code on GitHub"
+[317]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L583-L585 "Source code on GitHub"
 
-[318]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L604-L606 "Source code on GitHub"
+[318]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L595-L712 "Source code on GitHub"
 
-[319]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L615-L617 "Source code on GitHub"
+[319]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L604-L606 "Source code on GitHub"
 
-[320]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L626-L628 "Source code on GitHub"
+[320]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L615-L617 "Source code on GitHub"
 
-[321]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L637-L639 "Source code on GitHub"
+[321]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L626-L628 "Source code on GitHub"
 
-[322]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L648-L650 "Source code on GitHub"
+[322]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L637-L639 "Source code on GitHub"
 
-[323]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L658-L660 "Source code on GitHub"
+[323]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L648-L650 "Source code on GitHub"
 
-[324]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L669-L674 "Source code on GitHub"
+[324]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L658-L660 "Source code on GitHub"
 
-[325]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L682-L685 "Source code on GitHub"
+[325]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L669-L674 "Source code on GitHub"
 
-[326]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L693-L698 "Source code on GitHub"
+[326]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L682-L685 "Source code on GitHub"
 
-[327]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L706-L711 "Source code on GitHub"
+[327]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L693-L698 "Source code on GitHub"
 
-[328]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L721-L732 "Source code on GitHub"
+[328]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L706-L711 "Source code on GitHub"
 
-[329]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L729-L731 "Source code on GitHub"
+[329]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L721-L732 "Source code on GitHub"
 
-[330]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L741-L772 "Source code on GitHub"
+[330]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L729-L731 "Source code on GitHub"
 
-[331]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L749-L751 "Source code on GitHub"
+[331]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L741-L772 "Source code on GitHub"
 
-[332]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L759-L761 "Source code on GitHub"
+[332]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L749-L751 "Source code on GitHub"
 
-[333]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L769-L771 "Source code on GitHub"
+[333]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L759-L761 "Source code on GitHub"
 
-[334]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/rss.js#L781-L783 "Source code on GitHub"
+[334]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L769-L771 "Source code on GitHub"
 
-[335]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2653-L2691 "Source code on GitHub"
+[335]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/rss.js#L781-L783 "Source code on GitHub"
 
-[336]: https://www.rssboard.org/media-rss
+[336]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2653-L2691 "Source code on GitHub"
 
-[337]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L280-L578 "Source code on GitHub"
+[337]: https://www.rssboard.org/media-rss
 
-[338]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L574-L577 "Source code on GitHub"
+[338]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L280-L578 "Source code on GitHub"
 
-[339]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L289-L291 "Source code on GitHub"
+[339]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L574-L577 "Source code on GitHub"
 
-[340]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L300-L302 "Source code on GitHub"
+[340]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L289-L291 "Source code on GitHub"
 
-[341]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L311-L313 "Source code on GitHub"
+[341]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L300-L302 "Source code on GitHub"
 
-[342]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L322-L324 "Source code on GitHub"
+[342]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L311-L313 "Source code on GitHub"
 
-[343]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L333-L335 "Source code on GitHub"
+[343]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L322-L324 "Source code on GitHub"
 
-[344]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L344-L346 "Source code on GitHub"
+[344]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L333-L335 "Source code on GitHub"
 
-[345]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L355-L357 "Source code on GitHub"
+[345]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L344-L346 "Source code on GitHub"
 
-[346]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L366-L368 "Source code on GitHub"
+[346]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L355-L357 "Source code on GitHub"
 
-[347]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L377-L379 "Source code on GitHub"
+[347]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L366-L368 "Source code on GitHub"
 
-[348]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L388-L390 "Source code on GitHub"
+[348]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L377-L379 "Source code on GitHub"
 
-[349]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L399-L401 "Source code on GitHub"
+[349]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L388-L390 "Source code on GitHub"
 
-[350]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L410-L412 "Source code on GitHub"
+[350]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L399-L401 "Source code on GitHub"
 
-[351]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L421-L423 "Source code on GitHub"
+[351]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L410-L412 "Source code on GitHub"
 
-[352]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L432-L434 "Source code on GitHub"
+[352]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L421-L423 "Source code on GitHub"
 
-[353]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L443-L445 "Source code on GitHub"
+[353]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L432-L434 "Source code on GitHub"
 
-[354]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L454-L456 "Source code on GitHub"
+[354]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L443-L445 "Source code on GitHub"
 
-[355]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L465-L467 "Source code on GitHub"
+[355]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L454-L456 "Source code on GitHub"
 
-[356]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L476-L478 "Source code on GitHub"
+[356]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L465-L467 "Source code on GitHub"
 
-[357]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L487-L489 "Source code on GitHub"
+[357]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L476-L478 "Source code on GitHub"
 
-[358]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L498-L500 "Source code on GitHub"
+[358]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L487-L489 "Source code on GitHub"
 
-[359]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L509-L511 "Source code on GitHub"
+[359]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L498-L500 "Source code on GitHub"
 
-[360]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L520-L522 "Source code on GitHub"
+[360]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L509-L511 "Source code on GitHub"
 
-[361]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L531-L533 "Source code on GitHub"
+[361]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L520-L522 "Source code on GitHub"
 
-[362]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L542-L544 "Source code on GitHub"
+[362]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L531-L533 "Source code on GitHub"
 
-[363]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L553-L555 "Source code on GitHub"
+[363]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L542-L544 "Source code on GitHub"
 
-[364]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L564-L566 "Source code on GitHub"
+[364]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L553-L555 "Source code on GitHub"
 
-[365]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L587-L822 "Source code on GitHub"
+[365]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L564-L566 "Source code on GitHub"
 
-[366]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L597-L603 "Source code on GitHub"
+[366]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L587-L822 "Source code on GitHub"
 
-[367]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L613-L619 "Source code on GitHub"
+[367]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L597-L603 "Source code on GitHub"
 
-[368]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L627-L629 "Source code on GitHub"
+[368]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L613-L619 "Source code on GitHub"
 
-[369]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L637-L639 "Source code on GitHub"
+[369]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L627-L629 "Source code on GitHub"
 
-[370]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L647-L649 "Source code on GitHub"
+[370]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L637-L639 "Source code on GitHub"
 
-[371]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L657-L659 "Source code on GitHub"
+[371]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L647-L649 "Source code on GitHub"
 
-[372]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L667-L669 "Source code on GitHub"
+[372]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L657-L659 "Source code on GitHub"
 
-[373]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L677-L679 "Source code on GitHub"
+[373]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L667-L669 "Source code on GitHub"
 
-[374]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L687-L689 "Source code on GitHub"
+[374]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L677-L679 "Source code on GitHub"
 
-[375]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L697-L699 "Source code on GitHub"
+[375]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L687-L689 "Source code on GitHub"
 
-[376]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L707-L709 "Source code on GitHub"
+[376]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L697-L699 "Source code on GitHub"
 
-[377]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L717-L719 "Source code on GitHub"
+[377]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L707-L709 "Source code on GitHub"
 
-[378]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L727-L729 "Source code on GitHub"
+[378]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L717-L719 "Source code on GitHub"
 
-[379]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L737-L739 "Source code on GitHub"
+[379]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L727-L729 "Source code on GitHub"
 
-[380]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L747-L749 "Source code on GitHub"
+[380]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L737-L739 "Source code on GitHub"
 
-[381]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L757-L761 "Source code on GitHub"
+[381]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L747-L749 "Source code on GitHub"
 
-[382]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L769-L773 "Source code on GitHub"
+[382]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L757-L761 "Source code on GitHub"
 
-[383]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L781-L785 "Source code on GitHub"
+[383]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L769-L773 "Source code on GitHub"
 
-[384]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L793-L797 "Source code on GitHub"
+[384]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L781-L785 "Source code on GitHub"
 
-[385]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L805-L809 "Source code on GitHub"
+[385]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L793-L797 "Source code on GitHub"
 
-[386]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L817-L821 "Source code on GitHub"
+[386]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L805-L809 "Source code on GitHub"
 
-[387]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L831-L1064 "Source code on GitHub"
+[387]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L817-L821 "Source code on GitHub"
 
-[388]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L840-L842 "Source code on GitHub"
+[388]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L831-L1064 "Source code on GitHub"
 
-[389]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L851-L855 "Source code on GitHub"
+[389]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L840-L842 "Source code on GitHub"
 
-[390]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L863-L873 "Source code on GitHub"
+[390]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L851-L855 "Source code on GitHub"
 
-[391]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L881-L883 "Source code on GitHub"
+[391]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L863-L873 "Source code on GitHub"
 
-[392]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L891-L893 "Source code on GitHub"
+[392]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L881-L883 "Source code on GitHub"
 
-[393]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L901-L903 "Source code on GitHub"
+[393]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L891-L893 "Source code on GitHub"
 
-[394]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L911-L913 "Source code on GitHub"
+[394]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L901-L903 "Source code on GitHub"
 
-[395]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L921-L923 "Source code on GitHub"
+[395]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L911-L913 "Source code on GitHub"
 
-[396]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L931-L933 "Source code on GitHub"
+[396]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L921-L923 "Source code on GitHub"
 
-[397]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L941-L943 "Source code on GitHub"
+[397]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L931-L933 "Source code on GitHub"
 
-[398]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L951-L953 "Source code on GitHub"
+[398]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L941-L943 "Source code on GitHub"
 
-[399]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L961-L963 "Source code on GitHub"
+[399]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L951-L953 "Source code on GitHub"
 
-[400]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L971-L973 "Source code on GitHub"
+[400]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L961-L963 "Source code on GitHub"
 
-[401]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L981-L983 "Source code on GitHub"
+[401]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L971-L973 "Source code on GitHub"
 
-[402]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L991-L993 "Source code on GitHub"
+[402]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L981-L983 "Source code on GitHub"
 
-[403]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1001-L1003 "Source code on GitHub"
+[403]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L991-L993 "Source code on GitHub"
 
-[404]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1011-L1015 "Source code on GitHub"
+[404]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1001-L1003 "Source code on GitHub"
 
-[405]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1023-L1027 "Source code on GitHub"
+[405]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1011-L1015 "Source code on GitHub"
 
-[406]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1035-L1039 "Source code on GitHub"
+[406]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1023-L1027 "Source code on GitHub"
 
-[407]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1047-L1051 "Source code on GitHub"
+[407]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1035-L1039 "Source code on GitHub"
 
-[408]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1059-L1063 "Source code on GitHub"
+[408]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1047-L1051 "Source code on GitHub"
 
-[409]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1073-L1283 "Source code on GitHub"
+[409]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1059-L1063 "Source code on GitHub"
 
-[410]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1081-L1092 "Source code on GitHub"
+[410]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1073-L1283 "Source code on GitHub"
 
-[411]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1100-L1102 "Source code on GitHub"
+[411]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1081-L1092 "Source code on GitHub"
 
-[412]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1110-L1112 "Source code on GitHub"
+[412]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1100-L1102 "Source code on GitHub"
 
-[413]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1120-L1122 "Source code on GitHub"
+[413]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1110-L1112 "Source code on GitHub"
 
-[414]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1130-L1132 "Source code on GitHub"
+[414]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1120-L1122 "Source code on GitHub"
 
-[415]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1140-L1142 "Source code on GitHub"
+[415]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1130-L1132 "Source code on GitHub"
 
-[416]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1150-L1152 "Source code on GitHub"
+[416]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1140-L1142 "Source code on GitHub"
 
-[417]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1160-L1162 "Source code on GitHub"
+[417]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1150-L1152 "Source code on GitHub"
 
-[418]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1170-L1172 "Source code on GitHub"
+[418]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1160-L1162 "Source code on GitHub"
 
-[419]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1180-L1182 "Source code on GitHub"
+[419]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1170-L1172 "Source code on GitHub"
 
-[420]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1190-L1192 "Source code on GitHub"
+[420]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1180-L1182 "Source code on GitHub"
 
-[421]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1200-L1202 "Source code on GitHub"
+[421]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1190-L1192 "Source code on GitHub"
 
-[422]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1210-L1212 "Source code on GitHub"
+[422]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1200-L1202 "Source code on GitHub"
 
-[423]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1220-L1222 "Source code on GitHub"
+[423]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1210-L1212 "Source code on GitHub"
 
-[424]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1230-L1234 "Source code on GitHub"
+[424]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1220-L1222 "Source code on GitHub"
 
-[425]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1242-L1246 "Source code on GitHub"
+[425]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1230-L1234 "Source code on GitHub"
 
-[426]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1254-L1258 "Source code on GitHub"
+[426]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1242-L1246 "Source code on GitHub"
 
-[427]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1266-L1270 "Source code on GitHub"
+[427]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1254-L1258 "Source code on GitHub"
 
-[428]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1278-L1282 "Source code on GitHub"
+[428]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1266-L1270 "Source code on GitHub"
 
-[429]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1292-L1706 "Source code on GitHub"
+[429]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1278-L1282 "Source code on GitHub"
 
-[430]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1300-L1313 "Source code on GitHub"
+[430]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1292-L1706 "Source code on GitHub"
 
-[431]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1321-L1323 "Source code on GitHub"
+[431]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1300-L1313 "Source code on GitHub"
 
-[432]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[432]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1321-L1323 "Source code on GitHub"
 
-[433]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1333-L1338 "Source code on GitHub"
+[433]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
-[434]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1347-L1349 "Source code on GitHub"
+[434]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1333-L1338 "Source code on GitHub"
 
-[435]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1357-L1359 "Source code on GitHub"
+[435]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1347-L1349 "Source code on GitHub"
 
-[436]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[436]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1357-L1359 "Source code on GitHub"
 
-[437]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1376-L1378 "Source code on GitHub"
+[437]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
-[438]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1386-L1388 "Source code on GitHub"
+[438]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1376-L1378 "Source code on GitHub"
 
-[439]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1396-L1398 "Source code on GitHub"
+[439]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1386-L1388 "Source code on GitHub"
 
-[440]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1406-L1408 "Source code on GitHub"
+[440]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1396-L1398 "Source code on GitHub"
 
-[441]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1416-L1418 "Source code on GitHub"
+[441]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1406-L1408 "Source code on GitHub"
 
-[442]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1426-L1428 "Source code on GitHub"
+[442]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1416-L1418 "Source code on GitHub"
 
-[443]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1436-L1438 "Source code on GitHub"
+[443]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1426-L1428 "Source code on GitHub"
 
-[444]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1446-L1448 "Source code on GitHub"
+[444]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1436-L1438 "Source code on GitHub"
 
-[445]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1456-L1458 "Source code on GitHub"
+[445]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1446-L1448 "Source code on GitHub"
 
-[446]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1466-L1468 "Source code on GitHub"
+[446]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1456-L1458 "Source code on GitHub"
 
-[447]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1476-L1478 "Source code on GitHub"
+[447]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1466-L1468 "Source code on GitHub"
 
-[448]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1486-L1489 "Source code on GitHub"
+[448]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1476-L1478 "Source code on GitHub"
 
-[449]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1497-L1499 "Source code on GitHub"
+[449]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1486-L1489 "Source code on GitHub"
 
-[450]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1507-L1509 "Source code on GitHub"
+[450]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1497-L1499 "Source code on GitHub"
 
-[451]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1517-L1519 "Source code on GitHub"
+[451]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1507-L1509 "Source code on GitHub"
 
-[452]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1527-L1529 "Source code on GitHub"
+[452]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1517-L1519 "Source code on GitHub"
 
-[453]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1537-L1539 "Source code on GitHub"
+[453]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1527-L1529 "Source code on GitHub"
 
-[454]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1547-L1549 "Source code on GitHub"
+[454]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1537-L1539 "Source code on GitHub"
 
-[455]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1557-L1559 "Source code on GitHub"
+[455]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1547-L1549 "Source code on GitHub"
 
-[456]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1567-L1569 "Source code on GitHub"
+[456]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1557-L1559 "Source code on GitHub"
 
-[457]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1577-L1579 "Source code on GitHub"
+[457]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1567-L1569 "Source code on GitHub"
 
-[458]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1587-L1589 "Source code on GitHub"
+[458]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1577-L1579 "Source code on GitHub"
 
-[459]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1597-L1599 "Source code on GitHub"
+[459]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1587-L1589 "Source code on GitHub"
 
-[460]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1607-L1609 "Source code on GitHub"
+[460]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1597-L1599 "Source code on GitHub"
 
-[461]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1617-L1619 "Source code on GitHub"
+[461]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1607-L1609 "Source code on GitHub"
 
-[462]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1627-L1631 "Source code on GitHub"
+[462]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1617-L1619 "Source code on GitHub"
 
-[463]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1639-L1643 "Source code on GitHub"
+[463]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1627-L1631 "Source code on GitHub"
 
-[464]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1651-L1655 "Source code on GitHub"
+[464]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1639-L1643 "Source code on GitHub"
 
-[465]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1663-L1667 "Source code on GitHub"
+[465]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1651-L1655 "Source code on GitHub"
 
-[466]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1675-L1679 "Source code on GitHub"
+[466]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1663-L1667 "Source code on GitHub"
 
-[467]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1686-L1705 "Source code on GitHub"
+[467]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1675-L1679 "Source code on GitHub"
 
-[468]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1716-L1747 "Source code on GitHub"
+[468]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1686-L1705 "Source code on GitHub"
 
-[469]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1724-L1726 "Source code on GitHub"
+[469]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1716-L1747 "Source code on GitHub"
 
-[470]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1734-L1736 "Source code on GitHub"
+[470]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1724-L1726 "Source code on GitHub"
 
-[471]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1744-L1746 "Source code on GitHub"
+[471]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1734-L1736 "Source code on GitHub"
 
-[472]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1756-L1793 "Source code on GitHub"
+[472]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1744-L1746 "Source code on GitHub"
 
-[473]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1775-L1782 "Source code on GitHub"
+[473]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1756-L1793 "Source code on GitHub"
 
-[474]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1790-L1792 "Source code on GitHub"
+[474]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1775-L1782 "Source code on GitHub"
 
-[475]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1765-L1767 "Source code on GitHub"
+[475]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1790-L1792 "Source code on GitHub"
 
-[476]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1802-L1829 "Source code on GitHub"
+[476]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1765-L1767 "Source code on GitHub"
 
-[477]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1821-L1828 "Source code on GitHub"
+[477]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1802-L1829 "Source code on GitHub"
 
-[478]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1811-L1813 "Source code on GitHub"
+[478]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1821-L1828 "Source code on GitHub"
 
-[479]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1838-L1865 "Source code on GitHub"
+[479]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1811-L1813 "Source code on GitHub"
 
-[480]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1857-L1864 "Source code on GitHub"
+[480]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1838-L1865 "Source code on GitHub"
 
-[481]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1847-L1849 "Source code on GitHub"
+[481]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1857-L1864 "Source code on GitHub"
 
-[482]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1876-L1889 "Source code on GitHub"
+[482]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1847-L1849 "Source code on GitHub"
 
-[483]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1886-L1888 "Source code on GitHub"
+[483]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1876-L1889 "Source code on GitHub"
 
-[484]: https://github.com/little-core-labs/npt-timecode
+[484]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1886-L1888 "Source code on GitHub"
 
-[485]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1898-L1946 "Source code on GitHub"
+[485]: https://github.com/little-core-labs/npt-timecode
 
-[486]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1917-L1924 "Source code on GitHub"
+[486]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1898-L1946 "Source code on GitHub"
 
-[487]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1933-L1935 "Source code on GitHub"
+[487]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1917-L1924 "Source code on GitHub"
 
-[488]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1943-L1945 "Source code on GitHub"
+[488]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1933-L1935 "Source code on GitHub"
 
-[489]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1907-L1909 "Source code on GitHub"
+[489]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1943-L1945 "Source code on GitHub"
 
-[490]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1955-L1987 "Source code on GitHub"
+[490]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1907-L1909 "Source code on GitHub"
 
-[491]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1974-L1976 "Source code on GitHub"
+[491]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1955-L1987 "Source code on GitHub"
 
-[492]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1984-L1986 "Source code on GitHub"
+[492]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1974-L1976 "Source code on GitHub"
 
-[493]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1964-L1966 "Source code on GitHub"
+[493]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1984-L1986 "Source code on GitHub"
 
-[494]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L1996-L2043 "Source code on GitHub"
+[494]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1964-L1966 "Source code on GitHub"
 
-[495]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2015-L2022 "Source code on GitHub"
+[495]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L1996-L2043 "Source code on GitHub"
 
-[496]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2030-L2032 "Source code on GitHub"
+[496]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2015-L2022 "Source code on GitHub"
 
-[497]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2040-L2042 "Source code on GitHub"
+[497]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2030-L2032 "Source code on GitHub"
 
-[498]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2005-L2007 "Source code on GitHub"
+[498]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2040-L2042 "Source code on GitHub"
 
-[499]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2052-L2063 "Source code on GitHub"
+[499]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2005-L2007 "Source code on GitHub"
 
-[500]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2060-L2062 "Source code on GitHub"
+[500]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2052-L2063 "Source code on GitHub"
 
-[501]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2072-L2145 "Source code on GitHub"
+[501]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2060-L2062 "Source code on GitHub"
 
-[502]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2091-L2098 "Source code on GitHub"
+[502]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2072-L2145 "Source code on GitHub"
 
-[503]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2106-L2108 "Source code on GitHub"
+[503]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2091-L2098 "Source code on GitHub"
 
-[504]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2118-L2120 "Source code on GitHub"
+[504]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2106-L2108 "Source code on GitHub"
 
-[505]: https://www.ietf.org/rfc/rfc2326.txt
+[505]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2118-L2120 "Source code on GitHub"
 
-[506]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2130-L2132 "Source code on GitHub"
+[506]: https://www.ietf.org/rfc/rfc2326.txt
 
-[507]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2142-L2144 "Source code on GitHub"
+[507]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2130-L2132 "Source code on GitHub"
 
-[508]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2081-L2083 "Source code on GitHub"
+[508]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2142-L2144 "Source code on GitHub"
 
-[509]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2154-L2186 "Source code on GitHub"
+[509]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2081-L2083 "Source code on GitHub"
 
-[510]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2163-L2165 "Source code on GitHub"
+[510]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2154-L2186 "Source code on GitHub"
 
-[511]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2173-L2175 "Source code on GitHub"
+[511]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2163-L2165 "Source code on GitHub"
 
-[512]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2183-L2185 "Source code on GitHub"
+[512]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2173-L2175 "Source code on GitHub"
 
-[513]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2196-L2237 "Source code on GitHub"
+[513]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2183-L2185 "Source code on GitHub"
 
-[514]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2204-L2206 "Source code on GitHub"
+[514]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2196-L2237 "Source code on GitHub"
 
-[515]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2214-L2216 "Source code on GitHub"
+[515]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2204-L2206 "Source code on GitHub"
 
-[516]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2224-L2236 "Source code on GitHub"
+[516]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2214-L2216 "Source code on GitHub"
 
-[517]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2246-L2289 "Source code on GitHub"
+[517]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2224-L2236 "Source code on GitHub"
 
-[518]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2254-L2256 "Source code on GitHub"
+[518]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2246-L2289 "Source code on GitHub"
 
-[519]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2264-L2266 "Source code on GitHub"
+[519]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2254-L2256 "Source code on GitHub"
 
-[520]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2274-L2276 "Source code on GitHub"
+[520]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2264-L2266 "Source code on GitHub"
 
-[521]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2284-L2288 "Source code on GitHub"
+[521]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2274-L2276 "Source code on GitHub"
 
-[522]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2298-L2310 "Source code on GitHub"
+[522]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2284-L2288 "Source code on GitHub"
 
-[523]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2319-L2340 "Source code on GitHub"
+[523]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2298-L2310 "Source code on GitHub"
 
-[524]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2327-L2329 "Source code on GitHub"
+[524]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2319-L2340 "Source code on GitHub"
 
-[525]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2337-L2339 "Source code on GitHub"
+[525]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2327-L2329 "Source code on GitHub"
 
-[526]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2349-L2390 "Source code on GitHub"
+[526]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2337-L2339 "Source code on GitHub"
 
-[527]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2357-L2359 "Source code on GitHub"
+[527]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2349-L2390 "Source code on GitHub"
 
-[528]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2367-L2369 "Source code on GitHub"
+[528]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2357-L2359 "Source code on GitHub"
 
-[529]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2377-L2379 "Source code on GitHub"
+[529]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2367-L2369 "Source code on GitHub"
 
-[530]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2387-L2389 "Source code on GitHub"
+[530]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2377-L2379 "Source code on GitHub"
 
-[531]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2399-L2430 "Source code on GitHub"
+[531]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2387-L2389 "Source code on GitHub"
 
-[532]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2407-L2409 "Source code on GitHub"
+[532]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2399-L2430 "Source code on GitHub"
 
-[533]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2417-L2419 "Source code on GitHub"
+[533]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2407-L2409 "Source code on GitHub"
 
-[534]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2427-L2429 "Source code on GitHub"
+[534]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2417-L2419 "Source code on GitHub"
 
-[535]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2439-L2470 "Source code on GitHub"
+[535]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2427-L2429 "Source code on GitHub"
 
-[536]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2447-L2449 "Source code on GitHub"
+[536]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2439-L2470 "Source code on GitHub"
 
-[537]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2457-L2459 "Source code on GitHub"
+[537]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2447-L2449 "Source code on GitHub"
 
-[538]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2467-L2469 "Source code on GitHub"
+[538]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2457-L2459 "Source code on GitHub"
 
-[539]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2479-L2500 "Source code on GitHub"
+[539]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2467-L2469 "Source code on GitHub"
 
-[540]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2487-L2489 "Source code on GitHub"
+[540]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2479-L2500 "Source code on GitHub"
 
-[541]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2497-L2499 "Source code on GitHub"
+[541]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2487-L2489 "Source code on GitHub"
 
-[542]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2509-L2520 "Source code on GitHub"
+[542]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2497-L2499 "Source code on GitHub"
 
-[543]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2517-L2519 "Source code on GitHub"
+[543]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2509-L2520 "Source code on GitHub"
 
-[544]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2529-L2570 "Source code on GitHub"
+[544]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2517-L2519 "Source code on GitHub"
 
-[545]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2537-L2539 "Source code on GitHub"
+[545]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2529-L2570 "Source code on GitHub"
 
-[546]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2547-L2549 "Source code on GitHub"
+[546]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2537-L2539 "Source code on GitHub"
 
-[547]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2557-L2559 "Source code on GitHub"
+[547]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2547-L2549 "Source code on GitHub"
 
-[548]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2567-L2569 "Source code on GitHub"
+[548]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2557-L2559 "Source code on GitHub"
 
-[549]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2579-L2620 "Source code on GitHub"
+[549]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2567-L2569 "Source code on GitHub"
 
-[550]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2587-L2589 "Source code on GitHub"
+[550]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2579-L2620 "Source code on GitHub"
 
-[551]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2597-L2599 "Source code on GitHub"
+[551]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2587-L2589 "Source code on GitHub"
 
-[552]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2607-L2609 "Source code on GitHub"
+[552]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2597-L2599 "Source code on GitHub"
 
-[553]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2617-L2619 "Source code on GitHub"
+[553]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2607-L2609 "Source code on GitHub"
 
-[554]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/mrss.js#L2629-L2631 "Source code on GitHub"
+[554]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2617-L2619 "Source code on GitHub"
 
-[555]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L1261-L1281 "Source code on GitHub"
+[555]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/mrss.js#L2629-L2631 "Source code on GitHub"
 
-[556]: http://wiki.xmltv.org/index.php/XMLTVFormat
+[556]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L1264-L1284 "Source code on GitHub"
 
-[557]: https://github.com/XMLTV/xmltv/blob/master/xmltv.dtd
+[557]: http://wiki.xmltv.org/index.php/XMLTVFormat
 
-[558]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L26-L255 "Source code on GitHub"
+[558]: https://github.com/XMLTV/xmltv/blob/master/xmltv.dtd
 
-[559]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L221-L223 "Source code on GitHub"
+[559]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L26-L258 "Source code on GitHub"
 
-[560]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L231-L239 "Source code on GitHub"
+[560]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L221-L223 "Source code on GitHub"
 
-[561]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L247-L254 "Source code on GitHub"
+[561]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L231-L239 "Source code on GitHub"
 
-[562]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L35-L37 "Source code on GitHub"
+[562]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L247-L257 "Source code on GitHub"
 
-[563]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L46-L48 "Source code on GitHub"
+[563]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L35-L37 "Source code on GitHub"
 
-[564]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L57-L59 "Source code on GitHub"
+[564]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L46-L48 "Source code on GitHub"
 
-[565]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L68-L70 "Source code on GitHub"
+[565]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L57-L59 "Source code on GitHub"
 
-[566]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L79-L81 "Source code on GitHub"
+[566]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L68-L70 "Source code on GitHub"
 
-[567]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L90-L92 "Source code on GitHub"
+[567]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L79-L81 "Source code on GitHub"
 
-[568]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L101-L103 "Source code on GitHub"
+[568]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L90-L92 "Source code on GitHub"
 
-[569]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L112-L114 "Source code on GitHub"
+[569]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L101-L103 "Source code on GitHub"
 
-[570]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L123-L125 "Source code on GitHub"
+[570]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L112-L114 "Source code on GitHub"
 
-[571]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L134-L136 "Source code on GitHub"
+[571]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L123-L125 "Source code on GitHub"
 
-[572]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L145-L147 "Source code on GitHub"
+[572]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L134-L136 "Source code on GitHub"
 
-[573]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L156-L158 "Source code on GitHub"
+[573]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L145-L147 "Source code on GitHub"
 
-[574]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L167-L169 "Source code on GitHub"
+[574]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L156-L158 "Source code on GitHub"
 
-[575]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L178-L180 "Source code on GitHub"
+[575]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L167-L169 "Source code on GitHub"
 
-[576]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L189-L191 "Source code on GitHub"
+[576]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L178-L180 "Source code on GitHub"
 
-[577]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L200-L202 "Source code on GitHub"
+[577]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L189-L191 "Source code on GitHub"
 
-[578]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L211-L213 "Source code on GitHub"
+[578]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L200-L202 "Source code on GitHub"
 
-[579]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L264-L285 "Source code on GitHub"
+[579]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L211-L213 "Source code on GitHub"
 
-[580]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L272-L274 "Source code on GitHub"
+[580]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L267-L288 "Source code on GitHub"
 
-[581]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L282-L284 "Source code on GitHub"
+[581]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L275-L277 "Source code on GitHub"
 
-[582]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L294-L294 "Source code on GitHub"
+[582]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L285-L287 "Source code on GitHub"
 
-[583]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L303-L303 "Source code on GitHub"
+[583]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L297-L297 "Source code on GitHub"
 
-[584]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L312-L312 "Source code on GitHub"
+[584]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L306-L306 "Source code on GitHub"
 
-[585]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L321-L321 "Source code on GitHub"
+[585]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L315-L315 "Source code on GitHub"
 
-[586]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L330-L330 "Source code on GitHub"
+[586]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L324-L324 "Source code on GitHub"
 
-[587]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L339-L339 "Source code on GitHub"
+[587]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L333-L333 "Source code on GitHub"
 
-[588]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L348-L348 "Source code on GitHub"
+[588]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L342-L342 "Source code on GitHub"
 
-[589]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L357-L388 "Source code on GitHub"
+[589]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L351-L351 "Source code on GitHub"
 
-[590]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L365-L367 "Source code on GitHub"
+[590]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L360-L391 "Source code on GitHub"
 
-[591]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L375-L377 "Source code on GitHub"
+[591]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L368-L370 "Source code on GitHub"
 
-[592]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L385-L387 "Source code on GitHub"
+[592]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L378-L380 "Source code on GitHub"
 
-[593]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L397-L420 "Source code on GitHub"
+[593]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L388-L390 "Source code on GitHub"
 
-[594]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L405-L408 "Source code on GitHub"
+[594]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L400-L423 "Source code on GitHub"
 
-[595]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L416-L419 "Source code on GitHub"
+[595]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L408-L411 "Source code on GitHub"
 
-[596]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L429-L450 "Source code on GitHub"
+[596]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L419-L422 "Source code on GitHub"
 
-[597]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L437-L439 "Source code on GitHub"
+[597]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L432-L453 "Source code on GitHub"
 
-[598]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L447-L449 "Source code on GitHub"
+[598]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L440-L442 "Source code on GitHub"
 
-[599]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L459-L470 "Source code on GitHub"
+[599]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L450-L452 "Source code on GitHub"
 
-[600]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L467-L469 "Source code on GitHub"
+[600]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L462-L473 "Source code on GitHub"
 
-[601]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L479-L529 "Source code on GitHub"
+[601]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L470-L472 "Source code on GitHub"
 
-[602]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L487-L489 "Source code on GitHub"
+[602]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L482-L532 "Source code on GitHub"
 
-[603]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L497-L499 "Source code on GitHub"
+[603]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L490-L492 "Source code on GitHub"
 
-[604]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L507-L509 "Source code on GitHub"
+[604]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L500-L502 "Source code on GitHub"
 
-[605]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L517-L528 "Source code on GitHub"
+[605]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L510-L512 "Source code on GitHub"
 
-[606]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L539-L697 "Source code on GitHub"
+[606]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L520-L531 "Source code on GitHub"
 
-[607]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L547-L555 "Source code on GitHub"
+[607]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L542-L700 "Source code on GitHub"
 
-[608]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L563-L571 "Source code on GitHub"
+[608]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L550-L558 "Source code on GitHub"
 
-[609]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L579-L587 "Source code on GitHub"
+[609]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L566-L574 "Source code on GitHub"
 
-[610]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L595-L603 "Source code on GitHub"
+[610]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L582-L590 "Source code on GitHub"
 
-[611]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L611-L619 "Source code on GitHub"
+[611]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L598-L606 "Source code on GitHub"
 
-[612]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L627-L635 "Source code on GitHub"
+[612]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L614-L622 "Source code on GitHub"
 
-[613]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L643-L651 "Source code on GitHub"
+[613]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L630-L638 "Source code on GitHub"
 
-[614]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L659-L666 "Source code on GitHub"
+[614]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L646-L654 "Source code on GitHub"
 
-[615]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L674-L681 "Source code on GitHub"
+[615]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L662-L669 "Source code on GitHub"
 
-[616]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L689-L696 "Source code on GitHub"
+[616]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L677-L684 "Source code on GitHub"
 
-[617]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L707-L729 "Source code on GitHub"
+[617]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L692-L699 "Source code on GitHub"
 
-[618]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L716-L718 "Source code on GitHub"
+[618]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L710-L732 "Source code on GitHub"
 
-[619]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L726-L728 "Source code on GitHub"
+[619]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L719-L721 "Source code on GitHub"
 
-[620]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L738-L863 "Source code on GitHub"
+[620]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L729-L731 "Source code on GitHub"
 
-[621]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L746-L748 "Source code on GitHub"
+[621]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L741-L866 "Source code on GitHub"
 
-[622]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L756-L767 "Source code on GitHub"
+[622]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L749-L751 "Source code on GitHub"
 
-[623]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L775-L777 "Source code on GitHub"
+[623]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L759-L770 "Source code on GitHub"
 
-[624]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L785-L796 "Source code on GitHub"
+[624]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L778-L780 "Source code on GitHub"
 
-[625]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L804-L813 "Source code on GitHub"
+[625]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L788-L799 "Source code on GitHub"
 
-[626]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L821-L823 "Source code on GitHub"
+[626]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L807-L816 "Source code on GitHub"
 
-[627]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L831-L833 "Source code on GitHub"
+[627]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L824-L826 "Source code on GitHub"
 
-[628]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L841-L852 "Source code on GitHub"
+[628]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L834-L836 "Source code on GitHub"
 
-[629]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L860-L862 "Source code on GitHub"
+[629]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L844-L855 "Source code on GitHub"
 
-[630]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L872-L1228 "Source code on GitHub"
+[630]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L863-L865 "Source code on GitHub"
 
-[631]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L880-L888 "Source code on GitHub"
+[631]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L875-L1231 "Source code on GitHub"
 
-[632]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L896-L910 "Source code on GitHub"
+[632]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L883-L891 "Source code on GitHub"
 
-[633]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L918-L932 "Source code on GitHub"
+[633]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L899-L913 "Source code on GitHub"
 
-[634]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L940-L942 "Source code on GitHub"
+[634]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L921-L935 "Source code on GitHub"
 
-[635]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L950-L961 "Source code on GitHub"
+[635]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L943-L945 "Source code on GitHub"
 
-[636]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L969-L971 "Source code on GitHub"
+[636]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L953-L964 "Source code on GitHub"
 
-[637]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L979-L990 "Source code on GitHub"
+[637]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L972-L974 "Source code on GitHub"
 
-[638]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L998-L1000 "Source code on GitHub"
+[638]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L982-L993 "Source code on GitHub"
 
-[639]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L1008-L1019 "Source code on GitHub"
+[639]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L1001-L1003 "Source code on GitHub"
 
-[640]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L1027-L1029 "Source code on GitHub"
+[640]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L1011-L1022 "Source code on GitHub"
 
-[641]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L1037-L1046 "Source code on GitHub"
+[641]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L1030-L1032 "Source code on GitHub"
 
-[642]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L1054-L1063 "Source code on GitHub"
+[642]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L1040-L1049 "Source code on GitHub"
 
-[643]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L1071-L1080 "Source code on GitHub"
+[643]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L1057-L1066 "Source code on GitHub"
 
-[644]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L1088-L1097 "Source code on GitHub"
+[644]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L1074-L1083 "Source code on GitHub"
 
-[645]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L1105-L1114 "Source code on GitHub"
+[645]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L1091-L1100 "Source code on GitHub"
 
-[646]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L1122-L1131 "Source code on GitHub"
+[646]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L1108-L1117 "Source code on GitHub"
 
-[647]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L1139-L1150 "Source code on GitHub"
+[647]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L1125-L1134 "Source code on GitHub"
 
-[648]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L1158-L1160 "Source code on GitHub"
+[648]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L1142-L1153 "Source code on GitHub"
 
-[649]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L1168-L1170 "Source code on GitHub"
+[649]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L1161-L1163 "Source code on GitHub"
 
-[650]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L1178-L1189 "Source code on GitHub"
+[650]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L1171-L1173 "Source code on GitHub"
 
-[651]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L1197-L1208 "Source code on GitHub"
+[651]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L1181-L1192 "Source code on GitHub"
 
-[652]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L1216-L1227 "Source code on GitHub"
+[652]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L1200-L1211 "Source code on GitHub"
 
-[653]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/xmltv.js#L1237-L1239 "Source code on GitHub"
+[653]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L1219-L1230 "Source code on GitHub"
 
-[654]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2613-L2625 "Source code on GitHub"
+[654]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/xmltv.js#L1240-L1242 "Source code on GitHub"
 
-[655]: https://jsonata.org
+[655]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2704-L2717 "Source code on GitHub"
 
-[656]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L42-L244 "Source code on GitHub"
+[656]: https://jsonata.org
 
-[657]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L121-L124 "Source code on GitHub"
+[657]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L43-L245 "Source code on GitHub"
 
-[658]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L132-L134 "Source code on GitHub"
+[658]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L122-L125 "Source code on GitHub"
 
-[659]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L142-L171 "Source code on GitHub"
+[659]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L133-L135 "Source code on GitHub"
 
-[660]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L178-L180 "Source code on GitHub"
+[660]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L143-L172 "Source code on GitHub"
 
-[661]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L187-L189 "Source code on GitHub"
+[661]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L179-L181 "Source code on GitHub"
 
-[662]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L196-L198 "Source code on GitHub"
+[662]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L188-L190 "Source code on GitHub"
 
-[663]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L241-L243 "Source code on GitHub"
+[663]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L197-L199 "Source code on GitHub"
 
-[664]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[664]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L242-L244 "Source code on GitHub"
 
-[665]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L251-L412 "Source code on GitHub"
+[665]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
-[666]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L325-L325 "Source code on GitHub"
+[666]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L252-L414 "Source code on GitHub"
 
-[667]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L333-L333 "Source code on GitHub"
+[667]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L327-L327 "Source code on GitHub"
 
-[668]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L342-L344 "Source code on GitHub"
+[668]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L335-L335 "Source code on GitHub"
 
-[669]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L352-L352 "Source code on GitHub"
+[669]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L344-L346 "Source code on GitHub"
 
-[670]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L360-L362 "Source code on GitHub"
+[670]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L354-L354 "Source code on GitHub"
 
-[671]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L407-L411 "Source code on GitHub"
+[671]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L362-L364 "Source code on GitHub"
 
-[672]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L388-L390 "Source code on GitHub"
+[672]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L409-L413 "Source code on GitHub"
 
-[673]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L261-L263 "Source code on GitHub"
+[673]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L390-L392 "Source code on GitHub"
 
-[674]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L420-L561 "Source code on GitHub"
+[674]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L262-L264 "Source code on GitHub"
 
-[675]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L476-L476 "Source code on GitHub"
+[675]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L421-L442 "Source code on GitHub"
 
-[676]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L485-L487 "Source code on GitHub"
+[676]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L429-L431 "Source code on GitHub"
 
-[677]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L495-L497 "Source code on GitHub"
+[677]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L438-L441 "Source code on GitHub"
 
-[678]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L505-L507 "Source code on GitHub"
+[678]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L450-L591 "Source code on GitHub"
 
-[679]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L516-L518 "Source code on GitHub"
+[679]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L506-L506 "Source code on GitHub"
 
-[680]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L526-L528 "Source code on GitHub"
+[680]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L515-L517 "Source code on GitHub"
 
-[681]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L537-L542 "Source code on GitHub"
+[681]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L525-L527 "Source code on GitHub"
 
-[682]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L549-L551 "Source code on GitHub"
+[682]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L535-L537 "Source code on GitHub"
 
-[683]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L558-L560 "Source code on GitHub"
+[683]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L546-L548 "Source code on GitHub"
 
-[684]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L429-L437 "Source code on GitHub"
+[684]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L556-L558 "Source code on GitHub"
 
-[685]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L578-L1638 "Source code on GitHub"
+[685]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L567-L572 "Source code on GitHub"
 
-[686]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L853-L853 "Source code on GitHub"
+[686]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L579-L581 "Source code on GitHub"
 
-[687]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L915-L915 "Source code on GitHub"
+[687]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L588-L590 "Source code on GitHub"
 
-[688]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L953-L953 "Source code on GitHub"
+[688]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L459-L467 "Source code on GitHub"
 
-[689]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L962-L962 "Source code on GitHub"
+[689]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L608-L1714 "Source code on GitHub"
 
-[690]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L971-L971 "Source code on GitHub"
+[690]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L883-L883 "Source code on GitHub"
 
-[691]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L982-L982 "Source code on GitHub"
+[691]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L945-L945 "Source code on GitHub"
 
-[692]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L991-L991 "Source code on GitHub"
+[692]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L983-L983 "Source code on GitHub"
 
-[693]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1000-L1000 "Source code on GitHub"
+[693]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L992-L992 "Source code on GitHub"
 
-[694]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1009-L1009 "Source code on GitHub"
+[694]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1001-L1001 "Source code on GitHub"
 
-[695]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1018-L1018 "Source code on GitHub"
+[695]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1012-L1012 "Source code on GitHub"
 
-[696]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1027-L1027 "Source code on GitHub"
+[696]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1021-L1021 "Source code on GitHub"
 
-[697]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1036-L1036 "Source code on GitHub"
+[697]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1030-L1030 "Source code on GitHub"
 
-[698]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1045-L1047 "Source code on GitHub"
+[698]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1039-L1039 "Source code on GitHub"
 
-[699]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1055-L1057 "Source code on GitHub"
+[699]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1048-L1048 "Source code on GitHub"
 
-[700]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1065-L1067 "Source code on GitHub"
+[700]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1057-L1057 "Source code on GitHub"
 
-[701]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1075-L1077 "Source code on GitHub"
+[701]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1066-L1066 "Source code on GitHub"
 
-[702]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1085-L1087 "Source code on GitHub"
+[702]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1075-L1077 "Source code on GitHub"
 
-[703]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1095-L1101 "Source code on GitHub"
+[703]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1085-L1087 "Source code on GitHub"
 
-[704]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1109-L1111 "Source code on GitHub"
+[704]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1095-L1097 "Source code on GitHub"
 
-[705]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1128-L1130 "Source code on GitHub"
+[705]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1105-L1107 "Source code on GitHub"
 
-[706]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1137-L1139 "Source code on GitHub"
+[706]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1115-L1117 "Source code on GitHub"
 
-[707]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1146-L1149 "Source code on GitHub"
+[707]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1125-L1131 "Source code on GitHub"
 
-[708]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1157-L1159 "Source code on GitHub"
+[708]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1139-L1141 "Source code on GitHub"
 
-[709]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1177-L1193 "Source code on GitHub"
+[709]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1158-L1160 "Source code on GitHub"
 
-[710]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1203-L1209 "Source code on GitHub"
+[710]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1167-L1169 "Source code on GitHub"
 
-[711]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1218-L1241 "Source code on GitHub"
+[711]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1176-L1179 "Source code on GitHub"
 
-[712]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1250-L1273 "Source code on GitHub"
+[712]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1187-L1189 "Source code on GitHub"
 
-[713]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1281-L1290 "Source code on GitHub"
+[713]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1207-L1223 "Source code on GitHub"
 
-[714]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1297-L1299 "Source code on GitHub"
+[714]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1233-L1239 "Source code on GitHub"
 
-[715]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1312-L1316 "Source code on GitHub"
+[715]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1248-L1271 "Source code on GitHub"
 
-[716]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1323-L1325 "Source code on GitHub"
+[716]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1280-L1303 "Source code on GitHub"
 
-[717]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1486-L1490 "Source code on GitHub"
+[717]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1353-L1362 "Source code on GitHub"
 
-[718]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1338-L1418 "Source code on GitHub"
+[718]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1369-L1371 "Source code on GitHub"
 
-[719]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1429-L1469 "Source code on GitHub"
+[719]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1384-L1388 "Source code on GitHub"
 
-[720]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1501-L1506 "Source code on GitHub"
+[720]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1395-L1397 "Source code on GitHub"
 
-[721]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1517-L1524 "Source code on GitHub"
+[721]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1562-L1566 "Source code on GitHub"
 
-[722]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1537-L1553 "Source code on GitHub"
+[722]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1410-L1494 "Source code on GitHub"
 
-[723]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1566-L1586 "Source code on GitHub"
+[723]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1505-L1545 "Source code on GitHub"
 
-[724]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1599-L1610 "Source code on GitHub"
+[724]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1577-L1582 "Source code on GitHub"
 
-[725]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1620-L1637 "Source code on GitHub"
+[725]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1593-L1600 "Source code on GitHub"
 
-[726]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L587-L589 "Source code on GitHub"
+[726]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1613-L1629 "Source code on GitHub"
 
-[727]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L598-L600 "Source code on GitHub"
+[727]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1642-L1662 "Source code on GitHub"
 
-[728]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L609-L616 "Source code on GitHub"
+[728]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1675-L1686 "Source code on GitHub"
 
-[729]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L627-L629 "Source code on GitHub"
+[729]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1696-L1713 "Source code on GitHub"
 
-[730]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L639-L641 "Source code on GitHub"
+[730]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L617-L619 "Source code on GitHub"
 
-[731]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L656-L702 "Source code on GitHub"
+[731]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L628-L630 "Source code on GitHub"
 
-[732]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L710-L712 "Source code on GitHub"
+[732]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L639-L646 "Source code on GitHub"
 
-[733]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1645-L1723 "Source code on GitHub"
+[733]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L657-L659 "Source code on GitHub"
 
-[734]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1662-L1664 "Source code on GitHub"
+[734]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L669-L671 "Source code on GitHub"
 
-[735]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1672-L1675 "Source code on GitHub"
+[735]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L686-L732 "Source code on GitHub"
 
-[736]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1683-L1685 "Source code on GitHub"
+[736]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L740-L742 "Source code on GitHub"
 
-[737]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1693-L1695 "Source code on GitHub"
+[737]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1721-L1799 "Source code on GitHub"
 
-[738]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1703-L1706 "Source code on GitHub"
+[738]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1738-L1740 "Source code on GitHub"
 
-[739]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1713-L1715 "Source code on GitHub"
+[739]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1748-L1751 "Source code on GitHub"
 
-[740]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1732-L1965 "Source code on GitHub"
+[740]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1759-L1761 "Source code on GitHub"
 
-[741]: https://github.com/fb55/htmlparser2
+[741]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1769-L1771 "Source code on GitHub"
 
-[742]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L155
+[742]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1779-L1782 "Source code on GitHub"
 
-[743]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1740-L1742 "Source code on GitHub"
+[743]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1789-L1791 "Source code on GitHub"
 
-[744]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1750-L1752 "Source code on GitHub"
+[744]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1808-L2054 "Source code on GitHub"
 
-[745]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1763-L1766 "Source code on GitHub"
+[745]: https://github.com/fb55/htmlparser2
 
-[746]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L156
+[746]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L155
 
-[747]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1776-L1778 "Source code on GitHub"
+[747]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1816-L1818 "Source code on GitHub"
 
-[748]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L161
+[748]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1826-L1828 "Source code on GitHub"
 
-[749]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1788-L1791 "Source code on GitHub"
+[749]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1839-L1842 "Source code on GitHub"
 
-[750]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L166
+[750]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L156
 
-[751]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1802-L1805 "Source code on GitHub"
+[751]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1852-L1854 "Source code on GitHub"
 
-[752]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L167
+[752]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L161
 
-[753]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error
+[753]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1864-L1867 "Source code on GitHub"
 
-[754]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1817-L1828 "Source code on GitHub"
+[754]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L166
 
-[755]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L181
+[755]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1878-L1881 "Source code on GitHub"
 
-[756]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1839-L1841 "Source code on GitHub"
+[756]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L167
 
-[757]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L169
+[757]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error
 
-[758]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1852-L1860 "Source code on GitHub"
+[758]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1893-L1904 "Source code on GitHub"
 
-[759]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L168
+[759]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L181
 
-[760]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1873-L1875 "Source code on GitHub"
+[760]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1915-L1917 "Source code on GitHub"
 
-[761]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L176
+[761]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L169
 
-[762]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1886-L1895 "Source code on GitHub"
+[762]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1928-L1936 "Source code on GitHub"
 
-[763]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L182
+[763]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L168
 
-[764]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1906-L1916 "Source code on GitHub"
+[764]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1949-L1951 "Source code on GitHub"
 
-[765]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L183
+[765]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L176
 
-[766]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1926-L1928 "Source code on GitHub"
+[766]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1962-L1978 "Source code on GitHub"
 
-[767]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L186
+[767]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L182
 
-[768]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1938-L1940 "Source code on GitHub"
+[768]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L1989-L1999 "Source code on GitHub"
 
-[769]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L184
+[769]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L183
 
-[770]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1950-L1952 "Source code on GitHub"
+[770]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2009-L2011 "Source code on GitHub"
 
-[771]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L185
+[771]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L186
 
-[772]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1962-L1964 "Source code on GitHub"
+[772]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2021-L2028 "Source code on GitHub"
 
-[773]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L187
+[773]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L184
 
-[774]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L1974-L2156 "Source code on GitHub"
+[774]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2038-L2041 "Source code on GitHub"
 
-[775]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L101
+[775]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L185
 
-[776]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2035-L2047 "Source code on GitHub"
+[776]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2051-L2053 "Source code on GitHub"
 
-[777]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2055-L2057 "Source code on GitHub"
+[777]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L187
 
-[778]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2066-L2066 "Source code on GitHub"
+[778]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2063-L2245 "Source code on GitHub"
 
-[779]: https://docs.jsonata.org/embedding-extending#expressionregisterfunctionname-implementation-signature
+[779]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L101
 
-[780]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2075-L2075 "Source code on GitHub"
+[780]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2124-L2136 "Source code on GitHub"
 
-[781]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2084-L2084 "Source code on GitHub"
+[781]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2144-L2146 "Source code on GitHub"
 
-[782]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2094-L2094 "Source code on GitHub"
+[782]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2155-L2155 "Source code on GitHub"
 
-[783]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L110
+[783]: https://docs.jsonata.org/embedding-extending#expressionregisterfunctionname-implementation-signature
 
-[784]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2104-L2104 "Source code on GitHub"
+[784]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2164-L2164 "Source code on GitHub"
 
-[785]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L124
+[785]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2173-L2173 "Source code on GitHub"
 
-[786]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2114-L2114 "Source code on GitHub"
+[786]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2183-L2183 "Source code on GitHub"
 
-[787]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L117
+[787]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L110
 
-[788]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2124-L2124 "Source code on GitHub"
+[788]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2193-L2193 "Source code on GitHub"
 
-[789]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L139
+[789]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L124
 
-[790]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2134-L2134 "Source code on GitHub"
+[790]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2203-L2203 "Source code on GitHub"
 
-[791]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L147
+[791]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L117
 
-[792]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2144-L2144 "Source code on GitHub"
+[792]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2213-L2213 "Source code on GitHub"
 
-[793]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L131
+[793]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L139
 
-[794]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2154-L2154 "Source code on GitHub"
+[794]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2223-L2223 "Source code on GitHub"
 
-[795]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2001-L2003 "Source code on GitHub"
+[795]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L147
 
-[796]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2164-L2594 "Source code on GitHub"
+[796]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2233-L2233 "Source code on GitHub"
 
-[797]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2363-L2363 "Source code on GitHub"
+[797]: https://github.com/fb55/htmlparser2/blob/master/src/Parser.ts#L131
 
-[798]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2372-L2372 "Source code on GitHub"
+[798]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2243-L2243 "Source code on GitHub"
 
-[799]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2381-L2381 "Source code on GitHub"
+[799]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2090-L2092 "Source code on GitHub"
 
-[800]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2390-L2390 "Source code on GitHub"
+[800]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2253-L2685 "Source code on GitHub"
 
-[801]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2399-L2399 "Source code on GitHub"
+[801]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2454-L2454 "Source code on GitHub"
 
-[802]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2408-L2410 "Source code on GitHub"
+[802]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2463-L2463 "Source code on GitHub"
 
-[803]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2418-L2420 "Source code on GitHub"
+[803]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2472-L2472 "Source code on GitHub"
 
-[804]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2428-L2436 "Source code on GitHub"
+[804]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2481-L2481 "Source code on GitHub"
 
-[805]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2444-L2452 "Source code on GitHub"
+[805]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2490-L2490 "Source code on GitHub"
 
-[806]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2459-L2465 "Source code on GitHub"
+[806]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2499-L2501 "Source code on GitHub"
 
-[807]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2475-L2506 "Source code on GitHub"
+[807]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2509-L2511 "Source code on GitHub"
 
-[808]: https://github.com/streamxorg/streamx#readable-stream
+[808]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2519-L2527 "Source code on GitHub"
 
-[809]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2519-L2528 "Source code on GitHub"
+[809]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2535-L2543 "Source code on GitHub"
 
-[810]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2571-L2573 "Source code on GitHub"
+[810]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2550-L2556 "Source code on GitHub"
 
-[811]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[811]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2566-L2597 "Source code on GitHub"
 
-[812]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2591-L2593 "Source code on GitHub"
+[812]: https://github.com/streamxorg/streamx#readable-stream
 
-[813]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2173-L2299 "Source code on GitHub"
+[813]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2610-L2619 "Source code on GitHub"
 
-[814]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/parser.js#L2307-L2310 "Source code on GitHub"
+[814]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2662-L2664 "Source code on GitHub"
 
-[815]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/document.js#L241-L247 "Source code on GitHub"
+[815]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
-[816]: #parserparsernode
+[816]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2682-L2684 "Source code on GitHub"
 
-[817]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/document.js#L14-L14 "Source code on GitHub"
+[817]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2262-L2388 "Source code on GitHub"
 
-[818]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/document.js#L22-L151 "Source code on GitHub"
+[818]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/parser.js#L2396-L2399 "Source code on GitHub"
 
-[819]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/document.js#L136-L138 "Source code on GitHub"
+[819]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/document.js#L259-L265 "Source code on GitHub"
 
-[820]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/document.js#L147-L150 "Source code on GitHub"
+[820]: #parserparsernode
 
-[821]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/document.js#L32-L34 "Source code on GitHub"
+[821]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/document.js#L15-L15 "Source code on GitHub"
 
-[822]: https://developer.mozilla.org/docs/Web/API/Node/nextSibling
+[822]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/document.js#L23-L169 "Source code on GitHub"
 
-[823]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/document.js#L46-L48 "Source code on GitHub"
+[823]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/document.js#L137-L139 "Source code on GitHub"
 
-[824]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/document.js#L58-L89 "Source code on GitHub"
+[824]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/document.js#L148-L151 "Source code on GitHub"
 
-[825]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/document.js#L161-L173 "Source code on GitHub"
+[825]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/document.js#L166-L168 "Source code on GitHub"
 
-[826]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/document.js#L170-L172 "Source code on GitHub"
+[826]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/document.js#L33-L35 "Source code on GitHub"
 
-[827]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/document.js#L181-L183 "Source code on GitHub"
+[827]: https://developer.mozilla.org/docs/Web/API/Node/nextSibling
 
-[828]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/document.js#L191-L193 "Source code on GitHub"
+[828]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/document.js#L47-L49 "Source code on GitHub"
 
-[829]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/entity.js#L203-L205 "Source code on GitHub"
+[829]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/document.js#L59-L90 "Source code on GitHub"
 
-[830]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/entity.js#L21-L175 "Source code on GitHub"
+[830]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/document.js#L179-L191 "Source code on GitHub"
 
-[831]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/entity.js#L68-L70 "Source code on GitHub"
+[831]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/document.js#L188-L190 "Source code on GitHub"
 
-[832]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/entity.js#L78-L80 "Source code on GitHub"
+[832]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/document.js#L199-L201 "Source code on GitHub"
 
-[833]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/entity.js#L88-L90 "Source code on GitHub"
+[833]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/document.js#L209-L211 "Source code on GitHub"
 
-[834]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/entity.js#L101-L125 "Source code on GitHub"
+[834]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/entity.js#L204-L206 "Source code on GitHub"
 
-[835]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/entity.js#L139-L144 "Source code on GitHub"
+[835]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/entity.js#L21-L176 "Source code on GitHub"
 
-[836]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/entity.js#L151-L153 "Source code on GitHub"
+[836]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/entity.js#L68-L70 "Source code on GitHub"
 
-[837]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/entity.js#L161-L163 "Source code on GitHub"
+[837]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/entity.js#L78-L80 "Source code on GitHub"
 
-[838]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/entity.js#L33-L39 "Source code on GitHub"
+[838]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/entity.js#L88-L90 "Source code on GitHub"
 
-[839]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L1217-L1226 "Source code on GitHub"
+[839]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/entity.js#L101-L126 "Source code on GitHub"
 
-[840]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L39-L39 "Source code on GitHub"
+[840]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/entity.js#L140-L145 "Source code on GitHub"
 
-[841]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map
+[841]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/entity.js#L152-L154 "Source code on GitHub"
 
-[842]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L47-L171 "Source code on GitHub"
+[842]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/entity.js#L162-L164 "Source code on GitHub"
 
-[843]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L112-L115 "Source code on GitHub"
+[843]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/entity.js#L33-L39 "Source code on GitHub"
 
-[844]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L56-L81 "Source code on GitHub"
+[844]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L1217-L1226 "Source code on GitHub"
 
-[845]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L179-L211 "Source code on GitHub"
+[845]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L39-L39 "Source code on GitHub"
 
-[846]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L188-L206 "Source code on GitHub"
+[846]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map
 
-[847]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L219-L473 "Source code on GitHub"
+[847]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L47-L171 "Source code on GitHub"
 
-[848]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L380-L472 "Source code on GitHub"
+[848]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L112-L115 "Source code on GitHub"
 
-[849]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L480-L661 "Source code on GitHub"
+[849]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L56-L81 "Source code on GitHub"
 
-[850]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L540-L542 "Source code on GitHub"
+[850]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L179-L211 "Source code on GitHub"
 
-[851]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L551-L553 "Source code on GitHub"
+[851]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L188-L206 "Source code on GitHub"
 
-[852]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L559-L564 "Source code on GitHub"
+[852]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L219-L473 "Source code on GitHub"
 
-[853]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L668-L799 "Source code on GitHub"
+[853]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L380-L472 "Source code on GitHub"
 
-[854]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L806-L905 "Source code on GitHub"
+[854]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L480-L661 "Source code on GitHub"
 
-[855]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L875-L877 "Source code on GitHub"
+[855]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L540-L542 "Source code on GitHub"
 
-[856]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L890-L904 "Source code on GitHub"
+[856]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L551-L553 "Source code on GitHub"
 
-[857]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L814-L823 "Source code on GitHub"
+[857]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L559-L564 "Source code on GitHub"
 
-[858]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L832-L834 "Source code on GitHub"
+[858]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L668-L799 "Source code on GitHub"
 
-[859]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/query/index.js#L943-L1128 "Source code on GitHub"
+[859]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L806-L905 "Source code on GitHub"
 
-[860]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/normalize.js#L255-L261 "Source code on GitHub"
+[860]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L875-L877 "Source code on GitHub"
 
-[861]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/normalize.js#L56-L129 "Source code on GitHub"
+[861]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L890-L904 "Source code on GitHub"
 
-[862]: https://github.com/MelleB/tinyduration
+[862]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L814-L823 "Source code on GitHub"
 
-[863]: https://github.com/CrystalComputerCorp/smpte-timecode
+[863]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L832-L834 "Source code on GitHub"
 
-[864]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/normalize.js#L148-L172 "Source code on GitHub"
+[864]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/query/index.js#L943-L1128 "Source code on GitHub"
 
-[865]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/normalize.js#L190-L196 "Source code on GitHub"
+[865]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/normalize.js#L255-L261 "Source code on GitHub"
 
-[866]: https://github.com/sindresorhus/camelcase
+[866]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/normalize.js#L56-L129 "Source code on GitHub"
 
-[867]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/normalize.js#L215-L220 "Source code on GitHub"
+[867]: https://github.com/MelleB/tinyduration
 
-[868]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/normalize.js#L233-L235 "Source code on GitHub"
+[868]: https://github.com/CrystalComputerCorp/smpte-timecode
 
-[869]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/fragment.js#L20-L22 "Source code on GitHub"
+[869]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/normalize.js#L148-L172 "Source code on GitHub"
 
-[870]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/fragment.js#L8-L8 "Source code on GitHub"
+[870]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/normalize.js#L190-L196 "Source code on GitHub"
 
-[871]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/validate.js#L52-L60 "Source code on GitHub"
+[871]: https://github.com/sindresorhus/camelcase
 
-[872]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/validate.js#L8-L43 "Source code on GitHub"
+[872]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/normalize.js#L215-L220 "Source code on GitHub"
 
-[873]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/validate.js#L75-L78 "Source code on GitHub"
+[873]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/normalize.js#L233-L235 "Source code on GitHub"
 
-[874]: https://github.com/NaturalIntelligence/fast-xml-parser
+[874]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/fragment.js#L20-L22 "Source code on GitHub"
 
-[875]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/text.js#L20-L22 "Source code on GitHub"
+[875]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/fragment.js#L8-L8 "Source code on GitHub"
 
-[876]: https://github.com/little-core-labs/mediaxml/blob/6fe9eb0bdeaffe10f4fa1214248e8f1a57250665/text.js#L8-L8 "Source code on GitHub"
+[876]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/validate.js#L52-L66 "Source code on GitHub"
+
+[877]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/validate.js#L8-L43 "Source code on GitHub"
+
+[878]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/validate.js#L81-L84 "Source code on GitHub"
+
+[879]: https://github.com/NaturalIntelligence/fast-xml-parser
+
+[880]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/text.js#L20-L22 "Source code on GitHub"
+
+[881]: https://github.com/little-core-labs/mediaxml/blob/d4987dc9775139c10711cbe8984bab8bfd3bc1d5/text.js#L8-L8 "Source code on GitHub"
