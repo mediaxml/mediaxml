@@ -1,12 +1,12 @@
 const { clearScreenDown, cursorTo, moveCursor } = require('readline')
 const { getCursorPreviewPosition } = require('./utils')
 const { Imports, Assignments } = require('../query')
-const { createReadStream } = require('../stream')
 const { createCompleter } = require('./completer')
 const { createLoader } = require('../loader')
 const { validate } = require('../validate')
 const { Parser } = require('../parser')
 const { pretty } = require('./pretty')
+const { fetch } = require('../fetch')
 const truncate = require('cli-truncate')
 // eslint-disable-next-line
 const { eval } = require('./eval')
@@ -474,7 +474,7 @@ function createContext(filename, opts) {
 
     if (!opts.parser) {
       if ('string' === typeof filename || filename.pipe) {
-        opts.parser = Parser.from(createReadStream(filename))
+        opts.parser = Parser.from(fetch(filename))
       }
     }
   }

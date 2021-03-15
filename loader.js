@@ -1,6 +1,6 @@
-const { createReadStream } = require('./stream')
 const { ValidationError } = require('./validate')
 const { Parser } = require('./parser')
+const { fetch } = require('./fetch')
 const { hash } = require('./hash')
 const debug = require('debug')('mediaxml')
 
@@ -31,7 +31,7 @@ function createLoader(context, opts) {
 
     async function resolver(resolve, reject) {
       try {
-        stream = await createReadStream(uri)
+        stream = await fetch(uri)
       } catch (err) {
         debug(err)
         imports.pending.delete(uri)

@@ -3,7 +3,7 @@ const { normalizeValue } = require('./normalize')
 const { Entity } = require('./entity')
 const date = require('date-and-time')
 
-const XMLTV_DATETIME_REGEX = /([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})\s?\-([0-9]+)/
+const XMLTV_DATETIME_REGEX = /([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})\s?-([0-9]+)/
 const XMLTV_DATETIME_FORMAT = 'YYYYMMDDHHmmss Z'
 
 /**
@@ -408,17 +408,6 @@ class AudioDescription extends Entity {
   get stereo() {
     const result = this.node.query('[name ~> /^stereo$/i]:first:text')
     return 'stereo' === result
-  }
-
-  /**
-   * `true` if the audio description is "stereo"
-   * @public
-   * @accessor
-   * @type {Boolean}
-   */
-  get stereo() {
-    const present = this.node.query('[name ~> /^present$/i]:first:text')
-    return 'stereo' === present
   }
 }
 
@@ -883,7 +872,7 @@ class Programme extends Entity {
   get date() {
     const result = this.node.query(':children[name ~> /^date$/i]:first:text')
     if (result) {
-      const [_, year, month, day] = result.match(/([0-9]{4})-?([0-9]{2})-?([0-9]{2})/)
+      const [, year, month, day] = result.match(/([0-9]{4})-?([0-9]{2})-?([0-9]{2})/)
       return new Date([year, month, day].join('-'))
     }
 
@@ -1089,7 +1078,7 @@ class Programme extends Entity {
    * @type {Array<String>}
    */
   get countries() {
-    const { document, node } = this
+    const { node } = this
     const result = node.query(':children[name ~> /^country$/i]:text')
 
     if (result) {
@@ -1106,7 +1095,7 @@ class Programme extends Entity {
    * @type {Array<String>}
    */
   get keywords() {
-    const { document, node } = this
+    const { node } = this
     const result = node.query(':children[name ~> /^keyword$/i]:text')
 
     if (result) {

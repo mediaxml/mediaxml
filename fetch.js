@@ -2,7 +2,7 @@ const { resolve } = require('./uri')
 const get = require('get-uri')
 const fs = require('fs')
 
-async function createReadStream(uri, opts) {
+async function fetch(uri, opts) {
   opts = { ...opts }
 
   if (!uri) {
@@ -31,5 +31,5 @@ async function createReadStream(uri, opts) {
 }
 
 module.exports = {
-  createReadStream
+  fetch
 }
