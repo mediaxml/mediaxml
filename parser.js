@@ -2314,7 +2314,7 @@ class Parser extends htmlparser2.Parser {
         try {
           parser.clear()
           parser.write(validate(string))
-          parser.en()
+          parser.end()
         } catch (err) {
           input.emit('error', err)
         }
