@@ -48,6 +48,7 @@ class ValidationError extends SyntaxError {
  * @param {String} xml
  * @return {Boolea}
  * @throws ValidationError
+ * @memberof validate
  */
 function validate(xml, opts) {
   const result = fxp.validate(xml, {
