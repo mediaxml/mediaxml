@@ -1402,6 +1402,26 @@ class ParserNode {
   }
 
   /**
+   * Set an attribute value by name.
+   * @public
+   * @param {String} name
+   * @param {?Mixed} value
+   */
+  setAttribute(name, value) {
+    this.attributes.set(name, value)
+  }
+
+  /**
+   * Get an attribute value by name.
+   * @public
+   * @param {String} name
+   * @return {?Mixed}
+   */
+  getAttribute(name) {
+    return this.attributes.get(name)
+  }
+
+  /**
    * Returns an iterable generator for this node.
    * @public
    * @return {Generator}
