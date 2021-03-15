@@ -156,18 +156,26 @@ class ParserNodeAttributes {
       if (key !== normalizedKey) {
         Object.defineProperty(this, key, {
           configurable: true,
+          enumerable: true,
+          set: (val) => { value = normalizeAttributeValue(val, this.options) },
+          get: () => value
+        })
+
+        Object.defineProperty(this, normalizedKey, {
+          configurable: true,
           enumerable: false,
+          set: (val) => { value = normalizeAttributeValue(val, this.options) },
+          get: () => value
+        })
+      } else {
+        Object.defineProperty(this, normalizedKey, {
+          configurable: true,
+          enumerable: true,
           set: (val) => { value = normalizeAttributeValue(val, this.options) },
           get: () => value
         })
       }
 
-      Object.defineProperty(this, normalizedKey, {
-        configurable: true,
-        enumerable: true,
-        set: (val) => { value = normalizeAttributeValue(val, this.options) },
-        get: () => value
-      })
     }
   }
 
@@ -221,10 +229,12 @@ class ParserNodeAttributes {
     const attributes = this.toJSON({ normalize: false, normalizeValues: true })
     const { name } = this.constructor
     const json = {}
-    for (const key of Array.from(this.originalKeys)) {
+    for (const key of this.keys()) {
       const normal = normalizeAttributeKey(key)
       if (normal in attributes) {
         json[key] = attributes[normal]
+      } else if (key in attributes) {
+        json[key] = attributes[key]
       }
     }
     return `${name} ${inspect(json, { colors: true })}`
