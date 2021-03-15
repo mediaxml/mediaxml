@@ -60,6 +60,7 @@
     "npt-timecode": "^0.1.2",
     "number-to-words": "^1.2.4",
     "ora": "^5.3.0",
+    "param-case": "^3.0.4",
     "pretty-ms": "^7.0.1",
     "smpte-timecode": "^1.2.3",
     "streamx": "^2.10.1",

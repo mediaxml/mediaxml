@@ -1,5 +1,6 @@
 const { normalizeValue } = require('../normalize')
 const { Document, Node } = require('../document')
+const { paramCase } = require('param-case')
 const { Fragment } = require('../fragment')
 const toSnakeCase = require('to-snake-case')
 const camelcase = require('camelcase')
@@ -37,7 +38,7 @@ function binding(signature, fn) {
 
   const parts = signature.split(/[#|/]+/)
   signature = parts[0].trim()
-  description = (parts[1] || '').trim()
+  const description = (parts[1] || '').trim()
 
   return Object.assign(bound, { signature, description })
 }
@@ -416,6 +417,35 @@ module.exports = {
     '<s-:s> # Converts input string to snakecase.',
     function $snakecase(input) {
       return toSnakeCase(input)
+    }),
+
+  // $paramcase(input: string): string
+  paramcase: binding(
+    '<s-:s> # Converts input string to paramcase.',
+    function $paramcase(input) {
+      return paramCase(input)
+    }),
+
+  // $uppercase(input: string): string
+  uppercase: binding(
+    '<s-:s> # Converts input string to uppercase.',
+    function $uppercase(input) {
+      return String.prototype.toUpperCase.call(String(input))
+    }),
+
+  // $lowercase(input: string): string
+  lowercase: binding(
+    '<s-:s> # Converts input string to lowercase.',
+    function $lowercase(input) {
+      return String.prototype.toLowerCase.call(String(input))
+    }),
+
+  // $propercase(input: string): string
+  propercase: binding(
+    '<s-:s> # Converts input string to propercase.',
+    function $propercase(input) {
+      input = String(input)
+      return input[0].toUpperCase() + input.slice(1)
     }),
 
   // $concat(...input: (array | *)?): array

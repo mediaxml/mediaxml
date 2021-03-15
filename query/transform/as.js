@@ -30,13 +30,17 @@ const specials = {
   eval: '$eval',
   json: '$json',
   keys: '$keys',
+  lowercase: '$lowercase',
   pascalcase: '$pascalcase',
+  paramcase: '$paramcase',
+  propercase: '$propercase',
   query: '$eval',
   reversed: '$reversed',
   snakecase: '$snakecase',
   sorted: '$sorted',
   tuple: '$tuple',
   unique: '$unique',
+  uppercase: '$uppercase'
 }
 
 const REGEX = /(let\s*.*\s*=|;|\s)?(.*)\s*\bas\b\s*([a-z|A-Z|0-9|_|<|>]+)(.*)/g
