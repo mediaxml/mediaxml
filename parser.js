@@ -303,13 +303,17 @@ class ParserNodeText extends String {
         continue
       } else if ('function' === typeof value) {
         descriptor.value = (...args) => {
-          const result = this.text[key](...args)
+          if ('function' == typeof this.text[key]) {
+            const result = this.text[key](...args)
 
-          if (Array.isArray(result)) {
-            return result.map((r) => ParserNodeText.from(r))
+            if (Array.isArray(result)) {
+              return result.map((r) => ParserNodeText.from(r))
+            }
+
+            return ParserNodeText.from(result)
           }
 
-          return ParserNodeText.from(result)
+          return this
         }
 
         if (descriptor.configurable) {
@@ -1093,6 +1097,16 @@ class ParserNode {
    * @type {Boolean}
    */
   get isParserNode() {
+    return true
+  }
+
+  /**
+   * `true` to indicate that this is a node.
+   * @public
+   * @accessor
+   * @type {Boolean}
+   */
+  get isNode() {
     return true
   }
 
