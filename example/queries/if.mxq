@@ -1,0 +1,12 @@
+#!//usr/bin/env mxml
+
+// import file from program arguments
+if ($argv1) {
+  print "Importing from: " & $argv1
+  import $argv1
+} else {
+  import '../mrss/feed.xml'
+}
+
+// select root
+$

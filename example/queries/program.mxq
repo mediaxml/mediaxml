@@ -13,4 +13,5 @@ let nodes_that_contain_aws_domain = **[is node and text contains $AWS_DOMAIN];
 // '&' is the concat character in JSONata syntax
 print "Searching for nodes that contain the domain: '" & ($AWS_DOMAIN) & "'"
 
+// use query from `$argv2` falling back to `$nodes_that_contain_aws_domain`
 $coalesce($argv2, $nodes_that_contain_aws_domain)
