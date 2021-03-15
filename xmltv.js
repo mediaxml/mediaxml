@@ -3,7 +3,7 @@ const { normalizeValue } = require('./normalize')
 const { Entity } = require('./entity')
 const date = require('date-and-time')
 
-const XMLTV_DATETIME_REGEX = /([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})\s?-([0-9]+)/
+const XMLTV_DATETIME_REGEX = /([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})\s?-?([0-9]+)?/
 const XMLTV_DATETIME_FORMAT = 'YYYYMMDDHHmmss Z'
 
 /**
