@@ -1,7 +1,6 @@
 const { AbstractDocument } = require('./document')
 const { normalizeValue } = require('./normalize')
 const { Entity } = require('./entity')
-const assert = require('nanoassert')
 
 /**
  * An extended `Document` that represents a RSS document with special
