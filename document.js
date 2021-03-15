@@ -79,14 +79,8 @@ class AbstractDocument extends Node {
       }
     }
 
-    if (input && input.pipe) {
-      const stream = Parser.createWriteStream()
-      const { parser } = input.pipe(stream)
-      return new this(parser, opts)
-    }
-
     // default parser
-    return new this(new Parser(), opts)
+    return new this(Parser.from(input), opts)
   }
 
   /**
