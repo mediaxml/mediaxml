@@ -218,8 +218,38 @@ class Document extends AbstractDocument {
    * @accessor
    * @type {?string}
    */
-  get sourceInfoURL() {
-    return this.node.attributes.sourceInfoURL || null
+  get sourceInfoUrl() {
+    return this.node.attributes.sourceInfoUrl || null
+  }
+
+  /**
+   * The `source-info-name` attribute value.
+   * @public
+   * @accessor
+   * @type {?string}
+   */
+  get sourceInfoName() {
+    return this.node.attributes.sourceInfoName || null
+  }
+
+  /**
+   * The `generator-info-url` attribute value.
+   * @public
+   * @accessor
+   * @type {?string}
+   */
+  get generatorInfoUrl() {
+    return this.node.attributes.generatorInfoUrl || null
+  }
+
+  /**
+   * The `generator-info-name` attribute value.
+   * @public
+   * @accessor
+   * @type {?string}
+   */
+  get generatorInfoName() {
+    return this.node.attributes.generatorInfoName || null
   }
 
   /**
