@@ -1027,9 +1027,10 @@ function query(node, queryString, opts) {
         await Promise.all(queue)
 
         while (backlog.length) {
-          const item = backlog.shift()
+          let item = backlog.shift()
           if ('string' === typeof item) {
-            result = await Expression.from(context, item, opts).evaluate() || item
+            item = item.trim()
+            result = defined(await Expression.from(context, item, opts).evaluate(), item)
             if ('string' === typeof result && item !== result) {
               backlog.push(result)
             }
@@ -1039,7 +1040,6 @@ function query(node, queryString, opts) {
         if (context.errors.length) {
           return reject(context.errors[0])
         }
-
 
         const outputs = context.output.splice(0, context.output.length)
 
@@ -1056,7 +1056,7 @@ function query(node, queryString, opts) {
             children: result
           }))
         } else {
-          resolve(result || null)
+          resolve(defined(result, null))
         }
       })
     } catch (err) {
