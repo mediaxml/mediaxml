@@ -251,7 +251,13 @@ class Context {
 
       if (info.uri) {
         if (self.server) {
-          self.server.setPrompt(createPrompt('mxml', path.basename(info.uri)))
+          let prompt = path.basename(info.uri).split('?')[0]
+
+          if (prompt.length > 16) {
+            prompt = `${prompt.slice(0, 13)}...`
+          }
+
+          self.server.setPrompt(createPrompt('mxml', prompt))
         }
       }
 
