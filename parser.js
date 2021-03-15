@@ -691,7 +691,7 @@ class ParserNode {
     if (this.isParserNode(nameOrNode)) {
       opts = attributes
       const { originalName, originalAttributes, depth, options } = nameOrNode
-      return new this(originalName, originalAttributes, depth, { ...options, ...opts })
+      return new this(originalName, attributes || originalAttributes, depth, { ...options, ...opts })
     }
 
     if ('string' === typeof nameOrNode) {
@@ -754,7 +754,7 @@ class ParserNode {
    * @param {?Object} opts
    */
   constructor(name, attributes, depth, opts) {
-    const originalAttributes = attributes
+    let originalAttributes = attributes
     let originalName = name || ''
     name = normalizeName(name)
 
@@ -829,7 +829,8 @@ class ParserNode {
     Object.defineProperty(this, 'originalAttributes', {
       configurable: false,
       enumerable: false,
-      get: () => originalAttributes || {}
+      get: () => originalAttributes || {},
+      set: (value) => { originalAttributes = value }
     })
 
     function normalizeName(name) {
@@ -970,6 +971,8 @@ class ParserNode {
     if (parser.rootNode) {
       this.name = parser.rootNode.originalName
 
+      this.originalAttributes = parser.rootNode.originalAttributes
+      this.originalName = parser.rootNode.originalName
       this.attributes.clear()
       this.attributes.set(parser.rootNode.attributes)
 
@@ -1463,11 +1466,13 @@ class ParserNode {
     const indent = ''.padStart(2*depth, ' ')
 
     // key="value"
-    const serializedAttributes = false !== opts.attributes && Object
-      .keys(attributes)
-      .map((key) => serializeAttribute(key, attributes[key]))
-      .join(' ')
-      .trim()
+    const serializedAttributes = false === opts.attributes
+      ? ''
+      : Object
+        .keys(attributes)
+        .map((key) => serializeAttribute(key, attributes[key]))
+        .join(' ')
+        .trim()
 
     let selfClosingTag = ''
     let output = ''
@@ -1629,7 +1634,7 @@ class ParserNode {
     const bound = thisArg || this
 
     for (let i = 0; i < length; ++i) {
-      fn.call(bound, child, i, children)
+      fn.call(bound, children[i], i, children)
     }
   }
 
@@ -1714,7 +1719,7 @@ class ParserNode {
       children: children.filter(filter)
     })
 
-    function filter() {
+    function filter(...args) {
       return fn.call(bound, ...args)
     }
   }
