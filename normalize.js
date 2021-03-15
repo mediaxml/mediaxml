@@ -2,7 +2,12 @@ const { Timecode: NPTTimecode } = require('npt-timecode')
 const SMPTETimecode = require('smpte-timecode')
 const camelcase = require('camelcase')
 const duration = require('tinyduration')
+const datetime = require('date-and-time')
 const chrono = require('chrono-node')
+
+const XMLTV_DATETIME_REGEX = /([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})\s?-?([0-9]+)?/
+const XMLTV_DATETIME_FORMAT = 'YYYYMMDDHHmmss'
+const XMLTV_DATETIME_FORMATZ = 'YYYYMMDDHHmmss Z'
 
 /**
  * Regex used to match a SMPTE time code.
@@ -66,9 +71,29 @@ function normalizeValue(value) {
     return value
   }
 
-  const date = chrono.parseDate(value)
-  if (date) {
-    return date
+  try {
+    const [ result ] = chrono.parse(value)
+    if (result && 0 === result.index) {
+      const date = chrono.parseDate(value)
+      if (date) {
+        return date
+      }
+    }
+  } catch (err) {
+    void err
+  }
+
+  if (XMLTV_DATETIME_REGEX.test(value)) {
+    let date = datetime.parse(value, XMLTV_DATETIME_FORMATZ)
+    if (!Number.isNaN(+date)) {
+      return date
+    }
+
+    date = datetime.parse(value, XMLTV_DATETIME_FORMAT)
+
+    if (!Number.isNaN(+date)) {
+      return date
+    }
   }
 
   try {

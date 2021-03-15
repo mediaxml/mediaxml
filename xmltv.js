@@ -1,10 +1,6 @@
 const { AbstractDocument } = require('./document')
 const { normalizeValue } = require('./normalize')
 const { Entity } = require('./entity')
-const date = require('date-and-time')
-
-const XMLTV_DATETIME_REGEX = /([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})\s?-?([0-9]+)?/
-const XMLTV_DATETIME_FORMAT = 'YYYYMMDDHHmmss Z'
 
 /**
  * An extended `Document` that represents an XMLTV document with special
@@ -219,7 +215,7 @@ class Document extends AbstractDocument {
    * @type {?string}
    */
   get sourceInfoUrl() {
-    return this.node.attributes.sourceInfoUrl || null
+    return this.attributes.sourceInfoUrl || null
   }
 
   /**
@@ -229,7 +225,7 @@ class Document extends AbstractDocument {
    * @type {?string}
    */
   get sourceInfoName() {
-    return this.node.attributes.sourceInfoName || null
+    return this.attributes.sourceInfoName || null
   }
 
   /**
@@ -239,7 +235,7 @@ class Document extends AbstractDocument {
    * @type {?string}
    */
   get generatorInfoUrl() {
-    return this.node.attributes.generatorInfoUrl || null
+    return this.attributes.generatorInfoUrl || null
   }
 
   /**
@@ -249,7 +245,7 @@ class Document extends AbstractDocument {
    * @type {?string}
    */
   get generatorInfoName() {
-    return this.node.attributes.generatorInfoName || null
+    return this.attributes.generatorInfoName || null
   }
 
   /**
