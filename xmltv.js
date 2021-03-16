@@ -1070,7 +1070,24 @@ class Programme extends Entity {
     const result = node.query(':children[name ~> /^video/i]:first')
 
     if (result) {
-      return document.constructor.Video.from(document, result)
+      return document.constructor.VideoDescription.from(document, result)
+    }
+
+    return null
+  }
+
+  /**
+   * The audio description for this programme.
+   * @public
+   * @accessor
+   * @type {Array<AudioDescription>}
+   */
+  get audio() {
+    const { document, node } = this
+    const result = node.query(':children[name ~> /^audio/i]:first')
+
+    if (result) {
+      return document.constructor.AudioDescription.from(document, result)
     }
 
     return null
