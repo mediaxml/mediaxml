@@ -918,9 +918,7 @@ class Programme extends Entity {
       return start
     }
 
-    if (start && XMLTV_DATETIME_REGEX.test(start)) {
-      return date.parse(start, XMLTV_DATETIME_FORMAT)
-    } else if (start) {
+    if (start && !Number.isNaN(+start)) {
       return new Date(1000 * parseInt(start))
     }
 
@@ -940,9 +938,7 @@ class Programme extends Entity {
       return stop
     }
 
-    if (stop && XMLTV_DATETIME_REGEX.test(stop)) {
-      return date.parse(stop, XMLTV_DATETIME_FORMAT)
-    } else if (stop) {
+    if (stop && !Number.isNaN(+stop)) {
       return new Date(1000 * parseInt(stop))
     }
 
