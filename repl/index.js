@@ -2,11 +2,13 @@ const { clearScreenDown, cursorTo, moveCursor } = require('readline')
 const { getCursorPreviewPosition } = require('./utils')
 const { Imports, Assignments } = require('../query')
 const { createCompleter } = require('./completer')
+const { createPrompt } = require('./prompt')
 const { createLoader } = require('../loader')
 const { validate } = require('../validate')
 const { Parser } = require('../parser')
 const { pretty } = require('./pretty')
 const { fetch } = require('../fetch')
+const { watch } = require('./watch')
 const truncate = require('cli-truncate')
 // eslint-disable-next-line
 const { eval } = require('./eval')
@@ -19,33 +21,6 @@ const chalk = require('chalk')
 const path = require('path')
 const repl = require('repl')
 const pkg = require('../package.json')
-
-function createPrompt(name, context, opts) {
-  if (!context && !opts || (context && 'object' === typeof context)) {
-    opts = context
-    context = '-'
-  }
-
-  opts = opts || {}
-  let prompt = ''
-
-  if (false !== opts.colors) {
-    prompt += chalk.bold(name)
-  } else {
-    prompt += name
-  }
-
-  prompt += '('
-  if (false !== opts.colors) {
-    prompt += chalk.italic(context)
-  } else {
-    prompt += context
-  }
-
-  prompt += ')> '
-
-  return prompt
-}
 
 class History {
   constructor(context) {
@@ -149,6 +124,7 @@ class Context {
       terminal: true,
       preview: false !== opts.preview,
       colors: false !== opts.colors,
+      watch: true === opts.watch,
       // we'll normalize these values later, so lets make a copy
       argv: [ ...Array.isArray(opts.argv) ? opts.argv : [] ],
       ui: 'object' === typeof opts.ui ? opts.ui : {},
@@ -168,8 +144,10 @@ class Context {
     this.ui = new UI(this)
     this.log = new Log(this)
     this.input = new Input(this)
+    this.cache = opts.cache || new Map()
     this.server = opts.server || null
     this.parser = null
+    this.watcher = null
     this.history = new History(this)
     this.filename = null
     this.assignments = new Assignments()
@@ -239,31 +217,41 @@ class Context {
     })
 
     const { ui } = this
-    const self = this
+    const context = this
 
     function onbeforeload(info) {
       debug('onbeforeload', info)
       ui.spinners.loading.start()
     }
 
-    function onload(result, info) {
+    async function onload(result, info) {
       debug('onload', info)
 
+      ui.spinners.loading.stop()
+
       if (info.uri) {
-        if (self.server) {
+        if (context.server) {
           let prompt = path.basename(info.uri).split('?')[0]
 
           if (prompt.length > 16) {
             prompt = `${prompt.slice(0, 13)}...`
           }
 
-          self.server.setPrompt(createPrompt('mxml', prompt))
+          context.server.setPrompt(createPrompt('mxml', prompt))
         }
       }
 
-      self.filename = info.uri
+      if (!context.filename) {
+        if (context.options.watch) {
+          try {
+            await watch(context, info.uri)
+          } catch (err) {
+            context.onerror(err)
+          }
+        }
+      }
 
-      ui.spinners.loading.stop()
+      context.filename = info.uri
     }
   }
 
@@ -280,6 +268,11 @@ class Context {
   }
 
   onexit() {
+    if (this.watcher) {
+      this.watcher.close().catch(this.onerror)
+      this.watcher = null
+    }
+
     if ('function' === typeof this.handlers.onexit) {
       this.handlers.onexit()
     }
@@ -444,6 +437,18 @@ class Context {
     process.stdin.removeListener('keypress', this.onkeypress)
 
     return this
+  }
+
+  import(name) {
+    return this.query(`import "${name}"`)
+  }
+
+  query(queryString, ctx) {
+    if (this.parser) {
+      return this.parser.query(queryString, ctx || this)
+    }
+
+    return null
   }
 }
 

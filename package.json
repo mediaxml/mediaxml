@@ -10,7 +10,8 @@
     "docs:server": "documentation serve -t node_modules/clean-documentation-theme -w index.js -a public -g -c docs/html.yml"
   },
   "bin": {
-    "mxml": "bin/mxml"
+    "mxml": "bin/mxml",
+    "mxpkg": "bin/mxpkg"
   },
   "keywords": [
     "mrss",
@@ -50,6 +51,7 @@
     "highlight.js": "^10.5.0",
     "htmlparser2": "^6.0.1",
     "inverted-promise": "^1.0.1",
+    "is-url-superb": "^5.0.0",
     "jsonata": "^1.8.4",
     "map-extend": "^0.1.0",
     "mime": "^2.5.0",

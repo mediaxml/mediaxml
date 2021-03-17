@@ -7,7 +7,7 @@ const debug = require('debug')('mediaxml')
 function createLoader(context, opts) {
   opts = { ...opts }
 
-  const { cache = new Map() } = opts
+  const { cache = opts.cache || new Map() } = context
 
   return async function load(uri) {
     if (!uri) {

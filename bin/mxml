@@ -120,6 +120,7 @@ function startRepl() {
     onerror: console.error,
     preview: true !== argv['no-preview'] && false !== argv.preview,
     timing: argv.timing,
+    watch: argv.watch,
     debug: argv.debug,
     argv: [argv._[0], ...argv['--']]
   })
@@ -130,6 +131,7 @@ function loadFile(filename) {
     onerror: console.error,
     preview: true !== argv['no-preview'] && false !== argv.preview,
     timing: argv.timing,
+    watch: argv.watch,
     debug: argv.debug,
     argv: [argv._[0], ...argv['--']]
   })

@@ -1,8 +1,17 @@
-const { URL } = require('url')
+const isURL = require('is-url-superb')
 const path = require('path')
 
 function resolve(uri, opts) {
-  const { fs = require('fs') } = (opts || {})
+  opts = { ...opts }
+  let { fs } = opts
+
+  if (!fs) {
+    try {
+      fs = require('fs')
+    } catch (err) {
+      void err
+    }
+  }
 
   if ('string' !== typeof uri) {
     return null
@@ -12,11 +21,12 @@ function resolve(uri, opts) {
     uri = uri.replace('file://', '')
   }
 
-  try {
-    void new URL(uri)
+  if (isURL(uri)) {
     return uri
-  } catch (err) {
-    void err
+  }
+
+  if (!fs || 'function' !== typeof fs.accessSync) {
+    return null
   }
 
   try {
