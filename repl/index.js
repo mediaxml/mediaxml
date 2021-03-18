@@ -5,6 +5,7 @@ const { createCompleter } = require('./completer')
 const { createPrompt } = require('./prompt')
 const { createLoader } = require('../loader')
 const { validate } = require('../validate')
+const { preview } = require('./preview')
 const { Parser } = require('../parser')
 const { pretty } = require('./pretty')
 const { fetch } = require('../fetch')
@@ -219,15 +220,28 @@ class Context {
     const { ui } = this
     const context = this
 
-    function onbeforeload(info) {
+    async function onbeforeload(info) {
       debug('onbeforeload', info)
-      ui.spinners.loading.start()
+
+      if (context.options.watch) {
+        try {
+          await watch(context, info.uri)
+        } catch (err) {
+          context.onerror(err)
+        }
+      }
+
+      if (!context.options.watch) {
+        ui.spinners.loading.start()
+      }
     }
 
     async function onload(result, info) {
       debug('onload', info)
 
-      ui.spinners.loading.stop()
+      if (!context.options.watch) {
+        ui.spinners.loading.stop()
+      }
 
       if (info.uri) {
         if (context.server) {
@@ -238,16 +252,6 @@ class Context {
           }
 
           context.server.setPrompt(createPrompt('mxml', prompt))
-        }
-      }
-
-      if (!context.filename) {
-        if (context.options.watch) {
-          try {
-            await watch(context, info.uri)
-          } catch (err) {
-            context.onerror(err)
-          }
         }
       }
 
@@ -357,36 +361,7 @@ class Context {
       }
     }
 
-    return process.nextTick(tick)
-
-    function tick() {
-      let output = ''
-
-      const { cursorPos, displayPos } = getCursorPreviewPosition(server)
-      const cols = displayPos.cols - cursorPos.cols
-      const rows = displayPos.rows - cursorPos.rows
-
-      if (result) {
-        output = pretty(result)
-
-        if (output) {
-          output = output.split('\n').slice(0, server.output.rows - rows - 2)
-          const n = output.length
-          output = output
-            .map((o) => `${truncate(o, server.output.columns - 8)}`)
-            .join('\n')
-
-          moveCursor(server.output, cols, rows)
-          clearScreenDown(server.output)
-          server.output.write(`\n${output}`)
-          cursorTo(server.output, cursorPos.cols)
-          moveCursor(server.output, cols, -rows - n)
-        }
-      } else if (!query) {
-        moveCursor(server.output, cols, rows)
-        clearScreenDown(server.output)
-      }
-    }
+    return preview(this, result)
   }
 
   /**

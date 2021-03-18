@@ -54,9 +54,9 @@ async function eval(query, context, file, callback) {
   } catch (err) {
     log.debug(err || err.stack)
 
-    const { cursorPos, displayPos } = getCursorPreviewPosition(server)
-    const cols = displayPos.cols - cursorPos.cols
-    const rows = displayPos.rows - cursorPos.rows
+    const { cursorPosition, displayPosition } = getCursorPreviewPosition(server)
+    const cols = displayPosition.cols - cursorPosition.cols
+    const rows = displayPosition.rows - cursorPosition.rows
 
     moveCursor(server.output, cols, rows + 1)
     clearScreenDown(server.output)

@@ -1,14 +1,10 @@
-const { clearScreenDown, cursorTo, moveCursor } = require('readline')
+const { clearScreenDown, moveCursor } = require('readline')
 const { getCursorPreviewPosition } = require('./utils')
-const { createPrompt } = require('./prompt')
-const InvertedPromise = require('inverted-promise')
-const { pretty } = require('./pretty')
-const truncate = require('cli-truncate')
+const { preview } = require('./preview')
 const chokidar = require('chokidar')
 const { hash } = require('../hash')
-const chalk = require('chalk')
-const debug = require('debug')('mediaxml')
 const { URL } = require('url')
+const chalk = require('chalk')
 const uri = require('../uri')
 
 async function watch(context, filename) {
@@ -32,21 +28,18 @@ async function watch(context, filename) {
     void err
   }
 
-  context.log.info('Watching: "%s"', chalk.bold(filename))
+  const watcher = context.watcher || chokidar.watch()
 
-  const watcher = chokidar.watch(filename)
-  const promise = new InvertedPromise()
+  if (!context.watcher) {
+    watcher.on('ready', onready)
+  }
 
-  watcher.on('change', onchange)
-  watcher.on('ready', onready)
-  watcher.on('error', onerror)
+  watcher.add(filename)
 
-  debug('watch', filename)
-
-  return promise
+  return watcher
 
   function onerror(err) {
-    promise.reject(err)
+    context.onerror(err)
   }
 
   async function onready() {
@@ -54,9 +47,16 @@ async function watch(context, filename) {
       await context.watcher.closer()
     }
 
-    promise.resolve(watcher)
-
     context.watcher = watcher
+    watcher.on('change', onchange)
+    watcher.on('error', onerror)
+    watcher.on('add', onadd)
+  }
+
+  function onadd(pathname) {
+    if (pathname === filename) {
+      context.log.info('Watching: "%s"', chalk.bold(filename))
+    }
   }
 
   async function onchange(pathname) {
@@ -64,20 +64,15 @@ async function watch(context, filename) {
       return
     }
 
+    const { server } = context
     const cacheKey = hash(filename)
+    const query = server.line || '$'
+    let result = null
+
+    // clear imports map and loader cache before importing
     context.imports.delete(filename)
     context.cache.delete(cacheKey)
     await context.import(filename)
-
-    const { server } = context
-    const { cursorPos, displayPos } = getCursorPreviewPosition(server)
-    const cols = displayPos.cols - cursorPos.cols
-    let result = null
-
-    clearScreenDown(server.output)
-    moveCursor(server.output, cols, 0)
-
-    const query = server.line
 
     if (query) {
       try {
@@ -89,34 +84,7 @@ async function watch(context, filename) {
       }
     }
 
-    process.nextTick(() => {
-      let output = ''
-
-      const { cursorPos, displayPos } = getCursorPreviewPosition(server)
-      const cols = displayPos.cols - cursorPos.cols
-      const rows = displayPos.rows - cursorPos.rows
-
-      if (result) {
-        output = pretty(result)
-
-        if (output) {
-          output = output.split('\n').slice(0, server.output.rows - rows - 1)
-          const n = output.length
-          output = output
-            .map((o) => `${truncate(o, server.output.columns - 8)}`)
-            .join('\n')
-
-          moveCursor(server.output, cols, rows)
-          clearScreenDown(server.output)
-          server.output.write(`${output}`)
-          cursorTo(server.output, cursorPos.cols)
-          moveCursor(server.output, cols, -rows - n -1)
-        }
-      } else if (!query || !result) {
-        moveCursor(server.output, cols, rows)
-        clearScreenDown(server.output)
-      }
-    })
+    preview(context, result)
   }
 }
 
