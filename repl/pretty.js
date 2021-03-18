@@ -30,9 +30,13 @@ function pretty(result, opts) {
       const description = result.description || ''
 
       if (false === opts.colors) {
-        return `${name}(${signature})`
+        return `${name}(${signature})${(description ? ` // ${description}` : '')}`
       } else {
-        return chalk.italic(`${chalk.cyan(name)}(${chalk.bold(signature)})`)
+        return chalk.italic(`${chalk.cyan(name)}(${chalk.bold(signature)})`) + (
+          description
+          ? ` ${chalk.magenta('//')} ${chalk.italic(description)}`
+          : ''
+        )
       }
     } else {
       return inspect(result, { colors: false !== opts.colors })
