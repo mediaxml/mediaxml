@@ -1,0 +1,53 @@
+{
+  "@type": "ADI",
+  "@Metadata": {
+    "@AMS": {
+      "Asset_Class": "package",
+      "Asset_Name": "",
+      "Asset_ID": "",
+      "Product": "delivery0",
+      "Version": "1.0",
+      "Description": "",
+      "Provider_ID": "rad.live",
+      "Provider": "RADTV"
+    }
+  },
+
+  "@Asset": [
+    {
+      "@type": "Metadata",
+      "@AMS": {
+        "Asset_Class": "title",
+        "Asset_Name": "TraderTitle",
+        "Asset_ID": "TraderTitle123",
+        "Description": "TraderTitle"
+      },
+
+      "type": "title",
+      "title": "Trader - The Documentary",
+      "category": ["Documentary", "Finance"]
+    },
+
+    {
+      "@type": "Asset",
+      "@Metadata": {
+        "@AMS": {
+          "Asset_Class": "movie",
+          "Asset_Name": "TraderMovie",
+          "Asset_ID": "TraderMovie123",
+          "Description": "TraderMovie"
+        },
+        "@children": [
+          { "@type": "App_Data", "App": "RADTV", "Name": "type", "Value": "movie_svod" },
+          { "@type": "App_Data", "App": "RADTV", "Name": "frame_rate", "Value": "3000" },
+          { "@type": "App_Data", "App": "RADTV", "Name": "start_of_media", "Value": "00:00:00:00" },
+          { "@type": "App_Data", "App": "RADTV", "Name": "end_of_media", "Value": "00:00:55:50" }
+        ]
+      },
+
+      "@Content": {
+        "Value": "Trader - The Documentary (Paul Tudor Jones).avi"
+      }
+    }
+  ]
+}

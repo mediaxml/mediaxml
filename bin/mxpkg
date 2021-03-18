@@ -1,0 +1,126 @@
+#!/usr/bin/env node
+
+process.title = 'mxpkg'
+
+const { Packager } = require('../packager')
+const { Log } = require('../repl/log')
+const rimraf = require('rimraf')
+const debug = require('debug')('mediaxml')
+const path = require('path')
+const pkg = require('../package.json')
+const fs = require('fs')
+
+const argv = require('minimist')(process.argv.slice(2), {
+  '--': true,
+  alias: {
+    c: ['config'],
+    t: ['type'],
+    h: ['help'],
+    o: ['out'],
+    D: ['debug'],
+    V: ['version'],
+  },
+
+  default: {
+    colors: true
+  },
+
+  string: [
+    'out',
+    'type',
+    'config',
+  ],
+
+  boolean: [
+    'colors',
+    'debug',
+    'help',
+    'version',
+  ]
+})
+
+if (argv.help) {
+  process.stdout.write('usage: mxpkg [-hDV] [options] [-c config] [-t type] <directory>\n')
+  process.stdout.write('\n')
+  process.stdout.write('options:\n')
+  process.stdout.write('  -c, --config <filename> Manifest configuration\n')
+  process.stdout.write('      --no-colors         Disable colors\n')
+  process.stdout.write('  -t, --type <type>       Manifest type to generate\n')
+  process.stdout.write('  -o, --out <filename>    Outout filename. Writes to stdout by default\n')
+  process.stdout.write('  -h, --help              Show this message\n')
+  process.stdout.write('  -D, --debug             Show debug output\n')
+  process.stdout.write('  -V, --version           Show program version\n')
+  process.stdout.write('\n')
+  process.exit(0)
+}
+
+if (argv.version) {
+  process.stdout.write(pkg.version)
+  process.stdout.write('\n')
+  process.exit(0)
+}
+
+if (argv.debug) {
+  require('debug').enable('mediaxml')
+  debug('Debug output enabled')
+}
+
+const log = new Log({  options: argv })
+let { config, type } = argv
+
+if (config) {
+  config = path.resolve(config)
+}
+
+if (!config) {
+  log.error(
+    'Could not determine output configuration. ' +
+    'Please specify with `--config`.'
+  )
+
+  process.exit(1)
+}
+
+try {
+  config = require(config)
+} catch (err) {
+  debug(err.stack || err)
+  log.error(err.message)
+  process.exit(1)
+}
+
+if (!type && config) {
+  type = config['@type']
+}
+
+if (!type) {
+  log.error(
+    'Could not determine output type. ' +
+    'Please specify with `--type` or in your configuration file.'
+  )
+
+  process.exit(1)
+}
+
+const packager = Packager.from({ manifest: config })
+
+if (argv.out) {
+  try {
+    fs.accessSync(argv.out, fs.constants.W_OK)
+    fs.createWriteStream(argv.out).end(packager.process())
+  } catch (err) {
+    if (err && 'ENOENT' === err.code) {
+      try {
+        fs.createWriteStream(argv.out).end(packager.process())
+      } catch (err) {
+        log.error(err.message)
+        debug(err)
+      }
+    } else {
+      log.error(err.message)
+      debug(err)
+    }
+  }
+} else {
+  process.stdout.write(packager.process())
+}

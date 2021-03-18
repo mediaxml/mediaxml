@@ -64,6 +64,7 @@
     "ora": "^5.3.0",
     "param-case": "^3.0.4",
     "pretty-ms": "^7.0.1",
+    "rimraf": "^3.0.2",
     "smpte-timecode": "^1.2.3",
     "streamx": "^2.10.1",
     "tinyduration": "^3.2.0",
