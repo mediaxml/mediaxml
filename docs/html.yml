@@ -1,5 +1,5 @@
 name: "MediaXML"
-version: "0.5.x"
+version: "0.6.x"
 toc:
   - name: "Installation"
     file: "guide/installation.md"
