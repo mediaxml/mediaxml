@@ -68,6 +68,10 @@ class AbstractDocument extends Node {
       return new this(input, opts)
     }
 
+    if (input && 'object' === typeof input && input.parser instanceof Parser) {
+      return new this(input.parser, opts)
+    }
+
     if ('string' === typeof input) {
       if (/[<|>|=|"|'|.]+/g.test(input)) {
         return new this(Parser.from(input), opts)
