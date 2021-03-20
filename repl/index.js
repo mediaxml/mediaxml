@@ -323,6 +323,8 @@ class Context {
     } else if ('down' === key.name) {
       history.next()
       key = history.head || key
+    } else if ('left' === key.name || 'right' === key.name) {
+      return
     }
 
     if ('backspace' === key.name) {
@@ -394,8 +396,8 @@ class Context {
     process.stdin.on('keypress', this.onkeypress)
 
     this.history.init().catch(this.onerror)
-  }
 
+  }
   /**
    * @public
    */
