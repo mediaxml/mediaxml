@@ -1,4 +1,4 @@
-![MediaXML](https://raw.githubusercontent.com/little-core-labs/mediaxml/master/assets/logo-whitebackgroud.png)
+![MediaXML](https://raw.githubusercontent.com/mediaxml/mediaxml/master/assets/logo-whitebackgroud.png)
 
 > A general purpose module for working with XML that includes first
 > class support for media manifests like ADI, mRSS, and SCTE-236.
@@ -15,11 +15,11 @@ $ npm install mediaxml
 
 ## Usage
 
-See the [Usage Guide](https://little-core-labs.github.io/mediaxml/#usage).
+See the [Usage Guide](https://mediaxml.github.io/mediaxml/#usage).
 
 ## API
 
-See the [API Documentation](https://little-core-labs.github.io/mediaxml/#api).
+See the [API Documentation](https://mediaxml.github.io/mediaxml/#api).
 
 ## Getting Started
 
@@ -172,7 +172,7 @@ The REPL can be started by simply running the `mxml`:
 ```sh
 $ mxml
 Welcome to the MediaXML 0.2.0 CLI
-Please report bugs to https://github.com/little-core-labs/mediaxml/issues
+Please report bugs to https://github.com/mediaxml/mediaxml/issues
 mxml(-)>
 ```
 
@@ -206,7 +206,7 @@ mxml(-)> **[is node and text contains "amazonaws.com"] // searches all nodes wit
 
 ### Documentation
 
-See the [Official Documentation](https://little-core-labs.github.io/mediaxml) for
+See the [Official Documentation](https://mediaxml.github.io/mediaxml) for
 more information.
 
 ## See Also
