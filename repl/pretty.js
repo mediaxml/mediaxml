@@ -1,6 +1,6 @@
 const { ParserNode, ParserNodeAttributes } = require('../parser')
 const { inspect } = require('util')
-const chromafi = require('@12core/chromafi')
+const chromafi = require('@mediaxml/chromafi')
 const chalk = require('chalk')
 
 function pretty(result, opts) {
